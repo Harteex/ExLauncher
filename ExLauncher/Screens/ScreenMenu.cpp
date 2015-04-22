@@ -8,7 +8,7 @@
 #include <string>
 #include <exception>
 #include <stdlib.h>
-#include "../xml.h"
+#include "../Xml.h"
 
 using namespace std;
 
