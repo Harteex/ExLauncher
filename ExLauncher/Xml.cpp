@@ -16,7 +16,7 @@ using namespace std;
 View* Xml::LoadView(string filename, bool isScreen)
 {
 	xml_document<> doc;
-	ifstream file(filename);
+	ifstream file(filename.c_str());
 	stringstream buffer;
 	buffer << file.rdbuf();
 	file.close();
