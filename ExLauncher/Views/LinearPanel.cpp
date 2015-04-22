@@ -116,7 +116,7 @@ bool LinearPanel::SetProperty(string name, string value)
 		else if (value == "vertical")
 			SetOrientation(OrientationVertical);
 		else
-			throw exception("invalid orientation");
+			throw runtime_error("invalid orientation");
 
 		return true;
 	}

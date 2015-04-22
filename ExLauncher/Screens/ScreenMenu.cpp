@@ -71,7 +71,7 @@ bool ScreenMenu::Initialize()
 			View* itemTemplate = itemFillView->GetItemTemplate();
 			if (itemTemplate == NULL)
 			{
-				throw exception("view to fill does not have an itemTemplate");
+				throw runtime_error("view to fill does not have an itemTemplate");
 			}
 			else
 			{

@@ -24,7 +24,7 @@ View* Xml::LoadView(string filename, bool isScreen)
 	View* view = NULL;
 
 	if (content.size() == 0)
-		throw exception("not a valid xml file");
+		throw runtime_error("not a valid xml file");
 
 	doc.parse<0>(&content[0]);
 
@@ -35,7 +35,7 @@ View* Xml::LoadView(string filename, bool isScreen)
 		startNode = doc.first_node();
 
 	if (startNode == NULL)
-		throw exception("not a valid Screen");
+		throw runtime_error("not a valid Screen");
 
 	if (isScreen)
 		view = HandleNode(startNode->first_node(), NULL);
@@ -69,13 +69,13 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	{
 		View* itemTemplate = parent->GetItemTemplate();
 		if (itemTemplate == NULL)
-			throw exception("item found but no item template");
+			throw runtime_error("item found but no item template");
 
 		createdView = itemTemplate->Copy();
 	}
 	else
 	{
-		throw exception("invalid view");
+		throw runtime_error("invalid view");
 	}
 
 	// Parse all arguments and set as properties on the view
@@ -89,7 +89,7 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 		if (name == "itemTemplate")
 		{
 			if (createdView->GetItemTemplate() != NULL)
-				throw exception("cannot have multiple item templates");
+				throw runtime_error("cannot have multiple item templates");
 
 			string templatePath = ThemeManager::ProcessPath(value);
 			createdView->SetItemTemplate(LoadView(templatePath, false));
@@ -101,13 +101,13 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 			string errorMsg = "invalid attribute: ";
 			errorMsg = errorMsg + name;
 
-			throw exception(errorMsg.c_str());
+			throw runtime_error(errorMsg.c_str());
 		}
 	}
 
 	if (createdView == NULL)
 	{
-		throw exception("view could not be created");
+		throw runtime_error("view could not be created");
 	}
 
 	if (parent != NULL)

@@ -44,7 +44,7 @@ void GridView::Draw(SDL_Renderer* renderer)
 void GridView::OnLayoutChange()
 {
 	if (itemCountSecondaryDirection <= 0)
-		throw exception("GridView: itemCountSecondaryDirection must be greater than zero");
+		throw runtime_error("GridView: itemCountSecondaryDirection must be greater than zero");
 
 	int itemsInWidth = 0;
 	int itemsInHeight = 0;
@@ -204,7 +204,7 @@ bool GridView::SetProperty(string name, string value)
 		else if (value == "vertical")
 			SetOrientation(OrientationVertical);
 		else
-			throw exception("invalid orientation");
+			throw runtime_error("invalid orientation");
 
 		return true;
 	}
@@ -212,7 +212,7 @@ bool GridView::SetProperty(string name, string value)
 	{
 		int itemCountSecondaryDirectionIntValue = atoi(value.c_str());
 		if (itemCountSecondaryDirectionIntValue <= 0)
-			throw exception("invalid value for itemCountSecondaryDirection");
+			throw runtime_error("invalid value for itemCountSecondaryDirection");
 		SetItemCountSecondaryDirection(itemCountSecondaryDirectionIntValue);
 
 		return true;

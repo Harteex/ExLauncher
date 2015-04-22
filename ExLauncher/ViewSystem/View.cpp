@@ -97,7 +97,7 @@ Box View::GetLayoutMargin()
 Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
 {
 	if (size.w == SIZE_MATCH_PARENT && parentSize.w < 0 || size.h == SIZE_MATCH_PARENT && parentSize.h < 0)
-		throw exception("cannot calculate layout size");
+		throw runtime_error("cannot calculate layout size");
 
 	if (size.w == SIZE_MATCH_PARENT)
 		calculatedSize.w = max(parentSize.w - offsetInCurView.x, 0);
