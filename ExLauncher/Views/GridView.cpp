@@ -151,6 +151,11 @@ void GridView::OnLayoutChange()
 		Box childMargin = v->GetLayoutMargin();
 		v->SetRelativePosition(columnPositions[curColumn] + childMargin.left, rowPositions[curRow] + childMargin.top);
 	}
+
+	delete[] columnSizes;
+	delete[] rowSizes;
+	delete[] columnPositions;
+	delete[] rowPositions;
 }
 
 View* GridView::Copy()
