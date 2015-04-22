@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\data">
+      <UniqueIdentifier>{55e2a517-cf89-47f9-9ec1-330d33e29ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\fonts">
+      <UniqueIdentifier>{890b94f8-231a-4bb9-af4e-014dff7e9ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\graphics">
+      <UniqueIdentifier>{5299f8b0-5b46-41ad-859b-791529cca580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\wallpapers">
+      <UniqueIdentifier>{df641f58-83d7-422d-971c-ceeb57d4e11b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ViewSystem">
+      <UniqueIdentifier>{cbe0c74b-bff9-49af-aa74-b125b2b3bd37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ScreenSystem">
+      <UniqueIdentifier>{60af80fb-a20f-449a-9ea8-212b1992f716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screens">
+      <UniqueIdentifier>{b271e9be-9761-4f27-9e68-54b71c63aa22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Views">
+      <UniqueIdentifier>{7e8a5e04-efda-45f0-976d-02fe50ad5e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RapidXml">
+      <UniqueIdentifier>{46e00a6d-6645-4f37-9f1c-7f4ff87dcbb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\themes">
+      <UniqueIdentifier>{dfa1e32d-6f2d-406d-8e5d-4571603eb47d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\themes\default">
+      <UniqueIdentifier>{4edf1b1f-4d59-4f8f-8963-c7132584f71f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="structures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Xml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AppManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewSystem\View.cpp">
+      <Filter>Source Files\ViewSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\FramePanel.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\GridView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\Image.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\Label.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Views\LinearPanel.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenSystem\InputState.cpp">
+      <Filter>Source Files\ScreenSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenSystem\Screen.cpp">
+      <Filter>Source Files\ScreenSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenSystem\ScreenManager.cpp">
+      <Filter>Source Files\ScreenSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\ScreenBackgroundImage.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\ScreenError.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\ScreenMenu.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\ScreenProgressDialog.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\ScreenTest.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="structures.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidXml\rapidxml.hpp">
+      <Filter>Source Files\RapidXml</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidXml\rapidxml_iterators.hpp">
+      <Filter>Source Files\RapidXml</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidXml\rapidxml_print.hpp">
+      <Filter>Source Files\RapidXml</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidXml\rapidxml_utils.hpp">
+      <Filter>Source Files\RapidXml</Filter>
+    </ClInclude>
+    <ClInclude Include="Xml.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewSystem\View.h">
+      <Filter>Source Files\ViewSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\FramePanel.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\GridView.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\Image.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\Label.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\LinearPanel.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenSystem\InputState.h">
+      <Filter>Source Files\ScreenSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenSystem\Screen.h">
+      <Filter>Source Files\ScreenSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenSystem\ScreenManager.h">
+      <Filter>Source Files\ScreenSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenBackgroundImage.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenError.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenMenu.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenProgressDialog.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenTest.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\fonts\OpenSans-Light.ttf">
+      <Filter>Resource Files\data\fonts</Filter>
+    </None>
+    <None Include="data\fonts\OpenSans-Regular.ttf">
+      <Filter>Resource Files\data\fonts</Filter>
+    </None>
+    <None Include="data\fonts\OpenSans-Semibold.ttf">
+      <Filter>Resource Files\data\fonts</Filter>
+    </None>
+    <None Include="data\wallpapers\GothenburgNight.jpg">
+      <Filter>Resource Files\data\wallpapers</Filter>
+    </None>
+    <None Include="data\wallpapers\SnowCloseUp.jpg">
+      <Filter>Resource Files\data\wallpapers</Filter>
+    </None>
+    <None Include="data\wallpapers\Leaves.jpg">
+      <Filter>Resource Files\data\wallpapers</Filter>
+    </None>
+    <None Include="data\wallpapers\Bug.jpg">
+      <Filter>Resource Files\data\wallpapers</Filter>
+    </None>
+    <None Include="data\wallpapers\Circuit.jpg">
+      <Filter>Resource Files\data\wallpapers</Filter>
+    </None>
+    <None Include="data\graphics\ButtonY.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\ButtonA.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\ButtonB.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\ButtonX.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\icon_applications.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\icon_emulators.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\icon_games.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\graphics\icon_settings.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </None>
+    <None Include="data\themes\default\test.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="data\themes\default\appIconDefault.png">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="data\themes\default\appTemplate.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\test2.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\test3.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\test4.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>

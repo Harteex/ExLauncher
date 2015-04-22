@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearPanel
+  width="wrap_content"
+  height="wrap_content"
+  orientation="vertical">
+  <Image
+    width="wrap_content"
+    height="wrap_content"
+    path="@theme/appIconDefault.png"/>
+  <Label
+    width="wrap_content"
+    height="wrap_content"
+    text="{name}"/>
+</LinearPanel>

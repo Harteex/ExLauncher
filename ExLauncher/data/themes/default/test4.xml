@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Screen title="">
+  <!--<TabView tabsVisible="true" tabBackground="" tabBackgroundFocus="">-->
+  <LinearPanel
+    id="testpanel"
+    width="match_parent"
+    height="match_parent"
+    orientation="vertical"
+    layoutMargin="5">
+      <Image
+          width="wrap_content"
+          height="wrap_content"
+          path="data/graphics/ButtonA.png"/>
+      <LinearPanel
+        width="wrap_content"
+        height="wrap_content"
+        orientation="horizontal"
+        layoutMargin="5">
+        <Image
+          width="wrap_content"
+          height="wrap_content"
+          path="data/graphics/ButtonA.png"/>
+        <Image
+          width="wrap_content"
+          height="wrap_content"
+          path="data/graphics/ButtonA.png"/>
+        <Image
+          width="wrap_content"
+          height="wrap_content"
+          path="data/graphics/ButtonA.png"
+          layoutMargin="15"/>
+      </LinearPanel>
+      <Image
+          width="match_parent"
+          height="wrap_content"
+          path="data/graphics/testicon1.png"
+          layoutMargin="15"/>
+  </LinearPanel>
+  <!--</TabView>-->
+</Screen>

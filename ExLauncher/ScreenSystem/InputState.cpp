@@ -1,0 +1,169 @@
+#include "InputState.h"
+#include <string.h>
+
+InputState::InputState()
+{
+	numberOfKeys = SDL_NUM_SCANCODES;
+	realNumberOfKeys = SDL_NUM_SCANCODES;
+	while (numberOfKeys % 4 != 0)
+	{
+		numberOfKeys++;
+	}
+
+	keyState = new Uint8[numberOfKeys];
+	lastKeyState = new Uint8[numberOfKeys];
+
+	memset(keyState, 0, numberOfKeys);
+	memset(lastKeyState, 0, numberOfKeys);
+
+	textInputEnabled = false;
+	textInputBufferSize = 0;
+	textInputBufferMaxSize = 16;
+	textInputBuffer = new Uint16[textInputBufferMaxSize];
+
+	memset(&mouseButtonState, 0, MOUSE_BUTTONS);
+	memset(&lastMouseButtonState, 0, MOUSE_BUTTONS);
+
+	mousePosition.x = 0;
+	mousePosition.y = 0;
+	lastMousePosition.x = 0;
+	lastMousePosition.y = 0;
+
+	gameKeyArray = NULL;
+}
+
+InputState::~InputState()
+{
+	delete [] keyState;
+	delete [] lastKeyState;
+	delete [] textInputBuffer;
+
+	if (gameKeyArray != NULL)
+		delete [] gameKeyArray;
+}
+
+bool InputState::KeyPressed(int key)
+{
+	return keyState[key] == 1;
+}
+
+bool InputState::KeyJustPressed(int key)
+{
+	return keyState[key] == 1 && lastKeyState[key] == 0;
+}
+
+bool InputState::KeyJustReleased(int key)
+{
+	return keyState[key] == 0 && lastKeyState[key] == 1;
+}
+
+void InputState::InitializeGameKeys(int* keyMappingArray, int numberOfKeys)
+{
+	if (gameKeyArray != NULL)
+		delete [] gameKeyArray;
+
+	gameKeyArray = new int[numberOfKeys];
+
+	for (int i = 0; i < numberOfKeys; i++)
+	{
+		gameKeyArray[i] = keyMappingArray[i];
+	}
+}
+
+bool InputState::GameKeyPressed(int key)
+{
+	return KeyPressed(gameKeyArray[key]);
+}
+
+bool InputState::GameKeyJustPressed(int key)
+{
+	return KeyJustPressed(gameKeyArray[key]);
+}
+
+bool InputState::GameKeyJustReleased(int key)
+{
+	return KeyJustReleased(gameKeyArray[key]);
+}
+
+bool InputState::MouseDown(MouseButton button)
+{
+	return mouseButtonState[button] == 1;
+}
+
+bool InputState::MouseJustClicked(MouseButton button)
+{
+	return mouseButtonState[button] == 1 && lastMouseButtonState[button] == 0;
+}
+
+bool InputState::MouseJustReleased(MouseButton button)
+{
+	return mouseButtonState[button] == 0 && lastMouseButtonState[button] == 1;
+}
+
+Position InputState::MousePosition()
+{
+	return mousePosition;
+}
+
+Position InputState::MouseLastPosition()
+{
+	return lastMousePosition;
+}
+
+void InputState::Update()
+{
+	// Copy key state
+	memcpy(lastKeyState, keyState, numberOfKeys);
+
+	// Copy mouse button state
+	memcpy(&lastMouseButtonState, &mouseButtonState, MOUSE_BUTTONS);
+
+	// Copy mouse position
+	lastMousePosition.x = mousePosition.x;
+	lastMousePosition.y = mousePosition.y;
+
+	// Read mouse state
+	Uint8 tempMouseButtonState = SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+	mouseButtonState[MouseButtonLeft] = (tempMouseButtonState & SDL_BUTTON(1)) > 0 ? 1 : 0;
+	mouseButtonState[MouseButtonMiddle] = (tempMouseButtonState & SDL_BUTTON(2)) > 0 ? 1 : 0;
+	mouseButtonState[MouseButtonRight] = (tempMouseButtonState & SDL_BUTTON(3)) > 0 ? 1 : 0;
+
+	// Clear textinput buffer
+	textInputBufferSize = 0;
+}
+
+void InputState::KeyStateChanged(SDL_KeyboardEvent* sdlkey)
+{
+	//keyState[sdlkey->keysym.sym] = (sdlkey->type == SDL_KEYDOWN) ? 1 : 0; // why sym?? scancode...
+	keyState[sdlkey->keysym.scancode] = (sdlkey->type == SDL_KEYDOWN) ? 1 : 0;
+
+	/*if (textInputEnabled && sdlkey->type == SDL_KEYDOWN)
+	{
+		if (textInputBufferSize < textInputBufferMaxSize && sdlkey->keysym.unicode >= 0x20)
+		{
+			textInputBuffer[textInputBufferSize++] = sdlkey->keysym.unicode;
+		}
+	}*/
+}
+
+void InputState::EnableTextInput(bool enabled)
+{
+	/*if (textInputEnabled == enabled)
+		return;
+
+	textInputEnabled = enabled;
+	SDL_EnableUNICODE(enabled ? 1 : 0);*/
+}
+
+Uint16 InputState::GetNextInputCharacter()
+{
+	if (textInputBufferSize == 0)
+		return 0;
+
+	return textInputBuffer[--textInputBufferSize];
+}
+
+bool InputState::HasMoreInputCharacters()
+{
+	return textInputBufferSize > 0;
+}

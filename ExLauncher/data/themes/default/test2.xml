@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Screen title="">
+  <!--<TabView tabsVisible="true" tabBackground="" tabBackgroundFocus="">-->
+  <LinearPanel
+    width="match_parent"
+    height="match_parent"
+    orientation="vertical"
+    layoutMargin="5">
+    <Image
+        width="wrap_content"
+        height="wrap_content"
+        path="data/graphics/ButtonA.png"/>
+      <Image
+        width="wrap_content"
+        height="wrap_content"
+        path="data/graphics/smallSmoke.png"/>
+      <LinearPanel
+        width="match_parent"
+        height="wrap_content">
+        <Image
+          width="wrap_content"
+          height="wrap_content"
+          path="data/graphics/testicon1.png"/>
+        <Image
+          width="wrap_content"
+          height="wrap_content"
+          path="data/graphics/testicon1.png"/>
+        <Image
+          width="match_parent"
+          height="wrap_content"
+          path="data/graphics/testicon1.png"/>
+      </LinearPanel>
+      <Image
+        width="wrap_content"
+        height="wrap_content"
+        path="data/graphics/testicon1.png"/>
+      <Image
+        width="match_parent"
+        height="match_parent"
+        path="data/graphics/testicon1.png"/>
+    <Image
+        width="match_parent"
+        height="match_parent"
+        path="data/graphics/testicon1.png"/>
+  </LinearPanel>
+  <!--</TabView>-->
+</Screen>
