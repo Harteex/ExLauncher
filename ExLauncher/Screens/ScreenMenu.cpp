@@ -87,7 +87,11 @@ bool ScreenMenu::Initialize()
 		}
 
 		if (inputView != NULL)
-			inputView->PropagateStateChange("itemSelected", "false");
+			inputView->PropagateStateChange("stateSelected", "false");
+
+		// TEST
+		/*if (inputView != NULL)
+			inputView->GetChildView(3)->PropagateStateChange("stateSelected", "true");*/
 	}
 	catch (exception& ex)
 	{
