@@ -6,6 +6,7 @@
 #include <exception>
 #include "Views/LinearPanel.h"
 #include "Views/GridView.h"
+#include "Views/Selector.h"
 #include "Views/Image.h"
 #include "Views/Label.h"
 #include "ThemeManager.h"
@@ -65,6 +66,14 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	{
 		createdView = new GridView();
 	}
+	else if (strcmp(view->name(), "FramePanel") == 0)
+	{
+		createdView = new FramePanel();
+	}
+	else if (strcmp(view->name(), "Selector") == 0)
+	{
+		createdView = new Selector();
+	}
 	else if (strcmp(view->name(), "Item") == 0)
 	{
 		View* itemTemplate = parent->GetItemTemplate();
@@ -75,7 +84,11 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	}
 	else
 	{
-		throw runtime_error("invalid view");
+		string msg = "invalid view '";
+		msg += view->name();
+		msg += "'";
+
+		throw runtime_error(msg.c_str());
 	}
 
 	// Parse all arguments and set as properties on the view

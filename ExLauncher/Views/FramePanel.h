@@ -18,9 +18,9 @@ public:
 	void Update();
 	void Draw(SDL_Renderer* renderer);
 	void OnLayoutChange();
-	View* Copy();
+	virtual View* Copy();
 
-	bool SetProperty(std::string name, std::string value);
+	virtual bool SetProperty(std::string name, std::string value);
 };
 
 /*********************************************/

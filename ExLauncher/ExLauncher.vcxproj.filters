@@ -117,6 +117,9 @@
     <ClCompile Include="Screens\ScreenTest.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="Views\Selector.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Screens\ScreenTest.h">
       <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\Selector.h">
+      <Filter>Source Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
