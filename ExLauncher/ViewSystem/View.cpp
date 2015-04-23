@@ -8,6 +8,7 @@ View::View()
 {
 	isInitialized = false;
 	id = "";
+	visible = true;
 	relativePosition = Position(0, 0);
 	absolutePosition = Position(0, 0);
 	size = Size(0, 0);
@@ -221,6 +222,16 @@ int View::GetNumberOfChildren()
 View* View::GetChildView(int i)
 {
 	return children.at(i);
+}
+
+bool View::IsVisible()
+{
+	return visible;
+}
+
+void View::SetVisible(bool visible)
+{
+	this->visible = visible;
 }
 
 bool View::SetProperty(string name, string value)

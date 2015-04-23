@@ -63,6 +63,9 @@ void Label::Update()
 
 void Label::Draw(SDL_Renderer* renderer)
 {
+	if (!IsVisible())
+		return;
+
 	if (calculatedSize.w == 0 || calculatedSize.h == 0)
 		return;
 

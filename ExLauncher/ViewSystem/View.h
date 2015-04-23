@@ -35,6 +35,7 @@ protected:
 	std::vector<std::string> tags;
 	View* parent;
 	std::vector<View*> children;
+	bool visible;
 	Position relativePosition;
 	Position absolutePosition;
 	Size size;
@@ -43,46 +44,48 @@ protected:
 	Box layoutMargin;
 	bool isInitialized;
 	View* itemTemplate;
-    public:
-		View();
-        virtual ~View() {}
-		virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
-		bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
-		virtual void Update() = 0;
-		virtual void Draw(SDL_Renderer* renderer) = 0;
-		std::string GetId();
-		void SetId(std::string id);
-		std::vector<std::string> GetTags();
-		View* GetParentView();
-		void SetParentView(View* parent);
-		View* GetChildViewById(std::string id);
-		View* GetFirstChildViewByTag(std::string tag);
-		void AddChildView(View* view);
-		int GetNumberOfChildren();
-		View* GetChildView(int i);
-		Position GetRelativePosition();
-		void SetRelativePosition(Position position);
-		void SetRelativePosition(int x, int y);
-		Position GetAbsolutePosition();
-		Size GetSize();
-		void SetSize(Size size);
-		void SetSize(int width, int height);
-		Size GetContentSize();
-		Box GetLayoutMargin();
-		Size CalculateLayout(Position offsetInCurView, Size parentSize);
-		void RecalculateLayout();
-		void CalculateAbsolutePosition(Position parentPosition);
-		virtual void OnLayoutChange();
-		virtual bool SetProperty(std::string name, std::string value);
-		virtual View* Copy() = 0;
-		View* GetItemTemplate();
-		void SetItemTemplate(View* itemTemplate);
-		virtual void FillData(std::map<std::string, std::string>& data);
-		/*virtual FormElement* GetElement(int position) = 0;
-		virtual int GetSelectedPosition() = 0;
-		virtual FormElement* SelectNextElement(Direction direction) = 0;
-		virtual void SetTransition(TransitionEffect effect, double value) = 0;
-		virtual void ClearTransitions();*/
+public:
+	View();
+    virtual ~View() {}
+	virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
+	bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	virtual void Update() = 0;
+	virtual void Draw(SDL_Renderer* renderer) = 0;
+	std::string GetId();
+	void SetId(std::string id);
+	std::vector<std::string> GetTags();
+	View* GetParentView();
+	void SetParentView(View* parent);
+	View* GetChildViewById(std::string id);
+	View* GetFirstChildViewByTag(std::string tag);
+	void AddChildView(View* view);
+	int GetNumberOfChildren();
+	View* GetChildView(int i);
+	bool IsVisible();
+	void SetVisible(bool visible);
+	Position GetRelativePosition();
+	void SetRelativePosition(Position position);
+	void SetRelativePosition(int x, int y);
+	Position GetAbsolutePosition();
+	Size GetSize();
+	void SetSize(Size size);
+	void SetSize(int width, int height);
+	Size GetContentSize();
+	Box GetLayoutMargin();
+	Size CalculateLayout(Position offsetInCurView, Size parentSize);
+	void RecalculateLayout();
+	void CalculateAbsolutePosition(Position parentPosition);
+	virtual void OnLayoutChange();
+	virtual bool SetProperty(std::string name, std::string value);
+	virtual View* Copy() = 0;
+	View* GetItemTemplate();
+	void SetItemTemplate(View* itemTemplate);
+	virtual void FillData(std::map<std::string, std::string>& data);
+	/*virtual FormElement* GetElement(int position) = 0;
+	virtual int GetSelectedPosition() = 0;
+	virtual FormElement* SelectNextElement(Direction direction) = 0;
+	virtual void SetTransition(TransitionEffect effect, double value) = 0;
+	virtual void ClearTransitions();*/
 };
 
 /*********************************************/

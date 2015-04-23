@@ -31,6 +31,9 @@ void Image::Update()
 
 void Image::Draw(SDL_Renderer* renderer)
 {
+	if (!IsVisible())
+		return;
+
 	if (calculatedSize.w == 0 || calculatedSize.h == 0)
 		return;
 
