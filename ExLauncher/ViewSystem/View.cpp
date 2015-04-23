@@ -291,3 +291,17 @@ void View::SetItemTemplate(View* itemTemplate)
 void View::FillData(map<string, string>& data)
 {
 }
+
+void View::PropagateStateChange(string stateName, string stateValue)
+{
+	OnStateChange(stateName, stateValue);
+
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->PropagateStateChange(stateName, stateValue);
+	}
+}
+
+void View::OnStateChange(string stateName, string stateValue)
+{
+}

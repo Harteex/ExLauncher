@@ -81,6 +81,8 @@ public:
 	View* GetItemTemplate();
 	void SetItemTemplate(View* itemTemplate);
 	virtual void FillData(std::map<std::string, std::string>& data);
+	void PropagateStateChange(std::string stateName, std::string stateValue);
+	virtual void OnStateChange(std::string stateName, std::string stateValue);
 	/*virtual FormElement* GetElement(int position) = 0;
 	virtual int GetSelectedPosition() = 0;
 	virtual FormElement* SelectNextElement(Direction direction) = 0;

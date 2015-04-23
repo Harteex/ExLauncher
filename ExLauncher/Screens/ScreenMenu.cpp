@@ -85,6 +85,9 @@ bool ScreenMenu::Initialize()
 					itemFillView->RecalculateLayout();
 			}
 		}
+
+		if (inputView != NULL)
+			inputView->PropagateStateChange("itemSelected", "false");
 	}
 	catch (exception& ex)
 	{
