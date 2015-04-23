@@ -7,7 +7,6 @@
 #include "../Views/Label.h"
 #include <string>
 #include <exception>
-#include <stdexcept>
 #include <stdlib.h>
 #include "../Xml.h"
 

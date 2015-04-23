@@ -4,7 +4,6 @@
 #include <sstream>
 #include <string>
 #include <exception>
-#include <stdexcept>
 #include "Views/LinearPanel.h"
 #include "Views/GridView.h"
 #include "Views/Image.h"
