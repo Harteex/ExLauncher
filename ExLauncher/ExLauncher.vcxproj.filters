@@ -290,5 +290,11 @@
     <Xml Include="data\themes\default\test4.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
+    <Xml Include="data\themes\default\grid.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\contentsizebug.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

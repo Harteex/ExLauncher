@@ -341,7 +341,7 @@ View* GridView::SelectNext(Direction direction)
 	if (index >= children.size())
 	{
 		index = children.size() - 1;
-		selectedPosition = GetPositionForItemIndex(origIndex);
+		selectedPosition = GetPositionForItemIndex(index);
 	}
 
 	if (origIndex != index)

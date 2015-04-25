@@ -129,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="data\themes\default\appTemplate.xml" />
+    <Xml Include="data\themes\default\contentsizebug.xml" />
+    <Xml Include="data\themes\default\grid.xml" />
     <Xml Include="data\themes\default\test2.xml">
       <DeploymentContent>true</DeploymentContent>
     </Xml>

@@ -58,7 +58,7 @@ bool ScreenMenu::Initialize()
 	try
 	{
 		Xml xml;
-		contentView->AddChildView(xml.LoadView("data/themes/default/test.xml", true));
+		contentView->AddChildView(xml.LoadView("data/themes/default/grid.xml", true));
 		contentView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
@@ -88,6 +88,12 @@ bool ScreenMenu::Initialize()
 
 		if (inputView != NULL)
 			inputView->PropagateStateChange("stateSelected", "false");
+
+		// FIXME initialize the selected item... 
+		// We probably want to let inputView be of the type CollectionView to be able to access those methods
+		// Make sure this is one! How check type?
+		// Maybe have a method called Initialize / Update selected to this?
+		// Or a method to handle all the others too (stateselected false)
 
 		// TEST
 		/*if (inputView != NULL)

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Screen title="">
+  <LinearPanel
+    width="wrap_content"
+    height="wrap_content">
+    <GridView
+      id="inputView"
+      width="wrap_content"
+      height="wrap_content"
+      orientation="vertical"
+      itemCountSecondaryDirection="4"
+      itemTemplate="@theme/appTemplate.xml"
+      layoutMargin="5"
+      tag="fillItems" />
+  </LinearPanel>
+</Screen>
