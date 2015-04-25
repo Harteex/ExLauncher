@@ -7,6 +7,7 @@
 #include "Views/LinearPanel.h"
 #include "Views/GridView.h"
 #include "Views/Selector.h"
+#include "Views/State.h"
 #include "Views/Image.h"
 #include "Views/Label.h"
 #include "ThemeManager.h"
@@ -73,6 +74,10 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	else if (strcmp(view->name(), "Selector") == 0)
 	{
 		createdView = new Selector();
+	}
+	else if (strcmp(view->name(), "State") == 0)
+	{
+		createdView = new State();
 	}
 	else if (strcmp(view->name(), "Item") == 0)
 	{

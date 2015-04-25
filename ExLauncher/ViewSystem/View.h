@@ -58,7 +58,7 @@ public:
 	void SetParentView(View* parent);
 	View* GetChildViewById(std::string id);
 	View* GetFirstChildViewByTag(std::string tag);
-	void AddChildView(View* view);
+	virtual void AddChildView(View* view);
 	int GetNumberOfChildren();
 	View* GetChildView(int i);
 	bool IsVisible();

@@ -34,6 +34,7 @@
     <ClCompile Include="Views\Label.cpp" />
     <ClCompile Include="Views\LinearPanel.cpp" />
     <ClCompile Include="Views\Selector.cpp" />
+    <ClCompile Include="Views\State.cpp" />
     <ClCompile Include="Xml.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +65,7 @@
     <ClInclude Include="Views\Label.h" />
     <ClInclude Include="Views\LinearPanel.h" />
     <ClInclude Include="Views\Selector.h" />
+    <ClInclude Include="Views\State.h" />
     <ClInclude Include="Xml.h" />
   </ItemGroup>
   <ItemGroup>

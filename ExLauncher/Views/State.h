@@ -1,5 +1,5 @@
-#ifndef _SELECTOR_H_
-#define _SELECTOR_H_
+#ifndef _STATE_H_
+#define _STATE_H_
 
 /*********************************************/
 
@@ -9,14 +9,21 @@
 
 /*********************************************/
 
-class Selector : public FramePanel
+class State : public FramePanel
 {
+private:
+	std::string stateName;
+	std::string stateValue;
 public:
-	Selector();
-	~Selector();
+	State();
+	~State();
 	View* Copy();
+	void AddChildView(View* view);
 
+	void SetStateName(std::string name);
+	void SetStateValue(std::string value);
 	bool SetProperty(std::string name, std::string value);
+	void OnStateChange(std::string stateName, std::string stateValue);
 };
 
 /*********************************************/

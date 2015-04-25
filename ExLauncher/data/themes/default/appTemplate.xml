@@ -3,30 +3,25 @@
   width="wrap_content"
   height="wrap_content"
   orientation="vertical">
-  <FramePanel
+  <Selector
     width="wrap_content"
     height="wrap_content">
-    <Selector
-      width="wrap_content"
-      height="wrap_content"
-      stateSelected="false">
+    <State stateSelected="false">
       <Image
         width="wrap_content"
         height="wrap_content"
         path="@theme/appIconDefault.png"/>
-    </Selector>
-    <Selector
-      width="wrap_content"
-      height="wrap_content"
-      stateSelected="true">
+    </State>
+    <State stateSelected="true">
       <Image
         width="wrap_content"
         height="wrap_content"
         path="data/graphics/testicon2.png"/>
-    </Selector>
-  </FramePanel>
+    </State>
+</Selector>
   <Label
     width="wrap_content"
     height="wrap_content"
     text="{name}"/>
+
 </LinearPanel>
