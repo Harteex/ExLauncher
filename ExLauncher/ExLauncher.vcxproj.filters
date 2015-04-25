@@ -123,6 +123,9 @@
     <ClCompile Include="Views\State.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="ViewSystem\CollectionView.cpp">
+      <Filter>Source Files\ViewSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="Views\State.h">
       <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewSystem\CollectionView.h">
+      <Filter>Source Files\ViewSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,16 +3,16 @@
 
 /*********************************************/
 
-#include "../ViewSystem/View.h"
+#include "../ViewSystem/CollectionView.h"
 #include "../structures.h"
 #include <vector>
 
 /*********************************************/
 
-class GridView : public View
+class GridView : public CollectionView
 {
 private:
-	int selectedPosition;
+	//int selectedPosition;
 	int itemCountSecondaryDirection;
 	Orientation orientation;
 
@@ -22,31 +22,21 @@ private:
 	Size tileViewSize;
 	Size tileSize;
 	int tileMargin;
-	int layoutMargin;
-	//std::vector<FormElement*> formElements;
-	Position selectedTile;
-	Orientation orientation;
-	int iconCountSecondaryDirection;
 	int scrollDistance;
 	double zoom;*/
 
-	/*void Scroll();
+	//void Scroll();
 	//void SetElementPosition(FormElement* element, Position gridPosition);
-	Position GetPxPositionForPosition(Position position);
-	void GetRowsAndColumns(int* outRows, int* outColumns);
-	Position GetPositionForElementIndex(int elementNo);
-	int GetElementIndexForPosition(Position position);*/
+	//Position GetPxPositionForPosition(Position position);
+	void GetRowsAndColumns(int& outRows, int& outColumns);
+	Position GetPositionForItemIndex(int elementNo);
+	int GetItemIndexForPosition(Position position);
 public:
 	GridView();
 	~GridView();
-	/*void AddElement(FormElement* formElement);
-	void AddElements(std::list<FormElement*> formElements);*/
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
 	void Update();
 	void Draw(SDL_Renderer* renderer);
-	//FormElement* GetElement(int position);
-	//int GetSelectedPosition();
-	//FormElement* SelectNextElement(Direction direction);
 	//void SetTransition(TransitionEffect effect, double value);
 	//void ClearTransitions();
 	void OnLayoutChange();
@@ -57,6 +47,9 @@ public:
 	Orientation GetOrientation();
 	void SetOrientation(Orientation orientation);
 	bool SetProperty(std::string name, std::string value);
+
+	View* GetSelectedItem();
+	View* SelectNext(Direction direction);
 };
 
 /*********************************************/

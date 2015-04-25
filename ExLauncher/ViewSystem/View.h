@@ -8,6 +8,7 @@
 #include <string>
 #include "../structures.h"
 #include "../ResourceManager.h"
+#include "../ScreenSystem/InputState.h"
 
 /*********************************************/
 
@@ -49,6 +50,7 @@ public:
     virtual ~View() {}
 	virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
 	bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	virtual void HandleInput(InputState* input);
 	virtual void Update() = 0;
 	virtual void Draw(SDL_Renderer* renderer) = 0;
 	std::string GetId();
@@ -83,10 +85,7 @@ public:
 	virtual void FillData(std::map<std::string, std::string>& data);
 	void PropagateStateChange(std::string stateName, std::string stateValue);
 	virtual void OnStateChange(std::string stateName, std::string stateValue);
-	/*virtual FormElement* GetElement(int position) = 0;
-	virtual int GetSelectedPosition() = 0;
-	virtual FormElement* SelectNextElement(Direction direction) = 0;
-	virtual void SetTransition(TransitionEffect effect, double value) = 0;
+	/*virtual void SetTransition(TransitionEffect effect, double value) = 0;
 	virtual void ClearTransitions();*/
 };
 

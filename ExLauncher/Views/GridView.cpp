@@ -6,7 +6,6 @@ GridView::GridView()
 {
 	contentSize.w = 0;
 	contentSize.h = 0;
-	selectedPosition = -1;
 	itemCountSecondaryDirection = 1;
 	orientation = OrientationHorizontal;
 
@@ -227,4 +226,131 @@ bool GridView::SetProperty(string name, string value)
 	}
 
 	return false;
+}
+
+View* GridView::GetSelectedItem()
+{
+	return children[GetItemIndexForPosition(selectedPosition)];
+}
+
+void GridView::GetRowsAndColumns(int& outRows, int& outColumns)
+{
+	int itemsInLength = children.size() / itemCountSecondaryDirection;
+
+	if (children.size() % itemCountSecondaryDirection != 0)
+		itemsInLength++;
+
+	if (orientation == OrientationHorizontal)
+	{
+		outRows = itemCountSecondaryDirection;
+		outColumns = itemsInLength;
+	}
+	else
+	{
+		outRows = itemsInLength;
+		outColumns = itemCountSecondaryDirection;
+	}
+}
+
+Position GridView::GetPositionForItemIndex(int elementNo)
+{
+	Position position;
+	position.x = -1;
+	position.y = -1;
+
+	if (elementNo < 0 || elementNo >= children.size())
+		return position;
+
+	int posX, posY;
+	if (orientation == OrientationHorizontal)
+	{
+		posX = elementNo / itemCountSecondaryDirection;
+		posY = elementNo % itemCountSecondaryDirection;
+	}
+	else
+	{
+		posX = elementNo % itemCountSecondaryDirection;
+		posY = elementNo / itemCountSecondaryDirection;
+	}
+
+	position.x = posX;
+	position.y = posY;
+
+	return position;
+}
+
+int GridView::GetItemIndexForPosition(Position position)
+{
+	int rows, columns;
+	GetRowsAndColumns(rows, columns);
+
+	if (position.x < 0 || position.x >= columns)
+		return -1;
+
+	if (position.y < 0 || position.y >= rows)
+		return -1;
+
+	if (orientation == OrientationHorizontal)
+		return position.x * rows + position.y;
+	else
+		return position.y * columns + position.x;
+
+	return 0;
+}
+
+View* GridView::SelectNext(Direction direction)
+{
+	if (children.size() == 0)
+		return NULL;
+
+	int dx = 0;
+	int dy = 0;
+
+	switch (direction)
+	{
+	case DirectionUp:
+		dy = -1;
+		break;
+	case DirectionDown:
+		dy = 1;
+		break;
+	case DirectionLeft:
+		dx = -1;
+		break;
+	case DirectionRight:
+		dx = 1;
+		break;
+	}
+
+	int rows;
+	int columns;
+	GetRowsAndColumns(rows, columns);
+
+	if (selectedPosition.x + dx < 0 || selectedPosition.x + dx >= columns)
+		return NULL;
+
+	if (selectedPosition.y + dy < 0 || selectedPosition.y + dy >= rows)
+		return NULL;
+
+	int origIndex = GetItemIndexForPosition(selectedPosition);
+	selectedPosition.x += dx;
+	selectedPosition.y += dy;
+	int index = GetItemIndexForPosition(selectedPosition);
+
+	// if there is no element at the new index
+	if (index >= children.size())
+	{
+		index = children.size() - 1;
+		selectedPosition = GetPositionForItemIndex(origIndex);
+	}
+
+	if (origIndex != index)
+	{
+		// A new selection was made
+		// Propagate state change to old and new selection
+		children[origIndex]->PropagateStateChange("stateSelected", "false");
+		children[index]->PropagateStateChange("stateSelected", "true");
+	}
+
+	return children[index];
 }

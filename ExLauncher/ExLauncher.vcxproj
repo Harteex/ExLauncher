@@ -27,6 +27,7 @@
     <ClCompile Include="structures.cpp" />
     <ClCompile Include="ThemeManager.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="ViewSystem\CollectionView.cpp" />
     <ClCompile Include="ViewSystem\View.cpp" />
     <ClCompile Include="Views\FramePanel.cpp" />
     <ClCompile Include="Views\GridView.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="ThemeManager.h" />
     <ClInclude Include="structures.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="ViewSystem\CollectionView.h" />
     <ClInclude Include="ViewSystem\View.h" />
     <ClInclude Include="Views\FramePanel.h" />
     <ClInclude Include="Views\GridView.h" />

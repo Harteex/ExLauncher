@@ -106,6 +106,9 @@ bool ScreenMenu::Initialize()
 
 void ScreenMenu::HandleInput(InputState* input)
 {
+	if (inputView != NULL)
+		inputView->HandleInput(input);
+
 	/*bool virtualKeyboardWasActive = formContainer.IsVirtualKeyboardActive();
 	formContainer.HandleInput(input);
 	if (formContainer.IsVirtualKeyboardActive() || virtualKeyboardWasActive)
@@ -129,11 +132,6 @@ void ScreenMenu::HandleInput(InputState* input)
 		if (v != NULL)
 			((Label*)v)->SetText("omglol");
 	}*/
-
-	if (inputView != NULL)
-	{
-		//
-	}
 }
 
 void ScreenMenu::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
