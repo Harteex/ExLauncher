@@ -17,7 +17,6 @@ protected:
 	View* selectedItem;
 public:
 	CollectionView();
-	~CollectionView();
 
 	void HandleInput(InputState* input);
 	Position GetSelectedPosition();

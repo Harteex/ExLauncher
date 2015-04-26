@@ -12,10 +12,6 @@ CollectionView::CollectionView()
 	selectedItem = NULL;
 }
 
-CollectionView::~CollectionView()
-{
-}
-
 void CollectionView::HandleInput(InputState* input)
 {
 	if (input->GameKeyJustPressed(GAMEKEY_UP))
