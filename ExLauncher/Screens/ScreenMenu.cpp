@@ -63,7 +63,16 @@ bool ScreenMenu::Initialize()
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
 
-		inputView = GetViewById("inputView");
+		View* v = GetViewById("inputView");
+		if (v != NULL)
+		{
+			inputView = dynamic_cast<CollectionView*>(v);
+			if (inputView == NULL)
+			{
+				throw runtime_error("This view cannot be used as an inputView. An inputView must inherit from CollectionView.");
+			}
+		}
+
 		itemFillView = GetFirstViewByTag("fillItems");
 
 		if (itemFillView != NULL)
@@ -87,17 +96,7 @@ bool ScreenMenu::Initialize()
 		}
 
 		if (inputView != NULL)
-			inputView->PropagateStateChange("stateSelected", "false");
-
-		// FIXME initialize the selected item... 
-		// We probably want to let inputView be of the type CollectionView to be able to access those methods
-		// Make sure this is one! How check type?
-		// Maybe have a method called Initialize / Update selected to this?
-		// Or a method to handle all the others too (stateselected false)
-
-		// TEST
-		/*if (inputView != NULL)
-			inputView->GetChildView(3)->PropagateStateChange("stateSelected", "true");*/
+			inputView->Select(Position(0, 0));
 	}
 	catch (exception& ex)
 	{

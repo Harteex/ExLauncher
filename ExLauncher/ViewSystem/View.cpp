@@ -48,10 +48,6 @@ bool View::InitializeAll(ResourceManager* resourceManager, SDL_Renderer* rendere
 	return result;
 }
 
-void View::HandleInput(InputState* input)
-{
-}
-
 Position View::GetRelativePosition()
 {
 	return relativePosition;

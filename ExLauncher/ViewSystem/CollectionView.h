@@ -23,6 +23,7 @@ public:
 	Position GetSelectedPosition();
 	virtual View* GetSelectedItem() = 0;
 	virtual View* SelectNext(Direction direction) = 0;
+	virtual View* Select(Position position) = 0;
 };
 
 /*********************************************/

@@ -50,7 +50,6 @@ public:
     virtual ~View() {}
 	virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
 	bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	virtual void HandleInput(InputState* input);
 	virtual void Update() = 0;
 	virtual void Draw(SDL_Renderer* renderer) = 0;
 	std::string GetId();

@@ -6,6 +6,7 @@
 #include "../ScreenSystem/Screen.h"
 #include "../ScreenSystem/ScreenManager.h"
 #include "../ViewSystem/View.h"
+#include "../ViewSystem/CollectionView.h"
 #include "../Views/Image.h"
 #include <list>
 
@@ -15,7 +16,7 @@ class ScreenMenu : public Screen//, IFormEvent
 {
 private:
 	View* contentView;
-	View* inputView;
+	CollectionView* inputView;
 	View* itemFillView;
 	std::string title;
 	SDL_Texture* titleTexture;

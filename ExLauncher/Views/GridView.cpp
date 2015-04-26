@@ -294,8 +294,6 @@ int GridView::GetItemIndexForPosition(Position position)
 		return position.x * rows + position.y;
 	else
 		return position.y * columns + position.x;
-
-	return 0;
 }
 
 View* GridView::SelectNext(Direction direction)
@@ -353,4 +351,20 @@ View* GridView::SelectNext(Direction direction)
 	}
 
 	return children[index];
+}
+
+View* GridView::Select(Position position)
+{
+	PropagateStateChange("stateSelected", "false");
+
+	int index = GetItemIndexForPosition(position);
+	if (index < children.size())
+	{
+		children[index]->PropagateStateChange("stateSelected", "true");
+		return children[index];
+	}
+	else
+	{
+		return NULL;
+	}
 }
