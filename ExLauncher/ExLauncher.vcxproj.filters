@@ -296,5 +296,8 @@
     <Xml Include="data\themes\default\contentsizebug.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
+    <Xml Include="data\themes\default\testframepanel.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

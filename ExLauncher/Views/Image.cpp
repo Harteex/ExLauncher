@@ -50,13 +50,12 @@ void Image::Draw(SDL_Renderer* renderer)
 
 View* Image::Copy()
 {
-	Image* image = new Image();
+	Image* view = new Image();
 
-	image->SetSize(size);
-	image->SetRelativePosition(relativePosition);
-	image->SetPath(path);
+	CopyBase(view);
+	view->SetPath(path);
 
-	return image;
+	return view;
 }
 
 void Image::SetPath(string path)

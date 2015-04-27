@@ -15,6 +15,7 @@ View::View()
 	calculatedSize = Size(0, 0);
 	contentSize = Size(-1, -1);
 	layoutMargin = Box();
+	layoutGravity = 0;
 	itemTemplate = NULL;
 }
 
@@ -93,6 +94,21 @@ Size View::GetContentSize()
 Box View::GetLayoutMargin()
 {
 	return layoutMargin;
+}
+
+void View::SetLayoutMargin(Box margin)
+{
+	this->layoutMargin = margin;
+}
+
+int  View::GetLayoutGravity()
+{
+	return layoutGravity;
+}
+
+void View::SetLayoutGravity(int gravity)
+{
+	this->layoutGravity = gravity;
 }
 
 Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
@@ -274,8 +290,40 @@ bool View::SetProperty(string name, string value)
 		layoutMargin = Box(n, n, n, n);
 		return true;
 	}
+	else if (name == "layoutGravity")
+	{
+		vector<string> gravityList = split(value, '|');
+		for (string g : gravityList)
+		{
+			if (g == "center_horizontal")
+				layoutGravity |= HCENTER;
+			else if (g == "center_vertical")
+				layoutGravity |= VCENTER;
+			else if (g == "right")
+				layoutGravity |= RIGHT;
+			else if (g == "bottom")
+				layoutGravity |= BOTTOM;
+		}
+
+		return true;
+	}
 
 	return false;
+}
+
+View* View::CopyBase(View* view)
+{
+	view->SetSize(size);
+	view->SetRelativePosition(relativePosition);
+	view->SetLayoutMargin(layoutMargin);
+	view->SetLayoutGravity(layoutGravity);
+
+	for (View* v : children)
+	{
+		view->AddChildView(v->Copy());
+	}
+
+	return view;
 }
 
 View* View::GetItemTemplate()
@@ -304,4 +352,24 @@ void View::PropagateStateChange(string stateName, string stateValue)
 
 void View::OnStateChange(string stateName, string stateValue)
 {
+}
+
+Position View::GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity)
+{
+	Size freeSpace = containerSize - childSize;
+
+	int gravityOffsetW = 0;
+	int gravityOffsetH = 0;
+
+	if ((childLayoutGravity & HCENTER) > 0)
+		gravityOffsetW = freeSpace.w / 2;
+	else if ((childLayoutGravity & RIGHT) > 0)
+		gravityOffsetW = freeSpace.w;
+
+	if ((childLayoutGravity & VCENTER) > 0)
+		gravityOffsetH = freeSpace.h / 2;
+	else if ((childLayoutGravity & BOTTOM) > 0)
+		gravityOffsetH = freeSpace.h;
+
+	return Position(gravityOffsetW, gravityOffsetH);
 }

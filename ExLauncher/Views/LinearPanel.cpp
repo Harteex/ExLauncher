@@ -43,12 +43,10 @@ void LinearPanel::Draw(SDL_Renderer* renderer)
 
 void LinearPanel::OnLayoutChange()
 {
-	Position childOffset;
-	childOffset.x = 0;
-	childOffset.y = 0;
+	Position childOffset = Position(0, 0);
+	contentSize = Size(0, 0);
 
-	contentSize.w = 0;
-	contentSize.h = 0;
+	Size* childSizes = new Size[children.size()];
 
 	// Position children
 	for (int i = 0; i < children.size(); i++)
@@ -61,6 +59,7 @@ void LinearPanel::OnLayoutChange()
 		sizeAreaForChild.h = size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom);
 		Size childSize = v->CalculateLayout(childOffset, sizeAreaForChild);
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
+		childSizes[i] = childSizeIncMargins;
 
 		v->SetRelativePosition(childOffset + Position(childMargin.left, childMargin.top));
 
@@ -77,22 +76,39 @@ void LinearPanel::OnLayoutChange()
 			contentSize.h += childSizeIncMargins.h;
 		}
 	}
+
+	// Adjust child positions for gravity
+	for (int i = 0; i < children.size(); i++)
+	{
+		View* v = children.at(i);
+
+		Size containerSize;
+		if (orientation == OrientationHorizontal)
+		{
+			containerSize.w = childSizes[i].w;
+			containerSize.h = contentSize.h;
+		}
+		else
+		{
+			containerSize.w = contentSize.w;
+			containerSize.h = childSizes[i].h;
+		}
+		
+		Position gravityOffset = GetGravityOffset(childSizes[i], containerSize, children[i]->GetLayoutGravity());
+		v->SetRelativePosition(v->GetRelativePosition() + gravityOffset);
+	}
+
+	delete[] childSizes;
 }
 
 View* LinearPanel::Copy()
 {
-	LinearPanel* panel = new LinearPanel();
+	LinearPanel* view = new LinearPanel();
 
-	panel->SetSize(size);
-	panel->SetRelativePosition(relativePosition);
-	panel->SetOrientation(orientation);
+	CopyBase(view);
+	view->SetOrientation(orientation);
 
-	for (View* view : children)
-	{
-		panel->AddChildView(view->Copy());
-	}
-
-	return panel;
+	return view;
 }
 
 Orientation LinearPanel::GetOrientation()

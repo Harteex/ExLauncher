@@ -74,6 +74,8 @@ void GridView::OnLayoutChange()
 	int* columnPositions = new int[itemsInWidth];
 	int* rowPositions = new int[itemsInHeight];
 
+	Size* childSizes = new Size[children.size()];
+
 	memset(columnSizes, 0, itemsInWidth * sizeof(int));
 	memset(rowSizes, 0, itemsInHeight * sizeof(int));
 
@@ -108,6 +110,8 @@ void GridView::OnLayoutChange()
 
 		if (childSizeIncMargins.h > rowSizes[curRow])
 			rowSizes[curRow] = childSizeIncMargins.h;
+
+		childSizes[i] = childSizeIncMargins;
 	}
 
 	// Calculate positions for columns and rows
@@ -150,31 +154,29 @@ void GridView::OnLayoutChange()
 			curRow = i / itemCountSecondaryDirection;
 		}
 
+		Size curContainer = Size(columnSizes[curColumn], rowSizes[curRow]);
+		Position gravityOffset = GetGravityOffset(childSizes[i], curContainer, children[i]->GetLayoutGravity());
+
 		Box childMargin = v->GetLayoutMargin();
-		v->SetRelativePosition(columnPositions[curColumn] + childMargin.left, rowPositions[curRow] + childMargin.top);
+		v->SetRelativePosition(columnPositions[curColumn] + childMargin.left + gravityOffset.x, rowPositions[curRow] + childMargin.top + gravityOffset.y);
 	}
 
 	delete[] columnSizes;
 	delete[] rowSizes;
 	delete[] columnPositions;
 	delete[] rowPositions;
+	delete[] childSizes;
 }
 
 View* GridView::Copy()
 {
-	GridView* gridView = new GridView();
+	GridView* view = new GridView();
 
-	gridView->SetSize(size);
-	gridView->SetRelativePosition(relativePosition);
-	gridView->SetItemCountSecondaryDirection(itemCountSecondaryDirection);
-	gridView->SetOrientation(orientation);
+	CopyBase(view);
+	view->SetItemCountSecondaryDirection(itemCountSecondaryDirection);
+	view->SetOrientation(orientation);
 
-	for (View* view : children)
-	{
-		gridView->AddChildView(view->Copy());
-	}
-
-	return gridView;
+	return view;
 }
 
 int GridView::GetItemCountSecondaryDirection()

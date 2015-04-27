@@ -2,10 +2,12 @@
 <LinearPanel
   width="wrap_content"
   height="wrap_content"
-  orientation="vertical">
+  orientation="vertical"
+  layoutGravity="center_horizontal">
   <Selector
     width="wrap_content"
-    height="wrap_content">
+    height="wrap_content"
+    layoutGravity="center_horizontal">
     <State stateSelected="false">
       <Image
         width="wrap_content"
@@ -18,10 +20,11 @@
         height="wrap_content"
         path="data/graphics/testicon2.png"/>
     </State>
-</Selector>
+  </Selector>
   <Label
     width="wrap_content"
     height="wrap_content"
-    text="{name}"/>
+    text="{name}"
+    layoutGravity="center_horizontal"/>
 
 </LinearPanel>

@@ -13,17 +13,11 @@ Selector::~Selector()
 
 View* Selector::Copy()
 {
-	Selector* panel = new Selector();
+	Selector* view = new Selector();
 
-	panel->SetSize(size);
-	panel->SetRelativePosition(relativePosition);
+	CopyBase(view);
 
-	for (View* view : children)
-	{
-		panel->AddChildView(view->Copy());
-	}
-
-	return panel;
+	return view;
 }
 
 bool Selector::SetProperty(string name, string value)

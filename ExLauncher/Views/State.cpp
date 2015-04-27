@@ -15,19 +15,13 @@ State::~State()
 
 View* State::Copy()
 {
-	State* panel = new State();
+	State* view = new State();
 
-	panel->SetSize(size);
-	panel->SetRelativePosition(relativePosition);
-	panel->SetStateName(stateName);
-	panel->SetStateValue(stateValue);
+	CopyBase(view);
+	view->SetStateName(stateName);
+	view->SetStateValue(stateValue);
 
-	for (View* view : children)
-	{
-		panel->AddChildView(view->Copy());
-	}
-
-	return panel;
+	return view;
 }
 
 void State::AddChildView(View* view)

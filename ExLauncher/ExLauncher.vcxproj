@@ -141,6 +141,7 @@
     <Xml Include="data\themes\default\test4.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="data\themes\default\testframepanel.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{94A48642-2E40-421E-90C8-6B624CB8E0A1}</ProjectGuid>

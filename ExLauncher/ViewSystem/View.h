@@ -43,8 +43,11 @@ protected:
 	Size calculatedSize;
 	Size contentSize;
 	Box layoutMargin;
+	int layoutGravity;
 	bool isInitialized;
 	View* itemTemplate;
+
+	View* CopyBase(View* view);
 public:
 	View();
     virtual ~View() {}
@@ -73,6 +76,9 @@ public:
 	void SetSize(int width, int height);
 	Size GetContentSize();
 	Box GetLayoutMargin();
+	void SetLayoutMargin(Box margin);
+	int GetLayoutGravity();
+	void SetLayoutGravity(int gravity);
 	Size CalculateLayout(Position offsetInCurView, Size parentSize);
 	void RecalculateLayout();
 	void CalculateAbsolutePosition(Position parentPosition);
@@ -84,6 +90,7 @@ public:
 	virtual void FillData(std::map<std::string, std::string>& data);
 	void PropagateStateChange(std::string stateName, std::string stateValue);
 	virtual void OnStateChange(std::string stateName, std::string stateValue);
+	Position GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity);
 	/*virtual void SetTransition(TransitionEffect effect, double value) = 0;
 	virtual void ClearTransitions();*/
 };

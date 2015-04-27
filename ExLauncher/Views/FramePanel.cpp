@@ -42,12 +42,15 @@ void FramePanel::Draw(SDL_Renderer* renderer)
 
 void FramePanel::OnLayoutChange()
 {
-	Position childOffset;
-	childOffset.x = 0;
-	childOffset.y = 0;
+	Position childOffset = Position(0, 0);
+	contentSize = Size(0, 0);
 
-	contentSize.w = 0;
-	contentSize.h = 0;
+	Size* childSizes = new Size[children.size()];
+
+	if (size.w == SIZE_MATCH_PARENT)
+		contentSize.w = calculatedSize.w;
+	if (size.h == SIZE_MATCH_PARENT)
+		contentSize.h = calculatedSize.h;
 
 	// Position children
 	for (int i = 0; i < children.size(); i++)
@@ -61,25 +64,31 @@ void FramePanel::OnLayoutChange()
 		sizeAreaForChild.h = size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom);
 		Size childSize = v->CalculateLayout(Position(0, 0), sizeAreaForChild);
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
+		childSizes[i] = childSizeIncMargins;
 
 		contentSize.w = max(contentSize.w, childSizeIncMargins.w);
 		contentSize.h = max(contentSize.h, childSizeIncMargins.h);
 	}
+
+	// Adjust child positions for gravity
+	for (int i = 0; i < children.size(); i++)
+	{
+		View* v = children.at(i);
+
+		Position gravityOffset = GetGravityOffset(childSizes[i], contentSize, children[i]->GetLayoutGravity());
+		v->SetRelativePosition(v->GetRelativePosition() + gravityOffset);
+	}
+
+	delete[] childSizes;
 }
 
 View* FramePanel::Copy()
 {
-	FramePanel* panel = new FramePanel();
+	FramePanel* view = new FramePanel();
 
-	panel->SetSize(size);
-	panel->SetRelativePosition(relativePosition);
+	CopyBase(view);
 
-	for (View* view : children)
-	{
-		panel->AddChildView(view->Copy());
-	}
-
-	return panel;
+	return view;
 }
 
 bool FramePanel::SetProperty(string name, string value)

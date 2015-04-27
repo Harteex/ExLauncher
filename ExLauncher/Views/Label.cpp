@@ -88,13 +88,12 @@ void Label::OnLayoutChange()
 
 View* Label::Copy()
 {
-	Label* label = new Label();
+	Label* view = new Label();
 
-	label->SetSize(size);
-	label->SetRelativePosition(relativePosition);
-	label->SetText(text);
+	CopyBase(view);
+	view->SetText(text);
 
-	return label;
+	return view;
 }
 
 void Label::SetText(string text)
