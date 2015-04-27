@@ -10,7 +10,8 @@
       <Image
           width="wrap_content"
           height="wrap_content"
-          path="data/graphics/ButtonA.png"/>
+          path="data/graphics/ButtonA.png"
+          layoutGravity="right|center_vertical"/>
       <LinearPanel
         width="wrap_content"
         height="wrap_content"

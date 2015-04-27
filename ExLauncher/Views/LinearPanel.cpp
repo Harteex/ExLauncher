@@ -48,6 +48,11 @@ void LinearPanel::OnLayoutChange()
 
 	Size* childSizes = new Size[children.size()];
 
+	if (size.w == SIZE_MATCH_PARENT && orientation == OrientationVertical)
+		contentSize.w = calculatedSize.w;
+	if (size.h == SIZE_MATCH_PARENT && orientation == OrientationHorizontal)
+		contentSize.h = calculatedSize.h;
+
 	// Position children
 	for (int i = 0; i < children.size(); i++)
 	{
