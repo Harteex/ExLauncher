@@ -296,13 +296,13 @@ bool View::SetProperty(string name, string value)
 		for (string g : gravityList)
 		{
 			if (g == "center_horizontal")
-				layoutGravity |= HCENTER;
+				layoutGravity |= GRAVITY_HCENTER;
 			else if (g == "center_vertical")
-				layoutGravity |= VCENTER;
+				layoutGravity |= GRAVITY_VCENTER;
 			else if (g == "right")
-				layoutGravity |= RIGHT;
+				layoutGravity |= GRAVITY_RIGHT;
 			else if (g == "bottom")
-				layoutGravity |= BOTTOM;
+				layoutGravity |= GRAVITY_BOTTOM;
 		}
 
 		return true;
@@ -361,14 +361,14 @@ Position View::GetGravityOffset(Size childSize, Size containerSize, int childLay
 	int gravityOffsetW = 0;
 	int gravityOffsetH = 0;
 
-	if ((childLayoutGravity & HCENTER) > 0)
+	if ((childLayoutGravity & GRAVITY_HCENTER) > 0)
 		gravityOffsetW = freeSpace.w / 2;
-	else if ((childLayoutGravity & RIGHT) > 0)
+	else if ((childLayoutGravity & GRAVITY_RIGHT) > 0)
 		gravityOffsetW = freeSpace.w;
 
-	if ((childLayoutGravity & VCENTER) > 0)
+	if ((childLayoutGravity & GRAVITY_VCENTER) > 0)
 		gravityOffsetH = freeSpace.h / 2;
-	else if ((childLayoutGravity & BOTTOM) > 0)
+	else if ((childLayoutGravity & GRAVITY_BOTTOM) > 0)
 		gravityOffsetH = freeSpace.h;
 
 	return Position(gravityOffsetW, gravityOffsetH);

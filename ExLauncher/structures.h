@@ -53,11 +53,11 @@ enum Orientation {OrientationHorizontal, OrientationVertical};
 enum SizeMode {SizeModeNormal, SizeModeCompact};
 enum TransitionEffect {TransitionEffectZoom};
 
-#define LEFT 0
-#define TOP 0
-#define HCENTER 1
-#define RIGHT 2
-#define VCENTER 4
-#define BOTTOM 8
+#define GRAVITY_LEFT 0
+#define GRAVITY_TOP 0
+#define GRAVITY_HCENTER 1
+#define GRAVITY_RIGHT 2
+#define GRAVITY_VCENTER 4
+#define GRAVITY_BOTTOM 8
 
 #endif
