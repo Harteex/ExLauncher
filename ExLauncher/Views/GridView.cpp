@@ -26,23 +26,6 @@ void GridView::Update()
 {
 }
 
-void GridView::Draw(SDL_Renderer* renderer)
-{
-	if (!IsVisible())
-		return;
-
-	if (calculatedSize.w == 0 || calculatedSize.h == 0)
-		return;
-
-	if (contentSize.w == 0 || contentSize.h == 0)
-		return;
-
-	for (int i = 0; i < children.size(); i++)
-	{
-		children[i]->Draw(renderer);
-	}
-}
-
 void GridView::OnLayoutChange()
 {
 	if (itemCountSecondaryDirection <= 0)

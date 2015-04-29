@@ -46,6 +46,7 @@ protected:
 	int layoutGravity;
 	bool isInitialized;
 	View* itemTemplate;
+	Color background;
 
 	View* CopyBase(View* view);
 public:
@@ -54,7 +55,8 @@ public:
 	virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
 	bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
 	virtual void Update() = 0;
-	virtual void Draw(SDL_Renderer* renderer) = 0;
+	void Draw(SDL_Renderer* renderer);
+	virtual void OnDraw(SDL_Renderer* renderer);
 	std::string GetId();
 	void SetId(std::string id);
 	std::vector<std::string> GetTags();

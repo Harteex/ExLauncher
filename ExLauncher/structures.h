@@ -48,6 +48,17 @@ struct Box
 	Box(int top, int bottom, int left, int right) : top(top), bottom(bottom), left(left), right(right) {}
 };
 
+struct Color
+{
+	int r;
+	int g;
+	int b;
+	int a;
+
+	Color() : r(0), g(0), b(0), a(0) {}
+	Color(int r, int g, int b, int a) : r(r), g(g), b(b), a(a) {}
+};
+
 enum Direction {DirectionLeft, DirectionRight, DirectionUp, DirectionDown};
 enum Orientation {OrientationHorizontal, OrientationVertical};
 enum SizeMode {SizeModeNormal, SizeModeCompact};

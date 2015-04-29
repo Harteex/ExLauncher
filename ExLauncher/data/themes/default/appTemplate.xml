@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearPanel
-  width="wrap_content"
+  width="80"
   height="wrap_content"
   orientation="vertical"
   layoutGravity="center_horizontal">

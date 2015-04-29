@@ -36,7 +36,6 @@ public:
 	~GridView();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
 	void Update();
-	void Draw(SDL_Renderer* renderer);
 	//void SetTransition(TransitionEffect effect, double value);
 	//void ClearTransitions();
 	void OnLayoutChange();

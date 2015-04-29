@@ -61,14 +61,8 @@ void Label::Update()
 {
 }
 
-void Label::Draw(SDL_Renderer* renderer)
+void Label::OnDraw(SDL_Renderer* renderer)
 {
-	if (!IsVisible())
-		return;
-
-	if (calculatedSize.w == 0 || calculatedSize.h == 0)
-		return;
-
 	if (texture == NULL)
 		return;
 

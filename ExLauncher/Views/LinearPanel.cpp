@@ -24,23 +24,6 @@ void LinearPanel::Update()
 {
 }
 
-void LinearPanel::Draw(SDL_Renderer* renderer)
-{
-	if (!IsVisible())
-		return;
-
-	if (calculatedSize.w == 0 || calculatedSize.h == 0)
-		return;
-
-	if (contentSize.w == 0 || contentSize.h == 0)
-		return;
-
-	for (int i = 0; i < children.size(); i++)
-	{
-		children[i]->Draw(renderer);
-	}
-}
-
 void LinearPanel::OnLayoutChange()
 {
 	Position childOffset = Position(0, 0);
@@ -48,9 +31,9 @@ void LinearPanel::OnLayoutChange()
 
 	Size* childSizes = new Size[children.size()];
 
-	if (size.w == SIZE_MATCH_PARENT && orientation == OrientationVertical)
+	if ((size.w == SIZE_MATCH_PARENT || size.w > 0) && orientation == OrientationVertical)
 		contentSize.w = calculatedSize.w;
-	if (size.h == SIZE_MATCH_PARENT && orientation == OrientationHorizontal)
+	if ((size.h == SIZE_MATCH_PARENT || size.h > 0) && orientation == OrientationHorizontal)
 		contentSize.h = calculatedSize.h;
 
 	// Position children

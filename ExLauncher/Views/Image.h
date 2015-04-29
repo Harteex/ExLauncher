@@ -21,7 +21,7 @@ public:
 	~Image();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
 	void Update();
-	void Draw(SDL_Renderer* renderer);
+	void OnDraw(SDL_Renderer* renderer);
 	View* Copy();
 
 	void SetPath(std::string path);

@@ -23,23 +23,6 @@ void FramePanel::Update()
 {
 }
 
-void FramePanel::Draw(SDL_Renderer* renderer)
-{
-	if (!IsVisible())
-		return;
-
-	if (calculatedSize.w == 0 || calculatedSize.h == 0)
-		return;
-
-	if (contentSize.w == 0 || contentSize.h == 0)
-		return;
-
-	for (int i = 0; i < children.size(); i++)
-	{
-		children[i]->Draw(renderer);
-	}
-}
-
 void FramePanel::OnLayoutChange()
 {
 	Position childOffset = Position(0, 0);
@@ -47,9 +30,9 @@ void FramePanel::OnLayoutChange()
 
 	Size* childSizes = new Size[children.size()];
 
-	if (size.w == SIZE_MATCH_PARENT)
+	if (size.w == SIZE_MATCH_PARENT || size.w > 0)
 		contentSize.w = calculatedSize.w;
-	if (size.h == SIZE_MATCH_PARENT)
+	if (size.h == SIZE_MATCH_PARENT || size.h > 0)
 		contentSize.h = calculatedSize.h;
 
 	// Position children

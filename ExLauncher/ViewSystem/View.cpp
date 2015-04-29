@@ -17,6 +17,7 @@ View::View()
 	layoutMargin = Box();
 	layoutGravity = 0;
 	itemTemplate = NULL;
+	background = Color(0, 0, 0, 0);
 }
 
 string View::GetId()
@@ -47,6 +48,41 @@ bool View::InitializeAll(ResourceManager* resourceManager, SDL_Renderer* rendere
 	}
 
 	return result;
+}
+
+void View::Draw(SDL_Renderer* renderer)
+{
+	if (!IsVisible())
+		return;
+
+	if (calculatedSize.w == 0 || calculatedSize.h == 0)
+		return;
+
+	if (contentSize.w == 0 || contentSize.h == 0)
+		return;
+
+	if (background.a > 0)
+	{
+		SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
+		SDL_Rect rectangle;
+
+		rectangle.x = absolutePosition.x;
+		rectangle.y = absolutePosition.y;
+		rectangle.w = calculatedSize.w;
+		rectangle.h = calculatedSize.h;
+		SDL_RenderFillRect(renderer, &rectangle);
+	}
+
+	OnDraw(renderer);
+
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->Draw(renderer);
+	}
+}
+
+void View::OnDraw(SDL_Renderer* renderer)
+{
 }
 
 Position View::GetRelativePosition()
