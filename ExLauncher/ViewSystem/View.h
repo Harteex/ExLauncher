@@ -44,6 +44,7 @@ protected:
 	Size contentSize;
 	Box layoutMargin;
 	int layoutGravity;
+	int gravity;
 	bool isInitialized;
 	View* itemTemplate;
 	Color background;
@@ -81,6 +82,8 @@ public:
 	void SetLayoutMargin(Box margin);
 	int GetLayoutGravity();
 	void SetLayoutGravity(int gravity);
+	int GetGravity();
+	void SetGravity(int gravity);
 	Size CalculateLayout(Position offsetInCurView, Size parentSize);
 	void RecalculateLayout();
 	void CalculateAbsolutePosition(Position parentPosition);

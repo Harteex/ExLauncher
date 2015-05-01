@@ -55,13 +55,15 @@ void LinearPanel::OnLayoutChange()
 		{
 			childOffset.x += childSizeIncMargins.w;
 			contentSize.w += childSizeIncMargins.w;
-			contentSize.h = max(contentSize.h, childSizeIncMargins.h);
+			if (size.h == SIZE_WRAP_CONTENT)
+				contentSize.h = max(contentSize.h, childSizeIncMargins.h);
 		}
 		else
 		{
 			childOffset.y += childSizeIncMargins.h;
-			contentSize.w = max(contentSize.w, childSizeIncMargins.w);
 			contentSize.h += childSizeIncMargins.h;
+			if (size.w == SIZE_WRAP_CONTENT)
+				contentSize.w = max(contentSize.w, childSizeIncMargins.w);
 		}
 	}
 

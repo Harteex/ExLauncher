@@ -6,6 +6,7 @@
 #include "utils.h"
 #include <map>
 #include "global.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -578,6 +579,54 @@ SDL_Texture* CreateGradientTexture(int width, int height, Uint32 fromColor, Uint
 {
 	//SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, width, height);
 	return NULL;
+}
+
+SDL_Surface* ClipSurface(SDL_Surface* surface, SDL_Rect* clip)
+{
+	if (surface == NULL)
+		return NULL;
+
+	if (clip == NULL)
+		return NULL;
+
+	int newW = min(clip->w, max(surface->w - clip->x, 0));
+	int newH = min(clip->h, max(surface->h - clip->y, 0));
+
+	if (newW == 0 || newH == 0)
+		return NULL;
+
+	SDL_Surface* newSurface = createEmptySurface(newW, newH);
+
+	if (newSurface == NULL)
+		return NULL;
+
+	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_NONE);
+	drawSurface(0, 0, surface, newSurface, clip);
+
+	return newSurface;
+}
+
+bool FadeOutSurface(SDL_Surface* surface, int fadeLength)
+{
+	if (surface->w < fadeLength)
+		return false;
+
+	for (int x = surface->w - 1; x >= surface->w - fadeLength; x--)
+	{
+		double distanceFromBorder = surface->w - 1 - x;
+		double columnAlpha = min((distanceFromBorder + 1) / fadeLength, 1.0);
+		for (int y = 0; y < surface->h; y++)
+		{
+			Uint8 r, g, b, a;
+			Uint32 px = getPixel(surface, x, y);
+			getColorComponents(px, surface->format, r, g, b, a);
+			double ad = (double)a / (double)255;
+
+			putPixel(surface, x, y, SDL_MapRGBA(surface->format, r, g, b, (Uint8)((ad * columnAlpha) * 255)));
+		}
+	}
+
+	return true;
 }
 
 void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color)

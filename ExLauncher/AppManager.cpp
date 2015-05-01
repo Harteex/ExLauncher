@@ -40,6 +40,9 @@ bool AppManager::LoadApps()
 	App* appGame6 = new App();
 	appGame6->SetData("name", "Final Fantasy");
 	categoryGames->push_back(appGame6);
+	App* appGame7 = new App();
+	appGame7->SetData("name", "Crash Bandicoot");
+	categoryGames->push_back(appGame7);
 
 	App* app4 = new App();
 	app4->SetData("name", "Console");

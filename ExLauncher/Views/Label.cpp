@@ -1,5 +1,6 @@
 #include "Label.h"
 #include <SDL.h>
+#include "../graphics.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ Label::~Label()
 }
 
 bool Label::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
-{	
+{
 	this->resourceManager = resourceManager;
 	this->renderer = renderer;
 	font = resourceManager->GetTTFFont("guiFontSmall");
@@ -47,8 +48,33 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(font, calculatedText.empty() ? text.c_str() : calculatedText.c_str(), color, textAreaWidth);
 	if (tempSurface == NULL)
 		return false;
-	texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-	SDL_FreeSurface(tempSurface);
+
+	SDL_Surface* clippedSurface = NULL;
+
+	if (calculatedSize.w > 0 && tempSurface->w > calculatedSize.w)
+	{
+		SDL_Rect r;
+		r.x = 0;
+		r.y = 0;
+		r.w = calculatedSize.w;
+		r.h = tempSurface->h;
+		clippedSurface = ClipSurface(tempSurface, &r);
+
+		SDL_FreeSurface(tempSurface);
+
+		// Apply alpha fadeout at end if text doesn't fit completely
+		FadeOutSurface(clippedSurface, 5);
+	}
+	else
+	{
+		clippedSurface = tempSurface;
+	}
+
+	if (clippedSurface == NULL)
+		return false;
+
+	texture = SDL_CreateTextureFromSurface(renderer, clippedSurface);
+	SDL_FreeSurface(clippedSurface);
 	if (texture == NULL)
 		return false;
 
@@ -69,15 +95,26 @@ void Label::OnDraw(SDL_Renderer* renderer)
 	SDL_Rect r;
 	r.x = absolutePosition.x;
 	r.y = absolutePosition.y;
+	r.w = calculatedSize.w;
+	r.h = calculatedSize.h;
+	SDL_RenderSetClipRect(renderer, &r);
+
 	r.w = contentSize.w;
 	r.h = contentSize.h;
+
+	Position gravityOffset = GetGravityOffset(contentSize, calculatedSize, gravity);
+	r.x += gravityOffset.x;
+	r.y += gravityOffset.y;
+
 	drawTexture(&r, texture, renderer);
+
+	SDL_RenderSetClipRect(renderer, NULL);
 }
 
 void Label::OnLayoutChange()
 {
-	// On size change, redraw text if using automatic linebreaks... and the label uses match_parent
-	// Make sure we don't redraw too many times when not needed and make sure there's no risk of an infinite loop
+	if (size.w == SIZE_MATCH_PARENT || size.h == SIZE_MATCH_PARENT)
+		RenderText(UINT_MAX);
 }
 
 View* Label::Copy()
@@ -97,7 +134,9 @@ void Label::SetText(string text)
 	if (isInitialized)
 	{
 		RenderText(UINT_MAX);
-		RecalculateLayout();
+
+		if (size.w == SIZE_WRAP_CONTENT || size.h == SIZE_WRAP_CONTENT)
+			RecalculateLayout();
 	}
 }
 
@@ -148,7 +187,7 @@ void Label::FillData(map<string, string>& data)
 			searchFrom = foundEnd + 1;
 		}
 	}
-	
+
 	if (isInitialized)
 	{
 		RenderText(UINT_MAX);

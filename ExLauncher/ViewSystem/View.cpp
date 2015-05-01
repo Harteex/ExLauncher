@@ -1,6 +1,7 @@
 #include "View.h"
 #include "../utils.h"
 #include <algorithm>
+#include "../global.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ View::View()
 	contentSize = Size(-1, -1);
 	layoutMargin = Box();
 	layoutGravity = 0;
+	gravity = 0;
 	itemTemplate = NULL;
 	background = Color(0, 0, 0, 0);
 }
@@ -71,6 +73,18 @@ void View::Draw(SDL_Renderer* renderer)
 		rectangle.w = calculatedSize.w;
 		rectangle.h = calculatedSize.h;
 		SDL_RenderFillRect(renderer, &rectangle);
+	}
+
+	if (debugViewBounds)
+	{
+		SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);
+		SDL_Rect rectangle;
+
+		rectangle.x = absolutePosition.x;
+		rectangle.y = absolutePosition.y;
+		rectangle.w = calculatedSize.w;
+		rectangle.h = calculatedSize.h;
+		SDL_RenderDrawRect(renderer, &rectangle);
 	}
 
 	OnDraw(renderer);
@@ -145,6 +159,16 @@ int  View::GetLayoutGravity()
 void View::SetLayoutGravity(int gravity)
 {
 	this->layoutGravity = gravity;
+}
+
+int  View::GetGravity()
+{
+	return gravity;
+}
+
+void View::SetGravity(int gravity)
+{
+	this->gravity = gravity;
 }
 
 Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
@@ -343,6 +367,23 @@ bool View::SetProperty(string name, string value)
 
 		return true;
 	}
+	else if (name == "gravity")
+	{
+		vector<string> gravityList = split(value, '|');
+		for (string g : gravityList)
+		{
+			if (g == "center_horizontal")
+				gravity |= GRAVITY_HCENTER;
+			else if (g == "center_vertical")
+				gravity |= GRAVITY_VCENTER;
+			else if (g == "right")
+				gravity |= GRAVITY_RIGHT;
+			else if (g == "bottom")
+				gravity |= GRAVITY_BOTTOM;
+		}
+
+		return true;
+	}
 
 	return false;
 }
@@ -353,6 +394,7 @@ View* View::CopyBase(View* view)
 	view->SetRelativePosition(relativePosition);
 	view->SetLayoutMargin(layoutMargin);
 	view->SetLayoutGravity(layoutGravity);
+	view->SetGravity(gravity);
 
 	for (View* v : children)
 	{
@@ -406,6 +448,11 @@ Position View::GetGravityOffset(Size childSize, Size containerSize, int childLay
 		gravityOffsetH = freeSpace.h / 2;
 	else if ((childLayoutGravity & GRAVITY_BOTTOM) > 0)
 		gravityOffsetH = freeSpace.h;
+
+	if (gravityOffsetW < 0)
+		gravityOffsetW = 0;
+	if (gravityOffsetH < 0)
+		gravityOffsetH = 0;
 
 	return Position(gravityOffsetW, gravityOffsetH);
 }

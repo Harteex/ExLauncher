@@ -11,7 +11,10 @@
 #define TOP					16
 #define BOTTOM				32
 
+Uint32 getPixel(SDL_Surface *surface, int x, int y);
+void putPixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
 void dumpSurface(char* filename, SDL_Surface* s);
+void getColorComponents(Uint32 color, SDL_PixelFormat* format, Uint8& red, Uint8& green, Uint8& blue, Uint8& alpha);
 SDL_Texture* createEmptyTexture(SDL_Renderer* renderer, int width, int height);
 SDL_Surface* createEmptySurface(int width, int height);
 SDL_Surface* loadSurface(const char* filename);
@@ -32,6 +35,8 @@ SDL_Surface* blurSurface(SDL_Surface* srcSurface, int radius);
 //SDL_Surface* renderTextUnicode(SDL_Surface* surface, TTF_Font* font, Uint16* text, SDL_Color &color);
 SDL_Surface* CreateGradientSurface(int width, int height, SDL_Color fromColor, SDL_Color toColor);
 SDL_Texture* CreateGradientTexture(int width, int height, Uint32 fromColor, Uint32 toColor, SDL_Renderer* renderer);
+SDL_Surface* ClipSurface(SDL_Surface* surface, SDL_Rect* clip);
+bool FadeOutSurface(SDL_Surface* surface, int fadeLength);
 void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color);
 void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color, int thickness);
 SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer);

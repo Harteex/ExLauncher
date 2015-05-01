@@ -16,6 +16,8 @@ ScreenManager screenManager;
 
 int _resetFrameSkip = 0;
 
+bool debugViewBounds = false;
+
 bool initializeSDL()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)

@@ -22,9 +22,9 @@
     </State>
   </Selector>
   <Label
-    width="wrap_content"
+    width="match_parent"
     height="wrap_content"
     text="{name}"
-    layoutGravity="center_horizontal"/>
+    gravity="center_horizontal"/>
 
 </LinearPanel>

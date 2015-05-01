@@ -3,6 +3,6 @@
 
 #define FPS 60
 
-#define TILE_SIZE 24
+extern bool debugViewBounds;
 
 #endif
