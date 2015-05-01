@@ -30,7 +30,7 @@ Calling order:
 class View
 {
 private:
-	//
+	Size viewBoundsSize;
 protected:
 	std::string id;
 	std::vector<std::string> tags;

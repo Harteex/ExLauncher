@@ -63,7 +63,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		SDL_FreeSurface(tempSurface);
 
 		// Apply alpha fadeout at end if text doesn't fit completely
-		FadeOutSurface(clippedSurface, 5);
+		FadeOutSurface(clippedSurface, 8);
 	}
 	else
 	{
@@ -95,10 +95,6 @@ void Label::OnDraw(SDL_Renderer* renderer)
 	SDL_Rect r;
 	r.x = absolutePosition.x;
 	r.y = absolutePosition.y;
-	r.w = calculatedSize.w;
-	r.h = calculatedSize.h;
-	SDL_RenderSetClipRect(renderer, &r);
-
 	r.w = contentSize.w;
 	r.h = contentSize.h;
 

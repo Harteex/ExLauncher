@@ -15,6 +15,7 @@ View::View()
 	size = Size(0, 0);
 	calculatedSize = Size(0, 0);
 	contentSize = Size(-1, -1);
+	viewBoundsSize = Size(0, 0);
 	layoutMargin = Box();
 	layoutGravity = 0;
 	gravity = 0;
@@ -75,19 +76,23 @@ void View::Draw(SDL_Renderer* renderer)
 		SDL_RenderFillRect(renderer, &rectangle);
 	}
 
+	SDL_Rect viewBoundsRectangle;
+	viewBoundsRectangle.x = absolutePosition.x;
+	viewBoundsRectangle.y = absolutePosition.y;
+	viewBoundsRectangle.w = viewBoundsSize.w;
+	viewBoundsRectangle.h = viewBoundsSize.h;
+
 	if (debugViewBounds)
 	{
 		SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);
-		SDL_Rect rectangle;
-
-		rectangle.x = absolutePosition.x;
-		rectangle.y = absolutePosition.y;
-		rectangle.w = calculatedSize.w;
-		rectangle.h = calculatedSize.h;
-		SDL_RenderDrawRect(renderer, &rectangle);
+		SDL_RenderDrawRect(renderer, &viewBoundsRectangle);
 	}
 
+	SDL_RenderSetClipRect(renderer, &viewBoundsRectangle);
+
 	OnDraw(renderer);
+
+	SDL_RenderSetClipRect(renderer, NULL);
 
 	for (int i = 0; i < children.size(); i++)
 	{
@@ -193,6 +198,13 @@ Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
 
 	if (size.h == SIZE_WRAP_CONTENT)
 		calculatedSize.h = contentSize.h;
+
+	viewBoundsSize = calculatedSize;
+	if (size.w == SIZE_WRAP_CONTENT && parentSize.w >= 0)
+		viewBoundsSize.w = min(calculatedSize.w, parentSize.w);
+
+	if (size.h == SIZE_WRAP_CONTENT && parentSize.h >= 0)
+		viewBoundsSize.h = min(calculatedSize.h, parentSize.h);
 
 	return calculatedSize;
 }
