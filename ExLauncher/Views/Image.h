@@ -7,7 +7,7 @@
 #include "../structures.h"
 #include <vector>
 #include <string>
-#include "../graphics.h"
+#include "../graphics_utils.h"
 
 /*********************************************/
 

@@ -16,6 +16,8 @@ LinearPanel::~LinearPanel()
 
 bool LinearPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
+	this->renderer = renderer;
+
 	isInitialized = true;
 	return true;
 }

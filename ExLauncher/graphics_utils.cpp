@@ -1,4 +1,4 @@
-#include "graphics.h"
+#include "graphics_utils.h"
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
@@ -684,4 +684,19 @@ SDL_Surface* drawTextSurface(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Fo
 	SDL_Surface* surfaceText = TTF_RenderText_Blended(font, text, fontColor);
 
 	return surfaceText;
+}
+
+Rectangle ClipRect(Rectangle clip, Rectangle origClip)
+{
+	int newX, newY, newX2, newY2;
+	newX = clip.x < origClip.x ? origClip.x : clip.x;
+	newY = clip.y < origClip.y ? origClip.y : clip.y;
+	newX2 = (clip.x + clip.w) >(origClip.x + origClip.w) ? (origClip.x + origClip.w) : (clip.x + clip.w);
+	newY2 = (clip.y + clip.h) >(origClip.y + origClip.h) ? (origClip.y + origClip.h) : (clip.y + clip.h);
+
+	int newW, newH;
+	newW = max(newX2 - newX, 0);
+	newH = max(newY2 - newY, 0);
+
+	return Rectangle(newX, newY, newW, newH);
 }

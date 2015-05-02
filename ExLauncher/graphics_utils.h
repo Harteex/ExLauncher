@@ -1,8 +1,9 @@
-#ifndef _GRAPHICS_H
-#define _GRAPHICS_H
+#ifndef _GRAPHICS_UTILS_H
+#define _GRAPHICS_UTILS_H
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include "structures.h"
 
 #define HCENTER				1
 #define VCENTER				2
@@ -41,5 +42,6 @@ void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color);
 void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color, int thickness);
 SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer);
 SDL_Surface* drawTextSurface(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font);
+Rectangle ClipRect(Rectangle clip, Rectangle origClip);
 
 #endif

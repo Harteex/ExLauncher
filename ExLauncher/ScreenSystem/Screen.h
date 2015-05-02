@@ -5,7 +5,7 @@
 
 #include <SDL.h>
 #include <string>
-#include "../graphics.h"
+#include "../graphics_utils.h"
 #include "../ScreenSystem/InputState.h"
 
 /*********************************************/

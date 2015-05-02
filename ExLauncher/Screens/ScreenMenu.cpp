@@ -62,6 +62,7 @@ bool ScreenMenu::Initialize()
 		contentView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
+		contentView->ApplyViewBounds();
 
 		View* v = GetViewById("inputView");
 		if (v != NULL)
@@ -164,7 +165,7 @@ void ScreenMenu::Draw(SDL_Renderer* renderer)
 	formContainer.Draw(renderer, !otherScreenHasFocus && screenstate != TransitionOff);*/
 
 	if (contentView != NULL)
-		contentView->Draw(renderer);
+		contentView->Draw();
 
 	/*if (titleTextureBg != NULL)
 		drawTexture(8, 3, titleTextureBg, renderer);

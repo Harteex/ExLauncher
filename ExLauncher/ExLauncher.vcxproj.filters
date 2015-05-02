@@ -54,9 +54,6 @@
     <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,6 +123,9 @@
     <ClCompile Include="ViewSystem\CollectionView.cpp">
       <Filter>Source Files\ViewSystem</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -135,9 +135,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="global.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
@@ -218,6 +215,9 @@
     <ClInclude Include="ViewSystem\CollectionView.h">
       <Filter>Source Files\ViewSystem</Filter>
     </ClInclude>
+    <ClInclude Include="graphics_utils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\fonts\OpenSans-Light.ttf">
@@ -274,6 +274,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\themes\default\appIconDefault.png">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Image>
+    <Image Include="data\themes\default\markerBg.png">
       <Filter>Resource Files\data\themes\default</Filter>
     </Image>
   </ItemGroup>

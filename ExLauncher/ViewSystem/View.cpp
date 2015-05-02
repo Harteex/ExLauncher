@@ -2,20 +2,23 @@
 #include "../utils.h"
 #include <algorithm>
 #include "../global.h"
+#include "../graphics_utils.h"
 
 using namespace std;
 
 View::View()
 {
 	isInitialized = false;
+	renderer = NULL;
 	id = "";
+	parent = NULL;
 	visible = true;
 	relativePosition = Position(0, 0);
 	absolutePosition = Position(0, 0);
 	size = Size(0, 0);
 	calculatedSize = Size(0, 0);
 	contentSize = Size(-1, -1);
-	viewBoundsSize = Size(0, 0);
+	viewBounds = Rectangle(0, 0, 0, 0);
 	layoutMargin = Box();
 	layoutGravity = 0;
 	gravity = 0;
@@ -53,7 +56,7 @@ bool View::InitializeAll(ResourceManager* resourceManager, SDL_Renderer* rendere
 	return result;
 }
 
-void View::Draw(SDL_Renderer* renderer)
+void View::Draw()
 {
 	if (!IsVisible())
 		return;
@@ -62,6 +65,9 @@ void View::Draw(SDL_Renderer* renderer)
 		return;
 
 	if (contentSize.w == 0 || contentSize.h == 0)
+		return;
+
+	if (viewBounds.w == 0 || viewBounds.h == 0)
 		return;
 
 	if (background.a > 0)
@@ -77,10 +83,10 @@ void View::Draw(SDL_Renderer* renderer)
 	}
 
 	SDL_Rect viewBoundsRectangle;
-	viewBoundsRectangle.x = absolutePosition.x;
-	viewBoundsRectangle.y = absolutePosition.y;
-	viewBoundsRectangle.w = viewBoundsSize.w;
-	viewBoundsRectangle.h = viewBoundsSize.h;
+	viewBoundsRectangle.x = viewBounds.x;
+	viewBoundsRectangle.y = viewBounds.y;
+	viewBoundsRectangle.w = viewBounds.w;
+	viewBoundsRectangle.h = viewBounds.h;
 
 	if (debugViewBounds)
 	{
@@ -96,7 +102,7 @@ void View::Draw(SDL_Renderer* renderer)
 
 	for (int i = 0; i < children.size(); i++)
 	{
-		children[i]->Draw(renderer);
+		children[i]->Draw();
 	}
 }
 
@@ -144,6 +150,11 @@ void View::SetSize(int width, int height)
 Size View::GetContentSize()
 {
 	return contentSize;
+}
+
+Rectangle View::GetViewBounds()
+{
+	return viewBounds;
 }
 
 Box View::GetLayoutMargin()
@@ -199,13 +210,6 @@ Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
 	if (size.h == SIZE_WRAP_CONTENT)
 		calculatedSize.h = contentSize.h;
 
-	viewBoundsSize = calculatedSize;
-	if (size.w == SIZE_WRAP_CONTENT && parentSize.w >= 0)
-		viewBoundsSize.w = min(calculatedSize.w, parentSize.w);
-
-	if (size.h == SIZE_WRAP_CONTENT && parentSize.h >= 0)
-		viewBoundsSize.h = min(calculatedSize.h, parentSize.h);
-
 	return calculatedSize;
 }
 
@@ -230,6 +234,7 @@ void View::RecalculateLayout()
 			calculatedSize.h = contentSize.h;
 
 		CalculateAbsolutePosition(parent != NULL ? parent->GetAbsolutePosition() : Position(0, 0));
+		ApplyViewBounds();
 	}
 }
 
@@ -467,4 +472,30 @@ Position View::GetGravityOffset(Size childSize, Size containerSize, int childLay
 		gravityOffsetH = 0;
 
 	return Position(gravityOffsetW, gravityOffsetH);
+}
+
+void View::ApplyViewBounds()
+{
+	Rectangle parentViewBounds;
+	if (parent != NULL)
+	{
+		parentViewBounds = parent->GetViewBounds();
+	}
+	else
+	{
+		SDL_Rect r;
+		SDL_RenderGetViewport(renderer, &r);
+		parentViewBounds.x = 0;
+		parentViewBounds.y = 0;
+		parentViewBounds.w = r.w;
+		parentViewBounds.h = r.h;
+	}
+
+	Rectangle thisRect = Rectangle(absolutePosition.x, absolutePosition.y, calculatedSize.w, calculatedSize.h);
+	viewBounds = ClipRect(thisRect, parentViewBounds);
+
+	for (View* v : children)
+	{
+		v->ApplyViewBounds();
+	}
 }

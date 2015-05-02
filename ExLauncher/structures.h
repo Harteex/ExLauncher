@@ -48,6 +48,17 @@ struct Box
 	Box(int top, int bottom, int left, int right) : top(top), bottom(bottom), left(left), right(right) {}
 };
 
+struct Rectangle
+{
+	int x;
+	int y;
+	int w;
+	int h;
+
+	Rectangle() : x(0), y(0), w(0), h(0) {}
+	Rectangle(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) {}
+};
+
 struct Color
 {
 	int r;

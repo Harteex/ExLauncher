@@ -15,6 +15,7 @@ Image::~Image()
 
 bool Image::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
+	this->renderer = renderer;
 	image = resourceManager->LoadImage(path, path.c_str());
 	if (image == NULL)
 		return false;

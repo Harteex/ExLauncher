@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearPanel
-  width="80"
-  height="wrap_content"
-  orientation="vertical"
-  layoutGravity="center_horizontal">
+<FramePanel
+  width="77"
+  height="50">
   <Selector
-    width="wrap_content"
-    height="wrap_content"
-    layoutGravity="center_horizontal">
-    <State stateSelected="false">
-      <Image
-        width="wrap_content"
-        height="wrap_content"
-        path="@theme/appIconDefault.png"/>
-    </State>
+      width="wrap_content"
+      height="wrap_content">
     <State stateSelected="true">
       <Image
         width="wrap_content"
         height="wrap_content"
-        path="data/graphics/testicon2.png"/>
+        path="@theme/markerBg.png"/>
     </State>
   </Selector>
-  <Label
+  <LinearPanel
     width="match_parent"
     height="wrap_content"
-    text="{name}"
-    gravity="center_horizontal"/>
-
-</LinearPanel>
+    orientation="vertical"
+    layoutGravity="center_horizontal">
+    <Image
+      width="wrap_content"
+      height="wrap_content"
+      layoutGravity="center_horizontal"
+      path="@theme/appIconDefault.png"/>
+    <Label
+      width="match_parent"
+      height="wrap_content"
+      text="{name}"
+      gravity="center_horizontal"/>
+  </LinearPanel>
+</FramePanel>

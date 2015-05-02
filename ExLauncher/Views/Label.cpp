@@ -1,6 +1,6 @@
 #include "Label.h"
 #include <SDL.h>
-#include "../graphics.h"
+#include "../graphics_utils.h"
 
 using namespace std;
 

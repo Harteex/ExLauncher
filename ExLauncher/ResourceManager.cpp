@@ -1,5 +1,5 @@
 #include "ResourceManager.h"
-#include "graphics.h"
+#include "graphics_utils.h"
 
 // TODO:
 // * Handle wallpapers separately

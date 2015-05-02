@@ -24,6 +24,7 @@ bool ScreenError::Initialize()
 	errorLabel->SetRelativePosition(0, 0);
 	errorLabel->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 	errorLabel->CalculateAbsolutePosition(Position(0, 0));
+	errorLabel->ApplyViewBounds();
 
 	return true;
 }
@@ -42,7 +43,7 @@ void ScreenError::Draw(SDL_Renderer* renderer)
 {
 	if (errorLabel != NULL)
 	{
-		errorLabel->Draw(renderer);
+		errorLabel->Draw();
 		// Print error on screen using the dialog font
 		//st_font_draw_text_ascii_center(errorMsg.c_str(), 50, screenManager->GetResourceManager()->GetFont("dialogFont"), renderer); // FIXME
 	}

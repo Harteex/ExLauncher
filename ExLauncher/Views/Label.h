@@ -7,7 +7,7 @@
 #include "../structures.h"
 #include <vector>
 #include <string>
-#include "../graphics.h"
+#include "../graphics_utils.h"
 #include <SDL_ttf.h>
 
 /*********************************************/
@@ -19,7 +19,6 @@ private:
 	std::string text;
 	std::string calculatedText;
 	ResourceManager* resourceManager;
-	SDL_Renderer* renderer;
 	TTF_Font* font;
 
 	bool RenderText(Uint32 textAreaWidth);

@@ -15,6 +15,7 @@ FramePanel::~FramePanel()
 
 bool FramePanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
+	this->renderer = renderer;
 	isInitialized = true;
 	return true;
 }
