@@ -3,16 +3,19 @@
 
 /*********************************************/
 
-#include "../ViewSystem/View.h"
+#include "../ViewSystem/ScrollView.h"
 #include "../structures.h"
 #include <vector>
 
 /*********************************************/
 
-class LinearPanel : public View
+class LinearPanel : public ScrollView
 {
 private:
 	Orientation orientation;
+
+	Position GetPositionForItemIndex(int elementNo);
+	int GetItemIndexForPosition(Position position);
 public:
 	LinearPanel();
 	~LinearPanel();
@@ -23,6 +26,10 @@ public:
 	Orientation GetOrientation();
 	void SetOrientation(Orientation orientation);
 	bool SetProperty(std::string name, std::string value);
+
+	View* GetSelectedItem();
+	View* SelectNext(Direction direction);
+	View* Select(Position position);
 };
 
 /*********************************************/

@@ -18,6 +18,8 @@ bool LinearPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* ren
 {
 	this->renderer = renderer;
 
+	ScrollView::SetOrientation(orientation);
+
 	isInitialized = true;
 	return true;
 }
@@ -129,4 +131,129 @@ bool LinearPanel::SetProperty(string name, string value)
 	}
 
 	return false;
+}
+
+Position LinearPanel::GetPositionForItemIndex(int elementNo)
+{
+	Position position = Position(-1, -1);
+
+	if (elementNo < 0 || elementNo >= children.size())
+		return position;
+
+	if (orientation == OrientationHorizontal)
+	{
+		position.x = elementNo;
+		position.y = 0;
+	}
+	else
+	{
+		position.x = 0;
+		position.y = elementNo;
+	}
+
+	return position;
+}
+
+int LinearPanel::GetItemIndexForPosition(Position position)
+{
+	if (orientation == OrientationHorizontal)
+	{
+		if (position.x < 0 || position.x >= children.size())
+			return -1;
+
+		if (position.y != 0)
+			return -1;
+
+		return position.x;
+	}
+	else
+	{
+		if (position.x != 0)
+			return -1;
+
+		if (position.y < 0 || position.y >= children.size())
+			return -1;
+
+		return position.y;
+	}
+}
+
+View* LinearPanel::GetSelectedItem()
+{
+	return children[GetItemIndexForPosition(selectedPosition)];
+}
+
+View* LinearPanel::SelectNext(Direction direction)
+{
+	if (children.size() == 0)
+		return NULL;
+
+	int dx = 0;
+	int dy = 0;
+
+	switch (direction)
+	{
+	case DirectionUp:
+		dy = -1;
+		break;
+	case DirectionDown:
+		dy = 1;
+		break;
+	case DirectionLeft:
+		dx = -1;
+		break;
+	case DirectionRight:
+		dx = 1;
+		break;
+	}
+
+	int origIndex = GetItemIndexForPosition(selectedPosition);
+
+	if (orientation == OrientationHorizontal)
+	{
+		if (origIndex + dx < 0 || origIndex + dx >= children.size())
+			return NULL;
+
+		if (dy != 0)
+			return NULL;
+	}
+
+	if (orientation == OrientationVertical)
+	{
+		if (dx != 0)
+			return NULL;
+
+		if (origIndex + dy < 0 || origIndex + dy >= children.size())
+			return NULL;
+	}
+
+	
+	selectedPosition.x += dx;
+	selectedPosition.y += dy;
+	int index = GetItemIndexForPosition(selectedPosition);
+
+	// A new selection was made
+	// Propagate state change to old and new selection
+	children[origIndex]->PropagateStateChange("stateSelected", "false");
+	children[index]->PropagateStateChange("stateSelected", "true");
+
+	ScrollTo(children[index]);
+	return children[index];
+}
+
+View* LinearPanel::Select(Position position)
+{
+	PropagateStateChange("stateSelected", "false");
+
+	int index = GetItemIndexForPosition(position);
+	if (index >= 0 && index < children.size())
+	{
+		children[index]->PropagateStateChange("stateSelected", "true");
+		ScrollTo(children[index]);
+		return children[index];
+	}
+	else
+	{
+		return NULL;
+	}
 }

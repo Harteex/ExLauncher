@@ -19,7 +19,9 @@ GridView::~GridView()
 bool GridView::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
 	this->renderer = renderer;
+
 	ScrollView::SetOrientation(orientation);
+
 	isInitialized = true;
 	return true;
 }
@@ -211,11 +213,6 @@ bool GridView::SetProperty(string name, string value)
 	return false;
 }
 
-View* GridView::GetSelectedItem()
-{
-	return children[GetItemIndexForPosition(selectedPosition)];
-}
-
 void GridView::GetRowsAndColumns(int& outRows, int& outColumns)
 {
 	int itemsInLength = children.size() / itemCountSecondaryDirection;
@@ -277,6 +274,11 @@ int GridView::GetItemIndexForPosition(Position position)
 		return position.x * rows + position.y;
 	else
 		return position.y * columns + position.x;
+}
+
+View* GridView::GetSelectedItem()
+{
+	return children[GetItemIndexForPosition(selectedPosition)];
 }
 
 View* GridView::SelectNext(Direction direction)
@@ -342,7 +344,7 @@ View* GridView::Select(Position position)
 	PropagateStateChange("stateSelected", "false");
 
 	int index = GetItemIndexForPosition(position);
-	if (index < children.size())
+	if (index >= 0 && index < children.size())
 	{
 		children[index]->PropagateStateChange("stateSelected", "true");
 		ScrollTo(children[index]);

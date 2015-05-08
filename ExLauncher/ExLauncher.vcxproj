@@ -136,6 +136,7 @@
     <Xml Include="data\themes\default\grid.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="data\themes\default\list.xml" />
     <Xml Include="data\themes\default\test2.xml">
       <DeploymentContent>true</DeploymentContent>
     </Xml>
