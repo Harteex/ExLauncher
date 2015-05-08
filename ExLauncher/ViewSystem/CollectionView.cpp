@@ -14,13 +14,13 @@ CollectionView::CollectionView()
 
 void CollectionView::HandleInput(InputState* input)
 {
-	if (input->GameKeyJustPressed(GAMEKEY_UP))
+	if (input->GameKeyRepeat(GAMEKEY_UP))
 		SelectNext(DirectionUp);
-	else if (input->GameKeyJustPressed(GAMEKEY_DOWN))
+	else if (input->GameKeyRepeat(GAMEKEY_DOWN))
 		SelectNext(DirectionDown);
-	else if (input->GameKeyJustPressed(GAMEKEY_LEFT))
+	else if (input->GameKeyRepeat(GAMEKEY_LEFT))
 		SelectNext(DirectionLeft);
-	else if (input->GameKeyJustPressed(GAMEKEY_RIGHT))
+	else if (input->GameKeyRepeat(GAMEKEY_RIGHT))
 		SelectNext(DirectionRight);
 }
 

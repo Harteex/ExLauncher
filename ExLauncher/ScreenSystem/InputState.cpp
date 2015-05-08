@@ -30,6 +30,9 @@ InputState::InputState()
 	lastMousePosition.y = 0;
 
 	gameKeyArray = NULL;
+
+	repeatKey = -1;
+	repeatKeyDown = false;
 }
 
 InputState::~InputState()
@@ -55,6 +58,11 @@ bool InputState::KeyJustPressed(int key)
 bool InputState::KeyJustReleased(int key)
 {
 	return keyState[key] == 0 && lastKeyState[key] == 1;
+}
+
+bool InputState::KeyRepeat(int key)
+{
+	return KeyJustPressed(key) || (repeatKey == key && repeatKeyDown);
 }
 
 void InputState::InitializeGameKeys(int* keyMappingArray, int numberOfKeys)
@@ -83,6 +91,11 @@ bool InputState::GameKeyJustPressed(int key)
 bool InputState::GameKeyJustReleased(int key)
 {
 	return KeyJustReleased(gameKeyArray[key]);
+}
+
+bool InputState::GameKeyRepeat(int key)
+{
+	return KeyRepeat(gameKeyArray[key]);
 }
 
 bool InputState::MouseDown(MouseButton button)
@@ -130,12 +143,26 @@ void InputState::Update()
 
 	// Clear textinput buffer
 	textInputBufferSize = 0;
+
+	repeatKeyDown = false;
 }
 
 void InputState::KeyStateChanged(SDL_KeyboardEvent* sdlkey)
 {
-	//keyState[sdlkey->keysym.sym] = (sdlkey->type == SDL_KEYDOWN) ? 1 : 0; // why sym?? scancode...
-	keyState[sdlkey->keysym.scancode] = (sdlkey->type == SDL_KEYDOWN) ? 1 : 0;
+	if (sdlkey->repeat == 1)
+	{
+		printf("repeat\n");
+	}
+	
+	if (sdlkey->repeat == 0)
+	{
+		keyState[sdlkey->keysym.scancode] = (sdlkey->type == SDL_KEYDOWN) ? 1 : 0;
+	}
+	else
+	{
+		repeatKey = sdlkey->keysym.scancode;
+		repeatKeyDown = true;
+	}
 
 	/*if (textInputEnabled && sdlkey->type == SDL_KEYDOWN)
 	{

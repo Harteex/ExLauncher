@@ -44,16 +44,21 @@ private:
 	Position mousePosition;
 	Position lastMousePosition;
 	int* gameKeyArray;
+	
+	int repeatKey;
+	bool repeatKeyDown;
 public:
 	InputState();
 	~InputState();
 	bool KeyPressed(int key);
 	bool KeyJustPressed(int key);
 	bool KeyJustReleased(int key);
+	bool KeyRepeat(int key);
 	void InitializeGameKeys(int* keyMappingArray, int numberOfKeys);
 	bool GameKeyPressed(int key);
 	bool GameKeyJustPressed(int key);
 	bool GameKeyJustReleased(int key);
+	bool GameKeyRepeat(int key);
 	bool MouseDown(MouseButton button);
 	bool MouseJustClicked(MouseButton button);
 	bool MouseJustReleased(MouseButton button);
