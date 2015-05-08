@@ -63,7 +63,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		SDL_FreeSurface(tempSurface);
 
 		// Apply alpha fadeout at end if text doesn't fit completely
-		FadeOutSurface(clippedSurface, 8);
+		FadeOutSurface(clippedSurface, 16);
 	}
 	else
 	{
@@ -83,18 +83,14 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	return true;
 }
 
-void Label::Update()
-{
-}
-
-void Label::OnDraw(SDL_Renderer* renderer)
+void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 {
 	if (texture == NULL)
 		return;
 
 	SDL_Rect r;
-	r.x = absolutePosition.x;
-	r.y = absolutePosition.y;
+	r.x = absolutePosition.x - offset.x;
+	r.y = absolutePosition.y - offset.y;
 	r.w = contentSize.w;
 	r.h = contentSize.h;
 

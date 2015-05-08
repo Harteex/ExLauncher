@@ -18,7 +18,6 @@ View::View()
 	size = Size(0, 0);
 	calculatedSize = Size(0, 0);
 	contentSize = Size(-1, -1);
-	viewBounds = Rectangle(0, 0, 0, 0);
 	layoutMargin = Box();
 	layoutGravity = 0;
 	gravity = 0;
@@ -56,7 +55,21 @@ bool View::InitializeAll(ResourceManager* resourceManager, SDL_Renderer* rendere
 	return result;
 }
 
-void View::Draw()
+void View::Update()
+{
+	OnUpdate();
+
+	for (View* v : children)
+	{
+		v->Update();
+	}
+}
+
+void View::OnUpdate()
+{
+}
+
+void View::Draw(Position offset, Rectangle parentViewBounds)
 {
 	if (!IsVisible())
 		return;
@@ -67,20 +80,10 @@ void View::Draw()
 	if (contentSize.w == 0 || contentSize.h == 0)
 		return;
 
+	Rectangle viewBounds = CalculateViewBounds(offset, parentViewBounds);
+
 	if (viewBounds.w == 0 || viewBounds.h == 0)
 		return;
-
-	if (background.a > 0)
-	{
-		SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
-		SDL_Rect rectangle;
-
-		rectangle.x = absolutePosition.x;
-		rectangle.y = absolutePosition.y;
-		rectangle.w = calculatedSize.w;
-		rectangle.h = calculatedSize.h;
-		SDL_RenderFillRect(renderer, &rectangle);
-	}
 
 	SDL_Rect viewBoundsRectangle;
 	viewBoundsRectangle.x = viewBounds.x;
@@ -88,26 +91,68 @@ void View::Draw()
 	viewBoundsRectangle.w = viewBounds.w;
 	viewBoundsRectangle.h = viewBounds.h;
 
-	if (debugViewBounds)
-	{
-		SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);
-		SDL_RenderDrawRect(renderer, &viewBoundsRectangle);
-	}
+	DrawDebugViewBounds(viewBounds);
 
 	SDL_RenderSetClipRect(renderer, &viewBoundsRectangle);
-
-	OnDraw(renderer);
-
+	DrawBackground(offset);
+	OnDraw(renderer, offset);
 	SDL_RenderSetClipRect(renderer, NULL);
 
-	for (int i = 0; i < children.size(); i++)
+	DrawChildren(offset, viewBounds);
+}
+
+void View::OnDraw(SDL_Renderer* renderer, Position offset)
+{
+}
+
+void View::DrawBackground(Position offset)
+{
+	if (background.a > 0)
 	{
-		children[i]->Draw();
+		SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
+		SDL_Rect rectangle;
+
+		rectangle.x = absolutePosition.x - offset.x;
+		rectangle.y = absolutePosition.y - offset.y;
+		rectangle.w = calculatedSize.w;
+		rectangle.h = calculatedSize.h;
+		SDL_RenderFillRect(renderer, &rectangle);
 	}
 }
 
-void View::OnDraw(SDL_Renderer* renderer)
+void View::DrawDebugViewBounds(Rectangle viewBounds)
 {
+	if (debugViewBounds)
+	{
+		SDL_Rect viewBoundsRectangle;
+		viewBoundsRectangle.x = viewBounds.x;
+		viewBoundsRectangle.y = viewBounds.y;
+		viewBoundsRectangle.w = viewBounds.w;
+		viewBoundsRectangle.h = viewBounds.h;
+
+		SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);
+		SDL_RenderDrawRect(renderer, &viewBoundsRectangle);
+	}
+}
+
+void View::DrawChildren(Position offset, Rectangle viewBounds)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->Draw(offset, viewBounds);
+	}
+}
+
+Rectangle View::CalculateViewBounds(Position offset, Rectangle parentViewBounds)
+{
+	Rectangle viewBounds = Rectangle(absolutePosition.x - offset.x, absolutePosition.y - offset.y, calculatedSize.w, calculatedSize.h);
+
+	if (parentViewBounds.w != -1 && parentViewBounds.h != -1)
+	{
+		viewBounds = ClipRect(viewBounds, parentViewBounds);
+	}
+
+	return viewBounds;
 }
 
 Position View::GetRelativePosition()
@@ -147,14 +192,14 @@ void View::SetSize(int width, int height)
 	size.h = height;
 }
 
+Size View::GetCalculatedSize()
+{
+	return calculatedSize;
+}
+
 Size View::GetContentSize()
 {
 	return contentSize;
-}
-
-Rectangle View::GetViewBounds()
-{
-	return viewBounds;
 }
 
 Box View::GetLayoutMargin()
@@ -234,7 +279,6 @@ void View::RecalculateLayout()
 			calculatedSize.h = contentSize.h;
 
 		CalculateAbsolutePosition(parent != NULL ? parent->GetAbsolutePosition() : Position(0, 0));
-		ApplyViewBounds();
 	}
 }
 
@@ -474,28 +518,3 @@ Position View::GetGravityOffset(Size childSize, Size containerSize, int childLay
 	return Position(gravityOffsetW, gravityOffsetH);
 }
 
-void View::ApplyViewBounds()
-{
-	Rectangle parentViewBounds;
-	if (parent != NULL)
-	{
-		parentViewBounds = parent->GetViewBounds();
-	}
-	else
-	{
-		SDL_Rect r;
-		SDL_RenderGetViewport(renderer, &r);
-		parentViewBounds.x = 0;
-		parentViewBounds.y = 0;
-		parentViewBounds.w = r.w;
-		parentViewBounds.h = r.h;
-	}
-
-	Rectangle thisRect = Rectangle(absolutePosition.x, absolutePosition.y, calculatedSize.w, calculatedSize.h);
-	viewBounds = ClipRect(thisRect, parentViewBounds);
-
-	for (View* v : children)
-	{
-		v->ApplyViewBounds();
-	}
-}

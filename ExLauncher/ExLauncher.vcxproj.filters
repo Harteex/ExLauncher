@@ -126,6 +126,9 @@
     <ClCompile Include="graphics_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ViewSystem\ScrollView.cpp">
+      <Filter>Source Files\ViewSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="graphics_utils.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewSystem\ScrollView.h">
+      <Filter>Source Files\ViewSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

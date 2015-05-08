@@ -3,13 +3,13 @@
 
 /*********************************************/
 
-#include "../ViewSystem/CollectionView.h"
+#include "../ViewSystem/ScrollView.h"
 #include "../structures.h"
 #include <vector>
 
 /*********************************************/
 
-class GridView : public CollectionView
+class GridView : public ScrollView
 {
 private:
 	//int selectedPosition;
@@ -35,7 +35,6 @@ public:
 	GridView();
 	~GridView();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	void Update();
 	//void SetTransition(TransitionEffect effect, double value);
 	//void ClearTransitions();
 	void OnLayoutChange();

@@ -26,8 +26,7 @@ public:
 	Label();
 	~Label();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	void Update();
-	void OnDraw(SDL_Renderer* renderer);
+	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();
 	View* Copy();
 

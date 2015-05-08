@@ -28,6 +28,7 @@
     <ClCompile Include="ThemeManager.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="ViewSystem\CollectionView.cpp" />
+    <ClCompile Include="ViewSystem\ScrollView.cpp" />
     <ClCompile Include="ViewSystem\View.cpp" />
     <ClCompile Include="Views\FramePanel.cpp" />
     <ClCompile Include="Views\GridView.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="structures.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="ViewSystem\CollectionView.h" />
+    <ClInclude Include="ViewSystem\ScrollView.h" />
     <ClInclude Include="ViewSystem\View.h" />
     <ClInclude Include="Views\FramePanel.h" />
     <ClInclude Include="Views\GridView.h" />
@@ -131,7 +133,9 @@
   <ItemGroup>
     <Xml Include="data\themes\default\appTemplate.xml" />
     <Xml Include="data\themes\default\contentsizebug.xml" />
-    <Xml Include="data\themes\default\grid.xml" />
+    <Xml Include="data\themes\default\grid.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="data\themes\default\test2.xml">
       <DeploymentContent>true</DeploymentContent>
     </Xml>

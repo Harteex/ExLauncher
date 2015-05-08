@@ -20,8 +20,7 @@ public:
 	Image();
 	~Image();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	void Update();
-	void OnDraw(SDL_Renderer* renderer);
+	void OnDraw(SDL_Renderer* renderer, Position offset);
 	View* Copy();
 
 	void SetPath(std::string path);

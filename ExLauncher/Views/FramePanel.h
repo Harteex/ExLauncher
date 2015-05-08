@@ -15,7 +15,6 @@ public:
 	FramePanel();
 	virtual ~FramePanel();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	void Update();
 	void OnLayoutChange();
 	virtual View* Copy();
 

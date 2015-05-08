@@ -26,18 +26,14 @@ bool Image::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 	return true;
 }
 
-void Image::Update()
-{
-}
-
-void Image::OnDraw(SDL_Renderer* renderer)
+void Image::OnDraw(SDL_Renderer* renderer, Position offset)
 {
 	if (image == NULL)
 		return;
 
 	SDL_Rect r;
-	r.x = absolutePosition.x;
-	r.y = absolutePosition.y;
+	r.x = absolutePosition.x - offset.x;
+	r.y = absolutePosition.y - offset.y;
 	r.w = calculatedSize.w;
 	r.h = calculatedSize.h;
 	drawTexture(&r, image, renderer);

@@ -62,7 +62,6 @@ bool ScreenMenu::Initialize()
 		contentView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
-		contentView->ApplyViewBounds();
 
 		View* v = GetViewById("inputView");
 		if (v != NULL)

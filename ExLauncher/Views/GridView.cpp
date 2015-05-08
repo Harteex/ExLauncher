@@ -23,10 +23,6 @@ bool GridView::Initialize(ResourceManager* resourceManager, SDL_Renderer* render
 	return true;
 }
 
-void GridView::Update()
-{
-}
-
 void GridView::OnLayoutChange()
 {
 	if (itemCountSecondaryDirection <= 0)
@@ -336,6 +332,7 @@ View* GridView::SelectNext(Direction direction)
 		children[index]->PropagateStateChange("stateSelected", "true");
 	}
 
+	ScrollTo(children[index]);
 	return children[index];
 }
 
@@ -347,6 +344,7 @@ View* GridView::Select(Position position)
 	if (index < children.size())
 	{
 		children[index]->PropagateStateChange("stateSelected", "true");
+		ScrollTo(children[index]);
 		return children[index];
 	}
 	else

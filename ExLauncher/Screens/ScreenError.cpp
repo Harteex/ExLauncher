@@ -24,7 +24,6 @@ bool ScreenError::Initialize()
 	errorLabel->SetRelativePosition(0, 0);
 	errorLabel->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 	errorLabel->CalculateAbsolutePosition(Position(0, 0));
-	errorLabel->ApplyViewBounds();
 
 	return true;
 }

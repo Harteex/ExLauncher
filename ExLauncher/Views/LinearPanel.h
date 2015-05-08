@@ -17,7 +17,6 @@ public:
 	LinearPanel();
 	~LinearPanel();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	void Update();
 	void OnLayoutChange();
 	View* Copy();
 

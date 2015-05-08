@@ -22,10 +22,6 @@ bool LinearPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* ren
 	return true;
 }
 
-void LinearPanel::Update()
-{
-}
-
 void LinearPanel::OnLayoutChange()
 {
 	Position childOffset = Position(0, 0);

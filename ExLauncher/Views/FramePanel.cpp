@@ -20,10 +20,6 @@ bool FramePanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* rend
 	return true;
 }
 
-void FramePanel::Update()
-{
-}
-
 void FramePanel::OnLayoutChange()
 {
 	Position childOffset = Position(0, 0);

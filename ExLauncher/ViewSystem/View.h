@@ -30,7 +30,9 @@ Calling order:
 class View
 {
 private:
-	Rectangle viewBounds;
+	void DrawBackground(Position offset);
+	void DrawDebugViewBounds(Rectangle viewBounds);
+	Rectangle CalculateViewBounds(Position offset, Rectangle parentViewBounds);
 protected:
 	SDL_Renderer* renderer;
 	std::string id;
@@ -51,14 +53,16 @@ protected:
 	Color background;
 
 	View* CopyBase(View* view);
+	virtual void DrawChildren(Position offset, Rectangle viewBounds);
 public:
 	View();
     virtual ~View() {}
 	virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
 	bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
-	virtual void Update() = 0;
-	void Draw();
-	virtual void OnDraw(SDL_Renderer* renderer);
+	void Update();
+	virtual void OnUpdate();
+	virtual void Draw(Position offset = Position(0, 0), Rectangle parentViewBounds = Rectangle(-1, -1, -1, -1));
+	virtual void OnDraw(SDL_Renderer* renderer, Position offset);
 	std::string GetId();
 	void SetId(std::string id);
 	std::vector<std::string> GetTags();
@@ -78,6 +82,7 @@ public:
 	Size GetSize();
 	void SetSize(Size size);
 	void SetSize(int width, int height);
+	Size GetCalculatedSize();
 	Size GetContentSize();
 	Rectangle GetViewBounds();
 	Box GetLayoutMargin();
@@ -98,7 +103,6 @@ public:
 	void PropagateStateChange(std::string stateName, std::string stateValue);
 	virtual void OnStateChange(std::string stateName, std::string stateValue);
 	Position GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity);
-	void ApplyViewBounds();
 	/*virtual void SetTransition(TransitionEffect effect, double value) = 0;
 	virtual void ClearTransitions();*/
 };
