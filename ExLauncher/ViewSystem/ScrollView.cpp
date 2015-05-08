@@ -7,12 +7,15 @@ ScrollView::ScrollView()
 {
 	scrollOffset = 0;
 	scrollToTargetOffset = 0;
+	orientation = OrientationHorizontal;
 }
 
 void ScrollView::DrawChildren(Position offset, Rectangle viewBounds)
 {
-	//offset.x += scrollOffset; // FIXME check scroll direction
-	offset.y += scrollOffset;
+	if (orientation == OrientationHorizontal)
+		offset.x += scrollOffset;
+	else
+		offset.y += scrollOffset;
 
 	for (int i = 0; i < children.size(); i++)
 	{
@@ -45,20 +48,47 @@ void ScrollView::ScrollTo(int offset)
 // TODO make sure to handle any layoutmargin, margin, padding or similar, and special itemMargin for the new gridview
 void ScrollView::ScrollTo(View* child)
 {
-	int top = child->GetAbsolutePosition().y - child->GetLayoutMargin().top - scrollOffset;
-	int bottom = child->GetAbsolutePosition().y + child->GetCalculatedSize().h + child->GetLayoutMargin().bottom - scrollOffset;
-
-	// Determine direction to scroll
-	if (top < absolutePosition.y)
+	if (orientation == OrientationHorizontal)
 	{
-		// Scroll upwards
+		int left = child->GetAbsolutePosition().x - child->GetLayoutMargin().left - scrollOffset;
+		int right = child->GetAbsolutePosition().x + child->GetCalculatedSize().w + child->GetLayoutMargin().right - scrollOffset;
 
-		ScrollTo(child->GetAbsolutePosition().y - absolutePosition.y - child->GetLayoutMargin().top);
+		// Determine direction to scroll
+		if (left < absolutePosition.x)
+		{
+			// Scroll upwards
+
+			ScrollTo(child->GetAbsolutePosition().x - absolutePosition.x - child->GetLayoutMargin().left);
+		}
+		else if (right > calculatedSize.w)
+		{
+			// Scroll downwards
+
+			ScrollTo(child->GetAbsolutePosition().x + child->GetCalculatedSize().w + child->GetLayoutMargin().right - calculatedSize.w);
+		}
 	}
-	else if (bottom > calculatedSize.h)
+	else
 	{
-		// Scroll downwards
+		int top = child->GetAbsolutePosition().y - child->GetLayoutMargin().top - scrollOffset;
+		int bottom = child->GetAbsolutePosition().y + child->GetCalculatedSize().h + child->GetLayoutMargin().bottom - scrollOffset;
 
-		ScrollTo(child->GetAbsolutePosition().y + child->GetCalculatedSize().h + child->GetLayoutMargin().bottom - calculatedSize.h);
+		// Determine direction to scroll
+		if (top < absolutePosition.y)
+		{
+			// Scroll upwards
+
+			ScrollTo(child->GetAbsolutePosition().y - absolutePosition.y - child->GetLayoutMargin().top);
+		}
+		else if (bottom > calculatedSize.h)
+		{
+			// Scroll downwards
+
+			ScrollTo(child->GetAbsolutePosition().y + child->GetCalculatedSize().h + child->GetLayoutMargin().bottom - calculatedSize.h);
+		}
 	}
+}
+
+void ScrollView::SetOrientation(Orientation orientation)
+{
+	this->orientation = orientation;
 }

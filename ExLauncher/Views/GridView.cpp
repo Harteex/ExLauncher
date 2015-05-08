@@ -19,6 +19,7 @@ GridView::~GridView()
 bool GridView::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
 	this->renderer = renderer;
+	ScrollView::SetOrientation(orientation);
 	isInitialized = true;
 	return true;
 }

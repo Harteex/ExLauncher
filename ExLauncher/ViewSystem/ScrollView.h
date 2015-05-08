@@ -13,11 +13,14 @@
 
 class ScrollView : public CollectionView
 {
-protected:
+private:
 	int scrollOffset;
 	int scrollToTargetOffset;
+	Orientation orientation;
 
 	void DrawChildren(Position offset, Rectangle viewBounds);
+protected:
+	void SetOrientation(Orientation orientation);
 public:
 	ScrollView();
 	virtual void OnUpdate();
