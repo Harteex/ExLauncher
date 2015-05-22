@@ -11,6 +11,7 @@ View::View()
 	isInitialized = false;
 	renderer = NULL;
 	id = "";
+	name = "";
 	parent = NULL;
 	visible = true;
 	relativePosition = Position(0, 0);
@@ -33,6 +34,16 @@ string View::GetId()
 void View::SetId(string id)
 {
 	this->id = id;
+}
+
+string View::GetName()
+{
+	return name;
+}
+
+void View::SetName(string name)
+{
+	this->name = name;
 }
 
 vector<string> View::GetTags()
@@ -378,6 +389,11 @@ bool View::SetProperty(string name, string value)
 		this->id = value;
 		return true;
 	}
+	else if (name == "name")
+	{
+		this->name = value;
+		return true;
+	}
 	else if (name == "tag")
 	{
 		tags = split(value, '|');
@@ -451,6 +467,7 @@ bool View::SetProperty(string name, string value)
 
 View* View::CopyBase(View* view)
 {
+	view->SetName(name);
 	view->SetSize(size);
 	view->SetRelativePosition(relativePosition);
 	view->SetLayoutMargin(layoutMargin);

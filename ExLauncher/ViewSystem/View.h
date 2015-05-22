@@ -36,6 +36,7 @@ private:
 protected:
 	SDL_Renderer* renderer;
 	std::string id;
+	std::string name;
 	std::vector<std::string> tags;
 	View* parent;
 	std::vector<View*> children;
@@ -65,6 +66,8 @@ public:
 	virtual void OnDraw(SDL_Renderer* renderer, Position offset);
 	std::string GetId();
 	void SetId(std::string id);
+	std::string GetName();
+	void SetName(std::string name);
 	std::vector<std::string> GetTags();
 	View* GetParentView();
 	void SetParentView(View* parent);
