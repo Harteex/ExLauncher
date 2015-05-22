@@ -15,7 +15,7 @@
 using namespace rapidxml;
 using namespace std;
 
-View* Xml::LoadView(string filename, bool isScreen)
+View* Xml::LoadView(string filename)
 {
 	xml_document<> doc;
 	ifstream file(filename.c_str());
@@ -31,18 +31,12 @@ View* Xml::LoadView(string filename, bool isScreen)
 	doc.parse<0>(&content[0]);
 
 	xml_node<> * startNode = NULL;
-	if (isScreen)
-		startNode = doc.first_node("Screen");
-	else
-		startNode = doc.first_node();
+	startNode = doc.first_node();
 
 	if (startNode == NULL)
 		throw runtime_error("not a valid Screen");
 
-	if (isScreen)
-		view = HandleNode(startNode->first_node(), NULL);
-	else
-		view = HandleNode(startNode, NULL);
+	view = HandleNode(startNode, NULL);
 
 	return view;
 }
@@ -110,7 +104,7 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 				throw runtime_error("cannot have multiple item templates");
 
 			string templatePath = ThemeManager::ProcessPath(value);
-			createdView->SetItemTemplate(LoadView(templatePath, false));
+			createdView->SetItemTemplate(LoadView(templatePath));
 			continue;
 		}
 

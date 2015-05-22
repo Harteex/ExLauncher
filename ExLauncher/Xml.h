@@ -11,7 +11,7 @@
 class Xml
 {
 public:
-	View* LoadView(std::string filename, bool isScreen);
+	View* LoadView(std::string filename);
 	View* HandleNode(rapidxml::xml_node<>* view, View* parent);
 };
 

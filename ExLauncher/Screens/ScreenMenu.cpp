@@ -58,7 +58,7 @@ bool ScreenMenu::Initialize()
 	try
 	{
 		Xml xml;
-		contentView->AddChildView(xml.LoadView("data/themes/default/grid.xml", true));
+		contentView->AddChildView(xml.LoadView("data/themes/default/grid.xml"));
 		contentView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));

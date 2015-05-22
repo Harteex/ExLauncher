@@ -129,6 +129,9 @@
     <ClCompile Include="ViewSystem\ScrollView.cpp">
       <Filter>Source Files\ViewSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Views\TabPanel.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="ViewSystem\ScrollView.h">
       <Filter>Source Files\ViewSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\TabPanel.h">
+      <Filter>Source Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

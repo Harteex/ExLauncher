@@ -37,6 +37,7 @@
     <ClCompile Include="Views\LinearPanel.cpp" />
     <ClCompile Include="Views\Selector.cpp" />
     <ClCompile Include="Views\State.cpp" />
+    <ClCompile Include="Views\TabPanel.cpp" />
     <ClCompile Include="Xml.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,7 @@
     <ClInclude Include="Views\LinearPanel.h" />
     <ClInclude Include="Views\Selector.h" />
     <ClInclude Include="Views\State.h" />
+    <ClInclude Include="Views\TabPanel.h" />
     <ClInclude Include="Xml.h" />
   </ItemGroup>
   <ItemGroup>
@@ -131,7 +133,9 @@
     <Image Include="data\themes\default\markerBg.png" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="data\themes\default\appTemplate.xml" />
+    <Xml Include="data\themes\default\appTemplate.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="data\themes\default\contentsizebug.xml" />
     <Xml Include="data\themes\default\grid.xml">
       <SubType>Designer</SubType>
