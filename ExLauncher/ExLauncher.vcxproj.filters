@@ -230,6 +230,9 @@
     <ClInclude Include="Views\TabPanel.h">
       <Filter>Source Files\Views</Filter>
     </ClInclude>
+    <ClInclude Include="ViewSystem\ISelectionHandler.h">
+      <Filter>Source Files\ViewSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\fonts\OpenSans-Light.ttf">
@@ -315,6 +318,9 @@
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
     <Xml Include="data\themes\default\list.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\tab.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
   </ItemGroup>

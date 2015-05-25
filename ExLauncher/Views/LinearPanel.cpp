@@ -43,8 +43,8 @@ void LinearPanel::OnLayoutChange()
 
 		Box childMargin = v->GetLayoutMargin();
 		Size sizeAreaForChild;
-		sizeAreaForChild.w = size.w == SIZE_WRAP_CONTENT ? -1 : calculatedSize.w - (childMargin.left + childMargin.right);
-		sizeAreaForChild.h = size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom);
+		sizeAreaForChild.w = max(size.w == SIZE_WRAP_CONTENT ? -1 : calculatedSize.w - (childMargin.left + childMargin.right), 0);
+		sizeAreaForChild.h = max(size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
 		Size childSize = v->CalculateLayout(childOffset, sizeAreaForChild);
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
 		childSizes[i] = childSizeIncMargins;
@@ -180,7 +180,7 @@ int LinearPanel::GetItemIndexForPosition(Position position)
 
 View* LinearPanel::GetSelectedItem()
 {
-	return children[GetItemIndexForPosition(selectedPosition)];
+	return children[selectedIndex];
 }
 
 View* LinearPanel::SelectNext(Direction direction)
@@ -207,7 +207,8 @@ View* LinearPanel::SelectNext(Direction direction)
 		break;
 	}
 
-	int origIndex = GetItemIndexForPosition(selectedPosition);
+	int origIndex = selectedIndex;
+	int index;
 
 	if (orientation == OrientationHorizontal)
 	{
@@ -216,6 +217,8 @@ View* LinearPanel::SelectNext(Direction direction)
 
 		if (dy != 0)
 			return NULL;
+
+		index += dx;
 	}
 
 	if (orientation == OrientationVertical)
@@ -225,19 +228,13 @@ View* LinearPanel::SelectNext(Direction direction)
 
 		if (origIndex + dy < 0 || origIndex + dy >= children.size())
 			return NULL;
+
+		index += dy;
 	}
 
-	
-	selectedPosition.x += dx;
-	selectedPosition.y += dy;
-	int index = GetItemIndexForPosition(selectedPosition);
-
 	// A new selection was made
-	// Propagate state change to old and new selection
-	children[origIndex]->PropagateStateChange("stateSelected", "false");
-	children[index]->PropagateStateChange("stateSelected", "true");
+	SelectByIndex(index);
 
-	ScrollTo(children[index]);
 	return children[index];
 }
 
@@ -256,4 +253,9 @@ View* LinearPanel::Select(Position position)
 	{
 		return NULL;
 	}
+}
+
+void LinearPanel::OnSelectionChanged()
+{
+	ScrollTo(children[selectedIndex]);
 }

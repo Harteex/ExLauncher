@@ -16,6 +16,7 @@ ScreenMenu::ScreenMenu()
 {
 	contentView = new FramePanel();
 	inputView = NULL;
+	categoryFillView = NULL;
 	itemFillView = NULL;
 	title = "";
 	titleTexture = NULL;
@@ -58,7 +59,7 @@ bool ScreenMenu::Initialize()
 	try
 	{
 		Xml xml;
-		contentView->AddChildView(xml.LoadView("data/themes/default/grid.xml"));
+		contentView->AddChildView(xml.LoadView("data/themes/default/tab.xml"));
 		contentView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
@@ -66,37 +67,40 @@ bool ScreenMenu::Initialize()
 		View* v = GetViewById("inputView");
 		if (v != NULL)
 		{
-			inputView = dynamic_cast<CollectionView*>(v);
+			inputView = dynamic_cast<ISelectionHandler*>(v);
 			if (inputView == NULL)
 			{
-				throw runtime_error("This view cannot be used as an inputView. An inputView must inherit from CollectionView.");
+				throw runtime_error("This view cannot be used as an inputView. An inputView must implement ISelectionHandler.");
 			}
 		}
 
-		itemFillView = GetFirstViewByTag("fillItems");
-
-		if (itemFillView != NULL)
+		categoryFillView = GetFirstViewByTag("fillCategories");
+		if (categoryFillView != NULL)
 		{
-			View* itemTemplate = itemFillView->GetItemTemplate();
-			if (itemTemplate == NULL)
+			if (categoryFillView->GetItemTemplate() == NULL)
+			{
+				throw runtime_error("category view to fill does not have an itemTemplate");
+			}
+
+			if (categoryFillView->GetItemTemplate()->GetItemTemplate() == NULL)
+			{
+				throw runtime_error("itemTemplate of category view to fill does not have an itemTemplate");
+			}
+		}
+		else
+		{
+			itemFillView = GetFirstViewByTag("fillItems");
+
+			if (itemFillView != NULL && itemFillView->GetItemTemplate() == NULL)
 			{
 				throw runtime_error("view to fill does not have an itemTemplate");
 			}
-			else
-			{
-				vector<App*>* apps = screenManager->GetAppManager()->GetApps("games");
-				for (int i = 0; i < apps->size(); i++)
-				{
-					AddApp(apps->at(i));
-				}
-
-				if (!apps->empty())
-					itemFillView->RecalculateLayout();
-			}
 		}
 
+		HandleApps();
+
 		if (inputView != NULL)
-			inputView->Select(Position(0, 0));
+			inputView->SelectByIndex(0);
 	}
 	catch (exception& ex)
 	{
@@ -201,23 +205,76 @@ View* ScreenMenu::GetFirstViewByTag(std::string tag)
 		return contentView->GetFirstChildViewByTag(tag);
 }
 
-void ScreenMenu::AddApp(App* app)
+void ScreenMenu::HandleApps()
 {
-	View* newView = itemFillView->GetItemTemplate()->Copy();
-	FillData(newView, app->GetAllData());
+	if (categoryFillView != NULL)
+	{
+		map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
+		for (auto kv : *apps)
+		{
+			View* categoryView = NULL;
+			for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
+			{
+				// FIXME This part is untested
+				View* c = categoryFillView->GetChildView(i);
+				if (c->GetName() == kv.first)
+				{
+					categoryView = c;
+					break;
+				}
+			}
 
-	newView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
-	itemFillView->AddChildView(newView);
+			if (categoryView == NULL)
+			{
+				categoryView = categoryFillView->GetItemTemplate()->Copy();
+				categoryView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
+				categoryView->SetName(kv.first);
+			}
+
+			for (App* app : *kv.second)
+			{
+				AddApp(categoryView, app);
+			}
+
+			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
+			if (selectionHandler != NULL)
+				selectionHandler->SelectByIndex(0);
+
+			categoryFillView->AddChildView(categoryView);
+		}
+
+		categoryFillView->RecalculateLayout();
+	}
+	else if (itemFillView != NULL)
+	{
+		vector<App*>* apps = screenManager->GetAppManager()->GetApps("games");
+		for (int i = 0; i < apps->size(); i++)
+		{
+			AddApp(itemFillView, apps->at(i));
+		}
+
+		if (!apps->empty())
+			itemFillView->RecalculateLayout();
+	}
 }
 
-void ScreenMenu::FillData(View* v, map<string, string> data)
+void ScreenMenu::AddApp(View* fillView, App* app)
+{
+	View* newView = fillView->GetItemTemplate()->Copy();
+	FillItem(newView, app->GetAllData());
+
+	newView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
+	fillView->AddChildView(newView);
+}
+
+void ScreenMenu::FillItem(View* v, map<string, string> data)
 {
 	v->FillData(data);
 
 	for (int i = 0; i < v->GetNumberOfChildren(); i++)
 	{
 		View* c = v->GetChildView(i);
-		FillData(c, data);
+		FillItem(c, data);
 	}
 }
 

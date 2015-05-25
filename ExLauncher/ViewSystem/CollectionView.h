@@ -3,26 +3,28 @@
 
 /*********************************************/
 
-#include "../ViewSystem/View.h"
+#include "View.h"
+#include "ISelectionHandler.h"
 #include "../structures.h"
 #include "../ScreenSystem/InputState.h"
 #include <vector>
 
 /*********************************************/
 
-class CollectionView : public View
+class CollectionView : public View, public ISelectionHandler
 {
 protected:
-	Position selectedPosition;
+	int selectedIndex;
 	View* selectedItem;
 public:
 	CollectionView();
 
 	void HandleInput(InputState* input);
-	Position GetSelectedPosition();
-	virtual View* GetSelectedItem() = 0;
-	virtual View* SelectNext(Direction direction) = 0;
-	virtual View* Select(Position position) = 0;
+	int GetSelectedIndex();
+	View* GetSelectedView();
+	bool SelectByName(std::string name);
+	bool SelectByIndex(int index);
+	virtual void OnSelectionChanged() = 0;
 };
 
 /*********************************************/

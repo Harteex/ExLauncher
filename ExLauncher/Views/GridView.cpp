@@ -278,7 +278,7 @@ int GridView::GetItemIndexForPosition(Position position)
 
 View* GridView::GetSelectedItem()
 {
-	return children[GetItemIndexForPosition(selectedPosition)];
+	return children[selectedIndex];
 }
 
 View* GridView::SelectNext(Direction direction)
@@ -308,6 +308,7 @@ View* GridView::SelectNext(Direction direction)
 	int rows;
 	int columns;
 	GetRowsAndColumns(rows, columns);
+	Position selectedPosition = GetPositionForItemIndex(selectedIndex);
 
 	if (selectedPosition.x + dx < 0 || selectedPosition.x + dx >= columns)
 		return NULL;
@@ -322,36 +323,23 @@ View* GridView::SelectNext(Direction direction)
 
 	// if there is no element at the new index
 	if (index >= children.size())
-	{
 		index = children.size() - 1;
-		selectedPosition = GetPositionForItemIndex(index);
-	}
 
 	if (origIndex != index)
 	{
 		// A new selection was made
-		// Propagate state change to old and new selection
-		children[origIndex]->PropagateStateChange("stateSelected", "false");
-		children[index]->PropagateStateChange("stateSelected", "true");
+		SelectByIndex(index);
 	}
 
-	ScrollTo(children[index]);
 	return children[index];
 }
 
-View* GridView::Select(Position position)
+bool GridView::Select(Position position)
 {
-	PropagateStateChange("stateSelected", "false");
+	return SelectByIndex(GetItemIndexForPosition(position));
+}
 
-	int index = GetItemIndexForPosition(position);
-	if (index >= 0 && index < children.size())
-	{
-		children[index]->PropagateStateChange("stateSelected", "true");
-		ScrollTo(children[index]);
-		return children[index];
-	}
-	else
-	{
-		return NULL;
-	}
+void GridView::OnSelectionChanged()
+{
+	ScrollTo(children[selectedIndex]);
 }

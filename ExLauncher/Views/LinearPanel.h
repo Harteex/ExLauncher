@@ -30,6 +30,7 @@ public:
 	View* GetSelectedItem();
 	View* SelectNext(Direction direction);
 	View* Select(Position position);
+	void OnSelectionChanged();
 };
 
 /*********************************************/

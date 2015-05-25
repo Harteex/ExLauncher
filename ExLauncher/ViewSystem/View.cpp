@@ -473,6 +473,7 @@ View* View::CopyBase(View* view)
 	view->SetLayoutMargin(layoutMargin);
 	view->SetLayoutGravity(layoutGravity);
 	view->SetGravity(gravity);
+	view->SetItemTemplate(itemTemplate);
 
 	for (View* v : children)
 	{

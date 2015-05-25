@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearPanel
+<GridView
+  id="inputView"
   width="match_parent"
-  height="match_parent">
-  <GridView
-    id="inputView"
-    width="match_parent"
-    height="match_parent"
-    orientation="vertical"
-    itemCountSecondaryDirection="4"
-    itemTemplate="@theme/appTemplate.xml"
-    layoutMargin="5"
-    tag="fillItems" />
-</LinearPanel>
+  height="match_parent"
+  orientation="vertical"
+  itemCountSecondaryDirection="4"
+  itemTemplate="@theme/appTemplate.xml"
+  layoutMargin="5"
+  tag="fillItems" />

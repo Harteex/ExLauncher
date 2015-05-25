@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabPanel
+  id="inputView"
+  width="match_parent"
+  height="match_parent"
+  tag="fillCategories"
+  itemTemplate="@theme/grid.xml">
+  <LinearPanel
+    width="match_parent"
+    height="match_parent">
+    <Label
+      width="wrap_content"
+      height="wrap_content"
+      text="lol" />
+  </LinearPanel>
+  <LinearPanel
+    width="match_parent"
+    height="match_parent">
+    <Label
+      width="wrap_content"
+      height="wrap_content"
+      text="omg!" />
+  </LinearPanel>
+  <Label
+      width="wrap_content"
+      height="wrap_content"
+      text="aaaaaaaaaaaaaaaaaaaaaa" />
+</TabPanel>

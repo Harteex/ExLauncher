@@ -40,8 +40,8 @@ void FramePanel::OnLayoutChange()
 		Box childMargin = v->GetLayoutMargin();
 		v->SetRelativePosition(Position(childMargin.left, childMargin.top));
 		Size sizeAreaForChild;
-		sizeAreaForChild.w = size.w == SIZE_WRAP_CONTENT ? -1 : calculatedSize.w - (childMargin.left + childMargin.right);
-		sizeAreaForChild.h = size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom);
+		sizeAreaForChild.w = max(size.w == SIZE_WRAP_CONTENT ? -1 : calculatedSize.w - (childMargin.left + childMargin.right), 0);
+		sizeAreaForChild.h = max(size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
 		Size childSize = v->CalculateLayout(Position(0, 0), sizeAreaForChild);
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
 		childSizes[i] = childSizeIncMargins;
