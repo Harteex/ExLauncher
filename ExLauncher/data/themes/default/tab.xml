@@ -24,5 +24,6 @@
   <Label
       width="wrap_content"
       height="wrap_content"
+      name="aaaaaaaaaaaaaaaaaaaaaa"
       text="aaaaaaaaaaaaaaaaaaaaaa" />
 </TabPanel>

@@ -51,12 +51,16 @@ bool Label::RenderText(Uint32 textAreaWidth)
 
 	SDL_Surface* clippedSurface = NULL;
 
-	if (calculatedSize.w > 0 && tempSurface->w > calculatedSize.w)
+	int areaWidth = size.w;
+	if (size.w < 0)
+		areaWidth = calculatedSize.w;
+
+	if (areaWidth > 0 && tempSurface->w > areaWidth)
 	{
 		SDL_Rect r;
 		r.x = 0;
 		r.y = 0;
-		r.w = calculatedSize.w;
+		r.w = areaWidth;
 		r.h = tempSurface->h;
 		clippedSurface = ClipSurface(tempSurface, &r);
 
