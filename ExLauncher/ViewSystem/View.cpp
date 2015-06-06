@@ -88,8 +88,8 @@ void View::Draw(Position offset, Rectangle parentViewBounds)
 	if (calculatedSize.w == 0 || calculatedSize.h == 0)
 		return;
 
-	if (contentSize.w == 0 || contentSize.h == 0)
-		return;
+	/*if (contentSize.w == 0 || contentSize.h == 0)
+		return;*/
 
 	Rectangle viewBounds = CalculateViewBounds(offset, parentViewBounds);
 

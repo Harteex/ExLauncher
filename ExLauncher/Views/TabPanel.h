@@ -6,6 +6,8 @@
 #include "../ViewSystem/View.h"
 #include "../ViewSystem/ISelectionHandler.h"
 #include "../structures.h"
+#include "Label.h"
+#include "TabStrip.h"
 #include <vector>
 
 /*********************************************/
@@ -15,10 +17,13 @@ class TabPanel : public View, public ISelectionHandler
 private:
 	int selectedIndex;
 	std::vector<ISelectionHandler*> childrenSelectionHandlers;
+	Size tabAreaSize;
+	TabStrip* tabStrip;
 public:
 	TabPanel();
 	virtual ~TabPanel();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();
 	virtual View* Copy();
 

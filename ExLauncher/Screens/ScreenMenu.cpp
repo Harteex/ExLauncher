@@ -278,17 +278,13 @@ void ScreenMenu::FillItem(View* v, map<string, string> data)
 	}
 }
 
-/*void ScreenMainMenu::OnFormEvent(int position, FormEventType eventType, std::string tag)
+void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 {
-	if (eventType == FormEventPressed)
+	if (eventType == EventTypeLaunchApp)
 	{
-		if (position < 4)
-		{
-			//
-		}
-		else
-		{
-			screenManager->AddScreen(new ScreenAppsCollection(tag));
-		}
+		// TODO Animate launching from senders position
+		// TODO Launch app
+
+		// screenManager->AddScreen(new ScreenLaunchApp()); // pass rectangle of view and what to launch
 	}
-}*/
+}

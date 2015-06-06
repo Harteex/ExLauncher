@@ -7,6 +7,7 @@
 #include <string>
 #include "../graphics_utils.h"
 #include "../ScreenSystem/InputState.h"
+#include "../ViewSystem/View.h"
 
 /*********************************************/
 
@@ -58,6 +59,9 @@ public:
 
 	// Sets the ScreenManager object. This handled by the ScreenManager, and should not be done manually.
 	void SetScreenManager(ScreenManager* screenManager);
+
+	// Used to pass events, for example a view (an item) passing an launch event
+	virtual void OnEvent(View* sender, EventType eventType, std::string eventValue);
 private:
 	bool isExiting;
 	bool exited;

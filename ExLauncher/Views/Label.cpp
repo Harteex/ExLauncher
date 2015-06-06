@@ -99,8 +99,6 @@ void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 	r.y += gravityOffset.y;
 
 	drawTexture(&r, texture, renderer);
-
-	SDL_RenderSetClipRect(renderer, NULL);
 }
 
 void Label::OnLayoutChange()
@@ -117,6 +115,11 @@ View* Label::Copy()
 	view->SetText(text);
 
 	return view;
+}
+
+string Label::GetText()
+{
+	return text;
 }
 
 void Label::SetText(string text)

@@ -38,6 +38,7 @@
     <ClCompile Include="Views\Selector.cpp" />
     <ClCompile Include="Views\State.cpp" />
     <ClCompile Include="Views\TabPanel.cpp" />
+    <ClCompile Include="Views\TabStrip.cpp" />
     <ClCompile Include="Xml.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +74,7 @@
     <ClInclude Include="Views\Selector.h" />
     <ClInclude Include="Views\State.h" />
     <ClInclude Include="Views\TabPanel.h" />
+    <ClInclude Include="Views\TabStrip.h" />
     <ClInclude Include="Xml.h" />
   </ItemGroup>
   <ItemGroup>

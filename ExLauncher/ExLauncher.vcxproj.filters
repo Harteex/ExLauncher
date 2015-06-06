@@ -132,6 +132,9 @@
     <ClCompile Include="Views\TabPanel.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Views\TabStrip.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="ViewSystem\ISelectionHandler.h">
       <Filter>Source Files\ViewSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\TabStrip.h">
+      <Filter>Source Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

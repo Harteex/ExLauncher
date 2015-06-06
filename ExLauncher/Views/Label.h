@@ -30,6 +30,7 @@ public:
 	void OnLayoutChange();
 	View* Copy();
 
+	std::string GetText();
 	void SetText(std::string text);
 	bool SetProperty(std::string name, std::string value);
 	void FillData(std::map<std::string, std::string>& data);

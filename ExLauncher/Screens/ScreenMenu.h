@@ -37,6 +37,7 @@ public:
 	void HandleApps();
 	void AddApp(View* fillView, App* app);
 	void FillItem(View* v, std::map<std::string, std::string> data);
+	void OnEvent(View* sender, EventType eventType, std::string eventValue);
 protected:
 	//FormContainer formContainer;
 

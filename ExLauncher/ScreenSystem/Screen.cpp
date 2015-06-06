@@ -131,6 +131,10 @@ void Screen::SetScreenManager(ScreenManager* screenManager)
 	this->screenManager = screenManager;
 }
 
+void Screen::OnEvent(View* sender, EventType eventType, string eventValue)
+{
+}
+
 double Screen::GetTransitionPosition()
 {
 	return transitionPosition;

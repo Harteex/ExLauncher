@@ -8,6 +8,12 @@ TabPanel::TabPanel()
 	contentSize.w = 0;
 	contentSize.h = 0;
 	selectedIndex = 0;
+	tabAreaSize = Size(SIZE_MATCH_PARENT, 40);
+
+	tabStrip = new TabStrip();
+	tabStrip->SetSize(tabAreaSize);
+	tabStrip->SetRelativePosition(0, 0);
+	tabStrip->SetParentView(this);
 }
 
 TabPanel::~TabPanel()
@@ -17,21 +23,30 @@ TabPanel::~TabPanel()
 bool TabPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
 	this->renderer = renderer;
+
+	tabStrip->Initialize(resourceManager, renderer);
+
 	isInitialized = true;
 	return true;
 }
 
+void TabPanel::OnDraw(SDL_Renderer* renderer, Position offset)
+{
+	tabStrip->Draw();
+}
+
 void TabPanel::OnLayoutChange()
 {
-	Position childOffset = Position(0, 0);
 	contentSize = calculatedSize; // This will cause (0, 0) on wrap_content usage, but it's ok since we don't support wrap_content here
+
+	tabStrip->CalculateLayout(Position(0, 0), calculatedSize);
 
 	for (int i = 0; i < children.size(); i++)
 	{
 		View* v = children.at(i);
 
 		Box childMargin = v->GetLayoutMargin();
-		v->SetRelativePosition(Position(childMargin.left, childMargin.top));
+		v->SetRelativePosition(Position(childMargin.left, childMargin.top) + Position(0, tabAreaSize.h));
 		Size sizeAreaForChild;
 		sizeAreaForChild.w = max(calculatedSize.w - (childMargin.left + childMargin.right), 0);
 		sizeAreaForChild.h = max(calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
@@ -65,6 +80,7 @@ void TabPanel::AddChildView(View* view)
 
 	View::AddChildView(view);
 	childrenSelectionHandlers.push_back(dynamic_cast<ISelectionHandler*>(view));
+	tabStrip->AddTab(view->GetName());
 }
 
 void TabPanel::HandleInput(InputState* input)
@@ -123,6 +139,7 @@ bool TabPanel::SelectByIndex(int index)
 	}
 
 	selectedIndex = index;
+	tabStrip->SelectTab(index);
 	return true;
 }
 
