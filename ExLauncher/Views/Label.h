@@ -18,8 +18,11 @@ private:
 	SDL_Texture* texture;
 	std::string text;
 	std::string calculatedText;
+	int textSize;
+	Color textColor;
+	std::string font;
 	ResourceManager* resourceManager;
-	TTF_Font* font;
+	TTF_Font* ttfFont;
 
 	bool RenderText(Uint32 textAreaWidth);
 public:
@@ -32,6 +35,12 @@ public:
 
 	std::string GetText();
 	void SetText(std::string text);
+	int GetTextSize();
+	void SetTextSize(int textSize);
+	Color GetTextColor();
+	void SetTextColor(Color textColor);
+	std::string GetFont();
+	void SetFont(std::string font);
 	bool SetProperty(std::string name, std::string value);
 	void FillData(std::map<std::string, std::string>& data);
 };

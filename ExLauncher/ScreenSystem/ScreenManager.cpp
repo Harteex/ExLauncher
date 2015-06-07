@@ -31,32 +31,17 @@ bool ScreenManager::Init()
 
 bool ScreenManager::LoadGlobalResources()
 {
-	//if (GetResourceManager()->LoadTTFFont("guiFont", "data/fonts/Orbitron Medium.ttf", 14) == NULL)
-	if (GetResourceManager()->LoadTTFFont("guiFont", "data/fonts/OpenSans-Semibold.ttf", 18) == NULL)
-	//if (GetResourceManager()->LoadTTFFont("guiFont", "data/fonts/LeagueGothic-Regular.otf", 18) == NULL)
+	if (GetResourceManager()->GetTTFFont("semibold", 18) == NULL)
 	{
 		lastError = "Failed to load data/fonts/OpenSans-Semibold.ttf";
 		return false;
 	}
 
-	if (GetResourceManager()->LoadTTFFont("guiFontSmall", "data/fonts/OpenSans-Semibold.ttf", 12) == NULL)
-	//if (GetResourceManager()->LoadTTFFont("guiFont", "data/fonts/LeagueGothic-Regular.otf", 18) == NULL)
+	if (GetResourceManager()->GetTTFFont("semibold", 12) == NULL)
 	{
 		lastError = "Failed to load data/fonts/OpenSans-Semibold.ttf";
 		return false;
 	}
-
-	/*if (GetResourceManager()->CreateFont("dialogFont", GetResourceManager()->GetTTFFont("guiFont")) == NULL)
-	{
-		lastError = "Failed to build bitmap font";
-		return false;
-	}
-
-	if (GetResourceManager()->CreateFont("dialogFontSmall", GetResourceManager()->GetTTFFont("guiFontSmall")) == NULL)
-	{
-		lastError = "Failed to build bitmap font";
-		return false;
-	}*/
 
 	return true;
 }

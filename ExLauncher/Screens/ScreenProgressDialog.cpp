@@ -74,7 +74,7 @@ bool ScreenProgressDialog::BuildTextImage()
 		textImage = NULL;
 	}
 
-	TTF_Font* font = screenManager->GetResourceManager()->GetTTFFont("guiFont");
+	TTF_Font* font = screenManager->GetResourceManager()->GetTTFFont("semibold", 12);
 	SDL_Renderer* renderer = screenManager->GetRenderer();
 
 	if (font == NULL || renderer == NULL)

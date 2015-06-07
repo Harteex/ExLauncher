@@ -9,6 +9,9 @@ Label::Label()
 	texture = NULL;
 	text = "";
 	calculatedText = "";
+	textSize = 12;
+	textColor = Color(0xff, 0xff, 0xff, 0xff);
+	font = "semibold";
 }
 
 Label::~Label()
@@ -21,9 +24,9 @@ bool Label::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 {
 	this->resourceManager = resourceManager;
 	this->renderer = renderer;
-	font = resourceManager->GetTTFFont("guiFontSmall");
+	ttfFont = resourceManager->GetTTFFont(font, textSize);
 
-	if (font == NULL)
+	if (ttfFont == NULL)
 		return false;
 
 	if (!RenderText(UINT_MAX))
@@ -45,7 +48,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	color.g = 0xff;
 	color.b = 0xff;
 	color.a = 0xff;
-	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(font, calculatedText.empty() ? text.c_str() : calculatedText.c_str(), color, textAreaWidth);
+	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, calculatedText.empty() ? text.c_str() : calculatedText.c_str(), color, textAreaWidth);
 	if (tempSurface == NULL)
 		return false;
 
@@ -102,6 +105,8 @@ void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 	r.x += gravityOffset.x;
 	r.y += gravityOffset.y;
 
+	SDL_SetTextureColorMod(texture, textColor.r, textColor.g, textColor.b);
+
 	drawTexture(&r, texture, renderer);
 }
 
@@ -117,6 +122,9 @@ View* Label::Copy()
 
 	CopyBase(view);
 	view->SetText(text);
+	view->SetTextSize(textSize);
+	view->SetTextColor(textColor);
+	view->SetFont(font);
 
 	return view;
 }
@@ -139,6 +147,36 @@ void Label::SetText(string text)
 	}
 }
 
+int Label::GetTextSize()
+{
+	return textSize;
+}
+
+void Label::SetTextSize(int textSize)
+{
+	this->textSize = textSize;
+}
+
+Color Label::GetTextColor()
+{
+	return textColor;
+}
+
+void Label::SetTextColor(Color textColor)
+{
+	this->textColor = textColor;
+}
+
+string Label::GetFont()
+{
+	return font;
+}
+
+void Label::SetFont(string font)
+{
+	this->font = font;
+}
+
 bool Label::SetProperty(string name, string value)
 {
 	bool propertyHandled = View::SetProperty(name, value);
@@ -149,6 +187,20 @@ bool Label::SetProperty(string name, string value)
 	if (name == "text")
 	{
 		SetText(value);
+		return true;
+	}
+	else if (name == "textSize")
+	{
+		textSize = atoi(value.c_str());
+
+		if (textSize <= 0)
+			throw runtime_error("invalid textSize value");
+
+		return true;
+	}
+	else if (name == "font")
+	{
+		font = value;
 		return true;
 	}
 
@@ -174,7 +226,7 @@ void Label::FillData(map<string, string>& data)
 		{
 			string key = calculatedText.substr(foundStart + 1, foundEnd - foundStart - 1);
 			string replaceWith = data.at(key);
-			int keyLength = foundEnd - foundStart - 1 + 2; // + 2 inc brackets
+			int keyLength = foundEnd - foundStart - 1 + 2; // + 2 including brackets
 			int replaceWithLength = replaceWith.length();
 			int sizeChange = replaceWithLength - keyLength;
 

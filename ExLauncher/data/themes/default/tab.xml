@@ -19,7 +19,9 @@
     <Label
       width="wrap_content"
       height="wrap_content"
-      text="omg!" />
+      text="omg!"
+      textSize="24"
+      font="light" />
   </LinearPanel>
   <Label
       width="wrap_content"

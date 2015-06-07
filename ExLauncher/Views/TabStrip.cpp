@@ -8,7 +8,7 @@ TabStrip::TabStrip()
 	contentSize.w = 0;
 	contentSize.h = 0;
 	selectedTab = 0;
-	tabSize = Size(80, 30);
+	tabSize = Size(120, 30);
 	pinOrigin = PinOriginCenter;
 	pinPosition = Position(0, 0);
 	tabMode = TabModeNormal;
@@ -50,6 +50,7 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 	{
 	case TabModeNormal:
 		{
+			tabs[selectedTab]->SetTextColor(Color(0xff, 0xff, 0xff, 0xff));
 			tabs[selectedTab]->Draw(-pos);
 
 			int x = pos.x - tabSize.w;
@@ -60,6 +61,7 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 				if (i < 0)
 					i = tabs.size() - 1;
 
+				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
 				tabs[i]->Draw(-Position(x, pos.y));
 
 				x -= tabSize.w;
@@ -71,6 +73,7 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 			{
 				i = (i + 1) % tabs.size();
 
+				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
 				tabs[i]->Draw(-Position(x, pos.y));
 
 				x += tabSize.w;
@@ -157,6 +160,7 @@ void TabStrip::AddTab(string name)
 	label->SetText(name);
 	label->SetParentView(this);
 	label->SetRelativePosition(0, 0);
+	label->SetTextSize(18);
 	if (isInitialized)
 	{
 		label->Initialize(resourceManager, renderer);

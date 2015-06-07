@@ -31,8 +31,7 @@ public:
 	BitmapFont* CreateFont(string id, TTF_Font* buildFromFont);
 	void UnloadFonts();*/
 
-	TTF_Font* GetTTFFont(std::string id);
-	TTF_Font* LoadTTFFont(std::string id, const char* filename, int fontSize);
+	TTF_Font* GetTTFFont(std::string filename, int fontSize);
 	void UnloadTTFFonts();
 
 	void SetRenderer(SDL_Renderer* renderer);

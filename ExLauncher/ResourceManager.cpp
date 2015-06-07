@@ -70,54 +70,31 @@ void ResourceManager::UnloadImages()
 	images.clear();
 }
 
-/*BitmapFont* ResourceManager::GetFont(string id)
+TTF_Font* ResourceManager::GetTTFFont(string filename, int fontSize)
 {
-	return fonts[id]; // TODO kör find istället eftersom denna skapar upp ett nullvärde?? eller är det bry?
-}
+	string id = "";
+	id += filename;
+	id += "@";
+	id += fontSize;
 
-BitmapFont* ResourceManager::CreateFont(string id, TTF_Font* buildFromFont)
-{
-	if (fonts.count(id) > 0)
-	{
-		delete fonts[id];
-		fonts.erase(id);
-	}
-
-	BitmapFont* font = new BitmapFont();
-	if (!font->BuildBitmapFont(buildFromFont, renderer))
-	{
-		delete font;
-		return NULL;
-	}
-	
-	fonts[id] = font;
-	return font;
-}
-
-void ResourceManager::UnloadFonts()
-{
-	for (map<string, BitmapFont*>::iterator i = fonts.begin(); i != fonts.end(); i++)
-	{
-		if (i->second != NULL)
-			delete (i->second);
-	}
-	fonts.clear();
-}*/
-
-TTF_Font* ResourceManager::GetTTFFont(string id)
-{
-	return ttfFonts[id];
-}
-
-TTF_Font* ResourceManager::LoadTTFFont(string id, const char* filename, int fontSize)
-{
 	if (ttfFonts.count(id) > 0)
 		return ttfFonts[id];
 
 	if (renderer == NULL)
 		return NULL;
 
-	TTF_Font* tempFont = TTF_OpenFont(filename, fontSize);
+	// TODO make xml name mapping file, for now, hardcode common names
+	if (filename == "regular")
+		filename = "OpenSans-Regular.ttf";
+	else if (filename == "light")
+		filename = "OpenSans-Light.ttf";
+	else if (filename == "semibold")
+		filename = "OpenSans-Semibold.ttf";
+
+	string path = "data/fonts/";
+	path += filename;
+
+	TTF_Font* tempFont = TTF_OpenFont(path.c_str(), fontSize);
 	if (tempFont == NULL)
 		return NULL;
 
@@ -143,6 +120,5 @@ void ResourceManager::SetRenderer(SDL_Renderer* renderer)
 void ResourceManager::UnloadContent()
 {
 	UnloadImages();
-	//UnloadFonts();
 	UnloadTTFFonts();
 }

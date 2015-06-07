@@ -8,7 +8,7 @@ TabPanel::TabPanel()
 	contentSize.w = 0;
 	contentSize.h = 0;
 	selectedIndex = 0;
-	tabAreaSize = Size(SIZE_MATCH_PARENT, 40);
+	tabAreaSize = Size(SIZE_MATCH_PARENT, 30);
 
 	tabStrip = new TabStrip();
 	tabStrip->SetSize(tabAreaSize);

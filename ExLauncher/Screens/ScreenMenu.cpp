@@ -181,7 +181,7 @@ void ScreenMenu::SetTitle(string title)
 {
 	this->title = title;
 
-	TTF_Font* font = screenManager->GetResourceManager()->LoadTTFFont("titleFont", "data/fonts/OpenSans-Light.ttf", 22); // OpenSans-Light // OpenSans-Regular
+	TTF_Font* font = screenManager->GetResourceManager()->GetTTFFont("light", 22); // OpenSans-Light // OpenSans-Regular
 	titleTexture = drawText(title.c_str(), 0xff, 0xff, 0xff, font, screenManager->GetRenderer());
 
 	SDL_Surface* blackText = drawTextSurface(title.c_str(), 0x00, 0x00, 0x00, font);
