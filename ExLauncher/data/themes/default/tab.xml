@@ -11,7 +11,8 @@
     <Label
       width="wrap_content"
       height="wrap_content"
-      text="lol" />
+      text="lol"
+      textColor="#ff8080" />
   </LinearPanel>
   <LinearPanel
     width="match_parent"
