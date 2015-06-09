@@ -123,8 +123,8 @@ void View::DrawBackground(Position offset)
 		SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
 		SDL_Rect rectangle;
 
-		rectangle.x = absolutePosition.x - offset.x;
-		rectangle.y = absolutePosition.y - offset.y;
+		rectangle.x = absolutePosition.x + offset.x;
+		rectangle.y = absolutePosition.y + offset.y;
 		rectangle.w = calculatedSize.w;
 		rectangle.h = calculatedSize.h;
 		SDL_RenderFillRect(renderer, &rectangle);
@@ -156,7 +156,7 @@ void View::DrawChildren(Position offset, Rectangle viewBounds)
 
 Rectangle View::CalculateViewBounds(Position offset, Rectangle parentViewBounds)
 {
-	Rectangle viewBounds = Rectangle(absolutePosition.x - offset.x, absolutePosition.y - offset.y, calculatedSize.w, calculatedSize.h);
+	Rectangle viewBounds = Rectangle(absolutePosition.x + offset.x, absolutePosition.y + offset.y, calculatedSize.w, calculatedSize.h);
 
 	if (parentViewBounds.w != -1 && parentViewBounds.h != -1)
 	{

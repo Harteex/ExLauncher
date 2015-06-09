@@ -35,6 +35,8 @@ bool TabStrip::Initialize(ResourceManager* resourceManager, SDL_Renderer* render
 
 void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 {
+	// TODO offset etc?
+
 	if (selectedTab >= tabs.size() || selectedTab < 0)
 		return;
 
@@ -51,7 +53,7 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 	case TabModeNormal:
 		{
 			tabs[selectedTab]->SetTextColor(Color(0xff, 0xff, 0xff, 0xff));
-			tabs[selectedTab]->Draw(-pos);
+			tabs[selectedTab]->Draw(pos);
 
 			int x = pos.x - tabSize.w;
 			int i = selectedTab;
@@ -62,7 +64,7 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 					i = tabs.size() - 1;
 
 				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
-				tabs[i]->Draw(-Position(x, pos.y));
+				tabs[i]->Draw(Position(x, pos.y));
 
 				x -= tabSize.w;
 			}
@@ -74,14 +76,14 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 				i = (i + 1) % tabs.size();
 
 				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
-				tabs[i]->Draw(-Position(x, pos.y));
+				tabs[i]->Draw(Position(x, pos.y));
 
 				x += tabSize.w;
 			}
 		}
 		break;
 	case TabModeShowSingle:
-		tabs[selectedTab]->Draw(-pos);
+		tabs[selectedTab]->Draw(pos);
 		break;
 	default:
 		break;
@@ -141,7 +143,7 @@ void TabStrip::SetTabMode(TabMode tabMode)
 	this->tabMode = tabMode;
 }
 
-// TODO Currently not usable via XML, so haven't bothered implementing this function properly
+// TODO Currently not usable via XML, so haven't bothered implementing this method properly
 bool TabStrip::SetProperty(string name, string value)
 {
 	bool propertyHandled = View::SetProperty(name, value);

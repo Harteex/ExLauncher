@@ -32,8 +32,8 @@ void Image::OnDraw(SDL_Renderer* renderer, Position offset)
 		return;
 
 	SDL_Rect r;
-	r.x = absolutePosition.x - offset.x;
-	r.y = absolutePosition.y - offset.y;
+	r.x = absolutePosition.x + offset.x;
+	r.y = absolutePosition.y + offset.y;
 	r.w = calculatedSize.w;
 	r.h = calculatedSize.h;
 	drawTexture(&r, image, renderer);

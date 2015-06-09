@@ -97,8 +97,8 @@ void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 		return;
 
 	SDL_Rect r;
-	r.x = absolutePosition.x - offset.x;
-	r.y = absolutePosition.y - offset.y;
+	r.x = absolutePosition.x + offset.x;
+	r.y = absolutePosition.y + offset.y;
 	r.w = contentSize.w;
 	r.h = contentSize.h;
 

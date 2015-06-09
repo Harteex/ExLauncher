@@ -13,9 +13,9 @@ ScrollView::ScrollView()
 void ScrollView::DrawChildren(Position offset, Rectangle viewBounds)
 {
 	if (orientation == OrientationHorizontal)
-		offset.x += scrollOffset;
+		offset.x -= scrollOffset;
 	else
-		offset.y += scrollOffset;
+		offset.y -= scrollOffset;
 
 	for (int i = 0; i < children.size(); i++)
 	{

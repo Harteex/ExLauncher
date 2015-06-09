@@ -32,6 +32,7 @@ bool TabPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* render
 
 void TabPanel::OnDraw(SDL_Renderer* renderer, Position offset)
 {
+	// TODO offset etc
 	tabStrip->Draw();
 }
 
