@@ -14,6 +14,7 @@ TabPanel::TabPanel()
 	tabStrip->SetSize(tabAreaSize);
 	tabStrip->SetRelativePosition(0, 0);
 	tabStrip->SetParentView(this);
+	//tabStrip->SetTabSize(Size(100, 30));
 }
 
 TabPanel::~TabPanel()

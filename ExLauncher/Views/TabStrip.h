@@ -40,6 +40,8 @@ public:
 	void SetPinPosition(Position pinPosition);
 	TabMode GetTabMode();
 	void SetTabMode(TabMode tabMode);
+	Size GetTabSize();
+	void SetTabSize(Size tabSize);
 	virtual bool SetProperty(std::string name, std::string value);
 
 	void AddTab(std::string name);

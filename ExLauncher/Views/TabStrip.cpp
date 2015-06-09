@@ -8,7 +8,7 @@ TabStrip::TabStrip()
 	contentSize.w = 0;
 	contentSize.h = 0;
 	selectedTab = 0;
-	tabSize = Size(120, 30);
+	tabSize = Size(SIZE_WRAP_CONTENT, SIZE_WRAP_CONTENT);
 	pinOrigin = PinOriginCenter;
 	pinPosition = Position(0, 0);
 	tabMode = TabModeNormal;
@@ -26,7 +26,7 @@ bool TabStrip::Initialize(ResourceManager* resourceManager, SDL_Renderer* render
 	for (Label* label : tabs)
 	{
 		label->Initialize(resourceManager, renderer);
-		label->CalculateLayout(Position(0, 0), tabSize);
+		label->CalculateLayout(Position(0, 0), Size(-1, -1));
 	}
 
 	isInitialized = true;
@@ -40,50 +40,55 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 	if (selectedTab >= tabs.size() || selectedTab < 0)
 		return;
 
+	Size selectedTabSize = tabs[selectedTab]->GetCalculatedSize();
+
 	int xPos = 0;
 	if (pinOrigin == PinOriginCenter)
-		xPos = calculatedSize.w / 2 - tabSize.w / 2;
+		xPos = calculatedSize.w / 2 - selectedTabSize.w / 2;
 	else if (pinOrigin == PinOriginRight)
-		xPos = calculatedSize.w - tabSize.w;
+		xPos = calculatedSize.w - selectedTabSize.w;
 
-	Position pos = Position(xPos, 0) + pinPosition;
+	Position selectedPos = Position(xPos, 0) + pinPosition;
 
 	switch (tabMode)
 	{
 	case TabModeNormal:
 		{
 			tabs[selectedTab]->SetTextColor(Color(0xff, 0xff, 0xff, 0xff));
-			tabs[selectedTab]->Draw(pos);
+			tabs[selectedTab]->Draw(selectedPos);
 
-			int x = pos.x - tabSize.w;
+			int x = selectedPos.x;
 			int i = selectedTab;
-			while (x > -tabSize.w)
+			while (x >= 0)
 			{
 				i--;
 				if (i < 0)
 					i = tabs.size() - 1;
 
-				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
-				tabs[i]->Draw(Position(x, pos.y));
+				x -= tabs[i]->GetCalculatedSize().w + tabs[i]->GetLayoutMargin().left;
 
-				x -= tabSize.w;
+				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
+				tabs[i]->Draw(Position(x, selectedPos.y));
 			}
 
-			x = pos.x + tabSize.w;
+			x = selectedPos.x;
 			i = selectedTab;
-			while (x < calculatedSize.w)
+			while (true)
 			{
+				x += tabs[i]->GetCalculatedSize().w + tabs[i]->GetLayoutMargin().right;
+
+				if (x >= calculatedSize.w)
+					break;
+
 				i = (i + 1) % tabs.size();
 
 				tabs[i]->SetTextColor(Color(0xb0, 0xb0, 0xb0, 0xff));
-				tabs[i]->Draw(Position(x, pos.y));
-
-				x += tabSize.w;
+				tabs[i]->Draw(Position(x, selectedPos.y));
 			}
 		}
 		break;
 	case TabModeShowSingle:
-		tabs[selectedTab]->Draw(pos);
+		tabs[selectedTab]->Draw(selectedPos);
 		break;
 	default:
 		break;
@@ -102,6 +107,7 @@ View* TabStrip::Copy()
 	view->SetPinOrigin(pinOrigin);
 	view->SetPinPosition(pinPosition);
 	view->SetTabMode(tabMode);
+	view->SetTabSize(tabSize);
 
 	for (Label* v : tabs)
 	{
@@ -143,6 +149,16 @@ void TabStrip::SetTabMode(TabMode tabMode)
 	this->tabMode = tabMode;
 }
 
+Size TabStrip::GetTabSize()
+{
+	return tabSize;
+}
+
+void TabStrip::SetTabSize(Size tabSize)
+{
+	this->tabSize = tabSize;
+}
+
 // TODO Currently not usable via XML, so haven't bothered implementing this method properly
 bool TabStrip::SetProperty(string name, string value)
 {
@@ -158,6 +174,7 @@ void TabStrip::AddTab(string name)
 {
 	Label* label = new Label();
 	label->SetSize(tabSize);
+	label->SetLayoutMargin(Box(0, 0, 10, 10));
 	label->SetGravity(GRAVITY_VCENTER | GRAVITY_HCENTER);
 	label->SetText(name);
 	label->SetParentView(this);
@@ -166,7 +183,7 @@ void TabStrip::AddTab(string name)
 	if (isInitialized)
 	{
 		label->Initialize(resourceManager, renderer);
-		label->CalculateLayout(Position(0, 0), tabSize);
+		label->CalculateLayout(Position(0, 0), Size(-1, -1));
 	}
 
 	tabs.push_back(label);
