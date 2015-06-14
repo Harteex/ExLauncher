@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AppManager.cpp" />
     <ClCompile Include="graphics_utils.cpp" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Xml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="AppManager.h" />
     <ClInclude Include="global.h" />

@@ -135,6 +135,9 @@
     <ClCompile Include="Views\TabStrip.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="Views\TabStrip.h">
       <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,7 @@ TabPanel::TabPanel()
 
 TabPanel::~TabPanel()
 {
+	delete tabStrip;
 }
 
 bool TabPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
@@ -29,6 +30,11 @@ bool TabPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* render
 
 	isInitialized = true;
 	return true;
+}
+
+void TabPanel::OnUpdate()
+{
+	tabStrip->Update();
 }
 
 void TabPanel::OnDraw(SDL_Renderer* renderer, Position offset)
@@ -130,17 +136,23 @@ bool TabPanel::SelectByName(std::string name)
 	return false;
 }
 
-bool TabPanel::SelectByIndex(int index)
+void TabPanel::DoSelectTabByIndex(int index)
 {
-	if (index < 0 || index >= children.size())
-		return false;
-
 	for (int i = 0; i < children.size(); i++)
 	{
 		children[i]->SetVisible(i == index);
 	}
 
 	selectedIndex = index;
+}
+
+bool TabPanel::SelectByIndex(int index)
+{
+	if (index < 0 || index >= children.size())
+		return false;
+
+	DoSelectTabByIndex(index);
+	
 	tabStrip->SelectTab(index);
 	return true;
 }
@@ -157,7 +169,8 @@ View* TabPanel::SelectNext(Direction direction)
 		if (newIndex < 0)
 			newIndex = children.size() - 1;
 
-		SelectByIndex(newIndex);
+		DoSelectTabByIndex(newIndex);
+		tabStrip->SwitchTab(DirectionLeft);
 	}
 	else if (direction == DirectionRight)
 	{
@@ -165,7 +178,8 @@ View* TabPanel::SelectNext(Direction direction)
 		if (newIndex >= children.size())
 			newIndex = 0;
 
-		SelectByIndex(newIndex);
+		DoSelectTabByIndex(newIndex);
+		tabStrip->SwitchTab(DirectionRight);
 	}
 
 	return NULL;

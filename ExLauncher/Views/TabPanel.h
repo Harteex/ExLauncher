@@ -19,10 +19,13 @@ private:
 	std::vector<ISelectionHandler*> childrenSelectionHandlers;
 	Size tabAreaSize;
 	TabStrip* tabStrip;
+	
+	void DoSelectTabByIndex(int index);
 public:
 	TabPanel();
 	virtual ~TabPanel();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	void OnUpdate();
 	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();
 	virtual View* Copy();

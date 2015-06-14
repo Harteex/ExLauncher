@@ -12,10 +12,13 @@ TabStrip::TabStrip()
 	pinOrigin = PinOriginCenter;
 	pinPosition = Position(0, 0);
 	tabMode = TabModeNormal;
+	isAnimating = false;
+	movingTabAnimator = new Animator(0.2, TransitionDirectionOn);
 }
 
 TabStrip::~TabStrip()
 {
+	delete movingTabAnimator;
 }
 
 bool TabStrip::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
@@ -33,14 +36,19 @@ bool TabStrip::Initialize(ResourceManager* resourceManager, SDL_Renderer* render
 	return true;
 }
 
-void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
+void TabStrip::OnUpdate()
 {
-	// TODO offset etc?
+	if (isAnimating)
+	{
+		movingTabAnimator->Update();
 
-	if (selectedTab >= tabs.size() || selectedTab < 0)
-		return;
+		isAnimating = !movingTabAnimator->IsDone();
+	}
+}
 
-	Size selectedTabSize = tabs[selectedTab]->GetCalculatedSize();
+Position TabStrip::GetSelectedTabPosition(View* selectedTab)
+{
+	Size selectedTabSize = selectedTab->GetCalculatedSize();
 
 	int xPos = 0;
 	if (pinOrigin == PinOriginCenter)
@@ -49,6 +57,27 @@ void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
 		xPos = calculatedSize.w - selectedTabSize.w;
 
 	Position selectedPos = Position(xPos, 0) + pinPosition;
+
+	return selectedPos;
+}
+
+void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
+{
+	// TODO offset argument etc?
+
+	if (tabs.size() == 0)
+		return;
+
+	if (selectedTab >= tabs.size() || selectedTab < 0)
+		return;
+
+	Position selectedPos;
+
+	if (isAnimating)
+		selectedPos = GetAnimatedPosition(movingTabAnimator->GetProgress());
+	else
+		selectedPos = GetSelectedTabPosition(tabs[selectedTab]);
+	
 
 	switch (tabMode)
 	{
@@ -193,4 +222,54 @@ void TabStrip::SelectTab(int index)
 {
 	// FIXME bounds check
 	selectedTab = index;
+}
+
+void TabStrip::SwitchTab(Direction direction)
+{
+	if (direction != DirectionLeft && direction != DirectionRight)
+		return;
+
+	if (tabs.size() == 0)
+		return;
+
+	if (selectedTab >= tabs.size() || selectedTab < 0)
+		return;
+
+	Position selectedPos = GetSelectedTabPosition(tabs[selectedTab]);
+
+	int x = selectedPos.x;
+	int i = selectedTab;
+	if (direction == DirectionLeft)
+	{
+		i--;
+		if (i < 0)
+			i = tabs.size() - 1;
+
+		x -= tabs[i]->GetCalculatedSize().w + tabs[i]->GetLayoutMargin().left;
+	}
+	else
+	{
+		x += tabs[i]->GetCalculatedSize().w + tabs[i]->GetLayoutMargin().right;
+
+		i = (i + 1) % tabs.size();
+	}
+
+	animationPositionFrom = Position(x, selectedPos.y);
+	animationPositionTo = GetSelectedTabPosition(tabs[i]);
+	movingTabAnimator->Reset();
+	isAnimating = true;
+
+	SelectTab(i);
+}
+
+Position TabStrip::GetAnimatedPosition(double animationProgress)
+{
+	double dX = animationPositionFrom.x - animationPositionTo.x;
+	double dY = animationPositionFrom.y - animationPositionTo.y;
+
+	Position pos;
+	pos.x = animationPositionFrom.x - (dX * animationProgress);
+	pos.y = animationPositionFrom.y - (dY * animationProgress);
+
+	return pos;
 }

@@ -8,6 +8,7 @@
 #include "../structures.h"
 #include "Label.h"
 #include <vector>
+#include "../Animator.h"
 
 /*********************************************/
 
@@ -26,10 +27,18 @@ private:
 	Position pinPosition;
 	ResourceManager* resourceManager;
 	TabMode tabMode;
+	Animator* movingTabAnimator;
+	Position animationPositionFrom;
+	Position animationPositionTo;
+	bool isAnimating;
+
+	Position GetSelectedTabPosition(View* selectedTab);
+	Position GetAnimatedPosition(double animationProgress);
 public:
 	TabStrip();
 	virtual ~TabStrip();
 	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	void OnUpdate();
 	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();
 	virtual View* Copy();
@@ -48,6 +57,7 @@ public:
 	void RemoveTab(std::string name);
 	void RemoveTab(int index);
 	void SelectTab(int index);
+	void SwitchTab(Direction direction);
 };
 
 /*********************************************/
