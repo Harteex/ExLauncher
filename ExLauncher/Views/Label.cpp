@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "../graphics_utils.h"
 #include <sstream>
+#include <limits.h>
 
 using namespace std;
 
