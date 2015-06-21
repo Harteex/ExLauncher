@@ -100,7 +100,7 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 		throw runtime_error("view could not be created");
 	}
 
-	// Parse all arguments and set as properties on the view
+	// Parse all attributes and set as properties on the view
 	for (const rapidxml::xml_attribute<>* attrib = view->first_attribute(); attrib; attrib = attrib->next_attribute())
 	{
 		string name = attrib->name();
@@ -127,12 +127,49 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 		}
 	}
 
+	for (xml_node<> * item = view->first_node(); item; item = item->next_sibling())
+	{
+		string itemName = item->name();
+		string xamlAttrPrefix = view->name();
+		xamlAttrPrefix += ".";
+
+		if (itemName.find(xamlAttrPrefix) == 0)
+		{
+			string attribName = itemName.substr(xamlAttrPrefix.size());
+			
+			if (attribName == "ItemTemplate")
+			{
+				if (createdView->GetItemTemplate() != NULL)
+					throw runtime_error("cannot have multiple item templates");
+
+				if (item->first_node() != NULL)
+					createdView->SetItemTemplate(HandleNode(item->first_node(), NULL));
+
+				continue;
+			}
+			else
+			{
+				string errorMsg = "invalid xaml style attribute: ";
+				errorMsg = errorMsg + attribName;
+
+				throw runtime_error(errorMsg.c_str());
+			}
+		}
+	}
+
 	if (parent != NULL)
 		parent->AddChildView(createdView);
 
+
 	for (xml_node<> * childView = view->first_node(); childView; childView = childView->next_sibling())
 	{
-		HandleNode(childView, createdView);
+		string str = childView->name();
+
+		// If no dot, this is a child view
+		if (str.find(".") == string::npos)
+		{
+			HandleNode(childView, createdView);
+		}
 	}
 
 	return createdView;

@@ -3,8 +3,20 @@
   id="inputView"
   width="match_parent"
   height="match_parent"
-  tag="fillCategories"
-  itemTemplate="@theme/grid.xml">
+  tag="fillCategories">
+  
+  <TabPanel.ItemTemplate>
+    <GridView
+      id="inputView"
+      width="match_parent"
+      height="match_parent"
+      orientation="vertical"
+      itemCountSecondaryDirection="4"
+      itemTemplate="@theme/appTemplate.xml"
+      layoutMargin="5"
+      tag="fillItems" />
+  </TabPanel.ItemTemplate>
+  
   <LinearPanel
     width="match_parent"
     height="match_parent"
@@ -15,6 +27,7 @@
       text="lol"
       textColor="#ff8080" />
   </LinearPanel>
+  
   <LinearPanel
     width="match_parent"
     height="match_parent"
@@ -26,9 +39,11 @@
       textSize="24"
       font="light" />
   </LinearPanel>
+  
   <Label
       width="wrap_content"
       height="wrap_content"
       name="aaaaaaaaaaaaaaaaaaaaaa"
       text="aaaaaaaaaaaaaaaaaaaaaa" />
+  
 </TabPanel>
