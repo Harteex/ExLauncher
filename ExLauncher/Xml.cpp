@@ -95,6 +95,11 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 		throw runtime_error(msg.c_str());
 	}
 
+	if (createdView == NULL)
+	{
+		throw runtime_error("view could not be created");
+	}
+
 	// Parse all arguments and set as properties on the view
 	for (const rapidxml::xml_attribute<>* attrib = view->first_attribute(); attrib; attrib = attrib->next_attribute())
 	{
@@ -120,11 +125,6 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 
 			throw runtime_error(errorMsg.c_str());
 		}
-	}
-
-	if (createdView == NULL)
-	{
-		throw runtime_error("view could not be created");
 	}
 
 	if (parent != NULL)
