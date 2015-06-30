@@ -25,6 +25,7 @@ View::View()
 	gravity = 0;
 	itemTemplate = NULL;
 	background = Color(0, 0, 0, 0);
+	action = "";
 }
 
 string View::GetId()
@@ -269,6 +270,16 @@ void View::SetGravity(int gravity)
 	this->gravity = gravity;
 }
 
+std::string View::GetAction()
+{
+	return action;
+}
+
+void View::SetAction(std::string action)
+{
+	this->action = action;
+}
+
 Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
 {
 	if (size.w == SIZE_MATCH_PARENT && parentSize.w < 0 || size.h == SIZE_MATCH_PARENT && parentSize.h < 0)
@@ -487,6 +498,11 @@ bool View::SetProperty(string name, string value)
 
 		return true;
 	}
+	else if (name == "action")
+	{
+		this->action = value;
+		return true;
+	}
 
 	return false;
 }
@@ -499,6 +515,7 @@ View* View::CopyBase(View* view)
 	view->SetLayoutMargin(layoutMargin);
 	view->SetLayoutGravity(layoutGravity);
 	view->SetGravity(gravity);
+	view->SetAction(action);
 	view->SetItemTemplate(itemTemplate);
 
 	for (View* v : children)

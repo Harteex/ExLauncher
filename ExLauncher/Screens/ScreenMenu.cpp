@@ -9,11 +9,14 @@
 #include <exception>
 #include <stdlib.h>
 #include "../Xml.h"
+#include "../utils.h"
+#include "../ThemeManager.h"
 
 using namespace std;
 
-ScreenMenu::ScreenMenu()
+ScreenMenu::ScreenMenu(std::string layout)
 {
+	this->layout = layout;
 	contentView = new FramePanel();
 	inputView = NULL;
 	categoryFillView = NULL;
@@ -59,7 +62,7 @@ bool ScreenMenu::Initialize()
 	try
 	{
 		Xml xml;
-		contentView->AddChildView(xml.LoadView("data/themes/default/tab.xml"));
+		contentView->AddChildView(xml.LoadView(ThemeManager::ProcessPath(layout)));
 		contentView->InitializeAll(this);
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
@@ -280,11 +283,24 @@ void ScreenMenu::FillItem(View* v, map<string, string> data)
 
 void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 {
-	if (eventType == EventTypeLaunchApp)
+	if (eventType == EventTypeAction)
 	{
-		// TODO Animate launching from senders position
-		// TODO Launch app
+		vector<string> action = split(eventValue, ':');
+		if (action.size() == 3)
+		{
+			if (action[0] == "screen")
+			{
+				ScreenMenu* newScreen = new ScreenMenu(action[1]);
+				screenManager->AddScreen(newScreen);
 
-		// screenManager->AddScreen(new ScreenLaunchApp()); // pass rectangle of view and what to launch
+				// FIXME set args
+			}
+			else if (action[0] == "app")
+			{
+				// TODO Launch app
+
+				// TODO Animate launching from senders position
+			}
+		} 
 	}
 }

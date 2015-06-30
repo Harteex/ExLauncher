@@ -15,6 +15,7 @@
 class ScreenMenu : public Screen//, IFormEvent
 {
 private:
+	std::string layout;
 	View* contentView;
 	ISelectionHandler* inputView;
 	View* categoryFillView;
@@ -26,7 +27,7 @@ private:
 
 	//std::list<View*> itemFillViews;
 public:
-	ScreenMenu();
+	ScreenMenu(std::string layout);
 	virtual ~ScreenMenu();
 	void HandleInput(InputState* input);
 	bool Initialize();

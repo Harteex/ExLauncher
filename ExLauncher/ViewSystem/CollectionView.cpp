@@ -1,5 +1,6 @@
 #include "CollectionView.h"
 #include <algorithm>
+#include "../ScreenSystem/Screen.h"
 
 using namespace std;
 
@@ -22,6 +23,12 @@ void CollectionView::HandleInput(InputState* input)
 		SelectNext(DirectionLeft);
 	else if (input->GameKeyRepeat(GAMEKEY_RIGHT))
 		SelectNext(DirectionRight);
+	else if (input->GameKeyJustPressed(GAMEKEY_A))
+	{
+		View* sender = GetSelectedView();
+		if (sender->GetAction() != "")
+			context->OnEvent(sender, EventTypeAction, GetSelectedView()->GetAction());
+	}
 }
 
 int CollectionView::GetSelectedIndex()

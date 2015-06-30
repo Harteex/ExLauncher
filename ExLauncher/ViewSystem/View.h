@@ -56,6 +56,7 @@ protected:
 	int gravity;
 	View* itemTemplate;
 	Color background;
+	std::string action;
 
 	View* CopyBase(View* view);
 	virtual void DrawChildren(Position offset, Rectangle viewBounds);
@@ -100,6 +101,8 @@ public:
 	void SetLayoutGravity(int gravity);
 	int GetGravity();
 	void SetGravity(int gravity);
+	std::string GetAction();
+	void SetAction(std::string action);
 	Size CalculateLayout(Position offsetInCurView, Size parentSize);
 	void RecalculateLayout();
 	void CalculateAbsolutePosition(Position parentPosition);
