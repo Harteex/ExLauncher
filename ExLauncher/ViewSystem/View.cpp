@@ -3,13 +3,14 @@
 #include <algorithm>
 #include "../global.h"
 #include "../graphics_utils.h"
+#include "../ScreenSystem/Screen.h"
 
 using namespace std;
 
 View::View()
 {
 	isInitialized = false;
-	renderer = NULL;
+	context = NULL;
 	id = "";
 	name = "";
 	parent = NULL;
@@ -51,19 +52,44 @@ vector<string> View::GetTags()
 	return tags;
 }
 
-bool View::InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer)
+bool View::Initialize(Screen* context)
+{
+	if (isInitialized)
+		return true;
+
+	this->context = context;
+
+	bool result = OnInitialize();
+	if (!result)
+		return false;
+
+	isInitialized = true;
+	return true;
+}
+
+bool View::OnInitialize()
+{
+	return true;
+}
+
+bool View::InitializeAll(Screen* context)
 {
 	bool result = true;
-	result = Initialize(resourceManager, renderer);
+	result = Initialize(context);
 	if (!result)
 		return false;
 
 	for (View* view : children)
 	{
-		result = result && view->InitializeAll(resourceManager, renderer);
+		result = result && view->InitializeAll(context);
 	}
 
 	return result;
+}
+
+bool View::IsInitialized()
+{
+	return isInitialized;
 }
 
 void View::Update()
@@ -104,10 +130,10 @@ void View::Draw(Position offset, Rectangle parentViewBounds)
 
 	DrawDebugViewBounds(viewBounds);
 
-	SDL_RenderSetClipRect(renderer, &viewBoundsRectangle);
+	SDL_RenderSetClipRect(context->GetRenderer(), &viewBoundsRectangle);
 	DrawBackground(offset);
-	OnDraw(renderer, offset);
-	SDL_RenderSetClipRect(renderer, NULL);
+	OnDraw(context->GetRenderer(), offset);
+	SDL_RenderSetClipRect(context->GetRenderer(), NULL);
 
 	DrawChildren(offset, viewBounds);
 }
@@ -120,14 +146,14 @@ void View::DrawBackground(Position offset)
 {
 	if (background.a > 0)
 	{
-		SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
+		SDL_SetRenderDrawColor(context->GetRenderer(), background.r, background.g, background.b, background.a);
 		SDL_Rect rectangle;
 
 		rectangle.x = absolutePosition.x + offset.x;
 		rectangle.y = absolutePosition.y + offset.y;
 		rectangle.w = calculatedSize.w;
 		rectangle.h = calculatedSize.h;
-		SDL_RenderFillRect(renderer, &rectangle);
+		SDL_RenderFillRect(context->GetRenderer(), &rectangle);
 	}
 }
 
@@ -141,8 +167,8 @@ void View::DrawDebugViewBounds(Rectangle viewBounds)
 		viewBoundsRectangle.w = viewBounds.w;
 		viewBoundsRectangle.h = viewBounds.h;
 
-		SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);
-		SDL_RenderDrawRect(renderer, &viewBoundsRectangle);
+		SDL_SetRenderDrawColor(context->GetRenderer(), 0xff, 0x00, 0x00, 0xff);
+		SDL_RenderDrawRect(context->GetRenderer(), &viewBoundsRectangle);
 	}
 }
 

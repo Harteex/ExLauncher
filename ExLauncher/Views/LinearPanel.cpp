@@ -14,13 +14,9 @@ LinearPanel::~LinearPanel()
 {
 }
 
-bool LinearPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
+bool LinearPanel::OnInitialize()
 {
-	this->renderer = renderer;
-
 	ScrollView::SetOrientation(orientation);
-
-	isInitialized = true;
 	return true;
 }
 

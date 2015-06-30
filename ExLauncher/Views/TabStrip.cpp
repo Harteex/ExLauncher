@@ -1,5 +1,6 @@
 #include "TabStrip.h"
 #include <algorithm>
+#include "../ScreenSystem/Screen.h"
 
 using namespace std;
 
@@ -21,18 +22,16 @@ TabStrip::~TabStrip()
 	delete movingTabAnimator;
 }
 
-bool TabStrip::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
+bool TabStrip::OnInitialize()
 {
-	this->renderer = renderer;
-	this->resourceManager = resourceManager;
-
 	for (Label* label : tabs)
 	{
-		label->Initialize(resourceManager, renderer);
+		if (!label->Initialize(context))
+			return false;
+
 		label->CalculateLayout(Position(0, 0), Size(-1, -1));
 	}
 
-	isInitialized = true;
 	return true;
 }
 
@@ -209,9 +208,9 @@ void TabStrip::AddTab(string name)
 	label->SetParentView(this);
 	label->SetRelativePosition(0, 0);
 	label->SetTextSize(18);
-	if (isInitialized)
+	if (IsInitialized())
 	{
-		label->Initialize(resourceManager, renderer);
+		label->Initialize(context);
 		label->CalculateLayout(Position(0, 0), Size(-1, -1));
 	}
 

@@ -1,5 +1,6 @@
 #include "Image.h"
 #include "../ThemeManager.h"
+#include "../ScreenSystem/Screen.h"
 
 using namespace std;
 
@@ -13,16 +14,14 @@ Image::~Image()
 {
 }
 
-bool Image::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
+bool Image::OnInitialize()
 {
-	this->renderer = renderer;
-	image = resourceManager->LoadImage(path, path.c_str());
+	image = context->GetResourceManager()->LoadImage(path, path.c_str());
 	if (image == NULL)
 		return false;
 
 	SDL_QueryTexture(image, NULL, NULL, &contentSize.w, &contentSize.h);
 	
-	isInitialized = true;
 	return true;
 }
 

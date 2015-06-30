@@ -14,7 +14,6 @@ class FramePanel : public View
 public:
 	FramePanel();
 	virtual ~FramePanel();
-	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
 	void OnLayoutChange();
 	virtual View* Copy();
 

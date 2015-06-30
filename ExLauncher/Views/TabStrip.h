@@ -37,7 +37,7 @@ private:
 public:
 	TabStrip();
 	virtual ~TabStrip();
-	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	bool OnInitialize();
 	void OnUpdate();
 	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();

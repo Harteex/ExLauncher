@@ -12,6 +12,10 @@
 
 /*********************************************/
 
+class Screen;
+
+/*********************************************/
+
 #define SIZE_WRAP_CONTENT -1
 #define SIZE_MATCH_PARENT -2
 
@@ -33,8 +37,9 @@ private:
 	void DrawBackground(Position offset);
 	void DrawDebugViewBounds(Rectangle viewBounds);
 	Rectangle CalculateViewBounds(Position offset, Rectangle parentViewBounds);
+	bool isInitialized;
 protected:
-	SDL_Renderer* renderer;
+	Screen* context;
 	std::string id;
 	std::string name;
 	std::vector<std::string> tags;
@@ -49,7 +54,6 @@ protected:
 	Box layoutMargin;
 	int layoutGravity;
 	int gravity;
-	bool isInitialized;
 	View* itemTemplate;
 	Color background;
 
@@ -58,8 +62,10 @@ protected:
 public:
 	View();
     virtual ~View() {}
-	virtual bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer) = 0;
-	bool InitializeAll(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	bool Initialize(Screen* context);
+	virtual bool OnInitialize();
+	bool InitializeAll(Screen* context);
+	bool IsInitialized();
 	void Update();
 	virtual void OnUpdate();
 	virtual void Draw(Position offset = Position(0, 0), Rectangle parentViewBounds = Rectangle(-1, -1, -1, -1));

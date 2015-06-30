@@ -60,7 +60,7 @@ bool ScreenMenu::Initialize()
 	{
 		Xml xml;
 		contentView->AddChildView(xml.LoadView("data/themes/default/tab.xml"));
-		contentView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
+		contentView->InitializeAll(this);
 		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
 
@@ -227,7 +227,7 @@ void ScreenMenu::HandleApps()
 			if (categoryView == NULL)
 			{
 				categoryView = categoryFillView->GetItemTemplate()->Copy();
-				categoryView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
+				categoryView->InitializeAll(this);
 				categoryView->SetName(kv.first);
 			}
 
@@ -263,7 +263,7 @@ void ScreenMenu::AddApp(View* fillView, App* app)
 	View* newView = fillView->GetItemTemplate()->Copy();
 	FillItem(newView, app->GetAllData());
 
-	newView->InitializeAll(screenManager->GetResourceManager(), screenManager->GetRenderer());
+	newView->InitializeAll(this);
 	fillView->AddChildView(newView);
 }
 

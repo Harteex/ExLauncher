@@ -3,6 +3,7 @@
 #include "../graphics_utils.h"
 #include <sstream>
 #include <limits.h>
+#include "../ScreenSystem/Screen.h"
 
 using namespace std;
 
@@ -22,11 +23,9 @@ Label::~Label()
 		SDL_DestroyTexture(texture);
 }
 
-bool Label::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
+bool Label::OnInitialize()
 {
-	this->resourceManager = resourceManager;
-	this->renderer = renderer;
-	ttfFont = resourceManager->GetTTFFont(font, textSize);
+	ttfFont = context->GetResourceManager()->GetTTFFont(font, textSize);
 
 	if (ttfFont == NULL)
 		return false;
@@ -34,7 +33,6 @@ bool Label::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
 	if (!RenderText(UINT_MAX))
 		return false;
 
-	isInitialized = true;
 	return true;
 }
 
@@ -82,7 +80,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	if (clippedSurface == NULL)
 		return false;
 
-	texture = SDL_CreateTextureFromSurface(renderer, clippedSurface);
+	texture = SDL_CreateTextureFromSurface(context->GetRenderer(), clippedSurface);
 	SDL_FreeSurface(clippedSurface);
 	if (texture == NULL)
 		return false;
@@ -140,7 +138,7 @@ void Label::SetText(string text)
 {
 	this->text = text;
 
-	if (isInitialized)
+	if (IsInitialized())
 	{
 		RenderText(UINT_MAX);
 
@@ -252,7 +250,7 @@ void Label::FillData(map<string, string>& data)
 		}
 	}
 
-	if (isInitialized)
+	if (IsInitialized())
 	{
 		RenderText(UINT_MAX);
 		RecalculateLayout();

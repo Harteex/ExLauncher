@@ -1,6 +1,7 @@
 #include "Screen.h"
 #include "../utils.h"
 #include "../global.h"
+#include "ScreenManager.h"
 
 using namespace std;
 
@@ -124,6 +125,16 @@ bool Screen::IsPopup()
 bool Screen::IsActive()
 {
 	return !otherScreenHasFocus && (screenstate == TransitionOn || screenstate == Active);
+}
+
+SDL_Renderer* Screen::GetRenderer()
+{
+	return screenManager->GetRenderer();
+}
+
+ResourceManager* Screen::GetResourceManager()
+{
+	return screenManager->GetResourceManager();
 }
 
 void Screen::SetScreenManager(ScreenManager* screenManager)

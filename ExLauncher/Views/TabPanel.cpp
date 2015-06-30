@@ -22,14 +22,9 @@ TabPanel::~TabPanel()
 	delete tabStrip;
 }
 
-bool TabPanel::Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer)
+bool TabPanel::OnInitialize()
 {
-	this->renderer = renderer;
-
-	tabStrip->Initialize(resourceManager, renderer);
-
-	isInitialized = true;
-	return true;
+	return tabStrip->Initialize(context);
 }
 
 void TabPanel::OnUpdate()

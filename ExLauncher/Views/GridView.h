@@ -34,7 +34,7 @@ private:
 public:
 	GridView();
 	~GridView();
-	bool Initialize(ResourceManager* resourceManager, SDL_Renderer* renderer);
+	bool OnInitialize();
 	//void SetTransition(TransitionEffect effect, double value);
 	//void ClearTransitions();
 	void OnLayoutChange();

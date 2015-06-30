@@ -57,6 +57,12 @@ public:
 	// Returns true if the screen is active and can respond to input
 	bool IsActive();
 
+	// Returns the renderer used for this screen
+	SDL_Renderer* GetRenderer();
+
+	// Returns the resource manager used for this screen
+	ResourceManager* GetResourceManager();
+
 	// Sets the ScreenManager object. This handled by the ScreenManager, and should not be done manually.
 	void SetScreenManager(ScreenManager* screenManager);
 

@@ -17,7 +17,7 @@ bool ScreenError::Initialize()
 
 	errorLabel->SetText(errorText);
 
-	if (!errorLabel->Initialize(screenManager->GetResourceManager(), screenManager->GetRenderer()))
+	if (!errorLabel->Initialize(this))
 		return false;
 
 	errorLabel->SetSize(SIZE_MATCH_PARENT, SIZE_WRAP_CONTENT);
