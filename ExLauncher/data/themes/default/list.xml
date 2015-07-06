@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Screen title="">
-  <LinearPanel
-    id="inputView"
-    width="match_parent"
-    height="match_parent"
-    orientation="vertical"
-    itemTemplate="@theme/appTemplate.xml"
-    layoutMargin="5"
-    tag="fillItems">
-  </LinearPanel>
-</Screen>
+<LinearPanel
+  id="inputView"
+  width="match_parent"
+  height="match_parent"
+  orientation="vertical"
+  layoutMargin="5"
+  tag="fillItems">
+  <LinearPanel.ItemTemplate>
+    <FramePanel
+      width="match_parent"
+      height="40">
+      <Selector
+        width="match_parent"
+        height="match_parent">
+        <State stateSelected="true">
+          <Image
+            width="match_parent"
+            height="match_parent"
+            path="@theme/markerBg.png"/>
+        </State>
+      </Selector>
+      <LinearPanel
+        width="match_parent"
+        height="match_parent">
+        <Image
+          width="wrap_content"
+          height="wrap_content"
+          layoutGravity="center_vertical"
+          layoutMargin="2"
+          path="@theme/appIconDefault.png"/>
+        <Label
+          width="wrap_content"
+          height="match_parent"
+          gravity="center_vertical"
+          layoutMargin="6"
+          text="{name}"/>
+      </LinearPanel>
+    </FramePanel>
+  </LinearPanel.ItemTemplate>
+</LinearPanel>
