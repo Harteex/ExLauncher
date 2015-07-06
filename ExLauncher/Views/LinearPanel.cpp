@@ -203,12 +203,11 @@ View* LinearPanel::SelectNext(Direction direction)
 		break;
 	}
 
-	int origIndex = selectedIndex;
-	int index;
+	int index = selectedIndex;
 
 	if (orientation == OrientationHorizontal)
 	{
-		if (origIndex + dx < 0 || origIndex + dx >= children.size())
+		if (selectedIndex + dx < 0 || selectedIndex + dx >= children.size())
 			return NULL;
 
 		if (dy != 0)
@@ -222,7 +221,7 @@ View* LinearPanel::SelectNext(Direction direction)
 		if (dx != 0)
 			return NULL;
 
-		if (origIndex + dy < 0 || origIndex + dy >= children.size())
+		if (selectedIndex + dy < 0 || selectedIndex + dy >= children.size())
 			return NULL;
 
 		index += dy;
