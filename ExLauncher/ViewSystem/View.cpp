@@ -26,6 +26,7 @@ View::View()
 	itemTemplate = NULL;
 	background = Color(0, 0, 0, 0);
 	action = "";
+	dataCanBeFilled = false;
 }
 
 string View::GetId()
@@ -59,6 +60,8 @@ bool View::Initialize(Screen* context)
 		return true;
 
 	this->context = context;
+
+	CheckIfDataCanBeFilled();
 
 	bool result = OnInitialize();
 	if (!result)
@@ -538,6 +541,16 @@ void View::SetItemTemplate(View* itemTemplate)
 
 void View::FillData(map<string, string>& data)
 {
+}
+
+void View::CheckIfDataCanBeFilled()
+{
+	dataCanBeFilled = false;
+}
+
+bool View::GetDataCanBeFilled()
+{
+	return dataCanBeFilled;
 }
 
 void View::PropagateStateChange(string stateName, string stateValue)

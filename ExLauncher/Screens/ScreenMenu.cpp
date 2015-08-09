@@ -294,6 +294,7 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 				screenManager->AddScreen(newScreen);
 
 				// FIXME set args
+				// FIXME set can go back on new screen
 			}
 			else if (action[0] == "app")
 			{

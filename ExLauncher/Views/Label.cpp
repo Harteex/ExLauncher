@@ -256,3 +256,9 @@ void Label::FillData(map<string, string>& data)
 		RecalculateLayout();
 	}
 }
+
+void Label::CheckIfDataCanBeFilled()
+{
+	size_t foundStart = text.find_first_of('{', 0);
+	dataCanBeFilled = (foundStart != string::npos);
+}
