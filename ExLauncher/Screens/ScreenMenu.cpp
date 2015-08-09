@@ -286,7 +286,7 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 	if (eventType == EventTypeAction)
 	{
 		vector<string> action = split(eventValue, ':');
-		if (action.size() == 3)
+		if (action.size() == 2 || action.size() == 3)
 		{
 			if (action[0] == "screen")
 			{
