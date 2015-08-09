@@ -335,5 +335,8 @@
     <Xml Include="data\themes\default\tab.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
+    <Xml Include="data\themes\default\testaction.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

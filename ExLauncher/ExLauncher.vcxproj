@@ -157,6 +157,7 @@
     <Xml Include="data\themes\default\test4.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="data\themes\default\testaction.xml" />
     <Xml Include="data\themes\default\testframepanel.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

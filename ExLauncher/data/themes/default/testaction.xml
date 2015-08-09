@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView
+  id="inputView"
+  width="match_parent"
+  height="match_parent"
+  orientation="vertical"
+  itemCountSecondaryDirection="4"
+  itemTemplate="@theme/appTemplate.xml"
+  layoutMargin="5">
+  <Label
+    width="50"
+    height="wrap_content"
+    text="Press me"
+    action="screen:@theme/tab.xml:args"/>
+</GridView>
