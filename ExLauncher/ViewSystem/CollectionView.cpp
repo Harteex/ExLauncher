@@ -26,7 +26,7 @@ void CollectionView::HandleInput(InputState* input)
 	else if (input->GameKeyJustPressed(GAMEKEY_A))
 	{
 		View* sender = GetSelectedView();
-		if (sender->GetAction() != "")
+		if (sender != NULL && sender->GetAction() != "")
 			context->OnEvent(sender, EventTypeAction, GetSelectedView()->GetAction());
 	}
 }
