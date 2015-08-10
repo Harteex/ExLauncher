@@ -24,7 +24,7 @@
   </GridView.ItemTemplate>
   
   <Item
-    action="screen:@theme/testaction.xml:testvar=lol">
+    action="screen:@theme/testaction.xml:testvar=lol;testvar2=omg=bbq">
     <Label
       width="match_parent"
       height="wrap_content"

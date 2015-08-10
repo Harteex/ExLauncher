@@ -283,6 +283,8 @@ void ScreenMenu::FillItem(View* v, map<string, string> data)
 
 void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 {
+	// FIXME catch exceptions for everything in this method
+
 	if (eventType == EventTypeAction)
 	{
 		vector<string> action = split(eventValue, ':');
@@ -291,9 +293,23 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 			if (action[0] == "screen")
 			{
 				ScreenMenu* newScreen = new ScreenMenu(action[1]);
+
+				// If we have arguments, parse them and set them on the launching screen
+				if (action.size() == 3)
+				{
+					vector<string> args = split(action[2], ';');
+					for (string arg : args)
+					{
+						size_t separationIndex = arg.find_first_of('=');
+						if (separationIndex == string::npos)
+							throw runtime_error("invalid arguments");
+
+						newScreen->arguments->PutString(arg.substr(0, separationIndex), arg.substr(separationIndex + 1));
+					}
+				}
+
 				screenManager->AddScreen(newScreen);
 
-				// FIXME set args
 				// FIXME set can go back on new screen
 			}
 			else if (action[0] == "app")

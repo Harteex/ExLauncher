@@ -14,6 +14,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AppManager.cpp" />
+    <ClCompile Include="DataStore.cpp" />
     <ClCompile Include="graphics_utils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="AppManager.h" />
+    <ClInclude Include="DataStore.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="graphics_utils.h" />
     <ClInclude Include="RapidXml\rapidxml.hpp" />

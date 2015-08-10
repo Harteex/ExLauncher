@@ -8,6 +8,7 @@
 #include "../graphics_utils.h"
 #include "../ScreenSystem/InputState.h"
 #include "../ViewSystem/View.h"
+#include "../DataStore.h"
 
 /*********************************************/
 
@@ -82,7 +83,8 @@ protected:
 	Uint8 GetTransitionAlpha();
 	void SetTransitionTime(double transitionOnTime, double transitionOffTime);
 
-	ScreenManager *screenManager;
+	ScreenManager* screenManager;
+	DataStore* arguments;
 	ScreenState screenstate;
 	std::string lastError;
 	bool popup;

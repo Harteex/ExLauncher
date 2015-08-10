@@ -14,6 +14,7 @@ Screen::Screen()
 	otherScreenHasFocus = true;
 	popup = false;
 	screenManager = NULL;
+	arguments = new DataStore();
 	transitionPosition = 1;
 	transitionOnTime = 0.4;
 	transitionOffTime = 0.4;
@@ -21,6 +22,7 @@ Screen::Screen()
 
 Screen::~Screen()
 {
+	delete arguments;
 }
 
 ScreenState Screen::GetScreenState()

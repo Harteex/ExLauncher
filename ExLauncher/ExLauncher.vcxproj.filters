@@ -138,6 +138,9 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStore.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
