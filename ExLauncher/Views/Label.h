@@ -17,7 +17,6 @@ class Label : public View
 private:
 	SDL_Texture* texture;
 	std::string text;
-	std::string calculatedText;
 	int textSize;
 	Color textColor;
 	std::string font;

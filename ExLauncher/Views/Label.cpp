@@ -11,7 +11,6 @@ Label::Label()
 {
 	texture = NULL;
 	text = "";
-	calculatedText = "";
 	textSize = 12;
 	textColor = Color(0xff, 0xff, 0xff, 0xff);
 	font = "semibold";
@@ -48,7 +47,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	color.g = 0xff;
 	color.b = 0xff;
 	color.a = 0xff;
-	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, calculatedText.empty() ? text.c_str() : calculatedText.c_str(), color, textAreaWidth);
+	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), color, textAreaWidth);
 	if (tempSurface == NULL)
 		return false;
 
@@ -220,33 +219,35 @@ bool Label::SetProperty(string name, string value)
 
 void Label::FillData(map<string, string>& data)
 {
-	calculatedText = text;
 	int searchFrom = 0;
 
-	while (true)
+	if (dataCanBeFilled)
 	{
-		size_t foundStart = calculatedText.find_first_of('{', searchFrom);
-		if (foundStart == string::npos)
-			return;
-
-		size_t foundEnd = calculatedText.find_first_of('}', foundStart + 1);
-		if (foundEnd == string::npos)
-			return;
-
-		try
+		while (true)
 		{
-			string key = calculatedText.substr(foundStart + 1, foundEnd - foundStart - 1);
-			string replaceWith = data.at(key);
-			int keyLength = foundEnd - foundStart - 1 + 2; // + 2 including brackets
-			int replaceWithLength = replaceWith.length();
-			int sizeChange = replaceWithLength - keyLength;
+			size_t foundStart = text.find_first_of('{', searchFrom);
+			if (foundStart == string::npos)
+				break;
 
-			searchFrom = foundEnd + sizeChange + 1;
-			calculatedText.replace(foundStart, keyLength, replaceWith);
-		}
-		catch (exception& ex)
-		{
-			searchFrom = foundEnd + 1;
+			size_t foundEnd = text.find_first_of('}', foundStart + 1);
+			if (foundEnd == string::npos)
+				break;
+
+			try
+			{
+				string key = text.substr(foundStart + 1, foundEnd - foundStart - 1);
+				string replaceWith = data.at(key);
+				int keyLength = foundEnd - foundStart - 1 + 2; // + 2 including brackets
+				int replaceWithLength = replaceWith.length();
+				int sizeChange = replaceWithLength - keyLength;
+
+				searchFrom = foundEnd + sizeChange + 1;
+				text.replace(foundStart, keyLength, replaceWith);
+			}
+			catch (exception& ex)
+			{
+				searchFrom = foundEnd + 1;
+			}
 		}
 	}
 

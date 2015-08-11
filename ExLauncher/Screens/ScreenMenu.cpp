@@ -102,6 +102,7 @@ bool ScreenMenu::Initialize()
 		}
 
 		HandleApps();
+		FillDataArguments();
 
 		if (inputView != NULL)
 			inputView->SelectByIndex(0);
@@ -268,20 +269,26 @@ void ScreenMenu::HandleApps()
 void ScreenMenu::AddApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
-	FillItem(newView, app->GetAllData());
 
 	newView->InitializeAll(this);
+	FillDataInView(newView, app->GetAllData());
+
 	fillView->AddChildView(newView);
 }
 
-void ScreenMenu::FillItem(View* v, map<string, string> data)
+void ScreenMenu::FillDataArguments()
+{
+	FillDataInView(contentView, arguments->GetStringMap());
+}
+
+void ScreenMenu::FillDataInView(View* v, map<string, string> data)
 {
 	v->FillData(data);
 
 	for (int i = 0; i < v->GetNumberOfChildren(); i++)
 	{
 		View* c = v->GetChildView(i);
-		FillItem(c, data);
+		FillDataInView(c, data);
 	}
 }
 

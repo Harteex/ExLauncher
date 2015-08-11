@@ -38,7 +38,8 @@ public:
 	View* GetFirstViewByTag(std::string tag);
 	void HandleApps();
 	void AddApp(View* fillView, App* app);
-	void FillItem(View* v, std::map<std::string, std::string> data);
+	void FillDataArguments();
+	void FillDataInView(View* v, std::map<std::string, std::string> data);
 	void OnEvent(View* sender, EventType eventType, std::string eventValue);
 	bool GetCanGoBack();
 	void SetCanGoBack(bool canGoBack);
