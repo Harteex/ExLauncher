@@ -24,6 +24,7 @@ ScreenMenu::ScreenMenu(std::string layout)
 	title = "";
 	titleTexture = NULL;
 	titleTextureBg = NULL;
+	canGoBack = false;
 
 	SetTransitionTime(0.6, 0.1);
 }
@@ -120,6 +121,9 @@ void ScreenMenu::HandleInput(InputState* input)
 {
 	if (inputView != NULL)
 		inputView->HandleInput(input);
+
+	if (input->GameKeyJustPressed(GAMEKEY_B))
+		OnEvent(NULL, EventTypeGoBack, "");
 
 	/*bool virtualKeyboardWasActive = formContainer.IsVirtualKeyboardActive();
 	formContainer.HandleInput(input);
@@ -285,39 +289,58 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 {
 	// FIXME catch exceptions for everything in this method
 
-	if (eventType == EventTypeAction)
+	switch (eventType)
 	{
-		vector<string> action = split(eventValue, ':');
-		if (action.size() == 2 || action.size() == 3)
+	case EventTypeAction:
 		{
-			if (action[0] == "screen")
+			vector<string> action = split(eventValue, ':');
+			if (action.size() == 2 || action.size() == 3)
 			{
-				ScreenMenu* newScreen = new ScreenMenu(action[1]);
-
-				// If we have arguments, parse them and set them on the launching screen
-				if (action.size() == 3)
+				if (action[0] == "screen")
 				{
-					vector<string> args = split(action[2], ';');
-					for (string arg : args)
+					ScreenMenu* newScreen = new ScreenMenu(action[1]);
+
+					// If we have arguments, parse them and set them on the launching screen
+					if (action.size() == 3)
 					{
-						size_t separationIndex = arg.find_first_of('=');
-						if (separationIndex == string::npos)
-							throw runtime_error("invalid arguments");
+						vector<string> args = split(action[2], ';');
+						for (string arg : args)
+						{
+							size_t separationIndex = arg.find_first_of('=');
+							if (separationIndex == string::npos)
+								throw runtime_error("invalid arguments");
 
-						newScreen->arguments->PutString(arg.substr(0, separationIndex), arg.substr(separationIndex + 1));
+							newScreen->arguments->PutString(arg.substr(0, separationIndex), arg.substr(separationIndex + 1));
+						}
 					}
+
+					newScreen->SetCanGoBack(true);
+
+					screenManager->AddScreen(newScreen);
 				}
+				else if (action[0] == "app")
+				{
+					// TODO Launch app
 
-				screenManager->AddScreen(newScreen);
-
-				// FIXME set can go back on new screen
+					// TODO Animate launching from senders position
+				}
 			}
-			else if (action[0] == "app")
-			{
-				// TODO Launch app
+		}
 
-				// TODO Animate launching from senders position
-			}
-		} 
+		break;
+	case EventTypeGoBack:
+		if (canGoBack)
+			ExitScreen();
+		break;
 	}
+}
+
+bool ScreenMenu::GetCanGoBack()
+{
+	return canGoBack;
+}
+
+void ScreenMenu::SetCanGoBack(bool canGoBack)
+{
+	this->canGoBack = canGoBack;
 }

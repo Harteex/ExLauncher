@@ -76,7 +76,7 @@ enum Direction {DirectionLeft, DirectionRight, DirectionUp, DirectionDown};
 enum Orientation {OrientationHorizontal, OrientationVertical};
 enum SizeMode {SizeModeNormal, SizeModeCompact};
 enum TransitionEffect {TransitionEffectZoom};
-enum EventType {EventTypeAction};
+enum EventType {EventTypeAction, EventTypeGoBack};
 
 #define GRAVITY_LEFT 0
 #define GRAVITY_TOP 0

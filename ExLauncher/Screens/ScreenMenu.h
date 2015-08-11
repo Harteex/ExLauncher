@@ -24,6 +24,7 @@ private:
 	SDL_Texture* titleTexture;
 	SDL_Texture* titleTextureBg;
 	std::map<std::string, std::string> fillData;
+	bool canGoBack;
 
 	//std::list<View*> itemFillViews;
 public:
@@ -39,6 +40,8 @@ public:
 	void AddApp(View* fillView, App* app);
 	void FillItem(View* v, std::map<std::string, std::string> data);
 	void OnEvent(View* sender, EventType eventType, std::string eventValue);
+	bool GetCanGoBack();
+	void SetCanGoBack(bool canGoBack);
 protected:
 	//FormContainer formContainer;
 
