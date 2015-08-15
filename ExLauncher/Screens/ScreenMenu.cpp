@@ -99,6 +99,12 @@ bool ScreenMenu::Initialize()
 			{
 				throw runtime_error("view to fill does not have an itemTemplate");
 			}
+
+			if (itemFillView != NULL)
+			{
+				auto tags = itemFillView->GetTags();
+				ParseCategoriesFromTags(tags);
+			}
 		}
 
 		HandleApps();
@@ -116,6 +122,38 @@ bool ScreenMenu::Initialize()
 	SetTitle("START");
 
 	return true;
+}
+
+void ScreenMenu::ParseCategoriesFromTags(vector<string> tags)
+{
+	for (string tag : tags)
+	{
+		if (tag.substr(0, 10) == "categories")
+		{
+			size_t sepPos = tag.find_first_of('=');
+			if (sepPos != string::npos)
+			{
+				string categoryListString = tag.substr(sepPos + 1);
+
+				vector<string> categoryList = split(categoryListString, ',');
+
+				for (string cat : categoryList)
+				{
+					// FIXME trim cat
+					if (cat[0] == '-')
+					{
+						itemFillViewCategoriesToExclude.push_back(cat.substr(1));
+					}
+					else
+					{
+						itemFillViewCategoriesToInclude.push_back(cat);
+					}
+				}
+
+				break;
+			}
+		}
+	}
 }
 
 void ScreenMenu::HandleInput(InputState* input)

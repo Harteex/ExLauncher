@@ -47,4 +47,12 @@
       text="Go to tab view (arg)" />
   </Item>
 
+  <Item
+    action="screen:@theme/list.xml">
+    <Label
+      width="match_parent"
+      height="wrap_content"
+      text="Go to list view" />
+  </Item>
+
 </GridView>

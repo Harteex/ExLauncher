@@ -20,6 +20,8 @@ private:
 	ISelectionHandler* inputView;
 	View* categoryFillView;
 	View* itemFillView;
+	std::list<std::string> itemFillViewCategoriesToInclude;
+	std::list<std::string> itemFillViewCategoriesToExclude;
 	std::string title;
 	SDL_Texture* titleTexture;
 	SDL_Texture* titleTextureBg;
@@ -32,6 +34,7 @@ public:
 	virtual ~ScreenMenu();
 	void HandleInput(InputState* input);
 	bool Initialize();
+	void ScreenMenu::ParseCategoriesFromTags(std::vector<std::string> tags);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	void SetTitle(std::string title);
 	View* GetViewById(std::string id);
