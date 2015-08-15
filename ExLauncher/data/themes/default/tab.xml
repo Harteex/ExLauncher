@@ -13,8 +13,7 @@
       orientation="vertical"
       itemCountSecondaryDirection="4"
       itemTemplate="@theme/appTemplate.xml"
-      layoutMargin="5"
-      tag="fillItems" />
+      layoutMargin="5" />
   </TabPanel.ItemTemplate>
   
   <LinearPanel

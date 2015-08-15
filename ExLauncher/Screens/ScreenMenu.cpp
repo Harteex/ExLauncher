@@ -90,6 +90,9 @@ bool ScreenMenu::Initialize()
 			{
 				throw runtime_error("itemTemplate of category view to fill does not have an itemTemplate");
 			}
+
+			auto tags = categoryFillView->GetTags();
+			ParseCategoriesFromTags(tags);
 		}
 		else
 		{
@@ -142,11 +145,11 @@ void ScreenMenu::ParseCategoriesFromTags(vector<string> tags)
 					// FIXME trim cat
 					if (cat[0] == '-')
 					{
-						itemFillViewCategoriesToExclude.push_back(cat.substr(1));
+						categoriesToExclude.push_back(cat.substr(1));
 					}
 					else
 					{
-						itemFillViewCategoriesToInclude.push_back(cat);
+						categoriesToInclude.push_back(cat);
 					}
 				}
 
@@ -258,6 +261,20 @@ void ScreenMenu::HandleApps()
 		map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
 		for (auto kv : *apps)
 		{
+			// Check if category should be skipped, and if so, continue to next loop iteration
+			if (categoriesToInclude.empty())
+			{
+				bool foundInExclude = (std::find(categoriesToExclude.begin(), categoriesToExclude.end(), kv.first) != categoriesToExclude.end());
+				if (foundInExclude)
+					continue;
+			}
+			else
+			{
+				bool foundInInclude = (std::find(categoriesToInclude.begin(), categoriesToInclude.end(), kv.first) != categoriesToInclude.end());
+				if (!foundInInclude)
+					continue;
+			}
+
 			View* categoryView = NULL;
 			for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
 			{
@@ -293,14 +310,14 @@ void ScreenMenu::HandleApps()
 	}
 	else if (itemFillView != NULL)
 	{
-		if (itemFillViewCategoriesToInclude.empty())
+		if (categoriesToInclude.empty())
 		{
 			// If no categories to include are specified, get all categories, and filter out any from those to exclude (if present)
 
 			map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
 			for (auto kv : *apps)
 			{
-				bool foundInExclude = (std::find(itemFillViewCategoriesToExclude.begin(), itemFillViewCategoriesToExclude.end(), kv.first) != itemFillViewCategoriesToExclude.end());
+				bool foundInExclude = (std::find(categoriesToExclude.begin(), categoriesToExclude.end(), kv.first) != categoriesToExclude.end());
 				if (foundInExclude)
 					continue;
 
@@ -314,7 +331,7 @@ void ScreenMenu::HandleApps()
 		{
 			// Only use categories that are specified
 
-			for (string category : itemFillViewCategoriesToInclude)
+			for (string category : categoriesToInclude)
 			{
 				vector<App*>* apps = screenManager->GetAppManager()->GetApps(category);
 				for (int i = 0; i < apps->size(); i++)

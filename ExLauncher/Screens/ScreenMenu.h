@@ -20,8 +20,8 @@ private:
 	ISelectionHandler* inputView;
 	View* categoryFillView;
 	View* itemFillView;
-	std::list<std::string> itemFillViewCategoriesToInclude;
-	std::list<std::string> itemFillViewCategoriesToExclude;
+	std::list<std::string> categoriesToInclude;
+	std::list<std::string> categoriesToExclude;
 	std::string title;
 	SDL_Texture* titleTexture;
 	SDL_Texture* titleTextureBg;
