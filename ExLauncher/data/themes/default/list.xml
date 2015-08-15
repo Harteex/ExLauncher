@@ -5,7 +5,7 @@
   height="match_parent"
   orientation="vertical"
   layoutMargin="5"
-  tag="fillItems|categories=emulators">
+  tag="fillItems|categories=applications,games">
   <LinearPanel.ItemTemplate>
     <FramePanel
       width="match_parent"

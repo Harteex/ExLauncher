@@ -293,14 +293,38 @@ void ScreenMenu::HandleApps()
 	}
 	else if (itemFillView != NULL)
 	{
-		vector<App*>* apps = screenManager->GetAppManager()->GetApps("games");
-		for (int i = 0; i < apps->size(); i++)
+		if (itemFillViewCategoriesToInclude.empty())
 		{
-			AddApp(itemFillView, apps->at(i));
+			// If no categories to include are specified, get all categories, and filter out any from those to exclude (if present)
+
+			map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
+			for (auto kv : *apps)
+			{
+				bool foundInExclude = (std::find(itemFillViewCategoriesToExclude.begin(), itemFillViewCategoriesToExclude.end(), kv.first) != itemFillViewCategoriesToExclude.end());
+				if (foundInExclude)
+					continue;
+
+				for (App* app : *kv.second)
+				{
+					AddApp(itemFillView, app);
+				}
+			}
+		}
+		else
+		{
+			// Only use categories that are specified
+
+			for (string category : itemFillViewCategoriesToInclude)
+			{
+				vector<App*>* apps = screenManager->GetAppManager()->GetApps(category);
+				for (int i = 0; i < apps->size(); i++)
+				{
+					AddApp(itemFillView, apps->at(i));
+				}
+			}
 		}
 
-		if (!apps->empty())
-			itemFillView->RecalculateLayout();
+		itemFillView->RecalculateLayout();
 	}
 }
 
