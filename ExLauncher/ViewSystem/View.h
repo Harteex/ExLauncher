@@ -84,6 +84,7 @@ public:
 	virtual void AddChildView(View* view);
 	int GetNumberOfChildren();
 	View* GetChildView(int i);
+	void SortChildren(bool(*comparer)(View* v1, View* v2));
 	bool IsVisible();
 	void SetVisible(bool visible);
 	Position GetRelativePosition();

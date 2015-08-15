@@ -412,6 +412,11 @@ View* View::GetChildView(int i)
 	return children.at(i);
 }
 
+void View::SortChildren(bool(*comparer)(View* v1, View* v2))
+{
+	sort(children.begin(), children.end(), comparer);
+}
+
 bool View::IsVisible()
 {
 	return visible;

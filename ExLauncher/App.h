@@ -21,6 +21,7 @@ public:
 	std::string manual;*/
 
 	std::map<std::string, std::string>& GetAllData();
+	std::string GetData(std::string key, std::string defaultValue);
 	void SetData(std::string key, std::string value);
 
 	App();

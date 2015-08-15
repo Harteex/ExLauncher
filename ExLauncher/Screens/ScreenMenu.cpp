@@ -299,6 +299,8 @@ void ScreenMenu::HandleApps()
 				AddApp(categoryView, app);
 			}
 
+			SortItemsByName(categoryView);
+
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
 			if (selectionHandler != NULL)
 				selectionHandler->SelectByIndex(0);
@@ -341,6 +343,7 @@ void ScreenMenu::HandleApps()
 			}
 		}
 
+		SortItemsByName(itemFillView);
 		itemFillView->RecalculateLayout();
 	}
 }
@@ -351,6 +354,7 @@ void ScreenMenu::AddApp(View* fillView, App* app)
 
 	newView->InitializeAll(this);
 	FillDataInView(newView, app->GetAllData());
+	newView->SetName(app->GetData("name", ""));
 
 	fillView->AddChildView(newView);
 }
@@ -369,6 +373,16 @@ void ScreenMenu::FillDataInView(View* v, map<string, string> data)
 		View* c = v->GetChildView(i);
 		FillDataInView(c, data);
 	}
+}
+
+bool _SortItemsByNameItemComparer(View* v1, View* v2)
+{
+	return v1->GetName().compare(v2->GetName()) < 0;
+}
+
+void ScreenMenu::SortItemsByName(View* containingView)
+{
+	containingView->SortChildren(_SortItemsByNameItemComparer);
 }
 
 void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)

@@ -43,6 +43,7 @@ public:
 	void AddApp(View* fillView, App* app);
 	void FillDataArguments();
 	void FillDataInView(View* v, std::map<std::string, std::string> data);
+	void SortItemsByName(View* containingView);
 	void OnEvent(View* sender, EventType eventType, std::string eventValue);
 	bool GetCanGoBack();
 	void SetCanGoBack(bool canGoBack);
