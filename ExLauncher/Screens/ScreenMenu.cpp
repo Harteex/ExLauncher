@@ -254,101 +254,111 @@ View* ScreenMenu::GetFirstViewByTag(std::string tag)
 		return contentView->GetFirstChildViewByTag(tag);
 }
 
+bool ScreenMenu::ShouldCategoryBeIncluded(string category)
+{
+	if (categoriesToInclude.empty())
+	{
+		bool foundInExclude = (std::find(categoriesToExclude.begin(), categoriesToExclude.end(), category) != categoriesToExclude.end());
+		if (foundInExclude)
+			return false;
+	}
+	else
+	{
+		bool foundInInclude = (std::find(categoriesToInclude.begin(), categoriesToInclude.end(), category) != categoriesToInclude.end());
+		if (!foundInInclude)
+			return false;
+	}
+
+	return true;
+}
+
 void ScreenMenu::HandleApps()
+{
+	map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
+	for (auto kv : *apps)
+	{
+		for (App* app : *kv.second)
+		{
+			AddApp(app, kv.first);
+		}
+	}
+
+	EndAddApp();
+}
+
+View* ScreenMenu::FindOrCreateCategoryView(string category)
+{
+	View* categoryView = NULL;
+	for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
+	{
+		// FIXME This part is untested
+		View* c = categoryFillView->GetChildView(i);
+		if (c->GetName() == category)
+		{
+			categoryView = c;
+			break;
+		}
+	}
+
+	if (categoryView == NULL)
+	{
+		categoryView = categoryFillView->GetItemTemplate()->Copy();
+		categoryView->InitializeAll(this);
+		categoryView->SetName(category);
+
+		categoryFillView->AddChildView(categoryView);
+	}
+
+	return categoryView;
+}
+
+void ScreenMenu::AddApp(App* app, string category)
+{
+	if (!ShouldCategoryBeIncluded(category))
+		return;
+
+	if (categoryFillView != NULL)
+	{
+		View* categoryView = FindOrCreateCategoryView(category);
+		AddViewForApp(categoryView, app);
+	}
+	else if (itemFillView != NULL)
+	{
+		AddViewForApp(itemFillView, app);
+	}
+}
+
+// FIXME get previous selection, and try to select this again if it's not removed. Maybe use the id field for this purpose.
+void ScreenMenu::EndAddApp()
 {
 	if (categoryFillView != NULL)
 	{
-		map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
-		for (auto kv : *apps)
+		for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
 		{
-			// Check if category should be skipped, and if so, continue to next loop iteration
-			if (categoriesToInclude.empty())
-			{
-				bool foundInExclude = (std::find(categoriesToExclude.begin(), categoriesToExclude.end(), kv.first) != categoriesToExclude.end());
-				if (foundInExclude)
-					continue;
-			}
-			else
-			{
-				bool foundInInclude = (std::find(categoriesToInclude.begin(), categoriesToInclude.end(), kv.first) != categoriesToInclude.end());
-				if (!foundInInclude)
-					continue;
-			}
-
-			View* categoryView = NULL;
-			for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
-			{
-				// FIXME This part is untested
-				View* c = categoryFillView->GetChildView(i);
-				if (c->GetName() == kv.first)
-				{
-					categoryView = c;
-					break;
-				}
-			}
-
-			if (categoryView == NULL)
-			{
-				categoryView = categoryFillView->GetItemTemplate()->Copy();
-				categoryView->InitializeAll(this);
-				categoryView->SetName(kv.first);
-			}
-
-			for (App* app : *kv.second)
-			{
-				AddApp(categoryView, app);
-			}
+			View* categoryView = categoryFillView->GetChildView(i);
 
 			SortItemsByName(categoryView);
 
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
 			if (selectionHandler != NULL)
 				selectionHandler->SelectByIndex(0);
-
-			categoryFillView->AddChildView(categoryView);
 		}
 
 		categoryFillView->RecalculateLayout();
 	}
 	else if (itemFillView != NULL)
 	{
-		if (categoriesToInclude.empty())
-		{
-			// If no categories to include are specified, get all categories, and filter out any from those to exclude (if present)
-
-			map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
-			for (auto kv : *apps)
-			{
-				bool foundInExclude = (std::find(categoriesToExclude.begin(), categoriesToExclude.end(), kv.first) != categoriesToExclude.end());
-				if (foundInExclude)
-					continue;
-
-				for (App* app : *kv.second)
-				{
-					AddApp(itemFillView, app);
-				}
-			}
-		}
-		else
-		{
-			// Only use categories that are specified
-
-			for (string category : categoriesToInclude)
-			{
-				vector<App*>* apps = screenManager->GetAppManager()->GetApps(category);
-				for (int i = 0; i < apps->size(); i++)
-				{
-					AddApp(itemFillView, apps->at(i));
-				}
-			}
-		}
-
 		SortItemsByName(itemFillView);
+
+		ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(itemFillView);
+		if (selectionHandler != NULL)
+			selectionHandler->SelectByIndex(0);
+
 		itemFillView->RecalculateLayout();
 	}
 }
 
-void ScreenMenu::AddApp(View* fillView, App* app)
+void ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
 

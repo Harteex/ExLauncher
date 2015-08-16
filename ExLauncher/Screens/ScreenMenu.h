@@ -29,6 +29,8 @@ private:
 	bool canGoBack;
 
 	//std::list<View*> itemFillViews;
+	View* FindOrCreateCategoryView(std::string category);
+	bool ShouldCategoryBeIncluded(std::string category);
 public:
 	ScreenMenu(std::string layout);
 	virtual ~ScreenMenu();
@@ -40,7 +42,9 @@ public:
 	View* GetViewById(std::string id);
 	View* GetFirstViewByTag(std::string tag);
 	void HandleApps();
-	void AddApp(View* fillView, App* app);
+	void AddApp(App* app, std::string category);
+	void EndAddApp();
+	void AddViewForApp(View* fillView, App* app);
 	void FillDataArguments();
 	void FillDataInView(View* v, std::map<std::string, std::string> data);
 	void SortItemsByName(View* containingView);
