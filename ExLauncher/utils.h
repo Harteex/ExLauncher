@@ -15,3 +15,5 @@ std::string trim(std::string str, const std::string& trimChars = whiteSpaces);
 std::string lineBreak(std::string text, int lineLength);
 int clip(int val, int min, int max);
 double clip(double val, double min, double max);
+void measureTimeStart();
+double measureTimeFinish();

@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <chrono>
 
 using namespace std;
 
@@ -108,4 +109,19 @@ double clip(double val, double min, double max)
 		return max;
 
 	return val;
+}
+
+chrono::system_clock::time_point start;
+
+void measureTimeStart()
+{
+	start = std::chrono::steady_clock::now();
+}
+
+double measureTimeFinish()
+{
+	auto finish = std::chrono::steady_clock::now();
+	double elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double> >(finish - start).count();
+
+	return elapsed_seconds;
 }
