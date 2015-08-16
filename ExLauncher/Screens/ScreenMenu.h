@@ -12,7 +12,7 @@
 
 /*********************************************/
 
-class ScreenMenu : public Screen//, IFormEvent
+class ScreenMenu : public Screen
 {
 private:
 	std::string layout;
@@ -22,13 +22,9 @@ private:
 	View* itemFillView;
 	std::list<std::string> categoriesToInclude;
 	std::list<std::string> categoriesToExclude;
-	std::string title;
-	SDL_Texture* titleTexture;
-	SDL_Texture* titleTextureBg;
 	std::map<std::string, std::string> fillData;
 	bool canGoBack;
 
-	//std::list<View*> itemFillViews;
 	View* FindOrCreateCategoryView(std::string category);
 	bool ShouldCategoryBeIncluded(std::string category);
 public:
@@ -38,7 +34,6 @@ public:
 	bool Initialize();
 	void ScreenMenu::ParseCategoriesFromTags(std::vector<std::string> tags);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
-	void SetTitle(std::string title);
 	View* GetViewById(std::string id);
 	View* GetFirstViewByTag(std::string tag);
 	void HandleApps();
@@ -53,10 +48,7 @@ public:
 	bool GetCanGoBack();
 	void SetCanGoBack(bool canGoBack);
 protected:
-	//FormContainer formContainer;
-
 	void Draw(SDL_Renderer* renderer);
-	//virtual void OnFormEvent(int position, FormEventType eventType, std::string tag) = 0;
 };
 
 /*********************************************/

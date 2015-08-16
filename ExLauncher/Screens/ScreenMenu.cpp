@@ -21,9 +21,6 @@ ScreenMenu::ScreenMenu(std::string layout)
 	inputView = NULL;
 	categoryFillView = NULL;
 	itemFillView = NULL;
-	title = "";
-	titleTexture = NULL;
-	titleTextureBg = NULL;
 	canGoBack = false;
 
 	SetTransitionTime(0.6, 0.1);
@@ -31,33 +28,10 @@ ScreenMenu::ScreenMenu(std::string layout)
 
 ScreenMenu::~ScreenMenu()
 {
-	if (titleTexture != NULL)
-		SDL_DestroyTexture(titleTexture);
-
-	if (titleTextureBg != NULL)
-		SDL_DestroyTexture(titleTextureBg);
 }
 
 bool ScreenMenu::Initialize()
 {
-	/*formContainer.Initialize(view, screenManager,
-		screenManager->GetResourceManager()->GetTTFFont("guiFont"),
-		screenManager->GetResourceManager()->GetTTFFont("guiFontSmall"),
-		screenManager->GetResourceManager()->GetFont("dialogFontSmall"));
-	formContainer.SetEventListener(this);*/
-
-	/*tileAdapter = new ItemAdapter(&formContainer, screenManager->GetRenderer(), tileFont);
-	tileAdapter->AddItem<Tile>(new Item("No Recent"));
-	tileAdapter->AddItem<Tile>(new Item("No Recent"));
-	tileAdapter->AddItem<Tile>(new Item("No Recent"));
-	tileAdapter->AddItem<Tile>(new Item("No Recent"));
-	tileAdapter->AddItem<Tile>(new Item("Games", screenManager->GetResourceManager()->GetImage("IconGames")));
-	tileAdapter->AddItem<Tile>(new Item("Emulators", screenManager->GetResourceManager()->GetImage("IconEmulators")));
-	tileAdapter->AddItem<Tile>(new Item("Applications", screenManager->GetResourceManager()->GetImage("IconApplications")));
-	tileAdapter->AddItem<Tile>(new Item("Settings", screenManager->GetResourceManager()->GetImage("IconSettings")));
-	//tileAdapter->AddItem<TextField>(new Item());
-	*/
-
 	contentView->SetSize(Size(SIZE_MATCH_PARENT, SIZE_MATCH_PARENT));
 
 	try
@@ -122,8 +96,6 @@ bool ScreenMenu::Initialize()
 		return false;
 	}
 
-	SetTitle("START");
-
 	return true;
 }
 
@@ -170,26 +142,7 @@ void ScreenMenu::HandleInput(InputState* input)
 	/*bool virtualKeyboardWasActive = formContainer.IsVirtualKeyboardActive();
 	formContainer.HandleInput(input);
 	if (formContainer.IsVirtualKeyboardActive() || virtualKeyboardWasActive)
-		return;
-
-	if (input->GameKeyJustPressed(GAMEKEY_UP))
-		formContainer.SelectNextElement(DirectionUp);
-	else if (input->GameKeyJustPressed(GAMEKEY_DOWN))
-		formContainer.SelectNextElement(DirectionDown);
-	else if (input->GameKeyJustPressed(GAMEKEY_LEFT))
-		formContainer.SelectNextElement(DirectionLeft);
-	else if (input->GameKeyJustPressed(GAMEKEY_RIGHT))
-		formContainer.SelectNextElement(DirectionRight);*/
-	/*else if (input->GameKeyJustPressed(GAMEKEY_B))
-		formContainer.FireEvent("", FormEventBack);*/
-
-	// Test code
-	/*if (input->GameKeyJustPressed(GAMEKEY_UP))
-	{
-		View* v = GetViewById("testlabel");
-		if (v != NULL)
-			((Label*)v)->SetText("omglol");
-	}*/
+		return;*/
 }
 
 void ScreenMenu::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
@@ -200,7 +153,6 @@ void ScreenMenu::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 	{
 		if (contentView != NULL)
 			contentView->Update();
-		//formContainer.Update();
 	}
 }
 
@@ -224,18 +176,6 @@ void ScreenMenu::Draw(SDL_Renderer* renderer)
 
 	if (titleTexture != NULL)
 		drawTexture(8, 3, titleTexture, renderer);*/
-}
-
-void ScreenMenu::SetTitle(string title)
-{
-	this->title = title;
-
-	TTF_Font* font = screenManager->GetResourceManager()->GetTTFFont("light", 22); // OpenSans-Light // OpenSans-Regular
-	titleTexture = drawText(title.c_str(), 0xff, 0xff, 0xff, font, screenManager->GetRenderer());
-
-	SDL_Surface* blackText = drawTextSurface(title.c_str(), 0x00, 0x00, 0x00, font);
-	SDL_Surface* blurredText = blurSurface(blackText, 2);
-	titleTextureBg = SDL_CreateTextureFromSurface(screenManager->GetRenderer(), blurredText);
 }
 
 View* ScreenMenu::GetViewById(std::string id)
@@ -291,7 +231,6 @@ View* ScreenMenu::FindOrCreateCategoryView(string category)
 	View* categoryView = NULL;
 	for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
 	{
-		// FIXME This part is untested
 		View* c = categoryFillView->GetChildView(i);
 		if (c->GetName() == category)
 		{
