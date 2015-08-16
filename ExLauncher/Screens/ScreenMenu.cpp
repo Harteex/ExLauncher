@@ -342,6 +342,8 @@ void ScreenMenu::EndAddApp()
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
 			if (selectionHandler != NULL)
 				selectionHandler->SelectByIndex(0);
+
+			FillDataInView(categoryView, arguments->GetStringMap());
 		}
 
 		categoryFillView->RecalculateLayout();
@@ -354,8 +356,14 @@ void ScreenMenu::EndAddApp()
 		if (selectionHandler != NULL)
 			selectionHandler->SelectByIndex(0);
 
+		FillDataInView(itemFillView, arguments->GetStringMap());
 		itemFillView->RecalculateLayout();
 	}
+}
+
+void ScreenMenu::RemoveApp(string id)
+{
+	// TODO implement
 }
 
 void ScreenMenu::AddViewForApp(View* fillView, App* app)

@@ -44,6 +44,7 @@ public:
 	void HandleApps();
 	void AddApp(App* app, std::string category);
 	void EndAddApp();
+	void RemoveApp(std::string id);
 	void AddViewForApp(View* fillView, App* app);
 	void FillDataArguments();
 	void FillDataInView(View* v, std::map<std::string, std::string> data);
