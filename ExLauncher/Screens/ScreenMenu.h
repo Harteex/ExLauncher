@@ -38,7 +38,8 @@ public:
 	View* GetFirstViewByTag(std::string tag);
 	void HandleApps();
 	void AddApp(App* app, std::string category);
-	void EndAddApp();
+	void StartUpdateApps();
+	void EndUpdateApps();
 	void RemoveApp(std::string id);
 	void AddViewForApp(View* fillView, App* app);
 	void FillDataArguments();

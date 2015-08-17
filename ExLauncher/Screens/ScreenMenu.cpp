@@ -223,7 +223,7 @@ void ScreenMenu::HandleApps()
 		}
 	}
 
-	EndAddApp();
+	EndUpdateApps();
 }
 
 View* ScreenMenu::FindOrCreateCategoryView(string category)
@@ -267,8 +267,15 @@ void ScreenMenu::AddApp(App* app, string category)
 	}
 }
 
+void ScreenMenu::StartUpdateApps()
+{
+	// Save current selection(s)?
+}
+
 // FIXME get previous selection, and try to select this again if it's not removed. Maybe use the id field for this purpose.
-void ScreenMenu::EndAddApp()
+// Or maybe do that in startupdateapps? dunno
+// Also, try to optimize... do we really need to filldatainview? (should only be done if a new category is created I think?)
+void ScreenMenu::EndUpdateApps()
 {
 	if (categoryFillView != NULL)
 	{

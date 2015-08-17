@@ -249,12 +249,15 @@ void Label::FillData(map<string, string>& data)
 				searchFrom = foundEnd + 1;
 			}
 		}
-	}
 
-	if (IsInitialized())
-	{
-		RenderText(UINT_MAX);
-		RecalculateLayout();
+		// Recheck if data can be filled, if all data is filled already, we can set it to false
+		CheckIfDataCanBeFilled();
+
+		if (IsInitialized())
+		{
+			RenderText(UINT_MAX);
+			RecalculateLayout();
+		}
 	}
 }
 
