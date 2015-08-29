@@ -111,17 +111,17 @@ double clip(double val, double min, double max)
 	return val;
 }
 
-chrono::system_clock::time_point start;
+chrono::time_point<chrono::steady_clock> start;
 
 void measureTimeStart()
 {
-	start = std::chrono::steady_clock::now();
+	start = chrono::steady_clock::now();
 }
 
 double measureTimeFinish()
 {
-	auto finish = std::chrono::steady_clock::now();
-	double elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double> >(finish - start).count();
+	auto finish = chrono::steady_clock::now();
+	double elapsed_seconds = chrono::duration_cast<chrono::duration<double> >(finish - start).count();
 
 	return elapsed_seconds;
 }
