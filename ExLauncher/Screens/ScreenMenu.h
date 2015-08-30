@@ -32,7 +32,7 @@ public:
 	virtual ~ScreenMenu();
 	void HandleInput(InputState* input);
 	bool Initialize();
-	void ScreenMenu::ParseCategoriesFromTags(std::vector<std::string> tags);
+	void ParseCategoriesFromTags(std::vector<std::string> tags);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	View* GetViewById(std::string id);
 	View* GetFirstViewByTag(std::string tag);
