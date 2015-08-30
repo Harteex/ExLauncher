@@ -186,7 +186,7 @@ int main(int argc, char **argv)
 	
 	ScreenBackgroundImage* bgScreen = new ScreenBackgroundImage();
 	screenManager.AddScreen(bgScreen);
-	screenManager.AddScreen(new ScreenMenu("@theme/tab.xml"));
+	screenManager.AddScreen(new ScreenMenu("@theme/testaction.xml"));
 	//screenManager.AddScreen(new ScreenTest());
 
 	bgScreen->AddImage("Circuit");

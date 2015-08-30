@@ -1,4 +1,10 @@
 #include "AppManager.h"
+#include "utils.h"
+
+#ifdef HAS_LIBOPK
+#include <dirent.h>
+#include <opk.h>
+#endif
 
 using namespace std;
 
@@ -10,92 +16,163 @@ AppManager::~AppManager()
 {
 }
 
+vector<App*>* AppManager::FindOrCreateCategory(string category)
+{
+	auto categoryResult = apps.find(category);
+	if (categoryResult != apps.end())
+		return categoryResult->second;
+
+	vector<App*>* categoryNew = new vector<App*>();
+	apps[category] = categoryNew;
+
+	return categoryNew;
+}
+
+void AppManager::AddApp(App* app)
+{
+	string categoriesString = app->GetData("categories", "uncategorized");
+	vector<string> categories = split(categoriesString, ';');
+	
+	for (string category : categories)
+	{
+		vector<App*>* categoryAppContainer = FindOrCreateCategory(category);
+		categoryAppContainer->push_back(app);
+	}
+}
+
 bool AppManager::LoadApps()
 {
+	// Create default categories (should always exist)
+	FindOrCreateCategory("games");
+	FindOrCreateCategory("applications");
+	FindOrCreateCategory("settings");
+	FindOrCreateCategory("emulators");
+
 #ifdef HAS_LIBOPK
 	// OPK CODE
 #else
 	// If no libopk, for example when compiling and testing with Visual Studio, just load example data
 
-	std::vector<App*>* categoryGames = new std::vector<App*>();
-	std::vector<App*>* categoryApplications = new std::vector<App*>();
-	std::vector<App*>* categorySettings = new std::vector<App*>();
-	std::vector<App*>* categoryEmulators = new std::vector<App*>();
+	App* app;
 
-	App* appGame1 = new App();
-	appGame1->SetData("name", "SameGoo");
-	categoryGames->push_back(appGame1);
-	App* appGame2 = new App();
-	appGame2->SetData("name", "UMG");
-	categoryGames->push_back(appGame2);
-	App* appGame3 = new App();
-	appGame3->SetData("name", "Jet Set Radio Future");
-	categoryGames->push_back(appGame3);
-	App* appGame4 = new App();
-	appGame4->SetData("name", "Halo");
-	categoryGames->push_back(appGame4);
-	App* appGame5 = new App();
-	appGame5->SetData("name", "Crysis");
-	categoryGames->push_back(appGame5);
-	App* appGame6 = new App();
-	appGame6->SetData("name", "Final Fantasy");
-	categoryGames->push_back(appGame6);
-	App* appGame7 = new App();
-	appGame7->SetData("name", "Crash Bandicoot");
-	categoryGames->push_back(appGame7);
-	App* appGame8 = new App();
-	appGame8->SetData("name", "Crackdown");
-	categoryGames->push_back(appGame8);
-	App* appGame9 = new App();
-	appGame9->SetData("name", "Minecraft");
-	categoryGames->push_back(appGame9);
-	App* appGame10 = new App();
-	appGame10->SetData("name", "Counter Strike");
-	categoryGames->push_back(appGame10);
-	App* appGame11 = new App();
-	appGame11->SetData("name", "Just Cause 2");
-	categoryGames->push_back(appGame11);
-	App* appGame12 = new App();
-	appGame12->SetData("name", "The Witcher");
-	categoryGames->push_back(appGame12);
-	App* appGame13 = new App();
-	appGame13->SetData("name", "Age of Empires");
-	categoryGames->push_back(appGame13);
-	App* appGame14 = new App();
-	appGame14->SetData("name", "Team Fortress 2");
-	categoryGames->push_back(appGame14);
-	App* appGame15 = new App();
-	appGame15->SetData("name", "Halflife 3");
-	categoryGames->push_back(appGame15);
-	App* appGame16 = new App();
-	appGame16->SetData("name", "Settlers 2");
-	categoryGames->push_back(appGame16);
-	App* appGame17 = new App();
-	appGame17->SetData("name", "Dead or Alive");
-	categoryGames->push_back(appGame17);
-	App* appGame18 = new App();
-	appGame18->SetData("name", "Amped");
-	categoryGames->push_back(appGame18);
+	app = new App();
+	app->SetData("name", "SameGoo");
+	app->SetData("categories", "games;");
+	AddApp(app);
 
-	App* app4 = new App();
-	app4->SetData("name", "Console");
-	categoryApplications->push_back(app4);
+	app = new App();
+	app->SetData("name", "UMG");
+	app->SetData("categories", "games;");
+	AddApp(app);
 
-	App* app5 = new App();
-	app5->SetData("name", "Wireless");
-	categorySettings->push_back(app5);
-	App* app6 = new App();
-	app6->SetData("name", "Shutdown");
-	categorySettings->push_back(app6);
+	app = new App();
+	app->SetData("name", "Jet Set Radio Future");
+	app->SetData("categories", "games;");
+	AddApp(app);
 
-	App* app7 = new App();
-	app7->SetData("name", "Snes9x");
-	categorySettings->push_back(app7);
+	app = new App();
+	app->SetData("name", "Halo");
+	app->SetData("categories", "games;");
+	AddApp(app);
 
-	apps["games"] = categoryGames;
-	apps["applications"] = categoryApplications;
-	apps["settings"] = categorySettings;
-	apps["emulators"] = categoryEmulators;
+	app = new App();
+	app->SetData("name", "Crysis");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Final Fantasy");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Crash Bandicoot");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Crackdown");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Minecraft");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Counter Strike");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Just Cause 2");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "The Witcher");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Age of Empires");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Team Fortress 2");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Halflife 3");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Settlers 2");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Dead or Alive");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Amped");
+	app->SetData("categories", "games;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Console");
+	app->SetData("categories", "applications;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Wireless");
+	app->SetData("categories", "settings;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Shutdown");
+	app->SetData("categories", "settings;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Test Uncategorized");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Test Custom Category");
+	app->SetData("categories", "customcategory;");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("name", "Test Multiple Categories");
+	app->SetData("categories", "customcategory;settings;");
+	AddApp(app);
 #endif
 
 	return true;

@@ -15,6 +15,9 @@ class AppManager
 {
 private:
 	std::map<std::string, std::vector<App*>*> apps;
+
+	std::vector<App*>* FindOrCreateCategory(std::string category);
+	void AddApp(App* app);
 public:
 	AppManager();
 	~AppManager();
