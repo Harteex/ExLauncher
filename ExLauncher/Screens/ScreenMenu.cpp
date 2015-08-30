@@ -11,6 +11,7 @@
 #include "../Xml.h"
 #include "../utils.h"
 #include "../ThemeManager.h"
+#include <algorithm>
 
 using namespace std;
 
