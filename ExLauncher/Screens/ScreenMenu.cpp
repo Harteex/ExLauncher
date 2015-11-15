@@ -85,7 +85,7 @@ bool ScreenMenu::Initialize()
 			}
 		}
 
-		HandleApps();
+		HandleApps(); // FIXME check result, show error if any app failed to load
 		FillDataArguments();
 
 		if (inputView != NULL)
@@ -213,18 +213,20 @@ bool ScreenMenu::ShouldCategoryBeIncluded(string category)
 	return true;
 }
 
-void ScreenMenu::HandleApps()
+bool ScreenMenu::HandleApps()
 {
+	bool result = true;
 	map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
 	for (auto kv : *apps)
 	{
 		for (App* app : *kv.second)
 		{
-			AddApp(app, kv.first);
+			result = result && AddApp(app, kv.first);
 		}
 	}
 
 	EndUpdateApps();
+	return result;
 }
 
 View* ScreenMenu::FindOrCreateCategoryView(string category)
@@ -252,20 +254,24 @@ View* ScreenMenu::FindOrCreateCategoryView(string category)
 	return categoryView;
 }
 
-void ScreenMenu::AddApp(App* app, string category)
+bool ScreenMenu::AddApp(App* app, string category)
 {
+	bool result = true;
+
 	if (!ShouldCategoryBeIncluded(category))
-		return;
+		return result;
 
 	if (categoryFillView != NULL)
 	{
 		View* categoryView = FindOrCreateCategoryView(category);
-		AddViewForApp(categoryView, app);
+		result = AddViewForApp(categoryView, app);
 	}
 	else if (itemFillView != NULL)
 	{
-		AddViewForApp(itemFillView, app);
+		result = AddViewForApp(itemFillView, app);
 	}
+
+	return result;
 }
 
 void ScreenMenu::StartUpdateApps()
@@ -313,15 +319,19 @@ void ScreenMenu::RemoveApp(string id)
 	// TODO implement
 }
 
-void ScreenMenu::AddViewForApp(View* fillView, App* app)
+bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
 
-	newView->InitializeAll(this);
 	FillDataInView(newView, app->GetAllData());
-	newView->SetName(app->GetData("name", ""));
+	bool result = newView->InitializeAll(this);
+	if (result)
+	{
+		newView->SetName(app->GetData("name", ""));
+		fillView->AddChildView(newView);
+	}
 
-	fillView->AddChildView(newView);
+	return result;
 }
 
 void ScreenMenu::FillDataArguments()

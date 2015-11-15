@@ -60,6 +60,35 @@ SDL_Texture* ResourceManager::LoadImageForceLoad(string id, const char* filename
 	return LoadImage(id, filename);
 }
 
+#ifdef HAS_LIBOPK
+SDL_Texture* ResourceManager::LoadImageFromOpk(string id, struct OPK *opk, string filename)
+{
+	if (images.count(id) > 0)
+	{
+		SDL_DestroyTexture(images[id]);
+		images.erase(id);
+	}
+
+	if (renderer == NULL)
+		return NULL;
+
+	void *buffer = NULL;
+	size_t length;
+
+	int ret = opk_extract_file(opk, filename.c_str(), &buffer, &length);
+	
+	if (ret < 0)
+		return NULL;
+
+	SDL_Texture* tempImg = loadImageFromMemory(buffer, length, renderer);
+	if (tempImg == NULL)
+		return NULL;
+
+	images[id] = tempImg;
+	return images[id];
+}
+#endif
+
 void ResourceManager::UnloadImages()
 {
 	for (map<string, SDL_Texture*>::iterator i = images.begin(); i != images.end(); i++)

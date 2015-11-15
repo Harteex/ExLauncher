@@ -10,10 +10,16 @@ using namespace std;
 
 AppManager::AppManager()
 {
+	resourceManager = NULL;
 }
 
 AppManager::~AppManager()
 {
+}
+
+void AppManager::SetResourceManager(ResourceManager* resourceManager)
+{
+	this->resourceManager = resourceManager;
 }
 
 vector<App*>* AppManager::FindOrCreateCategory(string category)
@@ -98,8 +104,13 @@ App* ParseOpkMetadata(struct OPK *opk)
 		{
 			app->SetData("name", valueBuffer);
 		}
+		else if (strncmp(key, "Icon", keyLength) == 0)
+		{
+			app->SetData("iconName", valueBuffer);
+		}
 
 		// TODO handle more values, for example icon
+
 	}
 
 	return app;
@@ -164,7 +175,13 @@ bool AppManager::LoadApps()
 				// We have metadata to load
 				App* app = ParseOpkMetadata(opk);
 				if (app != NULL)
+				{
+					string iconId = opkPath + "/" + app->GetData("iconName", "");
+					app->SetData("iconId", iconId);
+					resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");
+
 					AddApp(app);
+				}
 			}
 		}
 
@@ -179,120 +196,144 @@ bool AppManager::LoadApps()
 	app = new App();
 	app->SetData("name", "SameGoo");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "UMG");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Jet Set Radio Future");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Halo");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Crysis");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Final Fantasy");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Crash Bandicoot");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Crackdown");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Minecraft");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Counter Strike");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Just Cause 2");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "The Witcher");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Age of Empires");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Team Fortress 2");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Halflife 3");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Settlers 2");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Dead or Alive");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Amped");
 	app->SetData("categories", "games;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Console");
 	app->SetData("categories", "applications;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Wireless");
 	app->SetData("categories", "settings;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Shutdown");
 	app->SetData("categories", "settings;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Test Uncategorized");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Test Custom Category");
 	app->SetData("categories", "customcategory;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("name", "Test Multiple Categories");
 	app->SetData("categories", "customcategory;settings;");
+	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 #endif
 

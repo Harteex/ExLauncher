@@ -203,6 +203,18 @@ SDL_Texture* loadImage(const char* filename, SDL_Renderer* renderer)
 	return texture;
 }
 
+SDL_Texture* loadImageFromMemory(void* buffer, int size, SDL_Renderer* renderer)
+{
+	SDL_RWops* sdlRw = SDL_RWFromMem(buffer, size);
+	SDL_Surface *image = IMG_Load_RW(sdlRw, 1);
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
+
+	SDL_FreeSurface(image);
+
+	return texture;
+}
+
 void drawSurface(int x, int y, SDL_Surface* source, SDL_Surface* dest)
 {
 	drawSurface(x, y, source, dest, NULL);

@@ -9,6 +9,10 @@
 #include "structures.h"
 #include <SDL_ttf.h>
 
+#ifdef HAS_LIBOPK
+#include <opk.h>
+#endif
+
 /*********************************************/
 
 class ResourceManager
@@ -25,6 +29,9 @@ public:
 	void SetImage(std::string id, SDL_Texture* image);
 	SDL_Texture* LoadImage(std::string id, const char* filename);
 	SDL_Texture* LoadImageForceLoad(std::string id, const char* filename);
+#ifdef HAS_LIBOPK
+	SDL_Texture* LoadImageFromOpk(std::string id, struct OPK *opk, std::string filename);
+#endif
 	void UnloadImages();
 
 	/*BitmapFont* GetFont(string id);

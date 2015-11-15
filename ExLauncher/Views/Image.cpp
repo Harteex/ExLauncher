@@ -8,6 +8,7 @@ Image::Image()
 {
 	image = NULL;
 	path = "";
+	altPath = "";
 }
 
 Image::~Image()
@@ -18,7 +19,11 @@ bool Image::OnInitialize()
 {
 	image = context->GetResourceManager()->LoadImage(path, path.c_str());
 	if (image == NULL)
-		return false;
+	{
+		image = context->GetResourceManager()->LoadImage(altPath, altPath.c_str());
+		if (image == NULL)
+			return false;
+	}
 
 	SDL_QueryTexture(image, NULL, NULL, &contentSize.w, &contentSize.h);
 	
@@ -44,6 +49,7 @@ View* Image::Copy()
 
 	CopyBase(view);
 	view->SetPath(path);
+	view->SetAltPath(altPath);
 
 	return view;
 }
@@ -51,6 +57,11 @@ View* Image::Copy()
 void Image::SetPath(string path)
 {
 	this->path = path;
+}
+
+void Image::SetAltPath(string path)
+{
+	this->altPath = path;
 }
 
 bool Image::SetProperty(string name, string value)
@@ -65,6 +76,29 @@ bool Image::SetProperty(string name, string value)
 		SetPath(ThemeManager::ProcessPath(value));
 		return true;
 	}
+	else if (name == "altPath")
+	{
+		SetAltPath(ThemeManager::ProcessPath(value));
+		return true;
+	}
 
 	return false;
+}
+
+void Image::FillData(map<string, string>& data)
+{
+	path = FindAndReplace(path, data);
+	altPath = FindAndReplace(altPath, data);
+
+	if (IsInitialized())
+	{
+		image = context->GetResourceManager()->LoadImage(path, path.c_str());
+		if (image == NULL)
+			image = context->GetResourceManager()->LoadImage(altPath, altPath.c_str());
+
+		if (image != NULL)
+			SDL_QueryTexture(image, NULL, NULL, &contentSize.w, &contentSize.h);
+
+		RecalculateLayout();
+	}
 }

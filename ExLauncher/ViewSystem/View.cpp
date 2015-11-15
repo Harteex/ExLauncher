@@ -4,6 +4,7 @@
 #include "../global.h"
 #include "../graphics_utils.h"
 #include "../ScreenSystem/Screen.h"
+#include "../ThemeManager.h"
 
 using namespace std;
 
@@ -26,7 +27,6 @@ View::View()
 	itemTemplate = NULL;
 	background = Color(0, 0, 0, 0);
 	action = "";
-	dataCanBeFilled = false;
 }
 
 string View::GetId()
@@ -60,8 +60,6 @@ bool View::Initialize(Screen* context)
 		return true;
 
 	this->context = context;
-
-	CheckIfDataCanBeFilled();
 
 	bool result = OnInitialize();
 	if (!result)
@@ -548,16 +546,6 @@ void View::FillData(map<string, string>& data)
 {
 }
 
-void View::CheckIfDataCanBeFilled()
-{
-	dataCanBeFilled = false;
-}
-
-bool View::GetDataCanBeFilled()
-{
-	return dataCanBeFilled;
-}
-
 void View::PropagateStateChange(string stateName, string stateValue)
 {
 	OnStateChange(stateName, stateValue);
@@ -597,3 +585,37 @@ Position View::GetGravityOffset(Size childSize, Size containerSize, int childLay
 	return Position(gravityOffsetW, gravityOffsetH);
 }
 
+string View::FindAndReplace(string origString, map<string, string>& values)
+{
+	int searchFrom = 0;
+	string str = origString;
+
+	while (true)
+	{
+		size_t foundStart = str.find_first_of('{', searchFrom);
+		if (foundStart == string::npos)
+			break;
+
+		size_t foundEnd = str.find_first_of('}', foundStart + 1);
+		if (foundEnd == string::npos)
+			break;
+
+		try
+		{
+			string key = str.substr(foundStart + 1, foundEnd - foundStart - 1);
+			string replaceWith = ThemeManager::ProcessPath(values.at(key));
+			int keyLength = foundEnd - foundStart - 1 + 2; // + 2 including brackets
+			int replaceWithLength = replaceWith.length();
+			int sizeChange = replaceWithLength - keyLength;
+
+			searchFrom = foundEnd + sizeChange + 1;
+			str.replace(foundStart, keyLength, replaceWith);
+		}
+		catch (exception& ex)
+		{
+			searchFrom = foundEnd + 1;
+		}
+	}
+
+	return str;
+}

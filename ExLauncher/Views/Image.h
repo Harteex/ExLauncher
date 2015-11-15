@@ -16,6 +16,7 @@ class Image : public View
 private:
 	SDL_Texture* image;
 	std::string path;
+	std::string altPath;
 public:
 	Image();
 	~Image();
@@ -24,7 +25,9 @@ public:
 	View* Copy();
 
 	void SetPath(std::string path);
+	void SetAltPath(std::string path);
 	bool SetProperty(std::string name, std::string value);
+	void FillData(std::map<std::string, std::string>& data);
 };
 
 /*********************************************/

@@ -42,7 +42,6 @@ public:
 	void SetFont(std::string font);
 	bool SetProperty(std::string name, std::string value);
 	void FillData(std::map<std::string, std::string>& data);
-	void CheckIfDataCanBeFilled();
 };
 
 /*********************************************/

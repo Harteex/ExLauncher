@@ -23,9 +23,6 @@ bool ScreenManager::Init()
 {
 	input = new InputState();
 
-	if (!appManager.LoadApps())
-		return false;
-
 	return true;
 }
 

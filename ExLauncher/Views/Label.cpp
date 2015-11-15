@@ -14,6 +14,7 @@ Label::Label()
 	textSize = 12;
 	textColor = Color(0xff, 0xff, 0xff, 0xff);
 	font = "semibold";
+	ttfFont = NULL;
 }
 
 Label::~Label()
@@ -37,6 +38,9 @@ bool Label::OnInitialize()
 
 bool Label::RenderText(Uint32 textAreaWidth)
 {
+	if (ttfFont == NULL)
+		return false;
+
 	if (texture != NULL)
 		SDL_DestroyTexture(texture);
 
@@ -219,50 +223,11 @@ bool Label::SetProperty(string name, string value)
 
 void Label::FillData(map<string, string>& data)
 {
-	int searchFrom = 0;
+	text = FindAndReplace(text, data);
 
-	if (dataCanBeFilled)
+	if (IsInitialized())
 	{
-		while (true)
-		{
-			size_t foundStart = text.find_first_of('{', searchFrom);
-			if (foundStart == string::npos)
-				break;
-
-			size_t foundEnd = text.find_first_of('}', foundStart + 1);
-			if (foundEnd == string::npos)
-				break;
-
-			try
-			{
-				string key = text.substr(foundStart + 1, foundEnd - foundStart - 1);
-				string replaceWith = data.at(key);
-				int keyLength = foundEnd - foundStart - 1 + 2; // + 2 including brackets
-				int replaceWithLength = replaceWith.length();
-				int sizeChange = replaceWithLength - keyLength;
-
-				searchFrom = foundEnd + sizeChange + 1;
-				text.replace(foundStart, keyLength, replaceWith);
-			}
-			catch (exception& ex)
-			{
-				searchFrom = foundEnd + 1;
-			}
-		}
-
-		// Recheck if data can be filled, if all data is filled already, we can set it to false
-		CheckIfDataCanBeFilled();
-
-		if (IsInitialized())
-		{
-			RenderText(UINT_MAX);
-			RecalculateLayout();
-		}
+		RenderText(UINT_MAX);
+		RecalculateLayout();
 	}
-}
-
-void Label::CheckIfDataCanBeFilled()
-{
-	size_t foundStart = text.find_first_of('{', 0);
-	dataCanBeFilled = (foundStart != string::npos);
 }

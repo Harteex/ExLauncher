@@ -36,12 +36,12 @@ public:
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	View* GetViewById(std::string id);
 	View* GetFirstViewByTag(std::string tag);
-	void HandleApps();
-	void AddApp(App* app, std::string category);
+	bool HandleApps();
+	bool AddApp(App* app, std::string category);
 	void StartUpdateApps();
 	void EndUpdateApps();
 	void RemoveApp(std::string id);
-	void AddViewForApp(View* fillView, App* app);
+	bool AddViewForApp(View* fillView, App* app);
 	void FillDataArguments();
 	void FillDataInView(View* v, std::map<std::string, std::string> data);
 	void SortItemsByName(View* containingView);

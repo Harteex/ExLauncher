@@ -168,6 +168,10 @@ int main(int argc, char **argv)
 	}
 	std::cout << "OK" << std::endl;
 
+	screenManager.GetAppManager()->SetResourceManager(screenManager.GetResourceManager());
+	if (!screenManager.GetAppManager()->LoadApps())
+		return 1;
+
 	setKeyBindings();
 
 	std::cout << "APP IS START" << std::endl;

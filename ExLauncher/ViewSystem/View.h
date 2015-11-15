@@ -57,10 +57,10 @@ protected:
 	View* itemTemplate;
 	Color background;
 	std::string action;
-	bool dataCanBeFilled;
 
 	View* CopyBase(View* view);
 	virtual void DrawChildren(Position offset, Rectangle viewBounds);
+	std::string FindAndReplace(std::string origString, std::map<std::string, std::string>& values);
 public:
 	View();
     virtual ~View() {}
@@ -114,8 +114,6 @@ public:
 	View* GetItemTemplate();
 	void SetItemTemplate(View* itemTemplate);
 	virtual void FillData(std::map<std::string, std::string>& data);
-	virtual void CheckIfDataCanBeFilled();
-	bool GetDataCanBeFilled();
 	void PropagateStateChange(std::string stateName, std::string stateValue);
 	virtual void OnStateChange(std::string stateName, std::string stateValue);
 	Position GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity);

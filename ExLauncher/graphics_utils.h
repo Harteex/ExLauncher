@@ -21,6 +21,7 @@ SDL_Surface* createEmptySurface(int width, int height);
 SDL_Surface* loadSurface(const char* filename);
 SDL_Texture* loadImageFromBuffer(void* buffer, SDL_Renderer* renderer);
 SDL_Texture* loadImage(const char* filename, SDL_Renderer* renderer);
+SDL_Texture* loadImageFromMemory(void* buffer, int size, SDL_Renderer* renderer);
 void drawSurface(int x, int y, SDL_Surface* source, SDL_Surface* dest);
 void drawSurface(int x, int y, SDL_Surface* source, SDL_Surface* dest, SDL_Rect *clip);
 void drawTexture(int x, int y, SDL_Texture* texture, SDL_Renderer* renderer);
