@@ -176,6 +176,7 @@ bool AppManager::LoadApps()
 				App* app = ParseOpkMetadata(opk);
 				if (app != NULL)
 				{
+					// FIXME do not try to load icon if none is specified
 					string iconId = opkPath + "/" + app->GetData("iconName", "");
 					app->SetData("iconId", iconId);
 					resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");

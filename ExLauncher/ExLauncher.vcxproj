@@ -21,6 +21,7 @@
     <ClCompile Include="ScreenSystem\InputState.cpp" />
     <ClCompile Include="ScreenSystem\Screen.cpp" />
     <ClCompile Include="ScreenSystem\ScreenManager.cpp" />
+    <ClCompile Include="Screens\ScreenAppLaunch.cpp" />
     <ClCompile Include="Screens\ScreenBackgroundImage.cpp" />
     <ClCompile Include="Screens\ScreenError.cpp" />
     <ClCompile Include="Screens\ScreenMenu.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="ScreenSystem\InputState.h" />
     <ClInclude Include="ScreenSystem\Screen.h" />
     <ClInclude Include="ScreenSystem\ScreenManager.h" />
+    <ClInclude Include="Screens\ScreenAppLaunch.h" />
     <ClInclude Include="Screens\ScreenBackgroundImage.h" />
     <ClInclude Include="Screens\ScreenError.h" />
     <ClInclude Include="Screens\ScreenMenu.h" />

@@ -141,6 +141,9 @@
     <ClCompile Include="DataStore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Screens\ScreenAppLaunch.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="DataStore.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenAppLaunch.h">
+      <Filter>Source Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

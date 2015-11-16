@@ -12,6 +12,7 @@
 #include "../utils.h"
 #include "../ThemeManager.h"
 #include <algorithm>
+#include "ScreenAppLaunch.h"
 
 using namespace std;
 
@@ -323,6 +324,8 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
 
+	newView->SetAction("app"); // FIXME
+
 	FillDataInView(newView, app->GetAllData());
 	bool result = newView->InitializeAll(this);
 	if (result)
@@ -398,6 +401,10 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 					// TODO Launch app
 
 					// TODO Animate launching from senders position
+
+					ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
+					appLaunch->SetStartRectangle(10, 10, 40, 40); // FIXME use sender location
+					screenManager->AddScreen(appLaunch);
 				}
 			}
 		}
