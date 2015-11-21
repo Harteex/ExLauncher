@@ -176,6 +176,13 @@ bool AppManager::LoadApps()
 				App* app = ParseOpkMetadata(opk);
 				if (app != NULL)
 				{
+					app->SetData("path", opkPath);
+					app->SetData("metadata", metadataName);
+
+					stringstream exec;
+					exec << "opkrun -m " << metadataName << " " << opkPath;
+					app->SetData("exec", exec.str());
+
 					// FIXME do not try to load icon if none is specified
 					string iconId = opkPath + "/" + app->GetData("iconName", "");
 					app->SetData("iconId", iconId);
@@ -198,6 +205,7 @@ bool AppManager::LoadApps()
 	app->SetData("name", "SameGoo");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("exec", "test");
 	AddApp(app);
 
 	app = new App();

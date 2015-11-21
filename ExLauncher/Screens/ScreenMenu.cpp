@@ -324,7 +324,7 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
 
-	newView->SetAction("app"); // FIXME
+	newView->SetAction((string)"app:" + app->GetData("exec", ""));
 
 	FillDataInView(newView, app->GetAllData());
 	bool result = newView->InitializeAll(this);
@@ -372,7 +372,7 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 	case EventTypeAction:
 		{
 			vector<string> action = split(eventValue, ':');
-			if (action.size() == 2 || action.size() == 3)
+			if (action.size() >= 2)
 			{
 				if (action[0] == "screen")
 				{
@@ -398,12 +398,15 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
 				}
 				else if (action[0] == "app")
 				{
-					// TODO Launch app
+					if (action[1] == "")
+						return;
 
-					// TODO Animate launching from senders position
+					Position senderPos = sender->GetAbsolutePosition();
+					Size senderSize = sender->GetCalculatedSize();
 
 					ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
-					appLaunch->SetStartRectangle(10, 10, 40, 40); // FIXME use sender location
+					appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
+					appLaunch->SetExec(action[1]);
 					screenManager->AddScreen(appLaunch);
 				}
 			}

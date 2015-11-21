@@ -5,6 +5,7 @@ using namespace std;
 
 ScreenAppLaunch::ScreenAppLaunch()
 {
+	exec = "";
 	popup = true;
 	SetTransitionTime(0.2, 0.1);
 }
@@ -17,6 +18,11 @@ void ScreenAppLaunch::SetStartRectangle(int x, int y, int width, int height)
 {
 	origBox = Box(y, y + height, x, x + width);
 	curBox = origBox;
+}
+
+void ScreenAppLaunch::SetExec(std::string exec)
+{
+	this->exec = exec;
 }
 
 bool ScreenAppLaunch::Initialize()
@@ -34,6 +40,8 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 	Screen::Update(otherScreenHasFocus, coveredByOtherScreen);
 
 	Size dispSize = screenManager->GetDisplaySize();
+
+	// FIXME use sigmoid curve for transition instead of linear
 
 	Box dBox;
 	dBox.top = origBox.top;
