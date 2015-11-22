@@ -144,6 +144,9 @@
     <ClCompile Include="Screens\ScreenAppLaunch.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="Screens\ScreenMessageDialog.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -255,6 +258,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Screens\ScreenAppLaunch.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenMessageDialog.h">
       <Filter>Source Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>

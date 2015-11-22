@@ -667,14 +667,14 @@ void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color, int thickness)
 	SDL_FillRect(dst, &r, color);
 }
 
-SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer)
+SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer, Uint32 maxWidth)
 {
 	SDL_Color fontColor;
 	fontColor.r = r;
 	fontColor.g = g;
 	fontColor.b = b;
 	fontColor.a = 0xff;
-	SDL_Surface* surfaceText = TTF_RenderText_Blended(font, text, fontColor);
+	SDL_Surface* surfaceText = TTF_RenderText_Blended_Wrapped(font, text, fontColor, maxWidth);
 	if (surfaceText == NULL)
 		return NULL;
 

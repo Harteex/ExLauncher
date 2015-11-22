@@ -6,6 +6,7 @@
 #include "Screens/ScreenBackgroundImage.h"
 #include "Screens/ScreenMenu.h"
 #include "Screens/ScreenTest.h"
+#include "Screens/ScreenMessageDialog.h"
 #include "global.h"
 #include <string>
 #ifdef UNIX
@@ -19,10 +20,9 @@ SDL_Window *win = NULL;
 SDL_Renderer *ren = NULL;
 
 ScreenManager* screenManager = NULL;
-
 bool _resetFrameSkip = false;
-
 bool debugViewBounds = false;
+bool launchFailed = false;
 
 bool initializeSDL()
 {
@@ -145,7 +145,8 @@ void setKeyBindings()
 
 int main(int argc, char **argv)
 {
-	mainStart:
+mainStart:
+
 	std::cout << "main()" << std::endl;
 	std::cout << "Initializing SDL... " << std::endl;
 	if (!initializeSDL())
@@ -200,6 +201,14 @@ int main(int argc, char **argv)
 	screenManager->AddScreen(bgScreen);
 	screenManager->AddScreen(new ScreenMenu("@theme/testaction.xml"));
 	//screenManager.AddScreen(new ScreenTest());
+
+	if (launchFailed)
+	{
+		launchFailed = false;
+		ScreenMessageDialog* dialog = new ScreenMessageDialog();
+		dialog->SetText("An unknown error occured while launching application.");
+		screenManager->AddScreen(dialog);
+	}
 
 	bgScreen->AddImage("Circuit");
 	bgScreen->AddImage("Bug");
@@ -272,8 +281,7 @@ int main(int argc, char **argv)
 #endif
 
 		// If we ended up here, execution failed. Restart.
-		// FIXME set error somewhere, and display an error message
-		// FIXME test failure case on the Zero
+		launchFailed = true;
 		goto mainStart;
 	}
 

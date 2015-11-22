@@ -41,7 +41,7 @@ SDL_Surface* ClipSurface(SDL_Surface* surface, SDL_Rect* clip);
 bool FadeOutSurface(SDL_Surface* surface, int fadeLength);
 void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color);
 void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color, int thickness);
-SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer);
+SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer, Uint32 maxWidth = UINT32_MAX);
 SDL_Surface* drawTextSurface(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font);
 Rectangle ClipRect(Rectangle clip, Rectangle origClip);
 

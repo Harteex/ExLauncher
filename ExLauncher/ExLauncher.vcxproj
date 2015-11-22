@@ -25,6 +25,7 @@
     <ClCompile Include="Screens\ScreenBackgroundImage.cpp" />
     <ClCompile Include="Screens\ScreenError.cpp" />
     <ClCompile Include="Screens\ScreenMenu.cpp" />
+    <ClCompile Include="Screens\ScreenMessageDialog.cpp" />
     <ClCompile Include="Screens\ScreenProgressDialog.cpp" />
     <ClCompile Include="Screens\ScreenTest.cpp" />
     <ClCompile Include="structures.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Screens\ScreenBackgroundImage.h" />
     <ClInclude Include="Screens\ScreenError.h" />
     <ClInclude Include="Screens\ScreenMenu.h" />
+    <ClInclude Include="Screens\ScreenMessageDialog.h" />
     <ClInclude Include="Screens\ScreenProgressDialog.h" />
     <ClInclude Include="Screens\ScreenTest.h" />
     <ClInclude Include="ThemeManager.h" />
