@@ -324,7 +324,8 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
 
-	newView->SetAction((string)"app:" + app->GetData("exec", ""));
+	newView->SetAction("app");
+	newView->SetActionArgs({ "opkrun", "-m", app->GetData("metadata", ""), app->GetData("path", "") });
 
 	FillDataInView(newView, app->GetAllData());
 	bool result = newView->InitializeAll(this);
@@ -363,51 +364,55 @@ void ScreenMenu::SortItemsByName(View* containingView)
 	containingView->SortChildren(_SortItemsByNameItemComparer);
 }
 
-void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue)
+void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, vector<string> eventArgs)
 {
 	// FIXME catch exceptions for everything in this method
+	// TODO clean up this method
 
 	switch (eventType)
 	{
 	case EventTypeAction:
 		{
-			vector<string> action = split(eventValue, ':');
-			if (action.size() >= 2)
+			if (eventValue == "app")
 			{
-				if (action[0] == "screen")
-				{
-					ScreenMenu* newScreen = new ScreenMenu(action[1]);
+				if (eventArgs.empty())
+					return;
 
-					// If we have arguments, parse them and set them on the launching screen
-					if (action.size() == 3)
+				Position senderPos = sender->GetAbsolutePosition();
+				Size senderSize = sender->GetCalculatedSize();
+
+				ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
+				appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
+				appLaunch->SetExec(eventArgs);
+				screenManager->AddScreen(appLaunch);
+			}
+			else
+			{
+				vector<string> action = split(eventValue, ':');
+				if (action.size() >= 2)
+				{
+					if (action[0] == "screen")
 					{
-						vector<string> args = split(action[2], ';');
-						for (string arg : args)
+						ScreenMenu* newScreen = new ScreenMenu(action[1]);
+
+						// If we have arguments, parse them and set them on the launching screen
+						if (action.size() == 3)
 						{
-							size_t separationIndex = arg.find_first_of('=');
-							if (separationIndex == string::npos)
-								throw runtime_error("invalid arguments");
+							vector<string> args = split(action[2], ';');
+							for (string arg : args)
+							{
+								size_t separationIndex = arg.find_first_of('=');
+								if (separationIndex == string::npos)
+									throw runtime_error("invalid arguments");
 
-							newScreen->arguments->PutString(arg.substr(0, separationIndex), arg.substr(separationIndex + 1));
+								newScreen->arguments->PutString(arg.substr(0, separationIndex), arg.substr(separationIndex + 1));
+							}
 						}
+
+						newScreen->SetCanGoBack(true);
+
+						screenManager->AddScreen(newScreen);
 					}
-
-					newScreen->SetCanGoBack(true);
-
-					screenManager->AddScreen(newScreen);
-				}
-				else if (action[0] == "app")
-				{
-					if (action[1] == "")
-						return;
-
-					Position senderPos = sender->GetAbsolutePosition();
-					Size senderSize = sender->GetCalculatedSize();
-
-					ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
-					appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
-					appLaunch->SetExec(action[1]);
-					screenManager->AddScreen(appLaunch);
 				}
 			}
 		}

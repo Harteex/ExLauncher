@@ -5,7 +5,7 @@ using namespace std;
 
 ScreenAppLaunch::ScreenAppLaunch()
 {
-	exec = "";
+	exec = vector<string>();
 	popup = true;
 	SetTransitionTime(0.2, 0.1);
 }
@@ -20,7 +20,7 @@ void ScreenAppLaunch::SetStartRectangle(int x, int y, int width, int height)
 	curBox = origBox;
 }
 
-void ScreenAppLaunch::SetExec(std::string exec)
+void ScreenAppLaunch::SetExec(vector<string> exec)
 {
 	this->exec = exec;
 }
@@ -54,9 +54,10 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 	curBox.left = dBox.left * transitionPosition;
 	curBox.right = dispSize.w - dBox.right * transitionPosition;
 
-	if (IsActive())
+	if (TransitionHasFinished())
 	{
-		// TODO when transitioned in completely, prepare for launching
+		screenManager->GetAppManager()->SetCommandToLaunch(exec);
+		screenManager->Exit();
 	}
 }
 

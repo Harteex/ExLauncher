@@ -58,6 +58,9 @@ public:
 	// Returns true if the screen is active and can respond to input
 	bool IsActive();
 
+	// Returns true if the screen is done transitioning on
+	bool TransitionHasFinished();
+
 	// Returns the renderer used for this screen
 	SDL_Renderer* GetRenderer();
 
@@ -68,7 +71,7 @@ public:
 	void SetScreenManager(ScreenManager* screenManager);
 
 	// Used to pass events, for example a view (an item) passing an launch event
-	virtual void OnEvent(View* sender, EventType eventType, std::string eventValue);
+	virtual void OnEvent(View* sender, EventType eventType, std::string eventValue, std::vector<std::string> eventArgs = std::vector<std::string>());
 private:
 	bool isExiting;
 	bool exited;

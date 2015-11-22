@@ -11,6 +11,8 @@ ScreenManager::ScreenManager()
 	displaySize.w = 0;
 	displaySize.h = 0;
 	lastError = "No error";
+	exit = false;
+	isExiting = false;
 }
 
 ScreenManager::~ScreenManager()
@@ -132,6 +134,7 @@ void ScreenManager::Update()
 	if (isExiting)
 	{
 		DeleteAllScreens();
+		GetAppManager()->UnloadApps();
 		GetResourceManager()->UnloadContent();
 		exit = true;
 	}

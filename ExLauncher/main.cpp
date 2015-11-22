@@ -7,14 +7,20 @@
 #include "Screens/ScreenMenu.h"
 #include "Screens/ScreenTest.h"
 #include "global.h"
+#include <string>
+#ifdef UNIX
+#include <unistd.h>
+#endif
+
+using namespace std;
 
 bool SDLInited = false;
 SDL_Window *win = NULL;
 SDL_Renderer *ren = NULL;
 
-ScreenManager screenManager;
+ScreenManager* screenManager = NULL;
 
-int _resetFrameSkip = 0;
+bool _resetFrameSkip = false;
 
 bool debugViewBounds = false;
 
@@ -134,11 +140,12 @@ void setKeyBindings()
 	gameKeys[GAMEKEY_TRIGGER_L] = SDL_SCANCODE_TAB;
 	gameKeys[GAMEKEY_TRIGGER_R] = SDL_SCANCODE_BACKSPACE;
 
-	screenManager.SetGameKeyBindings(gameKeys, GAMEKEY_MAX);
+	screenManager->SetGameKeyBindings(gameKeys, GAMEKEY_MAX);
 }
 
 int main(int argc, char **argv)
 {
+	mainStart:
 	std::cout << "main()" << std::endl;
 	std::cout << "Initializing SDL... " << std::endl;
 	if (!initializeSDL())
@@ -149,7 +156,8 @@ int main(int argc, char **argv)
 	std::cout << "SDL is init!!" << std::endl;
 
 	std::cout << "Initializing ScreenManager... ";
-	if (!screenManager.Init())
+	screenManager = new ScreenManager();
+	if (!screenManager->Init())
 	{
 		std::cout << "FAILED" << std::endl;
 		terminateSDL();
@@ -157,19 +165,19 @@ int main(int argc, char **argv)
 	}
 	std::cout << "OK" << std::endl;
 
-	screenManager.SetRenderer(ren);
+	screenManager->SetRenderer(ren);
 	std::cout << "Loading resources... ";
-	if (!screenManager.LoadGlobalResources())
+	if (!screenManager->LoadGlobalResources())
 	{
 		std::cout << "FAILED" << std::endl;
-		std::cout << screenManager.GetLastError() << std::endl;
+		std::cout << screenManager->GetLastError() << std::endl;
 		terminateSDL();
 		return 1;
 	}
 	std::cout << "OK" << std::endl;
 
-	screenManager.GetAppManager()->SetResourceManager(screenManager.GetResourceManager());
-	if (!screenManager.GetAppManager()->LoadApps())
+	screenManager->GetAppManager()->SetResourceManager(screenManager->GetResourceManager());
+	if (!screenManager->GetAppManager()->LoadApps())
 		return 1;
 
 	setKeyBindings();
@@ -177,20 +185,20 @@ int main(int argc, char **argv)
 	std::cout << "APP IS START" << std::endl;
 
 	// TEMP TEMP TEMP!
-	screenManager.GetResourceManager()->LoadImage("SnowCloseUp", "data/wallpapers/SnowCloseUp.jpg");
-	screenManager.GetResourceManager()->LoadImage("GothenburgNight", "data/wallpapers/GothenburgNight.jpg");
-	screenManager.GetResourceManager()->LoadImage("Bug", "data/wallpapers/Bug.jpg");
-	screenManager.GetResourceManager()->LoadImage("Circuit", "data/wallpapers/Circuit.jpg");
-	screenManager.GetResourceManager()->LoadImage("Leaves", "data/wallpapers/Leaves.jpg");
+	screenManager->GetResourceManager()->LoadImage("SnowCloseUp", "data/wallpapers/SnowCloseUp.jpg");
+	screenManager->GetResourceManager()->LoadImage("GothenburgNight", "data/wallpapers/GothenburgNight.jpg");
+	screenManager->GetResourceManager()->LoadImage("Bug", "data/wallpapers/Bug.jpg");
+	screenManager->GetResourceManager()->LoadImage("Circuit", "data/wallpapers/Circuit.jpg");
+	screenManager->GetResourceManager()->LoadImage("Leaves", "data/wallpapers/Leaves.jpg");
 
-	screenManager.GetResourceManager()->LoadImage("IconApplications", "data/graphics/icon_applications.png");
-	screenManager.GetResourceManager()->LoadImage("IconEmulators", "data/graphics/icon_emulators.png");
-	screenManager.GetResourceManager()->LoadImage("IconGames", "data/graphics/icon_games.png");
-	screenManager.GetResourceManager()->LoadImage("IconSettings", "data/graphics/icon_settings.png");
+	screenManager->GetResourceManager()->LoadImage("IconApplications", "data/graphics/icon_applications.png");
+	screenManager->GetResourceManager()->LoadImage("IconEmulators", "data/graphics/icon_emulators.png");
+	screenManager->GetResourceManager()->LoadImage("IconGames", "data/graphics/icon_games.png");
+	screenManager->GetResourceManager()->LoadImage("IconSettings", "data/graphics/icon_settings.png");
 	
 	ScreenBackgroundImage* bgScreen = new ScreenBackgroundImage();
-	screenManager.AddScreen(bgScreen);
-	screenManager.AddScreen(new ScreenMenu("@theme/testaction.xml"));
+	screenManager->AddScreen(bgScreen);
+	screenManager->AddScreen(new ScreenMenu("@theme/testaction.xml"));
 	//screenManager.AddScreen(new ScreenTest());
 
 	bgScreen->AddImage("Circuit");
@@ -199,14 +207,16 @@ int main(int argc, char **argv)
 	bgScreen->AddImage("GothenburgNight");
 	bgScreen->AddImage("Leaves");
 
+	_resetFrameSkip = false;
 	int currentTime = SDL_GetTicks();
 	double accumulator = 0;
 	double frameTime = 1000.0/(double)FPS;
 	int newTime;
 	int deltaTime;
 	int shouldDraw = 0;
+	vector<string> commandToLaunchOnExit = vector<string>();
 
-	while(!screenManager.HasExit())
+	while(!screenManager->HasExit())
 	{
 		newTime = SDL_GetTicks();
 		deltaTime = newTime - currentTime;
@@ -219,20 +229,20 @@ int main(int argc, char **argv)
 		if(_resetFrameSkip)
 		{
 			accumulator = frameTime;
-			_resetFrameSkip = 0;
+			_resetFrameSkip = false;
 		}
 
 		while (accumulator >= frameTime)
 		{
 			accumulator -= frameTime;
 
-			screenManager.Update();
+			screenManager->Update();
 			shouldDraw = 1;
 		}
 
 		if (shouldDraw)
 		{
-			screenManager.Draw();
+			screenManager->Draw();
 			shouldDraw = 0;
 		}
 		else
@@ -240,7 +250,32 @@ int main(int argc, char **argv)
 			SDL_Delay(1);
 		}
 	}
+
+	commandToLaunchOnExit = screenManager->GetAppManager()->GetCommandToLaunch();
+	screenManager->GetAppManager()->ClearCommandToLaunch();
 	
+	delete screenManager;
+	screenManager = NULL;
 	terminateSDL();
+
+	// If we should launch an app, do it now.
+	if (!commandToLaunchOnExit.empty())
+	{
+#ifdef UNIX
+		vector<const char *> args;
+		args.reserve(commandToLaunchOnExit.size() + 1);
+		for (auto arg : commandToLaunchOnExit) {
+			args.push_back(arg.c_str());
+		}
+		args.push_back(nullptr);
+		execvp(commandToLaunchOnExit[0].c_str(), (char* const*)&args[0]);
+#endif
+
+		// If we ended up here, execution failed. Restart.
+		// FIXME set error somewhere, and display an error message
+		// FIXME test failure case on the Zero
+		goto mainStart;
+	}
+
 	return 0;
 }

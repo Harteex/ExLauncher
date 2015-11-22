@@ -7,7 +7,7 @@ using namespace std;
 
 Screen::Screen()
 {
-	screenstate = Active;
+	screenstate = Hidden;
 	lastError = "No error.";
 	isExiting = false;
 	exited = false;
@@ -129,6 +129,11 @@ bool Screen::IsActive()
 	return !otherScreenHasFocus && (screenstate == TransitionOn || screenstate == Active);
 }
 
+bool Screen::TransitionHasFinished()
+{
+	return screenstate == Active;
+}
+
 SDL_Renderer* Screen::GetRenderer()
 {
 	return screenManager->GetRenderer();
@@ -144,7 +149,7 @@ void Screen::SetScreenManager(ScreenManager* screenManager)
 	this->screenManager = screenManager;
 }
 
-void Screen::OnEvent(View* sender, EventType eventType, string eventValue)
+void Screen::OnEvent(View* sender, EventType eventType, string eventValue, vector<string> eventArgs)
 {
 }
 

@@ -1,5 +1,6 @@
 #include "AppManager.h"
 #include "utils.h"
+#include <algorithm>
 
 #ifdef HAS_LIBOPK
 #include <dirent.h>
@@ -11,10 +12,12 @@ using namespace std;
 AppManager::AppManager()
 {
 	resourceManager = NULL;
+	commandToLaunch = vector<string>();
 }
 
 AppManager::~AppManager()
 {
+	UnloadApps();
 }
 
 void AppManager::SetResourceManager(ResourceManager* resourceManager)
@@ -349,6 +352,41 @@ bool AppManager::LoadApps()
 	return true;
 }
 
+void AppManager::UnloadApps()
+{
+	// Move apps to a temporary vector before deleting, because an app may exist in multiple categories
+	vector<App*> appsToDelete;
+
+	// Find all apps, add them to the delete list, and free the map/vectors
+	for (auto appCategory : apps)
+	{
+		vector<App*>* appsVector = appCategory.second;
+
+		for (App* app : *appsVector)
+		{
+			if (std::find(appsToDelete.begin(), appsToDelete.end(), app) == appsToDelete.end())
+			{
+				// Not previously added to the remove list
+				appsToDelete.push_back(app);
+			}
+		}
+
+		(*appsVector).clear();
+
+		delete appsVector;
+	}
+
+	apps.clear();
+
+	// Now finally delete all the apps
+	for (App* app : appsToDelete)
+	{
+		delete app;
+	}
+
+	appsToDelete.clear();
+}
+
 map<string, vector<App*>*>* AppManager::GetAllApps()
 {
 	return &apps;
@@ -360,4 +398,19 @@ vector<App*>* AppManager::GetApps(string category)
 		return NULL;
 
 	return apps[category];
+}
+
+void AppManager::SetCommandToLaunch(vector<string> command)
+{
+	this->commandToLaunch = command;
+}
+
+vector<string> AppManager::GetCommandToLaunch()
+{
+	return commandToLaunch;
+}
+
+void AppManager::ClearCommandToLaunch()
+{
+	commandToLaunch.clear();
 }

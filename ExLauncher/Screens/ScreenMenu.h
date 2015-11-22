@@ -45,7 +45,7 @@ public:
 	void FillDataArguments();
 	void FillDataInView(View* v, std::map<std::string, std::string> data);
 	void SortItemsByName(View* containingView);
-	void OnEvent(View* sender, EventType eventType, std::string eventValue);
+	void OnEvent(View* sender, EventType eventType, std::string eventValue, std::vector<std::string> eventArgs = std::vector<std::string>());
 	bool GetCanGoBack();
 	void SetCanGoBack(bool canGoBack);
 protected:

@@ -27,6 +27,7 @@ View::View()
 	itemTemplate = NULL;
 	background = Color(0, 0, 0, 0);
 	action = "";
+	actionArgs = vector<string>();
 }
 
 string View::GetId()
@@ -279,6 +280,16 @@ std::string View::GetAction()
 void View::SetAction(std::string action)
 {
 	this->action = action;
+}
+
+vector<string> View::GetActionArgs()
+{
+	return actionArgs;
+}
+
+void View::SetActionArgs(vector<string> actionArgs)
+{
+	this->actionArgs = actionArgs;
 }
 
 Size View::CalculateLayout(Position offsetInCurView, Size parentSize)

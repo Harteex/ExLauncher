@@ -27,7 +27,7 @@ void CollectionView::HandleInput(InputState* input)
 	{
 		View* sender = GetSelectedView();
 		if (sender != NULL && sender->GetAction() != "")
-			context->OnEvent(sender, EventTypeAction, GetSelectedView()->GetAction());
+			context->OnEvent(sender, EventTypeAction, GetSelectedView()->GetAction(), GetSelectedView()->GetActionArgs());
 	}
 }
 
