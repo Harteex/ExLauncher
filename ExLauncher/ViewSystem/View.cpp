@@ -297,6 +297,8 @@ Size View::CalculateLayout(Size sizeAvailable)
 	if (size.w == SIZE_FILL_PARENT && sizeAvailable.w < 0 || size.h == SIZE_FILL_PARENT && sizeAvailable.h < 0)
 		throw runtime_error("cannot calculate layout size");
 
+	calculatedSize = Size(0, 0);
+
 	if (size.w == SIZE_FILL_PARENT)
 		calculatedSize.w = max(sizeAvailable.w, 0);
 	else if (size.w > 0)
@@ -460,7 +462,16 @@ bool View::SetProperty(string name, string value)
 		else if (value == "*")
 			size.w = SIZE_FILL_PARENT;
 		else
-			size.w = atoi(value.c_str());
+		{
+			stringstream ss(value);
+			int i;
+			if ((ss >> i).fail() || !(ss >> std::ws).eof())
+			{
+				throw runtime_error("could not parse width");
+			}
+
+			size.w = i;
+		}
 
 		return true;
 	}
@@ -471,7 +482,16 @@ bool View::SetProperty(string name, string value)
 		else if (value == "*")
 			size.h = SIZE_FILL_PARENT;
 		else
-			size.h = atoi(value.c_str());
+		{
+			stringstream ss(value);
+			int i;
+			if ((ss >> i).fail() || !(ss >> std::ws).eof())
+			{
+				throw runtime_error("could not parse height");
+			}
+
+			size.h = i;
+		}
 
 		return true;
 	}
