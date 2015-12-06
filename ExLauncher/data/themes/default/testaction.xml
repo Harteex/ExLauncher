@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridView
   id="inputView"
-  width="match_parent"
-  height="match_parent"
+  width="*"
+  height="*"
   orientation="vertical"
   itemCountSecondaryDirection="1"
   layoutMargin="5">
@@ -11,12 +11,12 @@
       width="200"
       height="wrap_content">
       <Selector
-        width="match_parent"
+        width="*"
         height="20">
         <State stateSelected="true">
           <Image
-            width="match_parent"
-            height="match_parent"
+            width="*"
+            height="*"
             path="@theme/markerBg.png"/>
         </State>
       </Selector>
@@ -26,7 +26,7 @@
   <Item
     action="screen:@theme/testaction.xml:testvar=lol;testvar2=omg=bbq">
     <Label
-      width="match_parent"
+      width="*"
       height="wrap_content"
       text="Press me {testvar}" />
   </Item>
@@ -34,7 +34,7 @@
   <Item
     action="screen:@theme/tab.xml">
     <Label
-      width="match_parent"
+      width="*"
       height="wrap_content"
       text="Go to tab view (noarg)" />
   </Item>
@@ -42,7 +42,7 @@
   <Item
     action="screen:@theme/tab.xml:category=games">
     <Label
-      width="match_parent"
+      width="*"
       height="wrap_content"
       text="Go to tab view (arg)" />
   </Item>
@@ -50,7 +50,7 @@
   <Item
     action="screen:@theme/list.xml">
     <Label
-      width="match_parent"
+      width="*"
       height="wrap_content"
       text="Go to list view" />
   </Item>

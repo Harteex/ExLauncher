@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TabPanel
   id="inputView"
-  width="match_parent"
-  height="match_parent"
+  width="*"
+  height="*"
   tag="fillCategories">
   
   <TabPanel.ItemTemplate>
     <GridView
       id="inputView"
-      width="match_parent"
-      height="match_parent"
+      width="*"
+      height="*"
       orientation="vertical"
       itemCountSecondaryDirection="4"
       itemTemplate="@theme/appTemplate.xml"
@@ -17,8 +17,8 @@
   </TabPanel.ItemTemplate>
   
   <LinearPanel
-    width="match_parent"
-    height="match_parent"
+    width="*"
+    height="*"
     name="testtab1">
     <Label
       width="wrap_content"
@@ -28,8 +28,8 @@
   </LinearPanel>
   
   <LinearPanel
-    width="match_parent"
-    height="match_parent"
+    width="*"
+    height="*"
     name="testtab2">
     <Label
       width="wrap_content"

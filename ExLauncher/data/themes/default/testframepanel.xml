@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Screen title="">
   <FramePanel
-    width="match_parent"
-    height="match_parent">
+    width="*"
+    height="*">
     <Image
       width="wrap_content"
       height="wrap_content"

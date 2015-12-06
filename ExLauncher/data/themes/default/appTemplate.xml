@@ -13,7 +13,7 @@
     </State>
   </Selector>
   <LinearPanel
-    width="match_parent"
+    width="*"
     height="wrap_content"
     orientation="vertical"
     layoutGravity="center_horizontal">
@@ -24,7 +24,7 @@
       path="{iconId}"
       altPath="@theme/appIconDefault.png"/>
     <Label
-      width="match_parent"
+      width="*"
       height="wrap_content"
       text="{name}"
       gravity="center_horizontal"/>

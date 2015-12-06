@@ -356,5 +356,8 @@
     <Xml Include="data\themes\default\testaction.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
+    <Xml Include="data\themes\default\testlinearpanel.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

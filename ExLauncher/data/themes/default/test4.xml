@@ -3,8 +3,8 @@
   <!--<TabView tabsVisible="true" tabBackground="" tabBackgroundFocus="">-->
   <LinearPanel
     id="testpanel"
-    width="match_parent"
-    height="match_parent"
+    width="*"
+    height="*"
     orientation="vertical"
     layoutMargin="5">
       <Image
@@ -32,7 +32,7 @@
           layoutMargin="15"/>
       </LinearPanel>
       <Image
-          width="match_parent"
+          width="*"
           height="wrap_content"
           path="data/graphics/testicon1.png"
           layoutMargin="15"/>

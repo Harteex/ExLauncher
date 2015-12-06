@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearPanel
+  id="inputView"
+  width="*"
+  height="*"
+  orientation="horizontal"
+  layoutMargin="0">
+
+  <Image
+    width="*"
+    height="*"
+    path="data/graphics/ButtonA.png"
+    layoutMargin="20" />
+
+  <Image
+    width="*"
+    height="*"
+    path="data/graphics/ButtonB.png"/>
+
+  <Image
+    width="*"
+    height="50"
+    path="data/graphics/ButtonX.png"
+    layoutMargin="5"
+    layoutGravity="bottom" />
+
+  <Image
+    width="*"
+    height="*"
+    path="data/graphics/ButtonY.png"/>
+
+</LinearPanel>

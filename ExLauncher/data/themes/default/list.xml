@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearPanel
   id="inputView"
-  width="match_parent"
-  height="match_parent"
+  width="*"
+  height="*"
   orientation="vertical"
   layoutMargin="5"
   tag="fillItems|categories=applications,games">
   <LinearPanel.ItemTemplate>
     <FramePanel
-      width="match_parent"
+      width="*"
       height="40">
       <Selector
-        width="match_parent"
-        height="match_parent">
+        width="*"
+        height="*">
         <State stateSelected="true">
           <Image
-            width="match_parent"
-            height="match_parent"
+            width="*"
+            height="*"
             path="@theme/markerBg.png"/>
         </State>
       </Selector>
       <LinearPanel
-        width="match_parent"
-        height="match_parent">
+        width="*"
+        height="*">
         <Image
           width="wrap_content"
           height="wrap_content"
@@ -31,7 +31,7 @@
           path="@theme/appIconDefault.png"/>
         <Label
           width="wrap_content"
-          height="match_parent"
+          height="*"
           gravity="center_vertical"
           layoutMargin="6"
           text="{name}"/>

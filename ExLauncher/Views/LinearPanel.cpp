@@ -113,9 +113,21 @@ void LinearPanel::OnLayoutChange()
 
 		Size sizeAvailableForChild = calculatedSize;
 		if (orientation == OrientationHorizontal)
-			sizeAvailableForChild.w = sizeAvailableForFillingPerChild;
+		{
+			sizeAvailableForChild.w = sizeAvailableForFillingPerChild - childMargin.left - childMargin.right;
+
+			// Also fix top / down margin
+			if (calculatedSize.h > 0)
+				sizeAvailableForChild.h = max(calculatedSize.h - childMargin.top - childMargin.bottom, 0);
+		}
 		else
-			sizeAvailableForChild.h = sizeAvailableForFillingPerChild;
+		{
+			sizeAvailableForChild.h = sizeAvailableForFillingPerChild - childMargin.top - childMargin.bottom;
+
+			// Also fix left / right margin
+			if (calculatedSize.w > 0)
+				sizeAvailableForChild.w = max(calculatedSize.w - childMargin.left - childMargin.right, 0);
+		}
 
 		Size childSize = v->CalculateLayout(sizeAvailableForChild);
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
