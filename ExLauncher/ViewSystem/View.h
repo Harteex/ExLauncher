@@ -17,7 +17,7 @@ class Screen;
 /*********************************************/
 
 #define SIZE_WRAP_CONTENT -1
-#define SIZE_MATCH_PARENT -2
+#define SIZE_FILL_PARENT -2
 
 /*********************************************/
 
@@ -108,7 +108,7 @@ public:
 	void SetAction(std::string action);
 	std::vector<std::string> GetActionArgs();
 	void SetActionArgs(std::vector<std::string> actionArgs);
-	Size CalculateLayout(Position offsetInCurView, Size parentSize);
+	Size CalculateLayout(Size sizeAvailable);
 	void RecalculateLayout();
 	void CalculateAbsolutePosition(Position parentPosition);
 	virtual void OnLayoutChange();

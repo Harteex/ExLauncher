@@ -29,7 +29,7 @@ bool TabStrip::OnInitialize()
 		if (!label->Initialize(context))
 			return false;
 
-		label->CalculateLayout(Position(0, 0), Size(-1, -1));
+		label->CalculateLayout(Size(-1, -1));
 	}
 
 	return true;
@@ -211,7 +211,7 @@ void TabStrip::AddTab(string name)
 	if (IsInitialized())
 	{
 		label->Initialize(context);
-		label->CalculateLayout(Position(0, 0), Size(-1, -1));
+		label->CalculateLayout(Size(-1, -1));
 	}
 
 	tabs.push_back(label);

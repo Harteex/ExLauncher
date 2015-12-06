@@ -8,7 +8,7 @@ TabPanel::TabPanel()
 	contentSize.w = 0;
 	contentSize.h = 0;
 	selectedIndex = 0;
-	tabAreaSize = Size(SIZE_MATCH_PARENT, 30);
+	tabAreaSize = Size(SIZE_FILL_PARENT, 30);
 
 	tabStrip = new TabStrip();
 	tabStrip->SetSize(tabAreaSize);
@@ -42,7 +42,7 @@ void TabPanel::OnLayoutChange()
 {
 	contentSize = calculatedSize; // This will cause (0, 0) on wrap_content usage, but it's ok since we don't support wrap_content here
 
-	tabStrip->CalculateLayout(Position(0, 0), calculatedSize);
+	tabStrip->CalculateLayout(calculatedSize);
 
 	for (int i = 0; i < children.size(); i++)
 	{
@@ -53,7 +53,7 @@ void TabPanel::OnLayoutChange()
 		Size sizeAreaForChild;
 		sizeAreaForChild.w = max(calculatedSize.w - (childMargin.left + childMargin.right), 0);
 		sizeAreaForChild.h = max(calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
-		v->CalculateLayout(Position(0, 0), sizeAreaForChild);
+		v->CalculateLayout(sizeAreaForChild);
 	}
 }
 

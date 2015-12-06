@@ -27,43 +27,126 @@ void LinearPanel::OnLayoutChange()
 
 	Size* childSizes = new Size[children.size()];
 
-	if ((size.w == SIZE_MATCH_PARENT || size.w > 0) && orientation == OrientationVertical)
+	if ((size.w == SIZE_FILL_PARENT || size.w > 0) && orientation == OrientationVertical)
 		contentSize.w = calculatedSize.w;
-	if ((size.h == SIZE_MATCH_PARENT || size.h > 0) && orientation == OrientationHorizontal)
+	if ((size.h == SIZE_FILL_PARENT || size.h > 0) && orientation == OrientationHorizontal)
 		contentSize.h = calculatedSize.h;
 
-	// Position children
+	int numberOfViewsFillParent = 0;
+	int sizeTakenBySetSizes = 0;
+	int sizeAvailableForFillingPerChild = 0;
+
+	// Step 1: Calculate those sizes we can calculate
+	for (int i = 0; i < children.size(); i++)
+	{
+		View* v = children.at(i);
+
+		if (orientation == OrientationHorizontal)
+		{
+			if (v->GetSize().w == SIZE_FILL_PARENT)
+			{
+				if (size.w == SIZE_WRAP_CONTENT)
+					throw runtime_error("cannot calculate layout size");
+
+				numberOfViewsFillParent++;
+				childSizes[i] = Size(0, 0);
+				continue;
+			}
+		}
+		else
+		{
+			if (v->GetSize().h == SIZE_FILL_PARENT)
+			{
+				if (size.h == SIZE_WRAP_CONTENT)
+					throw runtime_error("cannot calculate layout size");
+
+				numberOfViewsFillParent++;
+				childSizes[i] = Size(0, 0);
+				continue;
+			}
+		}
+
+		Box childMargin = v->GetLayoutMargin();
+
+		Size sizeAvailableForChild;
+		sizeAvailableForChild.w = orientation == OrientationHorizontal ? -1 : calculatedSize.w;
+		sizeAvailableForChild.h = orientation == OrientationVertical ? -1 : calculatedSize.h;
+		Size childSize = v->CalculateLayout(sizeAvailableForChild);
+		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
+		childSizes[i] = childSizeIncMargins;
+
+		if (orientation == OrientationHorizontal)
+			sizeTakenBySetSizes += childSizes[i].w;
+		else
+			sizeTakenBySetSizes += childSizes[i].h;
+	}
+
+	// Step 2: Calculate size for views filling parent
+	if (numberOfViewsFillParent > 0)
+	{
+		int totalSize = 0;
+		if (orientation == OrientationHorizontal)
+			totalSize = calculatedSize.w;
+		else
+			totalSize = calculatedSize.h;
+
+		sizeAvailableForFillingPerChild = (totalSize - sizeTakenBySetSizes) / numberOfViewsFillParent;
+	}
+
+	// Step 3: Calculate those children with fill parent
+	for (int i = 0; i < children.size(); i++)
+	{
+		View* v = children.at(i);
+
+		if (orientation == OrientationHorizontal)
+		{
+			if (v->GetSize().w != SIZE_FILL_PARENT)
+				continue;
+		}
+		else
+		{
+			if (v->GetSize().h != SIZE_FILL_PARENT)
+				continue;
+		}
+
+		Box childMargin = v->GetLayoutMargin();
+
+		Size sizeAvailableForChild = calculatedSize;
+		if (orientation == OrientationHorizontal)
+			sizeAvailableForChild.w = sizeAvailableForFillingPerChild;
+		else
+			sizeAvailableForChild.h = sizeAvailableForFillingPerChild;
+
+		Size childSize = v->CalculateLayout(sizeAvailableForChild);
+		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
+		childSizes[i] = childSizeIncMargins;
+	}
+
+	// Step 4: Position children
 	for (int i = 0; i < children.size(); i++)
 	{
 		View* v = children.at(i);
 
 		Box childMargin = v->GetLayoutMargin();
-		Size sizeAreaForChild;
-		sizeAreaForChild.w = max(size.w == SIZE_WRAP_CONTENT ? -1 : calculatedSize.w - (childMargin.left + childMargin.right), 0);
-		sizeAreaForChild.h = max(size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
-		Size childSize = v->CalculateLayout(childOffset, sizeAreaForChild);
-		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
-		childSizes[i] = childSizeIncMargins;
-
 		v->SetRelativePosition(childOffset + Position(childMargin.left, childMargin.top));
 
 		if (orientation == OrientationHorizontal)
 		{
-			childOffset.x += childSizeIncMargins.w;
-			contentSize.w += childSizeIncMargins.w;
+			childOffset.x += childSizes[i].w;
+			contentSize.w += childSizes[i].w;
 			if (size.h == SIZE_WRAP_CONTENT)
-				contentSize.h = max(contentSize.h, childSizeIncMargins.h);
+				contentSize.h = max(contentSize.h, childSizes[i].h);
 		}
 		else
 		{
-			childOffset.y += childSizeIncMargins.h;
-			contentSize.h += childSizeIncMargins.h;
+			childOffset.y += childSizes[i].h;
+			contentSize.h += childSizes[i].h;
 			if (size.w == SIZE_WRAP_CONTENT)
-				contentSize.w = max(contentSize.w, childSizeIncMargins.w);
+				contentSize.w = max(contentSize.w, childSizes[i].w);
 		}
 	}
 
-	// Adjust child positions for gravity
+	// Step 5: Adjust child positions for gravity
 	for (int i = 0; i < children.size(); i++)
 	{
 		View* v = children.at(i);

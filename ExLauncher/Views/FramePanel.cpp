@@ -20,9 +20,9 @@ void FramePanel::OnLayoutChange()
 
 	Size* childSizes = new Size[children.size()];
 
-	if (size.w == SIZE_MATCH_PARENT || size.w > 0)
+	if (size.w == SIZE_FILL_PARENT || size.w > 0)
 		contentSize.w = calculatedSize.w;
-	if (size.h == SIZE_MATCH_PARENT || size.h > 0)
+	if (size.h == SIZE_FILL_PARENT || size.h > 0)
 		contentSize.h = calculatedSize.h;
 
 	// Position children
@@ -35,7 +35,7 @@ void FramePanel::OnLayoutChange()
 		Size sizeAreaForChild;
 		sizeAreaForChild.w = max(size.w == SIZE_WRAP_CONTENT ? -1 : calculatedSize.w - (childMargin.left + childMargin.right), 0);
 		sizeAreaForChild.h = max(size.h == SIZE_WRAP_CONTENT ? -1 : calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
-		Size childSize = v->CalculateLayout(Position(0, 0), sizeAreaForChild);
+		Size childSize = v->CalculateLayout(sizeAreaForChild);
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
 		childSizes[i] = childSizeIncMargins;
 

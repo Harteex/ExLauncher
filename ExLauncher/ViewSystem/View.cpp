@@ -292,18 +292,18 @@ void View::SetActionArgs(vector<string> actionArgs)
 	this->actionArgs = actionArgs;
 }
 
-Size View::CalculateLayout(Position offsetInCurView, Size parentSize)
+Size View::CalculateLayout(Size sizeAvailable)
 {
-	if (size.w == SIZE_MATCH_PARENT && parentSize.w < 0 || size.h == SIZE_MATCH_PARENT && parentSize.h < 0)
+	if (size.w == SIZE_FILL_PARENT && sizeAvailable.w < 0 || size.h == SIZE_FILL_PARENT && sizeAvailable.h < 0)
 		throw runtime_error("cannot calculate layout size");
 
-	if (size.w == SIZE_MATCH_PARENT)
-		calculatedSize.w = max(parentSize.w - offsetInCurView.x, 0);
+	if (size.w == SIZE_FILL_PARENT)
+		calculatedSize.w = max(sizeAvailable.w, 0);
 	else if (size.w > 0)
 		calculatedSize.w = size.w;
 
-	if (size.h == SIZE_MATCH_PARENT)
-		calculatedSize.h = max(parentSize.h - offsetInCurView.y, 0);
+	if (size.h == SIZE_FILL_PARENT)
+		calculatedSize.h = max(sizeAvailable.h, 0);
 	else if (size.h > 0)
 		calculatedSize.h = size.h;
 
@@ -457,8 +457,8 @@ bool View::SetProperty(string name, string value)
 	{
 		if (value == "wrap_content")
 			size.w = SIZE_WRAP_CONTENT;
-		else if (value == "match_parent")
-			size.w = SIZE_MATCH_PARENT;
+		else if (value == "*")
+			size.w = SIZE_FILL_PARENT;
 		else
 			size.w = atoi(value.c_str());
 
@@ -468,8 +468,8 @@ bool View::SetProperty(string name, string value)
 	{
 		if (value == "wrap_content")
 			size.h = SIZE_WRAP_CONTENT;
-		else if (value == "match_parent")
-			size.h = SIZE_MATCH_PARENT;
+		else if (value == "*")
+			size.h = SIZE_FILL_PARENT;
 		else
 			size.h = atoi(value.c_str());
 

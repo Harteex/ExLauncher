@@ -81,7 +81,7 @@ void GridView::OnLayoutChange()
 		}
 
 		Box childMargin = v->GetLayoutMargin();
-		Size childSize = v->CalculateLayout(Position(0, 0), Size(-1, -1));
+		Size childSize = v->CalculateLayout(Size(-1, -1));
 		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
 
 		if (childSizeIncMargins.w > columnSizes[curColumn])

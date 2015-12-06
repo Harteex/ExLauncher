@@ -20,9 +20,9 @@ bool ScreenError::Initialize()
 	if (!errorLabel->Initialize(this))
 		return false;
 
-	errorLabel->SetSize(SIZE_MATCH_PARENT, SIZE_WRAP_CONTENT);
+	errorLabel->SetSize(SIZE_FILL_PARENT, SIZE_WRAP_CONTENT);
 	errorLabel->SetRelativePosition(0, 0);
-	errorLabel->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
+	errorLabel->CalculateLayout(screenManager->GetDisplaySize());
 	errorLabel->CalculateAbsolutePosition(Position(0, 0));
 
 	return true;

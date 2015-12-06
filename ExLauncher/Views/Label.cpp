@@ -115,7 +115,7 @@ void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 
 void Label::OnLayoutChange()
 {
-	if (size.w == SIZE_MATCH_PARENT || size.h == SIZE_MATCH_PARENT)
+	if (size.w == SIZE_FILL_PARENT || size.h == SIZE_FILL_PARENT)
 		RenderText(UINT_MAX);
 }
 

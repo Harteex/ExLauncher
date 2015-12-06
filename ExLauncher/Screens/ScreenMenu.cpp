@@ -34,14 +34,14 @@ ScreenMenu::~ScreenMenu()
 
 bool ScreenMenu::Initialize()
 {
-	contentView->SetSize(Size(SIZE_MATCH_PARENT, SIZE_MATCH_PARENT));
+	contentView->SetSize(Size(SIZE_FILL_PARENT, SIZE_FILL_PARENT));
 
 	try
 	{
 		Xml xml;
 		contentView->AddChildView(xml.LoadView(ThemeManager::ProcessPath(layout)));
 		contentView->InitializeAll(this);
-		contentView->CalculateLayout(Position(0, 0), screenManager->GetDisplaySize());
+		contentView->CalculateLayout(screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
 
 		View* v = GetViewById("inputView");
