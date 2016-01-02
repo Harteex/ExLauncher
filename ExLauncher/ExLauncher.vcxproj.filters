@@ -147,6 +147,9 @@
     <ClCompile Include="Screens\ScreenMessageDialog.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="Views\ListView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -263,6 +266,9 @@
     <ClInclude Include="Screens\ScreenMessageDialog.h">
       <Filter>Source Files\Screens</Filter>
     </ClInclude>
+    <ClInclude Include="Views\ListView.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\fonts\OpenSans-Light.ttf">
@@ -357,6 +363,9 @@
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
     <Xml Include="data\themes\default\testlinearpanel.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\testoverview.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
   </ItemGroup>

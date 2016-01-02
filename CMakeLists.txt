@@ -39,6 +39,7 @@ set(CPPFILES
 	ExLauncher/ThemeManager.cpp
 	ExLauncher/Views/Image.cpp
 	ExLauncher/Views/LinearPanel.cpp
+	ExLauncher/Views/ListView.cpp
 	ExLauncher/Views/State.cpp
 	ExLauncher/Views/TabStrip.cpp
 	ExLauncher/Views/FramePanel.cpp

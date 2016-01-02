@@ -1,15 +1,16 @@
 #include "GridView.h"
+#include <sstream>
 
 using namespace std;
 
 GridView::GridView()
 {
-	contentSize.w = 0;
-	contentSize.h = 0;
+	contentSize = Size(0, 0);
 	itemCountSecondaryDirection = 1;
-	orientation = OrientationHorizontal;
 
-	itemMargin = 0;
+	orientation = OrientationHorizontal;
+	gridSpacing = Size(0, 0);
+	itemSize = Size(0, 0);
 }
 
 GridView::~GridView()
@@ -24,42 +25,29 @@ bool GridView::OnInitialize()
 
 void GridView::OnLayoutChange()
 {
-	if (itemCountSecondaryDirection <= 0)
-		throw runtime_error("GridView: itemCountSecondaryDirection must be greater than zero");
+	if (itemSize.w <= 0)
+		throw runtime_error("GridView: itemWidth must be greater than zero");
 
-	int itemsInWidth = 0;
-	int itemsInHeight = 0;
+	if (itemSize.h <= 0)
+		throw runtime_error("GridView: itemHeight must be greater than zero");
 
 	if (orientation == OrientationHorizontal)
 	{
-		itemsInWidth = children.size() / itemCountSecondaryDirection;
-		itemsInHeight = itemCountSecondaryDirection;
+		if (size.h == SIZE_WRAP_CONTENT)
+			throw runtime_error("grid height cannot depend on content");
 
-		if (children.size() % itemCountSecondaryDirection != 0)
-			itemsInWidth++;
+		itemCountSecondaryDirection = (int)(calculatedSize.h / (itemSize.h + gridSpacing.h));
 	}
-	else
+	else if (orientation == OrientationVertical)
 	{
-		itemsInWidth = itemCountSecondaryDirection;
-		itemsInHeight = children.size() / itemCountSecondaryDirection;
+		if (size.w == SIZE_WRAP_CONTENT)
+			throw runtime_error("grid width cannot depend on content");
 
-		if (children.size() % itemCountSecondaryDirection != 0)
-			itemsInHeight++;
+		itemCountSecondaryDirection = (int)(calculatedSize.w / (itemSize.w + gridSpacing.w));
 	}
 
-	int* columnSizes = new int[itemsInWidth];
-	int* rowSizes = new int[itemsInHeight];
-
-	int* columnPositions = new int[itemsInWidth];
-	int* rowPositions = new int[itemsInHeight];
-
-	Size* childSizes = new Size[children.size()];
-
-	memset(columnSizes, 0, itemsInWidth * sizeof(int));
-	memset(rowSizes, 0, itemsInHeight * sizeof(int));
-
-	memset(columnPositions, 0, itemsInWidth * sizeof(int));
-	memset(rowPositions, 0, itemsInHeight * sizeof(int));
+	if (itemCountSecondaryDirection <= 0)
+		itemCountSecondaryDirection = 1;
 
 	// Calculate column and row sizes
 	for (int i = 0; i < children.size(); i++)
@@ -68,7 +56,7 @@ void GridView::OnLayoutChange()
 
 		int curColumn;
 		int curRow;
-		
+
 		if (orientation == OrientationHorizontal)
 		{
 			curColumn = i / itemCountSecondaryDirection;
@@ -80,71 +68,9 @@ void GridView::OnLayoutChange()
 			curRow = i / itemCountSecondaryDirection;
 		}
 
-		Box childMargin = v->GetLayoutMargin();
-		Size childSize = v->CalculateLayout(Size(-1, -1));
-		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
-
-		if (childSizeIncMargins.w > columnSizes[curColumn])
-			columnSizes[curColumn] = childSizeIncMargins.w;
-
-		if (childSizeIncMargins.h > rowSizes[curRow])
-			rowSizes[curRow] = childSizeIncMargins.h;
-
-		childSizes[i] = childSizeIncMargins;
+		v->CalculateLayout(itemSize);
+		v->SetRelativePosition(Position(curColumn * (itemSize.w + gridSpacing.w), curRow * (itemSize.h + gridSpacing.h)));
 	}
-
-	// Calculate positions for columns and rows
-	for (int i = 0; i < itemsInWidth; i++)
-	{
-		if (i == 0)
-			columnPositions[i] = 0;
-		else
-			columnPositions[i] = columnPositions[i - 1] + columnSizes[i - 1] + itemMargin;
-	}
-
-	for (int i = 0; i < itemsInHeight; i++)
-	{
-		if (i == 0)
-			rowPositions[i] = 0;
-		else
-			rowPositions[i] = rowPositions[i - 1] + rowSizes[i - 1] + itemMargin;
-	}
-
-	// Set content area size
-	contentSize.w = columnPositions[itemsInWidth - 1] + columnSizes[itemsInWidth - 1];
-	contentSize.h = rowPositions[itemsInHeight - 1] + rowSizes[itemsInHeight - 1];
-
-	// Position children
-	for (int i = 0; i < children.size(); i++)
-	{
-		View* v = children.at(i);
-
-		int curColumn;
-		int curRow;
-		
-		if (orientation == OrientationHorizontal)
-		{
-			curColumn = i / itemCountSecondaryDirection;
-			curRow = i % itemCountSecondaryDirection;
-		}
-		else
-		{
-			curColumn = i % itemCountSecondaryDirection;
-			curRow = i / itemCountSecondaryDirection;
-		}
-
-		Size curContainer = Size(columnSizes[curColumn], rowSizes[curRow]);
-		Position gravityOffset = GetGravityOffset(childSizes[i], curContainer, children[i]->GetLayoutGravity());
-
-		Box childMargin = v->GetLayoutMargin();
-		v->SetRelativePosition(columnPositions[curColumn] + childMargin.left + gravityOffset.x, rowPositions[curRow] + childMargin.top + gravityOffset.y);
-	}
-
-	delete[] columnSizes;
-	delete[] rowSizes;
-	delete[] columnPositions;
-	delete[] rowPositions;
-	delete[] childSizes;
 }
 
 View* GridView::Copy()
@@ -152,20 +78,11 @@ View* GridView::Copy()
 	GridView* view = new GridView();
 
 	CopyBase(view);
-	view->SetItemCountSecondaryDirection(itemCountSecondaryDirection);
 	view->SetOrientation(orientation);
+	view->SetGridSpacing(gridSpacing);
+	view->SetItemSize(itemSize);
 
 	return view;
-}
-
-int GridView::GetItemCountSecondaryDirection()
-{
-	return itemCountSecondaryDirection;
-}
-
-void GridView::SetItemCountSecondaryDirection(int count)
-{
-	itemCountSecondaryDirection = count;
 }
 
 Orientation GridView::GetOrientation()
@@ -176,6 +93,26 @@ Orientation GridView::GetOrientation()
 void GridView::SetOrientation(Orientation orientation)
 {
 	this->orientation = orientation;
+}
+
+Size GridView::GetGridSpacing()
+{
+	return gridSpacing;
+}
+
+void GridView::SetGridSpacing(Size gridSpacing)
+{
+	this->gridSpacing = gridSpacing;
+}
+
+Size GridView::GetItemSize()
+{
+	return itemSize;
+}
+
+void GridView::SetItemSize(Size itemSize)
+{
+	this->itemSize = itemSize;
 }
 
 bool GridView::SetProperty(string name, string value)
@@ -196,12 +133,43 @@ bool GridView::SetProperty(string name, string value)
 
 		return true;
 	}
-	else if (name == "itemCountSecondaryDirection")
+	else if (name == "horizontalSpacing")
 	{
-		int itemCountSecondaryDirectionIntValue = atoi(value.c_str());
-		if (itemCountSecondaryDirectionIntValue <= 0)
-			throw runtime_error("invalid value for itemCountSecondaryDirection");
-		SetItemCountSecondaryDirection(itemCountSecondaryDirectionIntValue);
+		stringstream ss(value);
+		if ((ss >> gridSpacing.w).fail() || !(ss >> std::ws).eof())
+		{
+			throw runtime_error("could not parse horizontal spacing");
+		}
+
+		return true;
+	}
+	else if (name == "verticalSpacing")
+	{
+		stringstream ss(value);
+		if ((ss >> gridSpacing.h).fail() || !(ss >> std::ws).eof())
+		{
+			throw runtime_error("could not parse vertical spacing");
+		}
+
+		return true;
+	}
+	else if (name == "itemWidth")
+	{
+		stringstream ss(value);
+		if ((ss >> itemSize.w).fail() || !(ss >> std::ws).eof())
+		{
+			throw runtime_error("could not parse item width");
+		}
+
+		return true;
+	}
+	else if (name == "itemHeight")
+	{
+		stringstream ss(value);
+		if ((ss >> itemSize.h).fail() || !(ss >> std::ws).eof())
+		{
+			throw runtime_error("could not parse item height");
+		}
 
 		return true;
 	}

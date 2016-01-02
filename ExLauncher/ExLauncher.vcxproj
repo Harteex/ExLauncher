@@ -39,6 +39,7 @@
     <ClCompile Include="Views\Image.cpp" />
     <ClCompile Include="Views\Label.cpp" />
     <ClCompile Include="Views\LinearPanel.cpp" />
+    <ClCompile Include="Views\ListView.cpp" />
     <ClCompile Include="Views\Selector.cpp" />
     <ClCompile Include="Views\State.cpp" />
     <ClCompile Include="Views\TabPanel.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="Views\Image.h" />
     <ClInclude Include="Views\Label.h" />
     <ClInclude Include="Views\LinearPanel.h" />
+    <ClInclude Include="Views\ListView.h" />
     <ClInclude Include="Views\Selector.h" />
     <ClInclude Include="Views\State.h" />
     <ClInclude Include="Views\TabPanel.h" />
@@ -166,6 +168,7 @@
     <Xml Include="data\themes\default\testaction.xml" />
     <Xml Include="data\themes\default\testframepanel.xml" />
     <Xml Include="data\themes\default\testlinearpanel.xml" />
+    <Xml Include="data\themes\default\testoverview.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{94A48642-2E40-421E-90C8-6B624CB8E0A1}</ProjectGuid>

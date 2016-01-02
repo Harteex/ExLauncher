@@ -199,7 +199,7 @@ mainStart:
 	
 	ScreenBackgroundImage* bgScreen = new ScreenBackgroundImage();
 	screenManager->AddScreen(bgScreen);
-	screenManager->AddScreen(new ScreenMenu("@theme/testaction.xml"));
+	screenManager->AddScreen(new ScreenMenu("@theme/testoverview.xml"));
 	//screenManager.AddScreen(new ScreenTest());
 
 	if (launchFailed)

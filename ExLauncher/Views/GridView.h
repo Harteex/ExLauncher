@@ -12,22 +12,12 @@
 class GridView : public ScrollView
 {
 private:
-	//int selectedPosition;
 	int itemCountSecondaryDirection;
+
 	Orientation orientation;
+	Size gridSpacing;
+	Size itemSize;
 
-	int itemMargin;
-
-	/*Position position;
-	Size tileViewSize;
-	Size tileSize;
-	int tileMargin;
-	int scrollDistance;
-	double zoom;*/
-
-	//void Scroll();
-	//void SetElementPosition(FormElement* element, Position gridPosition);
-	//Position GetPxPositionForPosition(Position position);
 	void GetRowsAndColumns(int& outRows, int& outColumns);
 	Position GetPositionForItemIndex(int elementNo);
 	int GetItemIndexForPosition(Position position);
@@ -40,10 +30,12 @@ public:
 	void OnLayoutChange();
 	View* Copy();
 
-	int GetItemCountSecondaryDirection();
-	void SetItemCountSecondaryDirection(int count);
 	Orientation GetOrientation();
 	void SetOrientation(Orientation orientation);
+	Size GetGridSpacing();
+	void SetGridSpacing(Size gridSpacing);
+	Size GetItemSize();
+	void SetItemSize(Size itemSize);
 	bool SetProperty(std::string name, std::string value);
 
 	View* GetSelectedItem();

@@ -464,13 +464,10 @@ bool View::SetProperty(string name, string value)
 		else
 		{
 			stringstream ss(value);
-			int i;
-			if ((ss >> i).fail() || !(ss >> std::ws).eof())
+			if ((ss >> size.w).fail() || !(ss >> std::ws).eof())
 			{
 				throw runtime_error("could not parse width");
 			}
-
-			size.w = i;
 		}
 
 		return true;
@@ -484,13 +481,10 @@ bool View::SetProperty(string name, string value)
 		else
 		{
 			stringstream ss(value);
-			int i;
-			if ((ss >> i).fail() || !(ss >> std::ws).eof())
+			if ((ss >> size.h).fail() || !(ss >> std::ws).eof())
 			{
 				throw runtime_error("could not parse height");
 			}
-
-			size.h = i;
 		}
 
 		return true;

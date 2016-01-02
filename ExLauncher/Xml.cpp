@@ -5,6 +5,7 @@
 #include <string>
 #include <exception>
 #include "Views/LinearPanel.h"
+#include "Views/ListView.h"
 #include "Views/GridView.h"
 #include "Views/TabPanel.h"
 #include "Views/Selector.h"
@@ -57,6 +58,10 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	else if (strcmp(view->name(), "LinearPanel") == 0)
 	{
 		createdView = new LinearPanel();
+	}
+	else if (strcmp(view->name(), "ListView") == 0)
+	{
+		createdView = new ListView();
 	}
 	else if (strcmp(view->name(), "GridView") == 0)
 	{

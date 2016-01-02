@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearPanel
+<ListView
   id="inputView"
   width="*"
   height="*"
   orientation="vertical"
   layoutMargin="5"
+  itemSize="40"
   tag="fillItems|categories=applications,games">
-  <LinearPanel.ItemTemplate>
+  <ListView.ItemTemplate>
     <FramePanel
       width="*"
-      height="40">
+      height="*">
       <Selector
         width="*"
         height="*">
@@ -37,5 +38,5 @@
           text="{name}"/>
       </LinearPanel>
     </FramePanel>
-  </LinearPanel.ItemTemplate>
-</LinearPanel>
+  </ListView.ItemTemplate>
+</ListView>
