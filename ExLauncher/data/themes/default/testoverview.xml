@@ -55,4 +55,12 @@
       text="Go to list view" />
   </Item>
 
+  <Item
+    action="screen:@theme/testrecent.xml">
+    <Label
+      width="*"
+      height="wrap_content"
+      text="Go to recent test view" />
+  </Item>
+
 </ListView>

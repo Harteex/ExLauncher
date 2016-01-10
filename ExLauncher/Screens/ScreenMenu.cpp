@@ -217,7 +217,7 @@ bool ScreenMenu::ShouldCategoryBeIncluded(string category)
 bool ScreenMenu::HandleApps()
 {
 	bool result = true;
-	map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllApps();
+	map<string, vector<App*>*>* apps = screenManager->GetAppManager()->GetAllAppsWithCategoryMap();
 	for (auto kv : *apps)
 	{
 		for (App* app : *kv.second)
@@ -324,6 +324,7 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	View* newView = fillView->GetItemTemplate()->Copy();
 
+	newView->SetId(app->GetData("id", ""));
 	newView->SetAction("app");
 	newView->SetActionArgs({ "opkrun", "-m", app->GetData("metadata", ""), app->GetData("path", "") });
 
@@ -345,13 +346,13 @@ void ScreenMenu::FillDataArguments()
 
 void ScreenMenu::FillDataInView(View* v, map<string, string> data)
 {
-	v->FillData(data);
+	v->FillDataAll(data);
 
-	for (int i = 0; i < v->GetNumberOfChildren(); i++)
+	/*for (int i = 0; i < v->GetNumberOfChildren(); i++)
 	{
 		View* c = v->GetChildView(i);
 		FillDataInView(c, data);
-	}
+	}*/
 }
 
 bool _SortItemsByNameItemComparer(View* v1, View* v2)
@@ -383,6 +384,7 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 
 				ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
 				appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
+				appLaunch->SetAppId(sender->GetId());
 				appLaunch->SetExec(eventArgs);
 				screenManager->AddScreen(appLaunch);
 			}

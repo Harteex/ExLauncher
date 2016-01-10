@@ -14,11 +14,13 @@ class ScreenAppLaunch : public Screen
 private:
 	Box origBox;
 	Box curBox;
+	std::string appId;
 	std::vector<std::string> exec;
 public:
 	ScreenAppLaunch();
 	~ScreenAppLaunch();
 	void SetStartRectangle(int x, int y, int width, int height);
+	void SetAppId(std::string appId);
 	void SetExec(std::vector<std::string> exec);
 	void HandleInput(InputState* input);
 	bool Initialize();

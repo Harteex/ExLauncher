@@ -20,6 +20,11 @@ void ScreenAppLaunch::SetStartRectangle(int x, int y, int width, int height)
 	curBox = origBox;
 }
 
+void ScreenAppLaunch::SetAppId(std::string appId)
+{
+	this->appId = appId;
+}
+
 void ScreenAppLaunch::SetExec(vector<string> exec)
 {
 	this->exec = exec;
@@ -41,7 +46,8 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 
 	Size dispSize = screenManager->GetDisplaySize();
 
-	// FIXME use sigmoid curve for transition instead of linear
+	// FIXME use sigmoid curve for transition instead of linear, or possibly only sigmoid end
+	// FIXME transition in with alpha as well
 
 	Box dBox;
 	dBox.top = origBox.top;
@@ -56,7 +62,11 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 
 	if (TransitionHasFinished())
 	{
-		screenManager->GetAppManager()->SetCommandToLaunch(exec);
+		if (appId.empty())
+			screenManager->GetAppManager()->SetCommandToLaunch(exec);
+		else
+			screenManager->GetAppManager()->SetAppToLaunch(appId, exec);
+
 		screenManager->Exit();
 	}
 }

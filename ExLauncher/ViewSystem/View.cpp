@@ -413,6 +413,15 @@ void View::AddChildView(View* view)
 	children.push_back(view);
 }
 
+void View::DeleteChildView(int i)
+{
+	if (i < GetNumberOfChildren())
+	{
+		delete children.at(i);
+		children.erase(children.begin() + i);
+	}
+}
+
 int View::GetNumberOfChildren()
 {
 	return children.size();
@@ -569,6 +578,17 @@ void View::SetItemTemplate(View* itemTemplate)
 
 void View::FillData(map<string, string>& data)
 {
+}
+
+void View::FillDataAll(std::map<std::string, std::string>& data)
+{
+	FillData(data);
+
+	for (int i = 0; i < GetNumberOfChildren(); i++)
+	{
+		View* c = GetChildView(i);
+		c->FillDataAll(data);
+	}
 }
 
 void View::PropagateStateChange(string stateName, string stateValue)

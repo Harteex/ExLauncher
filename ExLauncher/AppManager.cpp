@@ -1,6 +1,8 @@
 #include "AppManager.h"
 #include "utils.h"
 #include <algorithm>
+#include "HomeDirectory.h"
+#include <fstream>
 
 #ifdef HAS_LIBOPK
 #include <dirent.h>
@@ -27,18 +29,21 @@ void AppManager::SetResourceManager(ResourceManager* resourceManager)
 
 vector<App*>* AppManager::FindOrCreateCategory(string category)
 {
-	auto categoryResult = apps.find(category);
-	if (categoryResult != apps.end())
+	auto categoryResult = appsInCategories.find(category);
+	if (categoryResult != appsInCategories.end())
 		return categoryResult->second;
 
 	vector<App*>* categoryNew = new vector<App*>();
-	apps[category] = categoryNew;
+	appsInCategories[category] = categoryNew;
 
 	return categoryNew;
 }
 
 void AppManager::AddApp(App* app)
 {
+	// FIXME verify id not empty
+	apps[app->GetData("id", "")] = app;
+
 	string categoriesString = app->GetData("categories", "uncategorized");
 	vector<string> categories = split(categoriesString, ';');
 	
@@ -182,6 +187,10 @@ bool AppManager::LoadApps()
 					app->SetData("path", opkPath);
 					app->SetData("metadata", metadataName);
 
+					stringstream appId;
+					appId << opkPath << " " << metadataName;
+					app->SetData("id", appId.str());
+
 					stringstream exec;
 					exec << "opkrun -m " << metadataName << " " << opkPath;
 					app->SetData("exec", exec.str());
@@ -205,6 +214,7 @@ bool AppManager::LoadApps()
 	App* app;
 
 	app = new App();
+	app->SetData("id", "samegoo");
 	app->SetData("name", "SameGoo");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
@@ -212,137 +222,160 @@ bool AppManager::LoadApps()
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "umg");
 	app->SetData("name", "UMG");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "jetsetradiofuture");
 	app->SetData("name", "Jet Set Radio Future");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "halo");
 	app->SetData("name", "Halo");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "crysis");
 	app->SetData("name", "Crysis");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "finalfantasy");
 	app->SetData("name", "Final Fantasy");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "crashbandicoot");
 	app->SetData("name", "Crash Bandicoot");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "crackdown");
 	app->SetData("name", "Crackdown");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "minecraft");
 	app->SetData("name", "Minecraft");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "counterstrike");
 	app->SetData("name", "Counter Strike");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "justcause2");
 	app->SetData("name", "Just Cause 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "thewitcher");
 	app->SetData("name", "The Witcher");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "ageofempires");
 	app->SetData("name", "Age of Empires");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "teamfortress2");
 	app->SetData("name", "Team Fortress 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "halflife3");
 	app->SetData("name", "Halflife 3");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "settlers2");
 	app->SetData("name", "Settlers 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "deadoralive");
 	app->SetData("name", "Dead or Alive");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "amped");
 	app->SetData("name", "Amped");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "console");
 	app->SetData("name", "Console");
 	app->SetData("categories", "applications;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "wireless");
 	app->SetData("name", "Wireless");
 	app->SetData("categories", "settings;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "shutdown");
 	app->SetData("name", "Shutdown");
 	app->SetData("categories", "settings;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "test1");
 	app->SetData("name", "Test Uncategorized");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "test2");
 	app->SetData("name", "Test Custom Category");
 	app->SetData("categories", "customcategory;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
 	AddApp(app);
 
 	app = new App();
+	app->SetData("id", "test3");
 	app->SetData("name", "Test Multiple Categories");
 	app->SetData("categories", "customcategory;settings;");
 	app->SetData("iconId", "@theme/appIconDefault.png");
@@ -352,13 +385,14 @@ bool AppManager::LoadApps()
 	return true;
 }
 
+// FIXME just delete the apps from the apps map now that it exists, instead of extracting them from the appsInCategories map.
 void AppManager::UnloadApps()
 {
 	// Move apps to a temporary vector before deleting, because an app may exist in multiple categories
 	vector<App*> appsToDelete;
 
 	// Find all apps, add them to the delete list, and free the map/vectors
-	for (auto appCategory : apps)
+	for (auto appCategory : appsInCategories)
 	{
 		vector<App*>* appsVector = appCategory.second;
 
@@ -376,6 +410,7 @@ void AppManager::UnloadApps()
 		delete appsVector;
 	}
 
+	appsInCategories.clear();
 	apps.clear();
 
 	// Now finally delete all the apps
@@ -387,17 +422,38 @@ void AppManager::UnloadApps()
 	appsToDelete.clear();
 }
 
-map<string, vector<App*>*>* AppManager::GetAllApps()
+map<string, vector<App*>*>* AppManager::GetAllAppsWithCategoryMap()
 {
-	return &apps;
+	return &appsInCategories;
 }
 
 vector<App*>* AppManager::GetApps(string category)
 {
-	if (apps.count(category) == 0)
+	if (appsInCategories.count(category) == 0)
 		return NULL;
 
-	return apps[category];
+	return appsInCategories[category];
+}
+
+int AppManager::GetNumberOfApps()
+{
+	return apps.size();
+}
+
+bool AppManager::SetAppToLaunch(std::string appId, std::vector<std::string> command)
+{
+	bool appFound = false;
+	auto app = apps.find(appId);
+	if (app != apps.end())
+	{
+		FindAndRemoveAppFromRecent(appId);
+		recentApps.insert(recentApps.begin(), app->second);
+		appFound = true;
+	}
+
+	this->commandToLaunch = command;
+
+	return appFound;
 }
 
 void AppManager::SetCommandToLaunch(vector<string> command)
@@ -413,4 +469,58 @@ vector<string> AppManager::GetCommandToLaunch()
 void AppManager::ClearCommandToLaunch()
 {
 	commandToLaunch.clear();
+}
+
+bool AppManager::LoadRecentList()
+{
+	string configPath = HomeDirectory::GetConfigPath();
+	string recentFile = configPath + "/recent.cfg";
+
+	ifstream infile(recentFile);
+	std::string line;
+	while (std::getline(infile, line))
+	{
+		auto idFound = apps.find(line);
+		if (idFound != apps.end())
+		{
+			recentApps.push_back(idFound->second);
+		}
+	}
+
+	return true;
+}
+
+bool AppManager::SaveRecentList()
+{
+	string configPath = HomeDirectory::GetConfigPath();
+	string recentFile = configPath + "/recent.cfg";
+	ofstream outfile(recentFile, ios::out);
+
+	for (auto it = recentApps.begin(); it != recentApps.end(); it++)
+	{
+		App* app = *it;
+		outfile << app->GetData("id", "") << endl;
+	}
+
+	return true;
+}
+
+App* AppManager::GetRecent(int recentIndex)
+{
+	if (recentIndex < 0 || recentIndex >= recentApps.size())
+		return nullptr;
+
+	return recentApps.at(recentIndex);
+}
+
+void AppManager::FindAndRemoveAppFromRecent(string appId)
+{
+	for (auto it = recentApps.begin(); it != recentApps.end(); it++)
+	{
+		if ((*it)->GetData("id", "") == appId)
+		{
+			recentApps.erase(it);
+			break;
+		}
+	}
 }

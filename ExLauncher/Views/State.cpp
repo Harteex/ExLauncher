@@ -51,7 +51,7 @@ bool State::SetProperty(string name, string value)
 	if (propertyHandled)
 		return true;
 
-	if (name == "stateSelected")
+	if (name == "stateSelected" || name == "stateRecentType")
 	{
 		stateName = name;
 		stateValue = value;

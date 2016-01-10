@@ -150,6 +150,12 @@
     <ClCompile Include="Views\ListView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Views\RecentAppView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeDirectory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -257,9 +263,6 @@
     <ClInclude Include="Animator.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Screens\ScreenAppLaunch.h">
       <Filter>Source Files\Screens</Filter>
     </ClInclude>
@@ -268,6 +271,15 @@
     </ClInclude>
     <ClInclude Include="Views\ListView.h">
       <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\RecentAppView.h">
+      <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeDirectory.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStore.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +378,12 @@
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
     <Xml Include="data\themes\default\testoverview.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\testrecent.xml">
+      <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\themes\default\recentAppTemplate.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </Xml>
   </ItemGroup>

@@ -16,6 +16,7 @@
     <ClCompile Include="AppManager.cpp" />
     <ClCompile Include="DataStore.cpp" />
     <ClCompile Include="graphics_utils.cpp" />
+    <ClCompile Include="HomeDirectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ScreenSystem\InputState.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Views\Label.cpp" />
     <ClCompile Include="Views\LinearPanel.cpp" />
     <ClCompile Include="Views\ListView.cpp" />
+    <ClCompile Include="Views\RecentAppView.cpp" />
     <ClCompile Include="Views\Selector.cpp" />
     <ClCompile Include="Views\State.cpp" />
     <ClCompile Include="Views\TabPanel.cpp" />
@@ -53,6 +55,7 @@
     <ClInclude Include="DataStore.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="graphics_utils.h" />
+    <ClInclude Include="HomeDirectory.h" />
     <ClInclude Include="RapidXml\rapidxml.hpp" />
     <ClInclude Include="RapidXml\rapidxml_iterators.hpp" />
     <ClInclude Include="RapidXml\rapidxml_print.hpp" />
@@ -81,6 +84,7 @@
     <ClInclude Include="Views\Label.h" />
     <ClInclude Include="Views\LinearPanel.h" />
     <ClInclude Include="Views\ListView.h" />
+    <ClInclude Include="Views\RecentAppView.h" />
     <ClInclude Include="Views\Selector.h" />
     <ClInclude Include="Views\State.h" />
     <ClInclude Include="Views\TabPanel.h" />
@@ -154,6 +158,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="data\themes\default\list.xml" />
+    <Xml Include="data\themes\default\recentAppTemplate.xml" />
     <Xml Include="data\themes\default\tab.xml" />
     <Xml Include="data\themes\default\test2.xml">
       <DeploymentContent>true</DeploymentContent>
@@ -169,6 +174,7 @@
     <Xml Include="data\themes\default\testframepanel.xml" />
     <Xml Include="data\themes\default\testlinearpanel.xml" />
     <Xml Include="data\themes\default\testoverview.xml" />
+    <Xml Include="data\themes\default\testrecent.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{94A48642-2E40-421E-90C8-6B624CB8E0A1}</ProjectGuid>

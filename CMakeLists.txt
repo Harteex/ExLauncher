@@ -47,12 +47,14 @@ set(CPPFILES
 	ExLauncher/Views/GridView.cpp
 	ExLauncher/Views/Selector.cpp
 	ExLauncher/Views/TabPanel.cpp
+	ExLauncher/Views/RecentAppView.cpp
 	ExLauncher/Xml.cpp
 	ExLauncher/structures.cpp
 	ExLauncher/ViewSystem/CollectionView.cpp
 	ExLauncher/ViewSystem/ScrollView.cpp
 	ExLauncher/ViewSystem/View.cpp
 	ExLauncher/AppManager.cpp
+	ExLauncher/HomeDirectory.cpp
 	ExLauncher/ScreenSystem/ScreenManager.cpp
 	ExLauncher/ScreenSystem/Screen.cpp
 	ExLauncher/ScreenSystem/InputState.cpp

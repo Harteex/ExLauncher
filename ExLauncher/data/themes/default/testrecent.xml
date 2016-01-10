@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView
+  id="inputView"
+  width="*"
+  height="*"
+  orientation="vertical"
+  itemTemplate="@theme/appTemplate.xml"
+  itemWidth="77"
+  itemHeight="50"
+  layoutMargin="5"
+  verticalSpacing="8">
+  
+  <RecentAppView
+    width="*"
+    height="*"
+    recentIndex="0"
+    itemTemplate="@theme/recentAppTemplate.xml">
+    <Item />
+  </RecentAppView>
+
+  <RecentAppView
+    width="*"
+    height="*"
+    recentIndex="1"
+    itemTemplate="@theme/recentAppTemplate.xml">
+    <Item />
+  </RecentAppView>
+
+  <RecentAppView
+    width="*"
+    height="*"
+    recentIndex="2"
+    itemTemplate="@theme/recentAppTemplate.xml">
+    <Item />
+  </RecentAppView>
+
+</GridView>

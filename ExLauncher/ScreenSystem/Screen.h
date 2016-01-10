@@ -9,6 +9,7 @@
 #include "../ScreenSystem/InputState.h"
 #include "../ViewSystem/View.h"
 #include "../DataStore.h"
+#include "../AppManager.h"
 
 /*********************************************/
 
@@ -66,6 +67,9 @@ public:
 
 	// Returns the resource manager used for this screen
 	ResourceManager* GetResourceManager();
+
+	// Returns the app manager used for this screen
+	AppManager* GetAppManager();
 
 	// Sets the ScreenManager object. This handled by the ScreenManager, and should not be done manually.
 	void SetScreenManager(ScreenManager* screenManager);

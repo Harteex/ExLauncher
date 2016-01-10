@@ -144,6 +144,11 @@ ResourceManager* Screen::GetResourceManager()
 	return screenManager->GetResourceManager();
 }
 
+AppManager* Screen::GetAppManager()
+{
+	return screenManager->GetAppManager();
+}
+
 void Screen::SetScreenManager(ScreenManager* screenManager)
 {
 	this->screenManager = screenManager;

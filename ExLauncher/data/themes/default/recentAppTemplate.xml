@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FramePanel
+  width="77"
+  height="50">
+  <Selector
+      width="*"
+      height="*">
+    <State stateSelected="true">
+      <Image
+        width="wrap_content"
+        height="wrap_content"
+        path="@theme/markerBg.png"/>
+    </State>
+    <State stateRecentType="recentItem">
+      <LinearPanel
+        width="*"
+        height="wrap_content"
+        orientation="vertical"
+        layoutGravity="center_horizontal">
+        <Image
+          width="32"
+          height="32"
+          layoutGravity="center_horizontal"
+          path="{iconId}"
+          altPath="@theme/appIconDefault.png"/>
+        <Label
+          width="*"
+          height="wrap_content"
+          text="{name}"
+          gravity="center_horizontal"/>
+      </LinearPanel>
+    </State>
+    <State stateRecentType="noItem">
+      <Label
+        width="*"
+        height="wrap_content"
+        text="No Recent"
+        gravity="center_horizontal"/>
+    </State>
+  </Selector>
+</FramePanel>

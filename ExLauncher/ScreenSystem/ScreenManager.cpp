@@ -134,6 +134,7 @@ void ScreenManager::Update()
 	if (isExiting)
 	{
 		DeleteAllScreens();
+		GetAppManager()->SaveRecentList(); // FIXME error check
 		GetAppManager()->UnloadApps();
 		GetResourceManager()->UnloadContent();
 		exit = true;

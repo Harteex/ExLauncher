@@ -8,7 +8,9 @@
 #include "Screens/ScreenTest.h"
 #include "Screens/ScreenMessageDialog.h"
 #include "global.h"
+#include "HomeDirectory.h"
 #include <string>
+#include "utils.h"
 #ifdef UNIX
 #include <unistd.h>
 #endif
@@ -178,8 +180,27 @@ mainStart:
 	std::cout << "OK" << std::endl;
 
 	screenManager->GetAppManager()->SetResourceManager(screenManager->GetResourceManager());
-	if (!screenManager->GetAppManager()->LoadApps())
+
+	if (!HomeDirectory::InitAndCreateDirectories())
+	{
+		std::cout << "Failed to init config / data directory paths" << std::endl;
 		return 1;
+	}
+
+	measureTimeStart();
+	if (!screenManager->GetAppManager()->LoadApps())
+	{
+		std::cout << "Failed to load apps" << std::endl;
+		return 1;
+	}
+	double timeLoadApps = measureTimeFinish();
+	std::cout << "Loaded " << screenManager->GetAppManager()->GetNumberOfApps() << " apps in " << timeLoadApps << "ms." << std::endl;
+
+	if (!screenManager->GetAppManager()->LoadRecentList())
+	{
+		std::cout << "Failed to load recent list" << std::endl;
+		return 1;
+	}
 
 	setKeyBindings();
 
@@ -241,7 +262,7 @@ mainStart:
 			_resetFrameSkip = false;
 		}
 
-		while (accumulator >= frameTime)
+		while (accumulator >= frameTime && !screenManager->HasExit())
 		{
 			accumulator -= frameTime;
 
@@ -262,7 +283,7 @@ mainStart:
 
 	commandToLaunchOnExit = screenManager->GetAppManager()->GetCommandToLaunch();
 	screenManager->GetAppManager()->ClearCommandToLaunch();
-	
+
 	delete screenManager;
 	screenManager = NULL;
 	terminateSDL();

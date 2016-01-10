@@ -83,6 +83,7 @@ public:
 	View* GetChildViewById(std::string id);
 	View* GetFirstChildViewByTag(std::string tag);
 	virtual void AddChildView(View* view);
+	void DeleteChildView(int i);
 	int GetNumberOfChildren();
 	View* GetChildView(int i);
 	void SortChildren(bool(*comparer)(View* v1, View* v2));
@@ -117,6 +118,7 @@ public:
 	View* GetItemTemplate();
 	void SetItemTemplate(View* itemTemplate);
 	virtual void FillData(std::map<std::string, std::string>& data);
+	void FillDataAll(std::map<std::string, std::string>& data);
 	void PropagateStateChange(std::string stateName, std::string stateValue);
 	virtual void OnStateChange(std::string stateName, std::string stateValue);
 	Position GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity);
