@@ -194,7 +194,7 @@ mainStart:
 		return 1;
 	}
 	double timeLoadApps = measureTimeFinish();
-	std::cout << "Loaded " << screenManager->GetAppManager()->GetNumberOfApps() << " apps in " << timeLoadApps << "ms." << std::endl;
+	std::cout << "Loaded " << screenManager->GetAppManager()->GetNumberOfApps() << " apps in " << timeLoadApps << "s." << std::endl;
 
 	if (!screenManager->GetAppManager()->LoadRecentList())
 	{
