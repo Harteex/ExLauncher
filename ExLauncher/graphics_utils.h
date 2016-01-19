@@ -44,5 +44,6 @@ void DrawRect(SDL_Surface* dst, SDL_Rect* dstrect, Uint32 color, int thickness);
 SDL_Texture* drawText(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font, SDL_Renderer* renderer, Uint32 maxWidth = UINT32_MAX);
 SDL_Surface* drawTextSurface(const char* text, Uint8 r, Uint8 g, Uint8 b, TTF_Font* font);
 Rectangle ClipRect(Rectangle clip, Rectangle origClip);
+Color ParseColor(std::string colorStr);
 
 #endif

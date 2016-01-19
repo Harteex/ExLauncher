@@ -543,6 +543,11 @@ bool View::SetProperty(string name, string value)
 		this->action = value;
 		return true;
 	}
+	else if (name == "background")
+	{
+		this->background = ParseColor(value);
+		return true;
+	}
 
 	return false;
 }

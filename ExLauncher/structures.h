@@ -70,6 +70,7 @@ struct Color
 
 	Color() : r(0), g(0), b(0), a(0) {}
 	Color(int r, int g, int b, int a) : r(r), g(g), b(b), a(a) {}
+	Color(unsigned int color) : r((color >> 16) & 0xff), g((color >> 8) & 0xff), b(color & 0xff), a((color >> 24) & 0xff) {}
 };
 
 enum Direction {DirectionLeft, DirectionRight, DirectionUp, DirectionDown};
