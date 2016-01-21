@@ -745,6 +745,7 @@ void InitColorMap()
 	colorMap["darkcyan"] = Color(0xff008b8b);
 	colorMap["darkgoldenrod"] = Color(0xffb8860b);
 	colorMap["darkgray"] = Color(0xffa9a9a9);
+	colorMap["darkgrey"] = Color(0xffa9a9a9);
 	colorMap["darkgreen"] = Color(0xff006400);
 	colorMap["darkkhaki"] = Color(0xffbdb76b);
 	colorMap["darkmagenta"] = Color(0xff8b008b);
@@ -756,11 +757,13 @@ void InitColorMap()
 	colorMap["darkseagreen"] = Color(0xff8fbc8f);
 	colorMap["darkslateblue"] = Color(0xff483d8b);
 	colorMap["darkslategray"] = Color(0xff2f4f4f);
+	colorMap["darkslategrey"] = Color(0xff2f4f4f);
 	colorMap["darkturquoise"] = Color(0xff00ced1);
 	colorMap["darkviolet"] = Color(0xff9400d3);
 	colorMap["deeppink"] = Color(0xffff1493);
 	colorMap["deepskyblue"] = Color(0xff00bfff);
 	colorMap["dimgray"] = Color(0xff696969);
+	colorMap["dimgrey"] = Color(0xff696969);
 	colorMap["dodgerblue"] = Color(0xff1e90ff);
 	colorMap["firebrick"] = Color(0xffb22222);
 	colorMap["floralwhite"] = Color(0xfffffaf0);
@@ -771,6 +774,7 @@ void InitColorMap()
 	colorMap["gold"] = Color(0xffffd700);
 	colorMap["goldenrod"] = Color(0xffdaa520);
 	colorMap["gray"] = Color(0xff808080);
+	colorMap["grey"] = Color(0xff808080);
 	colorMap["green"] = Color(0xff008000);
 	colorMap["greenyellow"] = Color(0xffadff2f);
 	colorMap["honeydew"] = Color(0xfff0fff0);
@@ -788,12 +792,14 @@ void InitColorMap()
 	colorMap["lightcyan"] = Color(0xffe0ffff);
 	colorMap["lightgoldenrodyellow"] = Color(0xfffafad2);
 	colorMap["lightgray"] = Color(0xffd3d3d3);
+	colorMap["lightgrey"] = Color(0xffd3d3d3);
 	colorMap["lightgreen"] = Color(0xff90ee90);
 	colorMap["lightpink"] = Color(0xffffb6c1);
 	colorMap["lightsalmon"] = Color(0xffffa07a);
 	colorMap["lightseagreen"] = Color(0xff20b2aa);
 	colorMap["lightskyblue"] = Color(0xff87cefa);
 	colorMap["lightslategray"] = Color(0xff778899);
+	colorMap["lightslategrey"] = Color(0xff778899);
 	colorMap["lightsteelblue"] = Color(0xffb0c4de);
 	colorMap["lightyellow"] = Color(0xffffffe0);
 	colorMap["lime"] = Color(0xff00ff00);
@@ -846,6 +852,7 @@ void InitColorMap()
 	colorMap["skyblue"] = Color(0xff87ceeb);
 	colorMap["slateblue"] = Color(0xff6a5acd);
 	colorMap["slategray"] = Color(0xff708090);
+	colorMap["slategrey"] = Color(0xff708090);
 	colorMap["snow"] = Color(0xfffffafa);
 	colorMap["springgreen"] = Color(0xff00ff7f);
 	colorMap["steelblue"] = Color(0xff4682b4);
