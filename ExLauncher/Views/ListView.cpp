@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include "FramePanel.h"
 
 using namespace std;
 
@@ -55,31 +56,23 @@ void ListView::OnLayoutChange()
 			contentSize.h = itemSize * GetNumberOfChildren();
 	}
 
-	Size baseSizeAvailableForChild = Size(itemSize, itemSize);
+	Size sizeAvailableForChild = Size(itemSize, itemSize);
 	if (orientation == OrientationHorizontal)
-		baseSizeAvailableForChild.h = calculatedSize.h;
+		sizeAvailableForChild.h = calculatedSize.h;
 	else
-		baseSizeAvailableForChild.w = calculatedSize.w;
+		sizeAvailableForChild.w = calculatedSize.w;
 
 	for (int i = 0; i < children.size(); i++)
 	{
 		View* v = children.at(i);
-		
-		Box childMargin = v->GetLayoutMargin();
-		Position childPos = Position(childMargin.left, childMargin.top);
+
+		// TODO Possibly wait with doing this until necessary (lazy loading). Do it on draw instead, if it's not initialized.
+		v->CalculateLayout(sizeAvailableForChild);
+
 		if (orientation == OrientationHorizontal)
-			childPos.x += i * baseSizeAvailableForChild.w;
+			v->SetRelativePosition(i * sizeAvailableForChild.w, 0);
 		else
-			childPos.y += i * baseSizeAvailableForChild.h;
-
-		Size sizeAreaForChild;
-		sizeAreaForChild.w = max(baseSizeAvailableForChild.w - (childMargin.left + childMargin.right), 0);
-		sizeAreaForChild.h = max(baseSizeAvailableForChild.h - (childMargin.top + childMargin.bottom), 0);
-		Size childSize = v->CalculateLayout(sizeAreaForChild); // TODO Possibly wait with doing this until necessary (lazy loading). Do it on draw instead, if it's not initialized.
-		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
-
-		Position gravityOffset = GetGravityOffset(childSizeIncMargins, baseSizeAvailableForChild, v->GetLayoutGravity());
-		v->SetRelativePosition(childPos + gravityOffset);
+			v->SetRelativePosition(0, i * sizeAvailableForChild.h);
 	}
 }
 
@@ -92,6 +85,16 @@ View* ListView::Copy()
 	view->SetItemSize(itemSize);
 
 	return view;
+}
+
+void ListView::AddChildView(View* view)
+{
+	// Instead of duplicating much layouting logic for children in ListView, wrap children in a FramePanel
+	FramePanel* framePanel = new FramePanel();
+	framePanel->SetSize(SIZE_FILL_PARENT, SIZE_FILL_PARENT);
+
+	framePanel->AddChildView(view);
+	View::AddChildView(framePanel);
 }
 
 Orientation ListView::GetOrientation()
