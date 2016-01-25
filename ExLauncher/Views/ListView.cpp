@@ -34,38 +34,52 @@ void ListView::OnLayoutChange()
 
 	if (orientation == OrientationHorizontal)
 	{
-		if (size.h == SIZE_WRAP_CONTENT)
-			throw runtime_error("list height cannot depend on content");
-
 		if (itemSize <= 0)
 			throw runtime_error("item width missing or invalid");
+
+		if (size.h == SIZE_WRAP_CONTENT)
+			throw runtime_error("list height cannot depend on content when orientation is horizontal");
+
+		if (size.w == SIZE_WRAP_CONTENT)
+			contentSize.w = itemSize * GetNumberOfChildren();
 	}
 	else if (orientation == OrientationVertical)
 	{
-		if (size.w == SIZE_WRAP_CONTENT)
-			throw runtime_error("list width cannot depend on content");
-
 		if (itemSize <= 0)
 			throw runtime_error("item height missing or invalid");
+
+		if (size.w == SIZE_WRAP_CONTENT)
+			throw runtime_error("list width cannot depend on content when orientation is vertical");
+
+		if (size.h == SIZE_WRAP_CONTENT)
+			contentSize.h = itemSize * GetNumberOfChildren();
 	}
 
-	Size sizeAvailableForChild = Size(itemSize, itemSize);
+	Size baseSizeAvailableForChild = Size(itemSize, itemSize);
 	if (orientation == OrientationHorizontal)
-		sizeAvailableForChild.h = calculatedSize.h;
+		baseSizeAvailableForChild.h = calculatedSize.h;
 	else
-		sizeAvailableForChild.w = calculatedSize.w;
+		baseSizeAvailableForChild.w = calculatedSize.w;
 
 	for (int i = 0; i < children.size(); i++)
 	{
 		View* v = children.at(i);
-
-		// TODO Possibly wait with doing this until necessary (lazy loading). Do it on draw instead, if it's not initialized.
-		v->CalculateLayout(sizeAvailableForChild);
-
+		
+		Box childMargin = v->GetLayoutMargin();
+		Position childPos = Position(childMargin.left, childMargin.top);
 		if (orientation == OrientationHorizontal)
-			v->SetRelativePosition(i * sizeAvailableForChild.w, 0);
+			childPos.x += i * baseSizeAvailableForChild.w;
 		else
-			v->SetRelativePosition(0, i * sizeAvailableForChild.h);
+			childPos.y += i * baseSizeAvailableForChild.h;
+
+		Size sizeAreaForChild;
+		sizeAreaForChild.w = max(baseSizeAvailableForChild.w - (childMargin.left + childMargin.right), 0);
+		sizeAreaForChild.h = max(baseSizeAvailableForChild.h - (childMargin.top + childMargin.bottom), 0);
+		Size childSize = v->CalculateLayout(sizeAreaForChild); // TODO Possibly wait with doing this until necessary (lazy loading). Do it on draw instead, if it's not initialized.
+		Size childSizeIncMargins = childSize + Size(childMargin.left + childMargin.right, childMargin.top + childMargin.bottom);
+
+		Position gravityOffset = GetGravityOffset(childSizeIncMargins, baseSizeAvailableForChild, v->GetLayoutGravity());
+		v->SetRelativePosition(childPos + gravityOffset);
 	}
 }
 
