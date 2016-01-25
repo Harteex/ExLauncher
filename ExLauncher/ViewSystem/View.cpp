@@ -500,8 +500,26 @@ bool View::SetProperty(string name, string value)
 	}
 	else if (name == "layoutMargin")
 	{
-		int n = atoi(value.c_str());
-		layoutMargin = Box(n, n, n, n);
+		int top, bottom, left, right;
+
+		stringstream ss(value);
+
+		if ((ss >> top).fail())
+			throw runtime_error("could not parse layoutMargin");
+
+		if ((ss >> std::ws).eof())
+		{
+			// Only one value means we use that value for all sides
+			layoutMargin = Box(top, top, top, top);
+		}
+		else
+		{
+			if ((ss >> bottom).fail() || (ss >> left).fail() || (ss >> right).fail() || !(ss >> std::ws).eof())
+				throw runtime_error("could not parse layoutMargin");
+			else
+				layoutMargin = Box(top, bottom, left, right);
+		}
+
 		return true;
 	}
 	else if (name == "layoutGravity")
