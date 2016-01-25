@@ -92,6 +92,8 @@ void ListView::AddChildView(View* view)
 	// Instead of duplicating much layouting logic for children in ListView, wrap children in a FramePanel
 	FramePanel* framePanel = new FramePanel();
 	framePanel->SetSize(SIZE_FILL_PARENT, SIZE_FILL_PARENT);
+	framePanel->SetAction(view->GetAction());
+	framePanel->SetActionArgs(view->GetActionArgs());
 
 	framePanel->AddChildView(view);
 	View::AddChildView(framePanel);
