@@ -645,11 +645,6 @@ Position View::GetGravityOffset(Size childSize, Size containerSize, int childLay
 	else if ((childLayoutGravity & GRAVITY_BOTTOM) > 0)
 		gravityOffsetH = freeSpace.h;
 
-	if (gravityOffsetW < 0)
-		gravityOffsetW = 0;
-	if (gravityOffsetH < 0)
-		gravityOffsetH = 0;
-
 	return Position(gravityOffsetW, gravityOffsetH);
 }
 
