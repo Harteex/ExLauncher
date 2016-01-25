@@ -47,12 +47,18 @@ void FramePanel::OnLayoutChange()
 		contentSize.h = max(contentSize.h, childSizeIncMargins.h);
 	}
 
+	Size containerSize = calculatedSize;
+	if (size.w == SIZE_WRAP_CONTENT)
+		containerSize.w = contentSize.w;
+	if (size.h == SIZE_WRAP_CONTENT)
+		containerSize.h = contentSize.h;
+
 	// Adjust child positions for gravity
 	for (int i = 0; i < children.size(); i++)
 	{
 		View* v = children.at(i);
 
-		Position gravityOffset = GetGravityOffset(childSizes[i], contentSize, children[i]->GetLayoutGravity());
+		Position gravityOffset = GetGravityOffset(childSizes[i], containerSize, children[i]->GetLayoutGravity());
 		v->SetRelativePosition(v->GetRelativePosition() + gravityOffset);
 	}
 
