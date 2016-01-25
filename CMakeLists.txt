@@ -33,6 +33,7 @@ set(CPPFILES
 	ExLauncher/Screens/ScreenError.cpp
 	ExLauncher/Screens/ScreenProgressDialog.cpp
 	ExLauncher/Screens/ScreenMessageDialog.cpp
+	ExLauncher/Screens/ScreenSystemDialog.cpp
 	ExLauncher/Screens/ScreenBackgroundImage.cpp
 	ExLauncher/utils.cpp
 	ExLauncher/Animator.cpp

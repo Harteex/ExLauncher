@@ -13,6 +13,7 @@
 #include "../ThemeManager.h"
 #include <algorithm>
 #include "ScreenAppLaunch.h"
+#include "ScreenSystemDialog.h"
 
 using namespace std;
 
@@ -140,6 +141,9 @@ void ScreenMenu::HandleInput(InputState* input)
 
 	if (input->GameKeyJustPressed(GAMEKEY_B))
 		OnEvent(NULL, EventTypeGoBack, "");
+
+	if (input->GameKeyJustPressed(GAMEKEY_START))
+		screenManager->AddScreen(new ScreenSystemDialog());
 
 	/*bool virtualKeyboardWasActive = formContainer.IsVirtualKeyboardActive();
 	formContainer.HandleInput(input);

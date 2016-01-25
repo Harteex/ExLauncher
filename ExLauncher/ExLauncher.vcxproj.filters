@@ -46,6 +46,9 @@
     <Filter Include="Resource Files\data\themes\default">
       <UniqueIdentifier>{4edf1b1f-4d59-4f8f-8963-c7132584f71f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\data\system">
+      <UniqueIdentifier>{35836f89-a6c5-4880-8a20-63d60cf95cc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structures.cpp">
@@ -155,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="HomeDirectory.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\ScreenSystemDialog.cpp">
+      <Filter>Source Files\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +287,9 @@
     <ClInclude Include="DataStore.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Screens\ScreenSystemDialog.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\fonts\OpenSans-Light.ttf">
@@ -342,6 +351,18 @@
     <Image Include="data\themes\default\markerBg.png">
       <Filter>Resource Files\data\themes\default</Filter>
     </Image>
+    <Image Include="data\graphics\ic_reboot.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </Image>
+    <Image Include="data\graphics\ic_shutdown.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </Image>
+    <Image Include="data\graphics\ic_exit.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </Image>
+    <Image Include="data\graphics\ic_info.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="data\themes\default\appTemplate.xml">
@@ -385,6 +406,9 @@
     </Xml>
     <Xml Include="data\themes\default\recentAppTemplate.xml">
       <Filter>Resource Files\data\themes\default</Filter>
+    </Xml>
+    <Xml Include="data\system\systemMenu.xml">
+      <Filter>Resource Files\data\system</Filter>
     </Xml>
   </ItemGroup>
 </Project>

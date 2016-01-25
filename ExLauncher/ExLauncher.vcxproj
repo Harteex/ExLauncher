@@ -28,6 +28,7 @@
     <ClCompile Include="Screens\ScreenMenu.cpp" />
     <ClCompile Include="Screens\ScreenMessageDialog.cpp" />
     <ClCompile Include="Screens\ScreenProgressDialog.cpp" />
+    <ClCompile Include="Screens\ScreenSystemDialog.cpp" />
     <ClCompile Include="Screens\ScreenTest.cpp" />
     <ClCompile Include="structures.cpp" />
     <ClCompile Include="ThemeManager.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Screens\ScreenMenu.h" />
     <ClInclude Include="Screens\ScreenMessageDialog.h" />
     <ClInclude Include="Screens\ScreenProgressDialog.h" />
+    <ClInclude Include="Screens\ScreenSystemDialog.h" />
     <ClInclude Include="Screens\ScreenTest.h" />
     <ClInclude Include="ThemeManager.h" />
     <ClInclude Include="structures.h" />
@@ -146,10 +148,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="data\graphics\ic_exit.png" />
+    <Image Include="data\graphics\ic_info.png" />
+    <Image Include="data\graphics\ic_reboot.png" />
+    <Image Include="data\graphics\ic_shutdown.png" />
     <Image Include="data\themes\default\appIconDefault.png" />
     <Image Include="data\themes\default\markerBg.png" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="data\system\systemMenu.xml" />
     <Xml Include="data\themes\default\appTemplate.xml">
       <SubType>Designer</SubType>
     </Xml>
