@@ -68,5 +68,10 @@ bool CollectionView::SelectByIndex(int index)
 
 	selectedIndex = index;
 	OnSelectionChanged();
+
+	View* selectedView = GetSelectedView();
+	if (selectedView != NULL)
+		context->OnEvent(selectedView, EventTypeSelectionChanged, "");
+
 	return true;
 }
