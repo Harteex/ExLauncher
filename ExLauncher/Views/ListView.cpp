@@ -94,6 +94,7 @@ void ListView::AddChildView(View* view)
 	framePanel->SetSize(SIZE_FILL_PARENT, SIZE_FILL_PARENT);
 	framePanel->SetAction(view->GetAction());
 	framePanel->SetActionArgs(view->GetActionArgs());
+	framePanel->SetName(view->GetName());
 
 	framePanel->AddChildView(view);
 	View::AddChildView(framePanel);
