@@ -291,6 +291,8 @@ void ScreenMenu::EndUpdateApps()
 {
 	if (categoryFillView != NULL)
 	{
+		categoryFillView->InitializeAll(this);
+
 		for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
 		{
 			View* categoryView = categoryFillView->GetChildView(i);
@@ -308,6 +310,8 @@ void ScreenMenu::EndUpdateApps()
 	}
 	else if (itemFillView != NULL)
 	{
+		itemFillView->InitializeAll(this);
+
 		SortItemsByName(itemFillView);
 
 		ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(itemFillView);
@@ -333,14 +337,10 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 	newView->SetActionArgs({ "opkrun", "-m", app->GetData("metadata", ""), app->GetData("path", "") });
 
 	FillDataInView(newView, app->GetAllData());
-	bool result = newView->InitializeAll(this);
-	if (result)
-	{
-		newView->SetName(app->GetData("name", ""));
-		fillView->AddChildView(newView);
-	}
+	newView->SetName(app->GetData("name", ""));
+	fillView->AddChildView(newView);
 
-	return result;
+	return true;
 }
 
 void ScreenMenu::FillDataArguments()
