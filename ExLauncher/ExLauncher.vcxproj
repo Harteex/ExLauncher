@@ -43,6 +43,7 @@
     <ClCompile Include="Views\LinearPanel.cpp" />
     <ClCompile Include="Views\ListView.cpp" />
     <ClCompile Include="Views\RecentAppView.cpp" />
+    <ClCompile Include="Views\RectangleShape.cpp" />
     <ClCompile Include="Views\Selector.cpp" />
     <ClCompile Include="Views\State.cpp" />
     <ClCompile Include="Views\TabPanel.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Views\LinearPanel.h" />
     <ClInclude Include="Views\ListView.h" />
     <ClInclude Include="Views\RecentAppView.h" />
+    <ClInclude Include="Views\RectangleShape.h" />
     <ClInclude Include="Views\Selector.h" />
     <ClInclude Include="Views\State.h" />
     <ClInclude Include="Views\TabPanel.h" />

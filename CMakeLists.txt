@@ -49,6 +49,7 @@ set(CPPFILES
 	ExLauncher/Views/Selector.cpp
 	ExLauncher/Views/TabPanel.cpp
 	ExLauncher/Views/RecentAppView.cpp
+	ExLauncher/Views/RectangleShape.cpp
 	ExLauncher/Xml.cpp
 	ExLauncher/structures.cpp
 	ExLauncher/ViewSystem/CollectionView.cpp

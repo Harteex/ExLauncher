@@ -13,6 +13,7 @@
 #include "Views/RecentAppView.h"
 #include "Views/Image.h"
 #include "Views/Label.h"
+#include "Views/RectangleShape.h"
 #include "ThemeManager.h"
 
 using namespace rapidxml;
@@ -55,6 +56,10 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	else if (strcmp(view->name(), "Label") == 0)
 	{
 		createdView = new Label();
+	}
+	else if (strcmp(view->name(), "RectangleShape") == 0)
+	{
+		createdView = new RectangleShape();
 	}
 	else if (strcmp(view->name(), "LinearPanel") == 0)
 	{
