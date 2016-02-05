@@ -58,8 +58,10 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	SDL_Surface* clippedSurface = NULL;
 
 	int areaWidth = size.w;
-	if (size.w < 0)
+	if (size.w == SIZE_FILL_PARENT)
 		areaWidth = calculatedSize.w;
+	else if (size.w == SIZE_WRAP_CONTENT)
+		areaWidth = tempSurface->w;
 
 	if (areaWidth > 0 && tempSurface->w > areaWidth)
 	{
@@ -146,7 +148,11 @@ void Label::SetText(string text)
 		RenderText(UINT_MAX);
 
 		if (size.w == SIZE_WRAP_CONTENT || size.h == SIZE_WRAP_CONTENT)
-			RecalculateLayout();
+		{
+			View* parent = GetParentView();
+			if (parent != NULL)
+				parent->RecalculateLayout();
+		}
 	}
 }
 
