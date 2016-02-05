@@ -422,6 +422,27 @@ void View::DeleteChildView(int i)
 	}
 }
 
+void View::DeleteChildView(View* view)
+{
+	if (view == nullptr)
+		return;
+
+	children.erase(std::remove(children.begin(), children.end(), view), children.end());
+	delete view;
+}
+
+void View::DeleteChildView(std::string id)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (children[i]->GetId() == id)
+		{
+			DeleteChildView(children[i]);
+			return;
+		}
+	}
+}
+
 int View::GetNumberOfChildren()
 {
 	return children.size();

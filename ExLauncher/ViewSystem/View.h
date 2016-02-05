@@ -84,6 +84,8 @@ public:
 	View* GetFirstChildViewByTag(std::string tag);
 	virtual void AddChildView(View* view);
 	void DeleteChildView(int i);
+	void DeleteChildView(View* view);
+	void DeleteChildView(std::string id);
 	int GetNumberOfChildren();
 	View* GetChildView(int i);
 	void SortChildren(bool(*comparer)(View* v1, View* v2));
