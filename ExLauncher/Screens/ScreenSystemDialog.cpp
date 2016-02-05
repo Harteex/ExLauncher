@@ -91,55 +91,28 @@ void ScreenSystemDialog::Draw(SDL_Renderer* renderer)
 void ScreenSystemDialog::OnEvent(View* sender, EventType eventType, string eventValue, vector<string> eventArgs)
 {
 	// FIXME catch exceptions for everything in this method
-	// TODO clean up this method
 
 	switch (eventType)
 	{
 	case EventTypeAction:
 		{
-			/*if (eventValue == "app")
+			if (eventValue == "shutdown")
 			{
-				if (eventArgs.empty())
-					return;
-
-				Position senderPos = sender->GetAbsolutePosition();
-				Size senderSize = sender->GetCalculatedSize();
-
-				ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
-				appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
-				appLaunch->SetAppId(sender->GetId());
-				appLaunch->SetExec(eventArgs);
-				screenManager->AddScreen(appLaunch);
+				// TODO shutdown
 			}
-			else
+			else if (eventValue == "reboot")
 			{
-				vector<string> action = split(eventValue, ':');
-				if (action.size() >= 2)
-				{
-					if (action[0] == "screen")
-					{
-						ScreenMenu* newScreen = new ScreenMenu(action[1]);
+				// TODO reboot
+			}
+			else if (eventValue == "exit")
+			{
+				screenManager->Exit();
+			}
+			else if (eventValue == "info")
+			{
+				// TODO launch info screen
+			}
 
-						// If we have arguments, parse them and set them on the launching screen
-						if (action.size() == 3)
-						{
-							vector<string> args = split(action[2], ';');
-							for (string arg : args)
-							{
-								size_t separationIndex = arg.find_first_of('=');
-								if (separationIndex == string::npos)
-									throw runtime_error("invalid arguments");
-
-								newScreen->arguments->PutString(arg.substr(0, separationIndex), arg.substr(separationIndex + 1));
-							}
-						}
-
-						newScreen->SetCanGoBack(true);
-
-						screenManager->AddScreen(newScreen);
-					}
-				}
-			}*/
 			break;
 		}
 

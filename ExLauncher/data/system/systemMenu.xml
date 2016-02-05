@@ -20,7 +20,8 @@
       width="40"
       height="*"
       name="System Info"
-      layoutGravity="center_horizontal">
+      layoutGravity="center_horizontal"
+      action="info">
       <Selector
         width="*"
         height="*">
@@ -44,7 +45,8 @@
       width="40"
       height="*"
       name="Turn Off"
-      layoutGravity="center_horizontal">
+      layoutGravity="center_horizontal"
+      action="shutdown">
       <Selector
         width="*"
         height="*">
@@ -68,7 +70,8 @@
       width="40"
       height="*"
       name="Reboot"
-      layoutGravity="center_horizontal">
+      layoutGravity="center_horizontal"
+      action="reboot">
       <Selector
         width="*"
         height="*">
@@ -92,7 +95,8 @@
       width="40"
       height="*"
       name="Exit to Launcher"
-      layoutGravity="center_horizontal">
+      layoutGravity="center_horizontal"
+      action="exit">
       <Selector
         width="*"
         height="*">
