@@ -24,6 +24,7 @@ SDL_Renderer *ren = NULL;
 ScreenManager* screenManager = NULL;
 bool _resetFrameSkip = false;
 bool debugViewBounds = false;
+bool isLauncher = false;
 bool launchFailed = false;
 
 bool initializeSDL()
@@ -145,8 +146,19 @@ void setKeyBindings()
 	screenManager->SetGameKeyBindings(gameKeys, GAMEKEY_MAX);
 }
 
+void parseArguments(int argc, char **argv)
+{
+	for (int i = 1; i < argc; i++)
+	{
+		if (string(argv[i]) == "--launcher")
+			isLauncher = true;
+	}
+}
+
 int main(int argc, char **argv)
 {
+	parseArguments(argc, argv);
+
 mainStart:
 
 	std::cout << "main()" << std::endl;

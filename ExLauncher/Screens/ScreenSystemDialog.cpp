@@ -2,6 +2,7 @@
 #include "../global.h"
 #include "../Views/FramePanel.h"
 #include "../Xml.h"
+#include "ScreenSystemInfo.h"
 
 using namespace std;
 
@@ -48,6 +49,17 @@ bool ScreenSystemDialog::Initialize()
 
 		if (inputView != NULL)
 			inputView->SelectByIndex(1);
+
+		if (isLauncher)
+		{
+			// If running as launcher, do not show the exit option
+			v = contentView->GetChildViewById("inputView");
+			if (v != nullptr)
+			{
+				v->DeleteChildView("exitItem");
+				contentView->RecalculateLayout(); // FIXME should be enought to call v->RecalculateLayout(). Make sure parent is recalculated if needed.
+			}
+		}
 	}
 	catch (exception& ex)
 	{
@@ -98,11 +110,15 @@ void ScreenSystemDialog::OnEvent(View* sender, EventType eventType, string event
 		{
 			if (eventValue == "shutdown")
 			{
-				// TODO shutdown
+				// FIXME don't hardcode command like this
+				screenManager->GetAppManager()->SetCommandToLaunch({ "/sbin/poweroff" });
+				screenManager->Exit();
 			}
 			else if (eventValue == "reboot")
 			{
-				// TODO reboot
+				// FIXME don't hardcode command like this
+				screenManager->GetAppManager()->SetCommandToLaunch({ "/sbin/reboot" });
+				screenManager->Exit();
 			}
 			else if (eventValue == "exit")
 			{
@@ -110,7 +126,8 @@ void ScreenSystemDialog::OnEvent(View* sender, EventType eventType, string event
 			}
 			else if (eventValue == "info")
 			{
-				// TODO launch info screen
+				screenManager->AddScreen(new ScreenSystemInfo());
+				ExitScreen();
 			}
 
 			break;

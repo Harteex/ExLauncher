@@ -165,6 +165,9 @@
     <ClCompile Include="Views\RectangleShape.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="Screens\ScreenSystemInfo.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="Views\RectangleShape.h">
       <Filter>Source Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenSystemInfo.h">
+      <Filter>Source Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

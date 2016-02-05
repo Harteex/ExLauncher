@@ -92,6 +92,7 @@
     </FramePanel>
 
     <FramePanel
+      id="exitItem"
       width="40"
       height="*"
       name="Exit to Launcher"

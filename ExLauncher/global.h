@@ -12,5 +12,6 @@
 #define FPS 60
 
 extern bool debugViewBounds;
+extern bool isLauncher;
 
 #endif
