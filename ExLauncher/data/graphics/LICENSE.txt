@@ -1,0 +1,14 @@
+ic_exit.png
+ic_info.png
+ic_reboot.png
+ic_shutdown.png
+
+Material Design icons designed by Google.
+The icons are available under the CC-BY license.
+https://creativecommons.org/licenses/by/4.0/
+
+-----
+
+Other graphics by Andreas Bjerkeholt
+Available under the CC-BY license.
+https://creativecommons.org/licenses/by/4.0/

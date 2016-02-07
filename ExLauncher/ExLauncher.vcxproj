@@ -119,18 +119,6 @@
     <None Include="data\graphics\ButtonY.png">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="data\graphics\icon_applications.png">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="data\graphics\icon_emulators.png">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="data\graphics\icon_games.png">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="data\graphics\icon_settings.png">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
     <None Include="data\themes\default\test.xml">
       <DeploymentContent>true</DeploymentContent>
       <SubType>Designer</SubType>
@@ -186,6 +174,9 @@
     <Xml Include="data\themes\default\testlinearpanel.xml" />
     <Xml Include="data\themes\default\testoverview.xml" />
     <Xml Include="data\themes\default\testrecent.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\graphics\LICENSE.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{94A48642-2E40-421E-90C8-6B624CB8E0A1}</ProjectGuid>

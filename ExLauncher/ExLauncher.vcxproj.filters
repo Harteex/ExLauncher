@@ -340,18 +340,6 @@
     <None Include="data\graphics\ButtonX.png">
       <Filter>Resource Files\data\graphics</Filter>
     </None>
-    <None Include="data\graphics\icon_applications.png">
-      <Filter>Resource Files\data\graphics</Filter>
-    </None>
-    <None Include="data\graphics\icon_emulators.png">
-      <Filter>Resource Files\data\graphics</Filter>
-    </None>
-    <None Include="data\graphics\icon_games.png">
-      <Filter>Resource Files\data\graphics</Filter>
-    </None>
-    <None Include="data\graphics\icon_settings.png">
-      <Filter>Resource Files\data\graphics</Filter>
-    </None>
     <None Include="data\themes\default\test.xml">
       <Filter>Resource Files\data\themes\default</Filter>
     </None>
@@ -422,5 +410,10 @@
     <Xml Include="data\system\systemMenu.xml">
       <Filter>Resource Files\data\system</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\graphics\LICENSE.txt">
+      <Filter>Resource Files\data\graphics</Filter>
+    </Text>
   </ItemGroup>
 </Project>
