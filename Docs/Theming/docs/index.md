@@ -1,17 +1,39 @@
-# Welcome to MkDocs
+# Home
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+## Introduction
 
-## Commands
+Unlike many other themable application, where simple resources are replaced, a theme in ExLauncher can change the appearence completely, and also change the flow between screens.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+A theme is built using various **views**. The layout is defined in XML files, where a hierarchy of views is built.
 
-## Project layout
+## Screens
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+A screen can be seen as a page. When navigating from one screen to another, the screen will be kept in the screen hierarchy, allowing the user to go back.
+
+## Views
+
+Views are building blocks to layout and build up a screen.
+
+A reference for views and their attributes can be found in the Views page.
+
+Here's a short example how a screen xml file can look like, with the views defining it. In this example, two images are lined up next to each other horizontally.
+
+    <LinearPanel
+		width="*"
+		height="*"
+		orientation="horizontal">
+		<Image
+			width="32"
+			height="32"
+			path="@theme/myImage.png" />
+		<Image
+			width="32"
+			height="32"
+			path="@theme/myImage2.png" />
+	</LinearPanel>
+
+For more examples, see Examples.
+
+## Creating a new theme
+
+TODO

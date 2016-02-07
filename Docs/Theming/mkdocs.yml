@@ -1,1 +1,5 @@
-site_name: My Docs
+site_name: ExLauncher Theming Docs
+pages:
+- Home: index.md
+- Views: views.md
+- Examples: examples.md
