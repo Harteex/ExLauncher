@@ -1,0 +1,163 @@
+<xs:schema targetNamespace="http://schemas.exlauncher.com/exlauncher"
+           xmlns="http://schemas.exlauncher.com/exlauncher"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="orientation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="horizontal" />
+      <xs:enumeration value="vertical" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="font">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="regular" />
+      <xs:enumeration value="light" />
+      <xs:enumeration value="semibold" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="View">
+    <xs:attribute name="width" type="xs:string" use="required"/>
+    <xs:attribute name="height" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:string" use="optional"/>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="layoutMargin" type="xs:string" use="optional"/>
+    <xs:attribute name="layoutGravity" type="xs:string" use="optional"/>
+    <xs:attribute name="gravity" type="xs:string" use="optional"/>
+    <xs:attribute name="action" type="xs:string" use="optional"/>
+    <xs:attribute name="tag" type="xs:string" use="optional"/>
+    <xs:attribute name="background" type="xs:string" use="optional"/>
+    <xs:attribute name="itemTemplate" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:element name="LinearPanel">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="orientation" type="orientation" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FramePanel">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ListView">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="orientation" type="orientation" use="optional"/>
+          <xs:attribute name="itemSize" type="xs:positiveInteger" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GridView">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="orientation" type="orientation" use="optional"/>
+          <xs:attribute name="itemWidth" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="itemHeight" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="horizontalSpacing" type="xs:integer" use="optional"/>
+          <xs:attribute name="verticalSpacing" type="xs:integer" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TabPanel">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Label">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="text" type="xs:string" use="optional"/>
+          <xs:attribute name="textSize" type="xs:string" use="optional"/>
+          <xs:attribute name="textColor" type="xs:string" use="optional"/>
+          <xs:attribute name="font" type="font" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Image">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="path" type="xs:string" use="optional"/>
+          <xs:attribute name="altPath" type="xs:string" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="RectangleShape">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="strokeColor" type="xs:string" use="optional"/>
+          <xs:attribute name="fillColor" type="xs:string" use="optional"/>
+          <xs:attribute name="strokeWidth" type="xs:string" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="RecentAppView">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="View">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="recentIndex" type="xs:positiveInteger" use="optional"/>
+          <xs:attribute name="category" type="xs:string" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
