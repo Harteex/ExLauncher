@@ -137,6 +137,9 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 		string name = attrib->name();
 		string value = attrib->value();
 
+		if (name.find("xmlns") != string::npos || name.find(":") != string::npos)
+			continue;
+
 		bool attributeHandled = createdView->SetProperty(name, value);
 
 		if (name == "itemTemplate")
