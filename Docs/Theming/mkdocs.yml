@@ -1,5 +1,6 @@
 site_name: ExLauncher Theming Docs
 pages:
 - Home: index.md
-- Views: views.md
+- Tutorial: tutorial.md
 - Examples: examples.md
+- View Reference: viewref.md

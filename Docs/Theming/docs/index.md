@@ -34,6 +34,8 @@ Here's a short example how a screen xml file can look like, with the views defin
 
 For more examples, see Examples.
 
-## Creating a new theme
+## XML Schema
 
-TODO
+If you reference the XML schema screen.xsd and you use a decent XML / text editor, you can get some assistance when writing the XML files.
+
+![Image](images/xmledit.png)
