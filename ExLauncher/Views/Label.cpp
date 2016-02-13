@@ -225,13 +225,7 @@ bool Label::SetProperty(string name, string value)
 	}
 	else if (name == "textColor")
 	{
-		if (value.length() != 7 || value[0] != '#')
-			throw runtime_error("invalid textColor value");
-
-		istringstream(value.substr(1, 2)) >> std::hex >> textColor.r;
-		istringstream(value.substr(3, 2)) >> std::hex >> textColor.g;
-		istringstream(value.substr(5, 2)) >> std::hex >> textColor.b;
-
+		this->textColor = ParseColor(value);
 		return true;
 	}
 	else if (name == "font")
