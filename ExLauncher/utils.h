@@ -33,3 +33,4 @@ int clip(int val, int min, int max);
 double clip(double val, double min, double max);
 void measureTimeStart();
 double measureTimeFinish();
+std::vector<std::string> getDirectories(std::string path);

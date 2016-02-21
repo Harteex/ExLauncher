@@ -175,33 +175,6 @@ SDL_Surface* loadSurface(const char* filename)
 	return IMG_Load(filename);
 }
 
-/*SDL_Texture* loadImageFromBuffer(void* buffer, SDL_Renderer* renderer)
-{
-	if (buffer == NULL)
-		return NULL;
-
-	SDL_Surface* temp;
-	if (strncmp((char*)buffer, "HIF", 3) == 0)
-	{
-		temp = hif_load_from_buffer((uint8_t*)buffer);
-	}
-	else
-	{
-		temp = NULL; //SDL_LoadBMP_RW(
-	}
-
-	char* test = (char*)buffer;
-	
-	if (temp == NULL)
-		return NULL;
-
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp);
-
-	SDL_FreeSurface(temp);
-
-	return texture;
-}*/
-
 SDL_Texture* loadImage(const char* filename, SDL_Renderer* renderer)
 {
 	SDL_Surface* temp = loadSurface(filename);

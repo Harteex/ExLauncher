@@ -16,6 +16,15 @@ limitations under the License.
 
 #include "utils.h"
 #include <chrono>
+#include "global.h"
+#include <stdio.h>
+#ifdef WINDOWS
+#include <windows.h>
+#include <tchar.h>
+#endif
+#ifdef UNIX
+#include <dirent.h>
+#endif
 
 using namespace std;
 
@@ -140,4 +149,48 @@ double measureTimeFinish()
 	double elapsed_seconds = chrono::duration_cast<chrono::duration<double> >(finish - start).count();
 
 	return elapsed_seconds;
+}
+
+vector<string> getDirectories(string path)
+{
+	vector<string> directories;
+
+#ifdef WINDOWS
+	WIN32_FIND_DATA ffd;
+	HANDLE hFind;
+
+	string pathMatch = path + "*";
+
+	hFind = FindFirstFile(pathMatch.c_str(), &ffd);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			{
+				if (string(".") != ffd.cFileName && string("..") != ffd.cFileName)
+					directories.push_back(ffd.cFileName);
+			}
+		} while (FindNextFile(hFind, &ffd) != 0);
+
+		FindClose(hFind);
+	}
+
+#else
+	DIR* dirp = opendir(path.c_str());
+
+	struct dirent* entry;
+	while ((entry = readdir(dirp)) != NULL)
+	{
+		if (entry->d_type == DT_DIR)
+		{
+			if (string(".") != entry->d_name && string("..") != entry->d_name)
+				directories.push_back(entry->d_name);
+		}
+	}
+
+	closedir(dirp);
+#endif
+
+	return directories;
 }

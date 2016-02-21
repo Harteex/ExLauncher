@@ -35,7 +35,6 @@ void getColorComponents(Uint32 color, SDL_PixelFormat* format, Uint8& red, Uint8
 SDL_Texture* createEmptyTexture(SDL_Renderer* renderer, int width, int height);
 SDL_Surface* createEmptySurface(int width, int height);
 SDL_Surface* loadSurface(const char* filename);
-SDL_Texture* loadImageFromBuffer(void* buffer, SDL_Renderer* renderer);
 SDL_Texture* loadImage(const char* filename, SDL_Renderer* renderer);
 SDL_Texture* loadImageFromMemory(void* buffer, int size, SDL_Renderer* renderer);
 void drawSurface(int x, int y, SDL_Surface* source, SDL_Surface* dest);
