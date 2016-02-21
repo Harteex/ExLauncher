@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FramePanel
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
+  width="*"
+  height="*">
+  <RectangleShape
+    width="*"
+    height="*"
+    strokeColor="#50ffffff"
+    strokeWidth="1" />
+  <Image
+    width="wrap_content"
+    height="wrap_content"
+    path="@theme/tilehighlight.png" />
+  <Selector
+    width="*"
+    height="*">
+    <State stateRecentType="recentItem">
+      <FramePanel
+        width="*"
+        height="*">
+        <Image
+          width="32"
+          height="32"
+          layoutMargin="12 0 0 0"
+          layoutGravity="center_horizontal"
+          path="{iconId}"
+          altPath="@theme/appIconDefault.png"/>
+        <Label
+          width="*"
+          height="wrap_content"
+          text="{name}"
+          font="semibold"
+          textColor="white"
+          textSize="12"
+          gravity="center_horizontal"
+          layoutGravity="bottom"
+          layoutMargin="0 4 0 0" />
+      </FramePanel>
+    </State>
+    <State stateRecentType="noItem">
+      <FramePanel
+        width="*"
+        height="*">
+        <Label
+          width="*"
+          height="wrap_content"
+          text="No Recent"
+          font="semibold"
+          textColor="white"
+          textSize="12"
+          gravity="center_horizontal"
+          layoutGravity="bottom"
+          layoutMargin="0 4 0 0" />
+      </FramePanel>
+    </State>
+  </Selector>
+</FramePanel>

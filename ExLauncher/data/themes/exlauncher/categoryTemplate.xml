@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FramePanel
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
+  width="*"
+  height="*">
+  <Image
+    width="wrap_content"
+    height="wrap_content"
+    path="@theme/tilehighlight.png" />
+</FramePanel>

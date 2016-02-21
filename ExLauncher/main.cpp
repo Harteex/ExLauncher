@@ -23,6 +23,8 @@ limitations under the License.
 #include "Screens/ScreenMenu.h"
 #include "Screens/ScreenTest.h"
 #include "Screens/ScreenMessageDialog.h"
+#include "Screens/ScreenError.h"
+#include "ThemeManager.h"
 #include "global.h"
 #include "HomeDirectory.h"
 #include <string>
@@ -42,6 +44,7 @@ bool _resetFrameSkip = false;
 bool debugViewBounds = false;
 bool isLauncher = false;
 bool launchFailed = false;
+ThemeManager themeManager;
 
 bool initializeSDL()
 {
@@ -166,8 +169,14 @@ void parseArguments(int argc, char **argv)
 {
 	for (int i = 1; i < argc; i++)
 	{
-		if (string(argv[i]) == "--launcher")
+		string arg = argv[i];
+
+		if (arg == "--launcher")
 			isLauncher = true;
+		else if (arg == "--debugViewBounds")
+			debugViewBounds = true;
+		else if (arg.substr(0, 8) == "--theme=")
+			ThemeManager::SetTheme(arg.substr(8));
 	}
 }
 
@@ -232,6 +241,13 @@ mainStart:
 
 	setKeyBindings();
 
+	themeManager.LoadThemes();
+	// TODO read theme setting from config and set it
+	Theme* theme = themeManager.GetTheme(ThemeManager::GetCurrentThemeId());
+	string themeEntryPoint = "";
+	if (theme != nullptr)
+		themeEntryPoint = string("@theme/") + theme->GetEntryPoint();
+
 	std::cout << "APP IS START" << std::endl;
 
 	// TEMP TEMP TEMP!
@@ -248,8 +264,11 @@ mainStart:
 	
 	ScreenBackgroundImage* bgScreen = new ScreenBackgroundImage();
 	screenManager->AddScreen(bgScreen);
-	screenManager->AddScreen(new ScreenMenu("@theme/testoverview.xml"));
-	//screenManager.AddScreen(new ScreenTest());
+
+	if (themeEntryPoint.empty())
+		screenManager->AddScreen(new ScreenError("Failed to load theme"));
+	else
+		screenManager->AddScreen(new ScreenMenu(themeEntryPoint));
 
 	if (launchFailed)
 	{

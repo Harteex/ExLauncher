@@ -1,0 +1,26 @@
+
+Theme made by Harteex
+
+Theme and graphics (unless those noted below) are licensed under CC Attribution 4.0.
+https://creativecommons.org/licenses/by/4.0/
+
+
+-----------------------------------
+
+
+ic_applications.png
+
+<div>Icons made by <a href="http://www.flaticon.com/authors/yannick" title="Yannick">Yannick</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+
+-----------------------------------
+
+
+ic_emulators.png
+ic_games.png
+ic_settings.png
+
+<div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+
+
+-----------------------------------

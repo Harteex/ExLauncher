@@ -16,10 +16,12 @@ limitations under the License.
 
 #include "ThemeManager.h"
 #include <sstream>
+#include "utils.h"
+#include <iostream>
 
 using namespace std;
 
-string ThemeManager::curTheme = "default";
+string ThemeManager::curTheme = "exlauncher";
 
 ThemeManager::ThemeManager()
 {
@@ -27,6 +29,7 @@ ThemeManager::ThemeManager()
 
 ThemeManager::~ThemeManager()
 {
+	UnloadThemes();
 }
 
 string ThemeManager::ProcessPath(string path)
@@ -39,4 +42,65 @@ string ThemeManager::ProcessPath(string path)
 	}
 
 	return path;
+}
+
+std::string ThemeManager::GetCurrentThemeId()
+{
+	return curTheme;
+}
+
+void ThemeManager::SetTheme(std::string themeId)
+{
+	curTheme = themeId;
+}
+
+void ThemeManager::LoadThemes()
+{
+	UnloadThemes();
+
+	cout << "Loading themes:" << std::endl;
+
+	vector<string> themeIds = getDirectories("data/themes/");
+	for (string themeId : themeIds)
+	{
+		Theme* theme = new Theme(themeId);
+
+		try
+		{
+			theme->LoadTheme();
+		}
+		catch (exception& ex)
+		{
+			cout << "FAILED TO LOAD " << themeId << std::endl;
+
+			delete theme;
+			continue;
+		}
+
+		cout << theme->GetName() << " (" << themeId << ")" << std::endl;
+		themes[themeId] = theme;
+	}
+}
+
+void ThemeManager::UnloadThemes()
+{
+	for (auto entry : themes)
+	{
+		delete entry.second;
+	}
+
+	themes.clear();
+}
+
+Theme * ThemeManager::GetTheme(std::string id)
+{
+	auto search = themes.find(id);
+	if (search != themes.end())
+	{
+		return search->second;
+	}
+	else
+	{
+		return nullptr;
+	}
 }

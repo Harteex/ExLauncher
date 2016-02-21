@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
+  id="inputView"
+  width="*"
+  height="*"
+  orientation="horizontal"
+  layoutMargin="10"
+  itemWidth="74"
+  itemHeight="74"
+  horizontalSpacing="5"
+  verticalSpacing="5"
+  itemTemplate="@theme/categoryTemplate.xml">
+</GridView>

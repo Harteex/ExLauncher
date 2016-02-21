@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Theme>
+  <Name>ExLauncher Theme</Name>
+  <EntryPoint>start.xml</EntryPoint>
+  <Author>Harteex</Author>
+  <Copyright>Copyright (c) Andreas Bjerkeholt 2016</Copyright>
+  <License>CC Attribution 4.0</License>
+  <ThirdPartyDeclarations>
+    <ContentDeclaration>Applications icon made by Yannick (http://www.flaticon.com/authors/yannick) from www.flaticon.com is licensed under Creative Commons BY 3.0 (http://creativecommons.org/licenses/by/3.0/)</ContentDeclaration>
+    <ContentDeclaration>Other icons made by Freepik (http://www.freepik.com) from www.flaticon.com is licensed under Creative Commons BY 3.0 (http://creativecommons.org/licenses/by/3.0/)</ContentDeclaration>
+  </ThirdPartyDeclarations>
+</Theme>

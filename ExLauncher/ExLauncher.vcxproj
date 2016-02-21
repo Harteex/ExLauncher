@@ -32,6 +32,7 @@
     <ClCompile Include="Screens\ScreenSystemInfo.cpp" />
     <ClCompile Include="Screens\ScreenTest.cpp" />
     <ClCompile Include="structures.cpp" />
+    <ClCompile Include="Theme.cpp" />
     <ClCompile Include="ThemeManager.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="ViewSystem\CollectionView.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Screens\ScreenSystemDialog.h" />
     <ClInclude Include="Screens\ScreenSystemInfo.h" />
     <ClInclude Include="Screens\ScreenTest.h" />
+    <ClInclude Include="Theme.h" />
     <ClInclude Include="ThemeManager.h" />
     <ClInclude Include="structures.h" />
     <ClInclude Include="utils.h" />
@@ -119,10 +121,6 @@
     <None Include="data\graphics\ButtonY.png">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="data\themes\default\test.xml">
-      <DeploymentContent>true</DeploymentContent>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="data\wallpapers\Bug.jpg">
       <DeploymentContent>true</DeploymentContent>
     </None>
@@ -144,39 +142,48 @@
     <Image Include="data\graphics\ic_info.png" />
     <Image Include="data\graphics\ic_reboot.png" />
     <Image Include="data\graphics\ic_shutdown.png" />
-    <Image Include="data\themes\default\appIconDefault.png" />
-    <Image Include="data\themes\default\markerBg.png" />
+    <Image Include="data\themes\exlauncher\appIconDefault.png" />
+    <Image Include="data\themes\exlauncher\ic_applications.png" />
+    <Image Include="data\themes\exlauncher\ic_emulators.png" />
+    <Image Include="data\themes\exlauncher\ic_games.png" />
+    <Image Include="data\themes\exlauncher\ic_settings.png" />
+    <Image Include="data\themes\exlauncher\tilehighlight.png" />
+    <Image Include="data\themes\test\appIconDefault.png" />
+    <Image Include="data\themes\test\markerBg.png" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="data\system\systemMenu.xml" />
-    <Xml Include="data\themes\default\appTemplate.xml">
+    <Xml Include="data\themes\exlauncher\apps.xml" />
+    <Xml Include="data\themes\exlauncher\appTemplate.xml" />
+    <Xml Include="data\themes\exlauncher\categoryTemplate.xml" />
+    <Xml Include="data\themes\exlauncher\recentAppTemplate.xml" />
+    <Xml Include="data\themes\exlauncher\start.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="data\themes\default\contentsizebug.xml" />
-    <Xml Include="data\themes\default\grid.xml">
-      <SubType>Designer</SubType>
-    </Xml>
-    <Xml Include="data\themes\default\list.xml" />
-    <Xml Include="data\themes\default\recentAppTemplate.xml" />
-    <Xml Include="data\themes\default\tab.xml" />
-    <Xml Include="data\themes\default\test2.xml">
-      <DeploymentContent>true</DeploymentContent>
-    </Xml>
-    <Xml Include="data\themes\default\test3.xml">
-      <DeploymentContent>true</DeploymentContent>
-      <SubType>Designer</SubType>
-    </Xml>
-    <Xml Include="data\themes\default\test4.xml">
-      <SubType>Designer</SubType>
-    </Xml>
-    <Xml Include="data\themes\default\testaction.xml" />
-    <Xml Include="data\themes\default\testframepanel.xml" />
-    <Xml Include="data\themes\default\testlinearpanel.xml" />
-    <Xml Include="data\themes\default\testoverview.xml" />
-    <Xml Include="data\themes\default\testrecent.xml" />
+    <Xml Include="data\themes\exlauncher\theme.xml" />
+    <Xml Include="data\themes\test\appTemplate.xml" />
+    <Xml Include="data\themes\test\contentsizebug.xml" />
+    <Xml Include="data\themes\test\grid.xml" />
+    <Xml Include="data\themes\test\list.xml" />
+    <Xml Include="data\themes\test\recentAppTemplate.xml" />
+    <Xml Include="data\themes\test\tab.xml" />
+    <Xml Include="data\themes\test\test.xml" />
+    <Xml Include="data\themes\test\test2.xml" />
+    <Xml Include="data\themes\test\test3.xml" />
+    <Xml Include="data\themes\test\test4.xml" />
+    <Xml Include="data\themes\test\testaction.xml" />
+    <Xml Include="data\themes\test\testframepanel.xml" />
+    <Xml Include="data\themes\test\testlinearpanel.xml" />
+    <Xml Include="data\themes\test\testoverview.xml" />
+    <Xml Include="data\themes\test\testrecent.xml" />
+    <Xml Include="data\themes\test\theme.xml" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\graphics\LICENSE.txt" />
+    <Text Include="data\themes\exlauncher\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="data\schema\screen.xsd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{94A48642-2E40-421E-90C8-6B624CB8E0A1}</ProjectGuid>

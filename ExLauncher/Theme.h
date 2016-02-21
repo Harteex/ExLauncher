@@ -14,34 +14,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef _THEME_MANAGER_H
-#define _THEME_MANAGER_H
+#ifndef _THEME_H_
+#define _THEME_H_
 
 /*********************************************/
 
 #include <string>
-#include <map>
-#include "Theme.h"
+#include <vector>
 
 /*********************************************/
 
-class ThemeManager
+class Theme
 {
 private:
-	static std::string curTheme;
+	std::string id;
+	std::string name;
+	std::string entryPoint;
+	std::string author;
+	std::string copyright;
+	std::string license;
+	std::vector<std::string> thirdPartyDeclarations;
 
-	std::map<std::string, Theme*> themes;
 public:
-	ThemeManager();
-	~ThemeManager();
+	Theme(std::string id);
+	~Theme();
 
-	static std::string ProcessPath(std::string path);
-	static std::string GetCurrentThemeId();
-	static void SetTheme(std::string themeId);
+	void LoadTheme();
 
-	void LoadThemes();
-	void UnloadThemes();
-	Theme* GetTheme(std::string id);
+	std::string GetName();
+	std::string GetEntryPoint();
+	std::string GetAuthor();
+	std::string GetCopyright();
+	std::string GetLicense();
+	std::vector<std::string> GetThirdPartyNotices();
 };
 
 #endif

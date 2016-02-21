@@ -43,11 +43,17 @@
     <Filter Include="Resource Files\data\themes">
       <UniqueIdentifier>{dfa1e32d-6f2d-406d-8e5d-4571603eb47d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\data\themes\default">
-      <UniqueIdentifier>{4edf1b1f-4d59-4f8f-8963-c7132584f71f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\data\system">
       <UniqueIdentifier>{35836f89-a6c5-4880-8a20-63d60cf95cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\themes\exlauncher">
+      <UniqueIdentifier>{d44ec99f-1917-4bf9-8cc1-c12b7dc904d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\schema">
+      <UniqueIdentifier>{b7370a75-4587-44c1-9193-596e46cc8a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\data\themes\test">
+      <UniqueIdentifier>{535cd0b3-1db3-4c83-9f2b-50657577ec59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="Screens\ScreenSystemInfo.cpp">
       <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Theme.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +311,9 @@
     <ClInclude Include="Screens\ScreenSystemInfo.h">
       <Filter>Source Files\Screens</Filter>
     </ClInclude>
+    <ClInclude Include="Theme.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\fonts\OpenSans-Light.ttf">
@@ -340,17 +352,8 @@
     <None Include="data\graphics\ButtonX.png">
       <Filter>Resource Files\data\graphics</Filter>
     </None>
-    <None Include="data\themes\default\test.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="data\themes\default\appIconDefault.png">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Image>
-    <Image Include="data\themes\default\markerBg.png">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Image>
     <Image Include="data\graphics\ic_reboot.png">
       <Filter>Resource Files\data\graphics</Filter>
     </Image>
@@ -363,57 +366,113 @@
     <Image Include="data\graphics\ic_info.png">
       <Filter>Resource Files\data\graphics</Filter>
     </Image>
+    <Image Include="data\themes\exlauncher\tilehighlight.png">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Image>
+    <Image Include="data\themes\test\appIconDefault.png">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Image>
+    <Image Include="data\themes\test\markerBg.png">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Image>
+    <Image Include="data\themes\exlauncher\appIconDefault.png">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Image>
+    <Image Include="data\themes\exlauncher\ic_applications.png">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Image>
+    <Image Include="data\themes\exlauncher\ic_emulators.png">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Image>
+    <Image Include="data\themes\exlauncher\ic_games.png">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Image>
+    <Image Include="data\themes\exlauncher\ic_settings.png">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="data\themes\default\appTemplate.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\test2.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\test3.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\test4.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\grid.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\contentsizebug.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\testframepanel.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\list.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\tab.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\testaction.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\testlinearpanel.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\testoverview.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\testrecent.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
-    <Xml Include="data\themes\default\recentAppTemplate.xml">
-      <Filter>Resource Files\data\themes\default</Filter>
-    </Xml>
     <Xml Include="data\system\systemMenu.xml">
       <Filter>Resource Files\data\system</Filter>
+    </Xml>
+    <Xml Include="data\themes\exlauncher\start.xml">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Xml>
+    <Xml Include="data\themes\exlauncher\theme.xml">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Xml>
+    <Xml Include="data\themes\exlauncher\apps.xml">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Xml>
+    <Xml Include="data\themes\exlauncher\appTemplate.xml">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Xml>
+    <Xml Include="data\themes\exlauncher\categoryTemplate.xml">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Xml>
+    <Xml Include="data\themes\exlauncher\recentAppTemplate.xml">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\appTemplate.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\contentsizebug.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\grid.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\list.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\recentAppTemplate.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\tab.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\test.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\test2.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\test3.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\test4.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\testaction.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\testframepanel.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\testlinearpanel.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\testoverview.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\testrecent.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\theme.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\graphics\LICENSE.txt">
       <Filter>Resource Files\data\graphics</Filter>
     </Text>
+    <Text Include="data\themes\exlauncher\LICENSE.txt">
+      <Filter>Resource Files\data\themes\exlauncher</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="data\schema\screen.xsd">
+      <Filter>Resource Files\data\schema</Filter>
+    </Xsd>
   </ItemGroup>
 </Project>

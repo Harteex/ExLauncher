@@ -38,6 +38,7 @@ set(CPPFILES
 	ExLauncher/Screens/ScreenSystemInfo.cpp
 	ExLauncher/utils.cpp
 	ExLauncher/Animator.cpp
+	ExLauncher/Theme.cpp
 	ExLauncher/ThemeManager.cpp
 	ExLauncher/Views/Image.cpp
 	ExLauncher/Views/LinearPanel.cpp

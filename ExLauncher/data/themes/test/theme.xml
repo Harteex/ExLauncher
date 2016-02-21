@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Theme>
+  <Name>Test Theme</Name>
+  <EntryPoint>testoverview.xml</EntryPoint>
+  <Author>Harteex</Author>
+  <Copyright>Copyright (c) Andreas Bjerkeholt 2016</Copyright>
+  <License>CC Attribution 4.0</License>
+</Theme>
