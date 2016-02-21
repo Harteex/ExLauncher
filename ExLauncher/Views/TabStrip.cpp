@@ -38,17 +38,13 @@ TabStrip::~TabStrip()
 	delete movingTabAnimator;
 }
 
-bool TabStrip::OnInitialize()
+void TabStrip::OnInitialize()
 {
 	for (Label* label : tabs)
 	{
-		if (!label->Initialize(context))
-			return false;
-
+		label->Initialize(context);
 		label->CalculateLayout(Size(-1, -1));
 	}
-
-	return true;
 }
 
 void TabStrip::OnUpdate()

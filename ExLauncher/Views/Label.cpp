@@ -39,17 +39,15 @@ Label::~Label()
 		SDL_DestroyTexture(texture);
 }
 
-bool Label::OnInitialize()
+void Label::OnInitialize()
 {
 	ttfFont = context->GetResourceManager()->GetTTFFont(font, textSize);
 
 	if (ttfFont == NULL)
-		return false;
+		throw runtime_error("Could not find specified font.");
 
 	if (!RenderText(UINT_MAX))
-		return false;
-
-	return true;
+		throw runtime_error("Text rendering failed.");
 }
 
 bool Label::RenderText(Uint32 textAreaWidth)

@@ -33,10 +33,9 @@ ListView::~ListView()
 {
 }
 
-bool ListView::OnInitialize()
+void ListView::OnInitialize()
 {
 	ScrollView::SetOrientation(orientation);
-	return true;
 }
 
 void ListView::OnLayoutChange()

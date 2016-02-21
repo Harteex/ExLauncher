@@ -32,7 +32,7 @@ private:
 public:
 	LinearPanel();
 	~LinearPanel();
-	bool OnInitialize();
+	void OnInitialize();
 	void OnLayoutChange();
 	View* Copy();
 

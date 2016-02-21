@@ -35,7 +35,7 @@ RecentAppView::~RecentAppView()
 		delete origView;
 }
 
-bool RecentAppView::OnInitialize()
+void RecentAppView::OnInitialize()
 {
 	tags.push_back("recent");
 
@@ -43,8 +43,6 @@ bool RecentAppView::OnInitialize()
 		origView = GetChildView(0)->Copy();
 
 	FillViewWithRecent();
-
-	return true;
 }
 
 View* RecentAppView::Copy()

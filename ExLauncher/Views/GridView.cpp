@@ -33,10 +33,9 @@ GridView::~GridView()
 {
 }
 
-bool GridView::OnInitialize()
+void GridView::OnInitialize()
 {
 	ScrollView::SetOrientation(orientation);
-	return true;
 }
 
 void GridView::OnLayoutChange()

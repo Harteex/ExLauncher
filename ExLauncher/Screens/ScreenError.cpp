@@ -26,20 +26,26 @@ ScreenError::ScreenError(string errorText)
 
 bool ScreenError::Initialize()
 {
-	errorLabel = new Label();
+	try
+	{
+		errorLabel = new Label();
 
-	if (errorText == "")
-		errorText = "No error";
+		if (errorText == "")
+			errorText = "No error";
 
-	errorLabel->SetText(errorText);
+		errorLabel->SetText(errorText);
 
-	if (!errorLabel->Initialize(this))
+		errorLabel->Initialize(this);
+		errorLabel->SetSize(SIZE_FILL_PARENT, SIZE_WRAP_CONTENT);
+		errorLabel->SetRelativePosition(0, 0);
+		errorLabel->CalculateLayout(screenManager->GetDisplaySize());
+		errorLabel->CalculateAbsolutePosition(Position(0, 0));
+	}
+	catch (exception& ex)
+	{
+		lastError = ex.what();
 		return false;
-
-	errorLabel->SetSize(SIZE_FILL_PARENT, SIZE_WRAP_CONTENT);
-	errorLabel->SetRelativePosition(0, 0);
-	errorLabel->CalculateLayout(screenManager->GetDisplaySize());
-	errorLabel->CalculateAbsolutePosition(Position(0, 0));
+	}
 
 	return true;
 }

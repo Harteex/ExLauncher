@@ -38,9 +38,9 @@ TabPanel::~TabPanel()
 	delete tabStrip;
 }
 
-bool TabPanel::OnInitialize()
+void TabPanel::OnInitialize()
 {
-	return tabStrip->Initialize(context);
+	tabStrip->Initialize(context);
 }
 
 void TabPanel::OnUpdate()

@@ -43,7 +43,7 @@ private:
 public:
 	Label();
 	~Label();
-	bool OnInitialize();
+	void OnInitialize();
 	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();
 	View* Copy();

@@ -32,9 +32,8 @@ RectangleShape::~RectangleShape()
 {
 }
 
-bool RectangleShape::OnInitialize()
+void RectangleShape::OnInitialize()
 {	
-	return true;
 }
 
 void RectangleShape::OnDraw(SDL_Renderer* renderer, Position offset)

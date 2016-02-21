@@ -81,9 +81,9 @@ protected:
 public:
 	View();
     virtual ~View() {}
-	bool Initialize(Screen* context);
-	virtual bool OnInitialize();
-	bool InitializeAll(Screen* context);
+	void Initialize(Screen* context);
+	virtual void OnInitialize();
+	void InitializeAll(Screen* context);
 	bool IsInitialized();
 	void Update();
 	virtual void OnUpdate();

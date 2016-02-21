@@ -31,19 +31,17 @@ Image::~Image()
 {
 }
 
-bool Image::OnInitialize()
+void Image::OnInitialize()
 {
 	image = context->GetResourceManager()->LoadImage(path, path.c_str());
 	if (image == NULL)
 	{
 		image = context->GetResourceManager()->LoadImage(altPath, altPath.c_str());
 		if (image == NULL)
-			return false;
+			throw runtime_error("Failed to load image specified by both path and altPath.");
 	}
 
 	SDL_QueryTexture(image, NULL, NULL, &contentSize.w, &contentSize.h);
-	
-	return true;
 }
 
 void Image::OnDraw(SDL_Renderer* renderer, Position offset)

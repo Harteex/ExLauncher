@@ -37,7 +37,7 @@ private:
 public:
 	RecentAppView();
 	~RecentAppView();
-	bool OnInitialize();
+	void OnInitialize();
 	View* Copy();
 	void AddChildView(View* view);
 

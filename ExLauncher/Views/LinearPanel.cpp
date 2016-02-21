@@ -30,9 +30,8 @@ LinearPanel::~LinearPanel()
 {
 }
 
-bool LinearPanel::OnInitialize()
+void LinearPanel::OnInitialize()
 {
-	return true;
 }
 
 void LinearPanel::OnLayoutChange()

@@ -36,7 +36,7 @@ private:
 public:
 	RectangleShape();
 	~RectangleShape();
-	bool OnInitialize();
+	void OnInitialize();
 	void OnDraw(SDL_Renderer* renderer, Position offset);
 	View* Copy();
 

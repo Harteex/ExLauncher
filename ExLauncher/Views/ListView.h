@@ -36,7 +36,7 @@ private:
 public:
 	ListView();
 	~ListView();
-	bool OnInitialize();
+	void OnInitialize();
 	void OnLayoutChange();
 	View* Copy();
 	void AddChildView(View* view);

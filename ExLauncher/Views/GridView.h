@@ -40,7 +40,7 @@ private:
 public:
 	GridView();
 	~GridView();
-	bool OnInitialize();
+	void OnInitialize();
 	//void SetTransition(TransitionEffect effect, double value);
 	//void ClearTransitions();
 	void OnLayoutChange();

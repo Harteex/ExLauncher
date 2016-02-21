@@ -53,7 +53,7 @@ private:
 public:
 	TabStrip();
 	virtual ~TabStrip();
-	bool OnInitialize();
+	void OnInitialize();
 	void OnUpdate();
 	void OnDraw(SDL_Renderer* renderer, Position offset);
 	void OnLayoutChange();

@@ -71,39 +71,30 @@ vector<string> View::GetTags()
 	return tags;
 }
 
-bool View::Initialize(Screen* context)
+void View::Initialize(Screen* context)
 {
 	if (isInitialized)
-		return true;
+		return;
 
 	this->context = context;
 
-	bool result = OnInitialize();
-	if (!result)
-		return false;
+	OnInitialize();
 
 	isInitialized = true;
-	return true;
 }
 
-bool View::OnInitialize()
+void View::OnInitialize()
 {
-	return true;
 }
 
-bool View::InitializeAll(Screen* context)
+void View::InitializeAll(Screen* context)
 {
-	bool result = true;
-	result = Initialize(context);
-	if (!result)
-		return false;
+	Initialize(context);
 
 	for (View* view : children)
 	{
-		result = result && view->InitializeAll(context);
+		view->InitializeAll(context);
 	}
-
-	return result;
 }
 
 bool View::IsInitialized()
