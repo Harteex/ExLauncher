@@ -27,6 +27,8 @@ ListView::ListView()
 	contentSize = Size(0, 0);
 	orientation = OrientationHorizontal;
 	itemSize = 0;
+	leadingContentInset = 0;
+	trailingContentInset = 0;
 }
 
 ListView::~ListView()
@@ -36,6 +38,7 @@ ListView::~ListView()
 void ListView::OnInitialize()
 {
 	ScrollView::SetOrientation(orientation);
+	ScrollView::SetContentInset(leadingContentInset, trailingContentInset);
 }
 
 void ListView::OnLayoutChange()
@@ -85,9 +88,9 @@ void ListView::OnLayoutChange()
 		v->CalculateLayout(sizeAvailableForChild);
 
 		if (orientation == OrientationHorizontal)
-			v->SetRelativePosition(i * sizeAvailableForChild.w, 0);
+			v->SetRelativePosition(i * sizeAvailableForChild.w + leadingContentInset, 0);
 		else
-			v->SetRelativePosition(0, i * sizeAvailableForChild.h);
+			v->SetRelativePosition(0, i * sizeAvailableForChild.h + leadingContentInset);
 	}
 }
 
@@ -138,6 +141,12 @@ void ListView::SetItemSize(int itemSize)
 	this->itemSize = itemSize;
 }
 
+void ListView::SetContentInset(int leading, int trailing)
+{
+	leadingContentInset = leading;
+	trailingContentInset = trailing;
+}
+
 bool ListView::SetProperty(string name, string value)
 {
 	bool propertyHandled = View::SetProperty(name, value);
@@ -162,6 +171,25 @@ bool ListView::SetProperty(string name, string value)
 		if ((ss >> itemSize).fail() || !(ss >> std::ws).eof())
 		{
 			throw runtime_error("could not parse itemSize");
+		}
+
+		return true;
+	}
+	else if (name == "contentInset")
+	{
+		stringstream ss(value);
+		if ((ss >> leadingContentInset).fail())
+			throw runtime_error("could not parse contentInset");
+
+		if ((ss >> std::ws).eof())
+		{
+			// Only one value means we use that value for both leading and trailing
+			trailingContentInset = leadingContentInset;
+		}
+		else
+		{
+			if ((ss >> trailingContentInset).fail() || !(ss >> std::ws).eof())
+				throw runtime_error("could not parse contentInset");
 		}
 
 		return true;

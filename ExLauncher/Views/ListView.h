@@ -30,6 +30,8 @@ class ListView : public ScrollView
 private:
 	Orientation orientation;
 	int itemSize;
+	int leadingContentInset;
+	int trailingContentInset;
 
 	Position GetPositionForItemIndex(int elementNo);
 	int GetItemIndexForPosition(Position position);
@@ -45,6 +47,7 @@ public:
 	void SetOrientation(Orientation orientation);
 	int GetItemSize();
 	void SetItemSize(int itemSize);
+	void SetContentInset(int leading, int trailing);
 	bool SetProperty(std::string name, std::string value);
 
 	View* GetSelectedItem();

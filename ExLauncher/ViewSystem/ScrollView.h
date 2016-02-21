@@ -33,10 +33,13 @@ private:
 	int scrollOffset;
 	int scrollToTargetOffset;
 	Orientation orientation;
+	int leadingContentInset;
+	int trailingContentInset;
 
 	void DrawChildren(Position offset, Rectangle viewBounds);
 protected:
 	void SetOrientation(Orientation orientation);
+	void SetContentInset(int leading, int trailing);
 public:
 	ScrollView();
 	virtual void OnUpdate();

@@ -33,6 +33,8 @@ private:
 	Orientation orientation;
 	Size gridSpacing;
 	Size itemSize;
+	int leadingContentInset;
+	int trailingContentInset;
 
 	void GetRowsAndColumns(int& outRows, int& outColumns);
 	Position GetPositionForItemIndex(int elementNo);
@@ -52,6 +54,7 @@ public:
 	void SetGridSpacing(Size gridSpacing);
 	Size GetItemSize();
 	void SetItemSize(Size itemSize);
+	void SetContentInset(int leading, int trailing);
 	bool SetProperty(std::string name, std::string value);
 
 	View* GetSelectedItem();

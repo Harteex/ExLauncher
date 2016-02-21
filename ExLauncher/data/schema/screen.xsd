@@ -67,6 +67,7 @@
           </xs:sequence>
           <xs:attribute name="orientation" type="orientation" use="optional"/>
           <xs:attribute name="itemSize" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="contentInset" type="xs:string" use="optional"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -84,6 +85,7 @@
           <xs:attribute name="itemHeight" type="xs:positiveInteger" use="required"/>
           <xs:attribute name="horizontalSpacing" type="xs:integer" use="optional"/>
           <xs:attribute name="verticalSpacing" type="xs:integer" use="optional"/>
+          <xs:attribute name="contentInset" type="xs:string" use="optional"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -153,7 +155,7 @@
           <xs:sequence>
             <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
           </xs:sequence>
-          <xs:attribute name="recentIndex" type="xs:positiveInteger" use="optional"/>
+          <xs:attribute name="recentIndex" type="xs:nonNegativeInteger" use="optional"/>
           <xs:attribute name="category" type="xs:string" use="optional"/>
         </xs:extension>
       </xs:complexContent>

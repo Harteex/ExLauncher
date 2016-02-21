@@ -27,6 +27,8 @@ GridView::GridView()
 	orientation = OrientationHorizontal;
 	gridSpacing = Size(0, 0);
 	itemSize = Size(0, 0);
+	leadingContentInset = 0;
+	trailingContentInset = 0;
 }
 
 GridView::~GridView()
@@ -36,6 +38,7 @@ GridView::~GridView()
 void GridView::OnInitialize()
 {
 	ScrollView::SetOrientation(orientation);
+	ScrollView::SetContentInset(leadingContentInset, trailingContentInset);
 }
 
 void GridView::OnLayoutChange()
@@ -72,19 +75,24 @@ void GridView::OnLayoutChange()
 		int curColumn;
 		int curRow;
 
+		int topContentInset = 0;
+		int leftContentInset = 0;
+
 		if (orientation == OrientationHorizontal)
 		{
 			curColumn = i / itemCountSecondaryDirection;
 			curRow = i % itemCountSecondaryDirection;
+			leftContentInset = leadingContentInset;
 		}
 		else
 		{
 			curColumn = i % itemCountSecondaryDirection;
 			curRow = i / itemCountSecondaryDirection;
+			topContentInset = leadingContentInset;
 		}
 
 		v->CalculateLayout(itemSize);
-		v->SetRelativePosition(Position(curColumn * (itemSize.w + gridSpacing.w), curRow * (itemSize.h + gridSpacing.h)));
+		v->SetRelativePosition(Position(curColumn * (itemSize.w + gridSpacing.w) + leftContentInset, curRow * (itemSize.h + gridSpacing.h) + topContentInset));
 	}
 }
 
@@ -128,6 +136,12 @@ Size GridView::GetItemSize()
 void GridView::SetItemSize(Size itemSize)
 {
 	this->itemSize = itemSize;
+}
+
+void GridView::SetContentInset(int leading, int trailing)
+{
+	leadingContentInset = leading;
+	trailingContentInset = trailing;
 }
 
 bool GridView::SetProperty(string name, string value)
@@ -184,6 +198,25 @@ bool GridView::SetProperty(string name, string value)
 		if ((ss >> itemSize.h).fail() || !(ss >> std::ws).eof())
 		{
 			throw runtime_error("could not parse item height");
+		}
+
+		return true;
+	}
+	else if (name == "contentInset")
+	{
+		stringstream ss(value);
+		if ((ss >> leadingContentInset).fail())
+			throw runtime_error("could not parse contentInset");
+
+		if ((ss >> std::ws).eof())
+		{
+			// Only one value means we use that value for both leading and trailing
+			trailingContentInset = leadingContentInset;
+		}
+		else
+		{
+			if ((ss >> trailingContentInset).fail() || !(ss >> std::ws).eof())
+				throw runtime_error("could not parse contentInset");
 		}
 
 		return true;
