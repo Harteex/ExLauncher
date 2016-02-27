@@ -4,9 +4,27 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
   width="*"
-  height="*">
+  height="*"
+  background="#9d9d9d"
+  action="screen:@theme/apps.xml:category={category}">
   <Image
-    width="wrap_content"
+      width="wrap_content"
+      height="wrap_content"
+      path="@theme/tilehighlight.png" />
+  <Image
+    width="32"
+    height="32"
+    layoutMargin="12 0 0 0"
+    layoutGravity="center_horizontal"
+    path="@theme/ic_applications.png" />
+  <Label
+    width="*"
     height="wrap_content"
-    path="@theme/tilehighlight.png" />
+    text="{categoryName}"
+    font="semibold"
+    textColor="white"
+    textSize="12"
+    gravity="center_horizontal"
+    layoutGravity="bottom"
+    layoutMargin="0 4 0 0" />
 </FramePanel>

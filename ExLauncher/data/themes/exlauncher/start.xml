@@ -13,6 +13,7 @@
   verticalSpacing="8"
   contentInset="20"
   layoutMargin="10 10 0 0"
+  tag="fillCategories|categories=-applications,-emulators,-games,-settings"
   itemTemplate="@theme/categoryTemplate.xml">
 
   <RecentAppView
