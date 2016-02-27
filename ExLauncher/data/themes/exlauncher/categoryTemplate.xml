@@ -7,6 +7,17 @@
   height="*"
   background="#9d9d9d"
   action="screen:@theme/apps.xml:category={category}">
+  <Selector
+      width="*"
+      height="*">
+    <State stateSelected="true">
+      <RectangleShape
+        width="*"
+        height="*"
+        strokeColor="white"
+        strokeWidth="2" />
+    </State>
+  </Selector>
   <Image
       width="wrap_content"
       height="wrap_content"

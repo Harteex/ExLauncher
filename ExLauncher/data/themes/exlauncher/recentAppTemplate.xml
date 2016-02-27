@@ -10,6 +10,17 @@
     height="*"
     strokeColor="#50ffffff"
     strokeWidth="1" />
+  <Selector
+      width="*"
+      height="*">
+    <State stateSelected="true">
+      <RectangleShape
+        width="*"
+        height="*"
+        strokeColor="white"
+        strokeWidth="2" />
+    </State>
+  </Selector>
   <Image
     width="wrap_content"
     height="wrap_content"

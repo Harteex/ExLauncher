@@ -53,6 +53,17 @@
     height="*"
     background="#f43c46"
     action="screen:@theme/apps.xml:category=games">
+    <Selector
+      width="*"
+      height="*">
+      <State stateSelected="true">
+        <RectangleShape
+          width="*"
+          height="*"
+          strokeColor="white"
+          strokeWidth="2" />
+      </State>
+    </Selector>
     <Image
       width="wrap_content"
       height="wrap_content"
@@ -80,6 +91,17 @@
     height="*"
     background="#82bc41"
     action="screen:@theme/apps.xml:category=emulators">
+    <Selector
+      width="*"
+      height="*">
+      <State stateSelected="true">
+        <RectangleShape
+          width="*"
+          height="*"
+          strokeColor="white"
+          strokeWidth="2" />
+      </State>
+    </Selector>
     <Image
       width="wrap_content"
       height="wrap_content"
@@ -107,6 +129,17 @@
     height="*"
     background="#28a4ca"
     action="screen:@theme/apps.xml:category=applications">
+    <Selector
+      width="*"
+      height="*">
+      <State stateSelected="true">
+        <RectangleShape
+          width="*"
+          height="*"
+          strokeColor="white"
+          strokeWidth="2" />
+      </State>
+    </Selector>
     <Image
       width="wrap_content"
       height="wrap_content"
@@ -134,6 +167,17 @@
     height="*"
     background="#f1cd31"
     action="screen:@theme/apps.xml:category=settings">
+    <Selector
+      width="*"
+      height="*">
+      <State stateSelected="true">
+        <RectangleShape
+          width="*"
+          height="*"
+          strokeColor="white"
+          strokeWidth="2" />
+      </State>
+    </Selector>
     <Image
       width="wrap_content"
       height="wrap_content"
