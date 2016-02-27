@@ -89,6 +89,8 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 
 void ScreenAppLaunch::Draw(SDL_Renderer* renderer)
 {
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
+
 	SDL_Rect r;
 	r.x = curBox.left;
 	r.y = curBox.top;
