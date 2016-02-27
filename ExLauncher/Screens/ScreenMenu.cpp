@@ -61,6 +61,8 @@ bool ScreenMenu::Initialize()
 		contentView->CalculateLayout(screenManager->GetDisplaySize());
 		contentView->CalculateAbsolutePosition(Position(0, 0));
 
+		FillDataInView(contentView, arguments->GetStringMap());
+
 		View* v = GetViewById("inputView");
 		if (v != nullptr)
 		{
@@ -99,7 +101,6 @@ bool ScreenMenu::Initialize()
 		}
 
 		HandleApps(); // FIXME check result, show error if any app failed to load
-		FillDataArguments();
 
 		if (inputView != nullptr)
 			inputView->SelectByIndex(0);
@@ -359,11 +360,6 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 	fillView->AddChildView(newView);
 
 	return true;
-}
-
-void ScreenMenu::FillDataArguments()
-{
-	FillDataInView(contentView, arguments->GetStringMap());
 }
 
 void ScreenMenu::FillDataInView(View* v, map<string, string> data)

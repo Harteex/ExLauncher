@@ -641,6 +641,8 @@ void View::SetItemTemplate(View* itemTemplate)
 void View::FillData(map<string, string>& data)
 {
 	action = FindAndReplace(action, data);
+	for (int i = 0; i < tags.size(); i++)
+		tags[i] = FindAndReplace(tags[i], data);
 }
 
 void View::FillDataAll(std::map<std::string, std::string>& data)
