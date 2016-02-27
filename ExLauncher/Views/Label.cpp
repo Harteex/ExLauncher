@@ -237,6 +237,8 @@ bool Label::SetProperty(string name, string value)
 
 void Label::FillData(map<string, string>& data)
 {
+	View::FillData(data);
+
 	text = FindAndReplace(text, data);
 
 	if (IsInitialized())

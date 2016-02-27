@@ -101,6 +101,8 @@ bool Image::SetProperty(string name, string value)
 
 void Image::FillData(map<string, string>& data)
 {
+	View::FillData(data);
+
 	path = FindAndReplace(path, data);
 	altPath = FindAndReplace(altPath, data);
 

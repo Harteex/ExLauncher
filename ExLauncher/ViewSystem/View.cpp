@@ -279,6 +279,16 @@ void View::SetGravity(int gravity)
 	this->gravity = gravity;
 }
 
+Color View::GetBackground()
+{
+	return background;
+}
+
+void View::SetBackground(Color background)
+{
+	this->background = background;
+}
+
 std::string View::GetAction()
 {
 	return action;
@@ -607,6 +617,7 @@ View* View::CopyBase(View* view)
 	view->SetLayoutGravity(layoutGravity);
 	view->SetGravity(gravity);
 	view->SetAction(action);
+	view->SetBackground(background);
 	view->SetItemTemplate(itemTemplate);
 
 	for (View* v : children)
@@ -629,6 +640,7 @@ void View::SetItemTemplate(View* itemTemplate)
 
 void View::FillData(map<string, string>& data)
 {
+	action = FindAndReplace(action, data);
 }
 
 void View::FillDataAll(std::map<std::string, std::string>& data)

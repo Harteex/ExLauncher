@@ -70,8 +70,8 @@ protected:
 	Box layoutMargin;
 	int layoutGravity;
 	int gravity;
-	View* itemTemplate;
 	Color background;
+	View* itemTemplate;
 	std::string action;
 	std::vector<std::string> actionArgs;
 
@@ -123,6 +123,8 @@ public:
 	void SetLayoutGravity(int gravity);
 	int GetGravity();
 	void SetGravity(int gravity);
+	Color GetBackground();
+	void SetBackground(Color background);
 	std::string GetAction();
 	void SetAction(std::string action);
 	std::vector<std::string> GetActionArgs();
