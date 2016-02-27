@@ -23,7 +23,7 @@
     itemTemplate="@theme/appTemplate.xml"
     itemWidth="77"
     itemHeight="50"
-    layoutMargin="5"
+    layoutMargin="0 0 5 5"
     verticalSpacing="8">
   </GridView>
 </LinearPanel>
