@@ -18,6 +18,7 @@ limitations under the License.
 #include <chrono>
 #include "global.h"
 #include <stdio.h>
+#include <cctype>
 #ifdef WINDOWS
 #include <windows.h>
 #include <tchar.h>
@@ -193,4 +194,10 @@ vector<string> getDirectories(string path)
 #endif
 
 	return directories;
+}
+
+string getCapitalizedString(string str)
+{
+	str[0] = std::toupper(str[0]);
+	return str;
 }

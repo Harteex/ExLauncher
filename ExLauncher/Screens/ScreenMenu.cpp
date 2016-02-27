@@ -37,9 +37,9 @@ ScreenMenu::ScreenMenu(std::string layout)
 {
 	this->layout = layout;
 	contentView = new FramePanel();
-	inputView = NULL;
-	categoryFillView = NULL;
-	itemFillView = NULL;
+	inputView = nullptr;
+	categoryFillView = nullptr;
+	itemFillView = nullptr;
 	canGoBack = false;
 
 	SetTransitionTime(0.6, 0.1);
@@ -62,26 +62,21 @@ bool ScreenMenu::Initialize()
 		contentView->CalculateAbsolutePosition(Position(0, 0));
 
 		View* v = GetViewById("inputView");
-		if (v != NULL)
+		if (v != nullptr)
 		{
 			inputView = dynamic_cast<ISelectionHandler*>(v);
-			if (inputView == NULL)
+			if (inputView == nullptr)
 			{
 				throw runtime_error("This view cannot be used as an inputView. An inputView must implement ISelectionHandler.");
 			}
 		}
 
 		categoryFillView = GetFirstViewByTag("fillCategories");
-		if (categoryFillView != NULL)
+		if (categoryFillView != nullptr)
 		{
-			if (categoryFillView->GetItemTemplate() == NULL)
+			if (categoryFillView->GetItemTemplate() == nullptr)
 			{
 				throw runtime_error("category view to fill does not have an itemTemplate");
-			}
-
-			if (categoryFillView->GetItemTemplate()->GetItemTemplate() == NULL)
-			{
-				throw runtime_error("itemTemplate of category view to fill does not have an itemTemplate");
 			}
 
 			auto tags = categoryFillView->GetTags();
@@ -91,12 +86,12 @@ bool ScreenMenu::Initialize()
 		{
 			itemFillView = GetFirstViewByTag("fillItems");
 
-			if (itemFillView != NULL && itemFillView->GetItemTemplate() == NULL)
+			if (itemFillView != nullptr && itemFillView->GetItemTemplate() == nullptr)
 			{
 				throw runtime_error("view to fill does not have an itemTemplate");
 			}
 
-			if (itemFillView != NULL)
+			if (itemFillView != nullptr)
 			{
 				auto tags = itemFillView->GetTags();
 				ParseCategoriesFromTags(tags);
@@ -106,7 +101,7 @@ bool ScreenMenu::Initialize()
 		HandleApps(); // FIXME check result, show error if any app failed to load
 		FillDataArguments();
 
-		if (inputView != NULL)
+		if (inputView != nullptr)
 			inputView->SelectByIndex(0);
 	}
 	catch (exception& ex)
@@ -152,11 +147,11 @@ void ScreenMenu::ParseCategoriesFromTags(vector<string> tags)
 
 void ScreenMenu::HandleInput(InputState* input)
 {
-	if (inputView != NULL)
+	if (inputView != nullptr)
 		inputView->HandleInput(input);
 
 	if (input->GameKeyJustPressed(GAMEKEY_B))
-		OnEvent(NULL, EventTypeGoBack, "");
+		OnEvent(nullptr, EventTypeGoBack, "");
 
 	if (input->GameKeyJustPressed(GAMEKEY_START))
 		screenManager->AddScreen(new ScreenSystemDialog());
@@ -173,7 +168,7 @@ void ScreenMenu::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 
 	if (IsActive())
 	{
-		if (contentView != NULL)
+		if (contentView != nullptr)
 			contentView->Update();
 	}
 }
@@ -190,7 +185,7 @@ void ScreenMenu::Draw(SDL_Renderer* renderer)
 
 	formContainer.Draw(renderer, !otherScreenHasFocus && screenstate != TransitionOff);*/
 
-	if (contentView != NULL)
+	if (contentView != nullptr)
 		contentView->Draw();
 
 	/*if (titleTextureBg != NULL)
@@ -202,16 +197,16 @@ void ScreenMenu::Draw(SDL_Renderer* renderer)
 
 View* ScreenMenu::GetViewById(std::string id)
 {
-	if (contentView == NULL)
-		return NULL;
+	if (contentView == nullptr)
+		return nullptr;
 	else
 		return contentView->GetChildViewById(id);
 }
 
 View* ScreenMenu::GetFirstViewByTag(std::string tag)
 {
-	if (contentView == NULL)
-		return NULL;
+	if (contentView == nullptr)
+		return nullptr;
 	else
 		return contentView->GetFirstChildViewByTag(tag);
 }
@@ -252,7 +247,7 @@ bool ScreenMenu::HandleApps()
 
 View* ScreenMenu::FindOrCreateCategoryView(string category)
 {
-	View* categoryView = NULL;
+	View* categoryView = nullptr;
 	for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
 	{
 		View* c = categoryFillView->GetChildView(i);
@@ -263,9 +258,14 @@ View* ScreenMenu::FindOrCreateCategoryView(string category)
 		}
 	}
 
-	if (categoryView == NULL)
+	if (categoryView == nullptr && ShouldCategoryBeIncluded(category))
 	{
+		auto fillMap = map<string, string>();
+		fillMap["category"] = category;
+		fillMap["categoryName"] = getCapitalizedString(category);
+
 		categoryView = categoryFillView->GetItemTemplate()->Copy();
+		categoryView->FillDataAll(fillMap);
 		categoryView->InitializeAll(this);
 		categoryView->SetName(category);
 
@@ -279,17 +279,16 @@ bool ScreenMenu::AddApp(App* app, string category)
 {
 	bool result = true;
 
-	if (!ShouldCategoryBeIncluded(category))
-		return result;
-
-	if (categoryFillView != NULL)
+	if (categoryFillView != nullptr)
 	{
 		View* categoryView = FindOrCreateCategoryView(category);
-		result = AddViewForApp(categoryView, app);
+		if (categoryView != nullptr)
+			result = AddViewForApp(categoryView, app);
 	}
-	else if (itemFillView != NULL)
+	else if (itemFillView != nullptr)
 	{
-		result = AddViewForApp(itemFillView, app);
+		if (ShouldCategoryBeIncluded(category))
+			result = AddViewForApp(itemFillView, app);
 	}
 
 	return result;
@@ -305,7 +304,7 @@ void ScreenMenu::StartUpdateApps()
 // Also, try to optimize... do we really need to filldatainview? (should only be done if a new category is created I think?)
 void ScreenMenu::EndUpdateApps()
 {
-	if (categoryFillView != NULL)
+	if (categoryFillView != nullptr)
 	{
 		categoryFillView->InitializeAll(this);
 
@@ -316,7 +315,7 @@ void ScreenMenu::EndUpdateApps()
 			SortItemsByName(categoryView);
 
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
-			if (selectionHandler != NULL)
+			if (selectionHandler != nullptr)
 				selectionHandler->SelectByIndex(0);
 
 			FillDataInView(categoryView, arguments->GetStringMap());
@@ -324,14 +323,14 @@ void ScreenMenu::EndUpdateApps()
 
 		categoryFillView->RecalculateLayout();
 	}
-	else if (itemFillView != NULL)
+	else if (itemFillView != nullptr)
 	{
 		itemFillView->InitializeAll(this);
 
 		SortItemsByName(itemFillView);
 
 		ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(itemFillView);
-		if (selectionHandler != NULL)
+		if (selectionHandler != nullptr)
 			selectionHandler->SelectByIndex(0);
 
 		FillDataInView(itemFillView, arguments->GetStringMap());
@@ -346,13 +345,16 @@ void ScreenMenu::RemoveApp(string id)
 
 bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
+	if (fillView->GetItemTemplate() == nullptr)
+		return true; // This is valid, if so, do nothing (operation still succeeded)
+
 	View* newView = fillView->GetItemTemplate()->Copy();
 
 	newView->SetId(app->GetData("id", ""));
 	newView->SetAction("app");
 	newView->SetActionArgs({ "opkrun", "-m", app->GetData("metadata", ""), app->GetData("path", "") });
 
-	FillDataInView(newView, app->GetAllData());
+	newView->FillDataAll(app->GetAllData());
 	newView->SetName(app->GetData("name", ""));
 	fillView->AddChildView(newView);
 
@@ -367,12 +369,6 @@ void ScreenMenu::FillDataArguments()
 void ScreenMenu::FillDataInView(View* v, map<string, string> data)
 {
 	v->FillDataAll(data);
-
-	/*for (int i = 0; i < v->GetNumberOfChildren(); i++)
-	{
-		View* c = v->GetChildView(i);
-		FillDataInView(c, data);
-	}*/
 }
 
 bool _SortItemsByNameItemComparer(View* v1, View* v2)
