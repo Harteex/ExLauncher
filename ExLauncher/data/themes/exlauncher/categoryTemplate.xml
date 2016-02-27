@@ -6,7 +6,7 @@
   width="*"
   height="*"
   background="#9d9d9d"
-  action="screen:@theme/apps.xml:category={category}">
+  action="screen:@theme/apps.xml:category={category};categoryName={categoryName}">
   <Selector
       width="*"
       height="*">

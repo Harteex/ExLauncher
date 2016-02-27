@@ -52,7 +52,7 @@
     width="*"
     height="*"
     background="#f43c46"
-    action="screen:@theme/apps.xml:category=games">
+    action="screen:@theme/apps.xml:category=games;categoryName=Games">
     <Selector
       width="*"
       height="*">
@@ -90,7 +90,7 @@
     width="*"
     height="*"
     background="#82bc41"
-    action="screen:@theme/apps.xml:category=emulators">
+    action="screen:@theme/apps.xml:category=emulators;categoryName=Emulators">
     <Selector
       width="*"
       height="*">
@@ -128,7 +128,7 @@
     width="*"
     height="*"
     background="#28a4ca"
-    action="screen:@theme/apps.xml:category=applications">
+    action="screen:@theme/apps.xml:category=applications;categoryName=Applications">
     <Selector
       width="*"
       height="*">
@@ -166,7 +166,7 @@
     width="*"
     height="*"
     background="#f1cd31"
-    action="screen:@theme/apps.xml:category=settings">
+    action="screen:@theme/apps.xml:category=settings;categoryName=Settings">
     <Selector
       width="*"
       height="*">
