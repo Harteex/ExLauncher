@@ -67,36 +67,36 @@ void ScrollView::ScrollTo(View* child)
 {
 	if (orientation == OrientationHorizontal)
 	{
-		int left = child->GetAbsolutePosition().x - leadingContentInset - scrollOffset;
-		int right = child->GetAbsolutePosition().x + child->GetCalculatedSize().w + trailingContentInset - scrollOffset;
+		int left = child->GetRelativePosition().x - leadingContentInset - scrollOffset;
+		int right = child->GetRelativePosition().x + child->GetCalculatedSize().w + trailingContentInset - scrollOffset;
 
 		// Determine direction to scroll
-		if (left < absolutePosition.x)
+		if (left < 0)
 		{
 			// Scroll left
-			ScrollTo(child->GetAbsolutePosition().x - absolutePosition.x - leadingContentInset);
+			ScrollTo(child->GetRelativePosition().x - leadingContentInset);
 		}
 		else if (right > calculatedSize.w)
 		{
 			// Scroll right
-			ScrollTo(child->GetAbsolutePosition().x + child->GetCalculatedSize().w + trailingContentInset - calculatedSize.w);
+			ScrollTo(child->GetRelativePosition().x + child->GetCalculatedSize().w + trailingContentInset - calculatedSize.w);
 		}
 	}
 	else
 	{
-		int top = child->GetAbsolutePosition().y - leadingContentInset - scrollOffset;
-		int bottom = child->GetAbsolutePosition().y + child->GetCalculatedSize().h + trailingContentInset - scrollOffset;
+		int top = child->GetRelativePosition().y - leadingContentInset - scrollOffset;
+		int bottom = child->GetRelativePosition().y + child->GetCalculatedSize().h + trailingContentInset - scrollOffset;
 
 		// Determine direction to scroll
-		if (top < absolutePosition.y)
+		if (top < 0)
 		{
 			// Scroll upwards
-			ScrollTo(child->GetAbsolutePosition().y - absolutePosition.y - leadingContentInset);
+			ScrollTo(child->GetRelativePosition().y - leadingContentInset);
 		}
 		else if (bottom > calculatedSize.h)
 		{
 			// Scroll downwards
-			ScrollTo(child->GetAbsolutePosition().y + child->GetCalculatedSize().h + trailingContentInset - calculatedSize.h);
+			ScrollTo(child->GetRelativePosition().y + child->GetCalculatedSize().h + trailingContentInset - calculatedSize.h);
 		}
 	}
 }
