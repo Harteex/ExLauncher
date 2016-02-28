@@ -81,6 +81,9 @@ Defines in which direction to lay out child views. Acceptable values: **horizont
 #### itemSize
 ItemSize is a single value defining either row height or column width depending on orientation.
 
+#### contentInset
+Defines how far from the border a selected view should be. Leading and trailing values (in the set orientation) can be defined as two values with a space between them. If just a single value is provided, that value will apply for both leading and trailing content inset. If leading and trailing content inset overlap, the trailing value will be adjusted to be adjacent to the leading value, subtracted the size of the content view.
+
 ## GridView
 
 #### orientation
@@ -91,6 +94,9 @@ These attributes control the spacing between elements in the grid.
 
 #### itemWidth / itemHeight
 The size of the elements in the grid.
+
+#### contentInset
+Defines how far from the border a selected view should be. Leading and trailing values (in the set orientation) can be defined as two values with a space between them. If just a single value is provided, that value will apply for both leading and trailing content inset. If leading and trailing content inset overlap, the trailing value will be adjusted to be adjacent to the leading value, subtracted the size of the content view.
 
 ## TabPanel
 
@@ -153,7 +159,7 @@ Selector hosts states, see State. Will be removed or remade in future versions.
 
 ## State
 
-Shows and hides child views depending on a state.
+Shows and hides child views depending on a state. **NOTE**: For this view you should not provide width/height or other attributes.
 
 #### stateSelected
 If the item is selected or not. Acceptable values: **true**, **false**
