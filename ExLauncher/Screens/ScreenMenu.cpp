@@ -315,11 +315,11 @@ void ScreenMenu::EndUpdateApps()
 
 			SortItemsByName(categoryView);
 
+			FillDataInView(categoryView, arguments->GetStringMap());
+
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
 			if (selectionHandler != nullptr)
 				selectionHandler->SelectByIndex(0);
-
-			FillDataInView(categoryView, arguments->GetStringMap());
 		}
 
 		categoryFillView->RecalculateLayout();
@@ -330,12 +330,12 @@ void ScreenMenu::EndUpdateApps()
 
 		SortItemsByName(itemFillView);
 
+		FillDataInView(itemFillView, arguments->GetStringMap());
+		itemFillView->RecalculateLayout();
+
 		ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(itemFillView);
 		if (selectionHandler != nullptr)
 			selectionHandler->SelectByIndex(0);
-
-		FillDataInView(itemFillView, arguments->GetStringMap());
-		itemFillView->RecalculateLayout();
 	}
 }
 
