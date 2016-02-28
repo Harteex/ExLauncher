@@ -42,7 +42,7 @@ ScreenMenu::ScreenMenu(std::string layout)
 	itemFillView = nullptr;
 	canGoBack = false;
 
-	SetTransitionTime(0.6, 0.1);
+	SetTransitionTime(0.0, 0.0);
 }
 
 ScreenMenu::~ScreenMenu()
