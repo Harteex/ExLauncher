@@ -24,6 +24,7 @@
     itemWidth="77"
     itemHeight="50"
     layoutMargin="0 0 5 5"
-    verticalSpacing="8">
+    verticalSpacing="8"
+    contentInset="0 5">
   </GridView>
 </LinearPanel>
