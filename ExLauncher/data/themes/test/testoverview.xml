@@ -6,7 +6,7 @@
   orientation="vertical"
   layoutMargin="5"
   itemSize="20"
-  contentInset="100">
+  contentInset="105">
   <ListView.ItemTemplate>
     <FramePanel
       width="*"

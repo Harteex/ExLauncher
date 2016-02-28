@@ -41,6 +41,17 @@ void ScrollView::DrawChildren(Position offset, Rectangle viewBounds)
 	}
 }
 
+int ScrollView::GetAdjustedTrailingInset(int itemSize)
+{
+	int scrollDirSize = calculatedSize.w;
+	if (orientation == OrientationVertical)
+		scrollDirSize = calculatedSize.h;
+
+	int maxTrailingContentInset = scrollDirSize - leadingContentInset - itemSize;
+
+	return min(maxTrailingContentInset, trailingContentInset);
+}
+
 void ScrollView::OnUpdate()
 {
 	if (scrollOffset == scrollToTargetOffset)
@@ -67,8 +78,10 @@ void ScrollView::ScrollTo(View* child)
 {
 	if (orientation == OrientationHorizontal)
 	{
+		int adjustedTrailingContentInset = GetAdjustedTrailingInset(child->GetCalculatedSize().w);
+
 		int left = child->GetRelativePosition().x - leadingContentInset - scrollOffset;
-		int right = child->GetRelativePosition().x + child->GetCalculatedSize().w + trailingContentInset - scrollOffset;
+		int right = child->GetRelativePosition().x + child->GetCalculatedSize().w + adjustedTrailingContentInset - scrollOffset;
 
 		// Determine direction to scroll
 		if (left < 0)
@@ -79,13 +92,15 @@ void ScrollView::ScrollTo(View* child)
 		else if (right > calculatedSize.w)
 		{
 			// Scroll right
-			ScrollTo(child->GetRelativePosition().x + child->GetCalculatedSize().w + trailingContentInset - calculatedSize.w);
+			ScrollTo(child->GetRelativePosition().x + child->GetCalculatedSize().w + adjustedTrailingContentInset - calculatedSize.w);
 		}
 	}
 	else
 	{
+		int adjustedTrailingContentInset = GetAdjustedTrailingInset(child->GetCalculatedSize().h);
+
 		int top = child->GetRelativePosition().y - leadingContentInset - scrollOffset;
-		int bottom = child->GetRelativePosition().y + child->GetCalculatedSize().h + trailingContentInset - scrollOffset;
+		int bottom = child->GetRelativePosition().y + child->GetCalculatedSize().h + adjustedTrailingContentInset - scrollOffset;
 
 		// Determine direction to scroll
 		if (top < 0)
@@ -96,7 +111,7 @@ void ScrollView::ScrollTo(View* child)
 		else if (bottom > calculatedSize.h)
 		{
 			// Scroll downwards
-			ScrollTo(child->GetRelativePosition().y + child->GetCalculatedSize().h + trailingContentInset - calculatedSize.h);
+			ScrollTo(child->GetRelativePosition().y + child->GetCalculatedSize().h + adjustedTrailingContentInset - calculatedSize.h);
 		}
 	}
 }

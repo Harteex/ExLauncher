@@ -37,6 +37,7 @@ private:
 	int trailingContentInset;
 
 	void DrawChildren(Position offset, Rectangle viewBounds);
+	int GetAdjustedTrailingInset(int itemSize);
 protected:
 	void SetOrientation(Orientation orientation);
 	void SetContentInset(int leading, int trailing);
