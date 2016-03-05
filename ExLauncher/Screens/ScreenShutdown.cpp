@@ -27,6 +27,7 @@ ScreenShutdown::ScreenShutdown()
 
 	contentView = NULL;
 	reboot = false;
+	hasDrawnLastFrame = false;
 }
 
 ScreenShutdown::ScreenShutdown(bool reboot)
@@ -77,7 +78,7 @@ void ScreenShutdown::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 {
 	Screen::Update(otherScreenHasFocus, coveredByOtherScreen);
 
-	if (TransitionHasFinished())
+	if (hasDrawnLastFrame)
 	{
 		if (reboot)
 			screenManager->GetAppManager()->SetCommandToLaunch({ "/sbin/reboot" });
@@ -100,4 +101,7 @@ void ScreenShutdown::Draw(SDL_Renderer* renderer)
 
 	if (contentView != NULL)
 		contentView->Draw();
+        
+	if (TransitionHasFinished())
+		hasDrawnLastFrame = true;
 }
