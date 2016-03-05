@@ -31,6 +31,7 @@ limitations under the License.
 #include "utils.h"
 #ifdef UNIX
 #include <unistd.h>
+#include <stdlib.h>
 #endif
 
 using namespace std;
@@ -48,6 +49,11 @@ ThemeManager themeManager;
 
 bool initializeSDL()
 {
+#ifdef UNIX
+	// Avoid the framebuffer being cleared on exit on the GCW Zero
+	setenv("SDL_FBCON_DONT_CLEAR", "1", 0);
+#endif
+
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
 		std::cout << "SDL_Init error: " << SDL_GetError() << std::endl;
@@ -144,6 +150,10 @@ void terminateSDL()
 		SDL_Quit();
 		SDLInited = false;
 	}
+
+#ifdef UNIX
+	unsetenv("SDL_FBCON_DONT_CLEAR");
+#endif
 }
 
 void setKeyBindings()
@@ -334,6 +344,7 @@ mainStart:
 	delete screenManager;
 	screenManager = NULL;
 	terminateSDL();
+	fflush(NULL);
 
 	// If we should launch an app, do it now.
 	if (!commandToLaunchOnExit.empty())

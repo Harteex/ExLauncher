@@ -36,6 +36,7 @@ ScreenShutdown::ScreenShutdown(bool reboot)
 
 	contentView = NULL;
 	this->reboot = reboot;
+	hasDrawnLastFrame = false;
 }
 
 ScreenShutdown::~ScreenShutdown()
