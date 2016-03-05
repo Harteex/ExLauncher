@@ -28,6 +28,7 @@
     <ClCompile Include="Screens\ScreenMenu.cpp" />
     <ClCompile Include="Screens\ScreenMessageDialog.cpp" />
     <ClCompile Include="Screens\ScreenProgressDialog.cpp" />
+    <ClCompile Include="Screens\ScreenShutdown.cpp" />
     <ClCompile Include="Screens\ScreenSystemDialog.cpp" />
     <ClCompile Include="Screens\ScreenSystemInfo.cpp" />
     <ClCompile Include="Screens\ScreenTest.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Screens\ScreenMenu.h" />
     <ClInclude Include="Screens\ScreenMessageDialog.h" />
     <ClInclude Include="Screens\ScreenProgressDialog.h" />
+    <ClInclude Include="Screens\ScreenShutdown.h" />
     <ClInclude Include="Screens\ScreenSystemDialog.h" />
     <ClInclude Include="Screens\ScreenSystemInfo.h" />
     <ClInclude Include="Screens\ScreenTest.h" />
@@ -172,6 +174,7 @@
     <Xml Include="data\themes\test\test3.xml" />
     <Xml Include="data\themes\test\test4.xml" />
     <Xml Include="data\themes\test\testaction.xml" />
+    <Xml Include="data\themes\test\testfonts.xml" />
     <Xml Include="data\themes\test\testframepanel.xml" />
     <Xml Include="data\themes\test\testlinearpanel.xml" />
     <Xml Include="data\themes\test\testoverview.xml" />

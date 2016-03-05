@@ -64,4 +64,12 @@
       text="Go to recent test view" />
   </Item>
 
+  <Item
+    action="screen:@theme/testfonts.xml">
+    <Label
+      width="*"
+      height="wrap_content"
+      text="Go to font test" />
+  </Item>
+
 </ListView>

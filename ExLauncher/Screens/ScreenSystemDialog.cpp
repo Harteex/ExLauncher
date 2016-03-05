@@ -19,6 +19,7 @@ limitations under the License.
 #include "../Views/FramePanel.h"
 #include "../Xml.h"
 #include "ScreenSystemInfo.h"
+#include "ScreenShutdown.h"
 
 using namespace std;
 
@@ -126,15 +127,11 @@ void ScreenSystemDialog::OnEvent(View* sender, EventType eventType, string event
 		{
 			if (eventValue == "shutdown")
 			{
-				// FIXME don't hardcode command like this
-				screenManager->GetAppManager()->SetCommandToLaunch({ "/sbin/poweroff" });
-				screenManager->Exit();
+				screenManager->AddScreen(new ScreenShutdown(false));
 			}
 			else if (eventValue == "reboot")
 			{
-				// FIXME don't hardcode command like this
-				screenManager->GetAppManager()->SetCommandToLaunch({ "/sbin/reboot" });
-				screenManager->Exit();
+				screenManager->AddScreen(new ScreenShutdown(true));
 			}
 			else if (eventValue == "exit")
 			{

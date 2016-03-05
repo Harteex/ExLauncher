@@ -131,10 +131,26 @@ TTF_Font* ResourceManager::GetTTFFont(string filename, int fontSize)
 	// TODO make xml name mapping file, for now, hardcode common names
 	if (filename == "regular")
 		filename = "OpenSans-Regular.ttf";
+	else if (filename == "bold")
+		filename = "OpenSans-Bold.ttf";
+	else if (filename == "bolditalic")
+		filename = "OpenSans-BoldItalic.ttf";
+	else if (filename == "condensedbold")
+		filename = "OpenSans-CondBold.ttf";
+	else if (filename == "condensedlight")
+		filename = "OpenSans-CondLight.ttf";
+	else if (filename == "condensedlightitalic")
+		filename = "OpenSans-CondLightItalic.ttf";
+	else if (filename == "italic")
+		filename = "OpenSans-Italic.ttf";
 	else if (filename == "light")
 		filename = "OpenSans-Light.ttf";
+	else if (filename == "lightitalic")
+		filename = "OpenSans-LightItalic.ttf";
 	else if (filename == "semibold")
 		filename = "OpenSans-Semibold.ttf";
+	else if (filename == "semibolditalic")
+		filename = "OpenSans-SemiboldItalic.ttf";
 
 	string path = "data/fonts/";
 	path += filename;

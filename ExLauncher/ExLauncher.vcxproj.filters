@@ -177,6 +177,9 @@
     <ClCompile Include="Theme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Screens\ScreenShutdown.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="Theme.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenShutdown.h">
+      <Filter>Source Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -459,6 +465,9 @@
       <Filter>Resource Files\data\themes\test</Filter>
     </Xml>
     <Xml Include="data\themes\test\theme.xml">
+      <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\test\testfonts.xml">
       <Filter>Resource Files\data\themes\test</Filter>
     </Xml>
   </ItemGroup>
