@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<App>
+  <Name>Network</Name>
+  <Comment>Configure remote access</Comment>
+  <Exec>/usr/bin/od-network-config</Exec>
+  <Icon>/usr/share/gmenu2x/skins/Default/icons/network.png</Icon>
+  <Categories>settings;</Categories>
+</App>

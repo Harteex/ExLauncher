@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<App>
+  <Name>o2xiv</Name>
+  <Comment>Simple image viewer</Comment>
+  <Exec>/usr/bin/o2xiv</Exec>
+  <Icon>/usr/share/gmenu2x/skins/Default/icons/imgv.png</Icon>
+  <Categories>applications;</Categories>
+</App>

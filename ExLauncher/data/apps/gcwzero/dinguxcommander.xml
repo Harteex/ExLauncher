@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<App>
+  <Name>DinguxCmdr</Name>
+  <Comment>Two-pane file manager</Comment>
+  <Exec>/usr/bin/DinguxCommander</Exec>
+  <Icon>/usr/share/gmenu2x/skins/Default/icons/dinguxcmdr.png</Icon>
+  <Categories>applications;</Categories>
+</App>

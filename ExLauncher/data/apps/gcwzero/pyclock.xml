@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<App>
+  <Name>Clock</Name>
+  <Comment>Clock, alarm, timer, calendar</Comment>
+  <Exec>/usr/bin/pyclock</Exec>
+  <Icon>/usr/share/gmenu2x/skins/Default/icons/pyclock.png</Icon>
+  <Categories>applications;</Categories>
+</App>
