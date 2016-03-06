@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabPanel
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
+  id="inputView"
+  width="*"
+  height="*"
+  tag="fillCategories">
+
+  <TabPanel.ItemTemplate>
+    <GridView
+      id="inputView"
+      width="*"
+      height="*"
+      orientation="vertical"
+      itemTemplate="@theme/appTemplate.xml"
+      itemWidth="77"
+      itemHeight="54"
+      layoutMargin="0 0 5 5"
+      verticalSpacing="8"
+      contentInset="0 5" />
+  </TabPanel.ItemTemplate>
+
+</TabPanel>

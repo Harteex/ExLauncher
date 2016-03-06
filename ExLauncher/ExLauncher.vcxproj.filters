@@ -55,6 +55,9 @@
     <Filter Include="Resource Files\data\themes\test">
       <UniqueIdentifier>{535cd0b3-1db3-4c83-9f2b-50657577ec59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\data\themes\tabbed">
+      <UniqueIdentifier>{1d6c2ced-cc66-4e8c-ba50-fc7a7ec08879}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structures.cpp">
@@ -396,6 +399,9 @@
     <Image Include="data\themes\exlauncher\ic_settings.png">
       <Filter>Resource Files\data\themes\exlauncher</Filter>
     </Image>
+    <Image Include="data\themes\tabbed\appIconDefault.png">
+      <Filter>Resource Files\data\themes\tabbed</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="data\system\systemMenu.xml">
@@ -469,6 +475,18 @@
     </Xml>
     <Xml Include="data\themes\test\testfonts.xml">
       <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\themes\tabbed\apps.xml">
+      <Filter>Resource Files\data\themes\tabbed</Filter>
+    </Xml>
+    <Xml Include="data\themes\tabbed\appTemplate.xml">
+      <Filter>Resource Files\data\themes\tabbed</Filter>
+    </Xml>
+    <Xml Include="data\themes\tabbed\main.xml">
+      <Filter>Resource Files\data\themes\tabbed</Filter>
+    </Xml>
+    <Xml Include="data\themes\tabbed\theme.xml">
+      <Filter>Resource Files\data\themes\tabbed</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

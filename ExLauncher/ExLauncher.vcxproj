@@ -150,6 +150,7 @@
     <Image Include="data\themes\exlauncher\ic_games.png" />
     <Image Include="data\themes\exlauncher\ic_settings.png" />
     <Image Include="data\themes\exlauncher\tilehighlight.png" />
+    <Image Include="data\themes\tabbed\appIconDefault.png" />
     <Image Include="data\themes\test\appIconDefault.png" />
     <Image Include="data\themes\test\markerBg.png" />
   </ItemGroup>
@@ -163,6 +164,10 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="data\themes\exlauncher\theme.xml" />
+    <Xml Include="data\themes\tabbed\apps.xml" />
+    <Xml Include="data\themes\tabbed\appTemplate.xml" />
+    <Xml Include="data\themes\tabbed\main.xml" />
+    <Xml Include="data\themes\tabbed\theme.xml" />
     <Xml Include="data\themes\test\appTemplate.xml" />
     <Xml Include="data\themes\test\contentsizebug.xml" />
     <Xml Include="data\themes\test\grid.xml" />

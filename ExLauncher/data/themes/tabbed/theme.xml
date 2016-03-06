@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Theme>
+  <Name>Tabbed Theme</Name>
+  <EntryPoint>main.xml</EntryPoint>
+  <Author>Harteex</Author>
+  <Copyright>Copyright (c) Andreas Bjerkeholt 2016</Copyright>
+  <License>CC Attribution 4.0</License>
+  <ThirdPartyDeclarations>
+  </ThirdPartyDeclarations>
+</Theme>
