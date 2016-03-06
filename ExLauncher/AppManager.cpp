@@ -18,13 +18,17 @@ limitations under the License.
 #include "utils.h"
 #include <algorithm>
 #include "HomeDirectory.h"
+#include "RapidXml/rapidxml.hpp"
 #include <fstream>
+#include <sstream>
+#include <stdexcept>
 
 #ifdef HAS_LIBOPK
 #include <dirent.h>
 #include <opk.h>
 #endif
 
+using namespace rapidxml;
 using namespace std;
 
 AppManager::AppManager()
@@ -133,13 +137,84 @@ App* ParseOpkMetadata(struct OPK *opk)
 			app->SetData("iconName", valueBuffer);
 		}
 
-		// TODO handle more values, for example icon
+		// TODO handle more values
 
 	}
 
 	return app;
 }
 #endif
+
+void AppManager::LoadAllAppsXml()
+{
+	vector<string> files = getFilesByExtension("data/apps/", "xml");
+	for (string file : files)
+	{
+		string path = string("data/apps/") + file;
+		LoadAppXml(path);
+	}
+}
+
+void AppManager::LoadAppXml(string path)
+{
+	App* app = nullptr;
+
+	try {
+		xml_document<> doc;
+		ifstream file(path.c_str());
+		stringstream buffer;
+		buffer << file.rdbuf();
+		file.close();
+		std::string content(buffer.str());
+
+		if (content.size() == 0)
+			throw runtime_error("not a valid xml file");
+
+		doc.parse<0>(&content[0]);
+
+		xml_node<> * startNode = NULL;
+		startNode = doc.first_node();
+
+		if (startNode == NULL && startNode->name() != "App")
+			throw runtime_error("not a valid app");
+
+		app = new App();
+		app->SetData("id", path);
+
+		for (xml_node<> * node = startNode->first_node(); node; node = node->next_sibling())
+		{
+			string str = node->name();
+
+			if (str == "Name")
+				app->SetData("name", node->value());
+			else if (str == "Comment")
+				app->SetData("comment", node->value());
+			else if (str == "Exec")
+			{
+				app->SetData("exec", node->value());
+				app->SetExec({ node->value() });
+			}
+			else if (str == "Icon")
+			{
+				string iconId = node->value();
+				app->SetData("iconId", iconId);
+
+				SDL_Texture* iconTexture = resourceManager->LoadImage(iconId, iconId.c_str());
+				if (iconTexture == nullptr)
+					app->SetData("iconId", "appIconDefault");
+			}
+			else if (str == "Categories")
+				app->SetData("categories", node->value());
+		}
+
+		AddApp(app);
+	}
+	catch (exception& ex)
+	{
+		if (app != nullptr)
+			delete app;
+	}
+}
 
 bool AppManager::LoadApps()
 {
@@ -148,6 +223,8 @@ bool AppManager::LoadApps()
 	FindOrCreateCategory("applications");
 	FindOrCreateCategory("settings");
 	FindOrCreateCategory("emulators");
+
+	LoadAllAppsXml();
 
 #ifdef HAS_LIBOPK
 	
@@ -210,6 +287,7 @@ bool AppManager::LoadApps()
 					stringstream exec;
 					exec << "opkrun -m " << metadataName << " " << opkPath;
 					app->SetData("exec", exec.str());
+					app->SetExec({ "opkrun", "-m", metadataName, opkPath });
 
 					// FIXME do not try to load icon if none is specified
 					string iconId = opkPath + "/" + app->GetData("iconName", "");
@@ -236,7 +314,7 @@ bool AppManager::LoadApps()
 	app->SetData("id", "samegoo");
 	app->SetData("name", "SameGoo");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	app->SetData("exec", "test");
 	AddApp(app);
 
@@ -244,160 +322,160 @@ bool AppManager::LoadApps()
 	app->SetData("id", "umg");
 	app->SetData("name", "UMG");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "jetsetradiofuture");
 	app->SetData("name", "Jet Set Radio Future");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "halo");
 	app->SetData("name", "Halo");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "crysis");
 	app->SetData("name", "Crysis");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "finalfantasy");
 	app->SetData("name", "Final Fantasy");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "crashbandicoot");
 	app->SetData("name", "Crash Bandicoot");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "crackdown");
 	app->SetData("name", "Crackdown");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "minecraft");
 	app->SetData("name", "Minecraft");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "counterstrike");
 	app->SetData("name", "Counter Strike");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "justcause2");
 	app->SetData("name", "Just Cause 2");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "thewitcher");
 	app->SetData("name", "The Witcher");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "ageofempires");
 	app->SetData("name", "Age of Empires");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "teamfortress2");
 	app->SetData("name", "Team Fortress 2");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "halflife3");
 	app->SetData("name", "Halflife 3");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "settlers2");
 	app->SetData("name", "Settlers 2");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "deadoralive");
 	app->SetData("name", "Dead or Alive");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "amped");
 	app->SetData("name", "Amped");
 	app->SetData("categories", "games;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "console");
 	app->SetData("name", "Console");
 	app->SetData("categories", "applications;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "wireless");
 	app->SetData("name", "Wireless");
 	app->SetData("categories", "settings;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "shutdown");
 	app->SetData("name", "Shutdown");
 	app->SetData("categories", "settings;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "test1");
 	app->SetData("name", "Test Uncategorized");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "test2");
 	app->SetData("name", "Test Custom Category");
 	app->SetData("categories", "customcategory;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 
 	app = new App();
 	app->SetData("id", "test3");
 	app->SetData("name", "Test Multiple Categories");
 	app->SetData("categories", "customcategory;settings;");
-	app->SetData("iconId", "@theme/appIconDefault.png");
+	app->SetData("iconId", "appIconDefault");
 	AddApp(app);
 #endif
 

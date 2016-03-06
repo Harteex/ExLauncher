@@ -360,7 +360,7 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 
 	newView->SetId(app->GetData("id", ""));
 	newView->SetAction("app");
-	newView->SetActionArgs({ "opkrun", "-m", app->GetData("metadata", ""), app->GetData("path", "") });
+	newView->SetActionArgs(app->GetExec());
 
 	newView->FillDataAll(app->GetAllData());
 	newView->SetName(app->GetData("name", ""));

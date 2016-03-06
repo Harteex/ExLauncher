@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<App>
+  <Name>GCW Connect</Name>
+  <Comment>Manage wireless networks</Comment>
+  <Exec>/usr/bin/gcwconnect</Exec>
+  <Icon>/usr/share/gmenu2x/skins/Default/icons/wireless.png</Icon>
+  <Categories>settings;</Categories>
+</App>

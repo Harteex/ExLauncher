@@ -22,6 +22,7 @@ limitations under the License.
 #include <SDL.h>
 #include <string>
 #include <map>
+#include <vector>
 
 /*********************************************/
 
@@ -29,6 +30,7 @@ class App
 {
 private:
 	std::map<std::string, std::string> data;
+	std::vector<std::string> exec;
 public:
 	/*std::string name;
 	std::string target;
@@ -39,6 +41,9 @@ public:
 	std::map<std::string, std::string>& GetAllData();
 	std::string GetData(std::string key, std::string defaultValue);
 	void SetData(std::string key, std::string value);
+
+	std::vector<std::string> GetExec();
+	void SetExec(std::vector<std::string> exec);
 
 	App();
 };

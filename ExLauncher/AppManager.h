@@ -40,6 +40,8 @@ private:
 	std::vector<App*>* FindOrCreateCategory(std::string category);
 	void AddApp(App* app);
 	void FindAndRemoveAppFromRecent(std::string appId);
+	void LoadAllAppsXml();
+	void LoadAppXml(std::string path);
 public:
 	AppManager();
 	~AppManager();

@@ -110,7 +110,7 @@ void RecentAppView::FillViewWithRecent()
 		{
 			SetId(app->GetData("id", ""));
 			SetAction("app");
-			SetActionArgs({ "opkrun", "-m", app->GetData("metadata", ""), app->GetData("path", "") });
+			SetActionArgs(app->GetExec());
 
 			v->FillDataAll(app->GetAllData());
 

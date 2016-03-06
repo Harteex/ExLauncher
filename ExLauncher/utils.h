@@ -34,4 +34,6 @@ double clip(double val, double min, double max);
 void measureTimeStart();
 double measureTimeFinish();
 std::vector<std::string> getDirectories(std::string path);
+std::vector<std::string> getFilesByExtension(std::string path, std::string extension);
 std::string getCapitalizedString(std::string str);
+bool stringEndsWith(std::string const& str, std::string const& end);

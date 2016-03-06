@@ -179,25 +179,94 @@ vector<string> getDirectories(string path)
 
 #else
 	DIR* dirp = opendir(path.c_str());
-
-	struct dirent* entry;
-	while ((entry = readdir(dirp)) != NULL)
+	if (dirp != nullptr)
 	{
-		if (entry->d_type == DT_DIR)
+		struct dirent* entry;
+		while ((entry = readdir(dirp)) != NULL)
 		{
-			if (string(".") != entry->d_name && string("..") != entry->d_name)
-				directories.push_back(entry->d_name);
+			if (entry->d_type == DT_DIR)
+			{
+				if (string(".") != entry->d_name && string("..") != entry->d_name)
+					directories.push_back(entry->d_name);
+			}
 		}
-	}
 
-	closedir(dirp);
+		closedir(dirp);
+	}
 #endif
 
 	return directories;
+}
+
+vector<string> getFilesByExtension(string path, string extension)
+{
+	vector<string> files;
+
+#ifdef WINDOWS
+	WIN32_FIND_DATA ffd;
+	HANDLE hFind;
+
+	string pathMatch = path;
+	pathMatch += "*";
+	if (!extension.empty())
+	{
+		pathMatch += ".";
+		pathMatch += extension;
+	}
+
+	hFind = FindFirstFile(pathMatch.c_str(), &ffd);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if (ffd.dwFileAttributes & FILE_ATTRIBUTE_NORMAL ||
+				ffd.dwFileAttributes & FILE_ATTRIBUTE_ARCHIVE ||
+				ffd.dwFileAttributes & FILE_ATTRIBUTE_COMPRESSED ||
+				ffd.dwFileAttributes & FILE_ATTRIBUTE_READONLY)
+			{
+				if (string(".") != ffd.cFileName && string("..") != ffd.cFileName)
+					files.push_back(ffd.cFileName);
+			}
+		} while (FindNextFile(hFind, &ffd) != 0);
+
+		FindClose(hFind);
+	}
+
+#else
+	DIR* dirp = opendir(path.c_str());
+	if (dirp != nullptr)
+	{
+		struct dirent* entry;
+		while ((entry = readdir(dirp)) != NULL)
+		{
+			if (entry->d_type == DT_REG && string(".") != entry->d_name && string("..") != entry->d_name)
+			{
+				if (extension.empty() || stringEndsWith(entry->d_name, string(".") + extension))
+					files.push_back(entry->d_name);
+			}
+		}
+
+		closedir(dirp);
+	}
+#endif
+
+	return files;
 }
 
 string getCapitalizedString(string str)
 {
 	str[0] = std::toupper(str[0]);
 	return str;
+}
+
+bool stringEndsWith(std::string const& str, std::string const& end)
+{
+	if (str.length() >= end.length())
+	{
+		return (0 == str.compare(str.length() - end.length(), end.length(), end));
+	}
+	else
+	{
+		return false;
+	}
 }

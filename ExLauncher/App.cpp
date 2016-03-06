@@ -45,3 +45,13 @@ void App::SetData(string key, string value)
 {
 	data[key] = value;
 }
+
+vector<string> App::GetExec()
+{
+	return exec;
+}
+
+void App::SetExec(vector<string> exec)
+{
+	this->exec = exec;
+}
