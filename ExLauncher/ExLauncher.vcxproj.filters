@@ -384,9 +384,6 @@
     <Image Include="data\themes\test\markerBg.png">
       <Filter>Resource Files\data\themes\test</Filter>
     </Image>
-    <Image Include="data\themes\exlauncher\appIconDefault.png">
-      <Filter>Resource Files\data\themes\exlauncher</Filter>
-    </Image>
     <Image Include="data\themes\exlauncher\ic_applications.png">
       <Filter>Resource Files\data\themes\exlauncher</Filter>
     </Image>
@@ -399,8 +396,8 @@
     <Image Include="data\themes\exlauncher\ic_settings.png">
       <Filter>Resource Files\data\themes\exlauncher</Filter>
     </Image>
-    <Image Include="data\themes\tabbed\appIconDefault.png">
-      <Filter>Resource Files\data\themes\tabbed</Filter>
+    <Image Include="data\graphics\appIconDefault.png">
+      <Filter>Resource Files\data\graphics</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

@@ -46,15 +46,21 @@ bool ScreenManager::Init()
 
 bool ScreenManager::LoadGlobalResources()
 {
-	if (GetResourceManager()->GetTTFFont("semibold", 18) == NULL)
+	if (GetResourceManager()->GetTTFFont("semibold", 18) == nullptr)
 	{
 		lastError = "Failed to load data/fonts/OpenSans-Semibold.ttf";
 		return false;
 	}
 
-	if (GetResourceManager()->GetTTFFont("semibold", 12) == NULL)
+	if (GetResourceManager()->GetTTFFont("semibold", 12) == nullptr)
 	{
 		lastError = "Failed to load data/fonts/OpenSans-Semibold.ttf";
+		return false;
+	}
+
+	if (GetResourceManager()->LoadImage("appIconDefault", "data/graphics/appIconDefault.png") == nullptr)
+	{
+		lastError = "Failed to load data/graphics/appIconDefault.png";
 		return false;
 	}
 

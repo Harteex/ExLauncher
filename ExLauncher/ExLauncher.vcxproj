@@ -140,17 +140,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="data\graphics\appIconDefault.png" />
     <Image Include="data\graphics\ic_exit.png" />
     <Image Include="data\graphics\ic_info.png" />
     <Image Include="data\graphics\ic_reboot.png" />
     <Image Include="data\graphics\ic_shutdown.png" />
-    <Image Include="data\themes\exlauncher\appIconDefault.png" />
     <Image Include="data\themes\exlauncher\ic_applications.png" />
     <Image Include="data\themes\exlauncher\ic_emulators.png" />
     <Image Include="data\themes\exlauncher\ic_games.png" />
     <Image Include="data\themes\exlauncher\ic_settings.png" />
     <Image Include="data\themes\exlauncher\tilehighlight.png" />
-    <Image Include="data\themes\tabbed\appIconDefault.png" />
     <Image Include="data\themes\test\appIconDefault.png" />
     <Image Include="data\themes\test\markerBg.png" />
   </ItemGroup>

@@ -214,7 +214,10 @@ bool AppManager::LoadApps()
 					// FIXME do not try to load icon if none is specified
 					string iconId = opkPath + "/" + app->GetData("iconName", "");
 					app->SetData("iconId", iconId);
-					resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");
+					
+					SDL_Texture* iconTexture = resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");
+					if (iconTexture == nullptr)
+						app->SetData("iconId", "appIconDefault");
 
 					AddApp(app);
 				}
