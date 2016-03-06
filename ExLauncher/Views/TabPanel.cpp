@@ -68,7 +68,7 @@ void TabPanel::OnLayoutChange()
 		v->SetRelativePosition(Position(childMargin.left, childMargin.top) + Position(0, tabAreaSize.h));
 		Size sizeAreaForChild;
 		sizeAreaForChild.w = max(calculatedSize.w - (childMargin.left + childMargin.right), 0);
-		sizeAreaForChild.h = max(calculatedSize.h - (childMargin.top + childMargin.bottom), 0);
+		sizeAreaForChild.h = max(calculatedSize.h - (childMargin.top + childMargin.bottom) - tabAreaSize.h, 0);
 		v->CalculateLayout(sizeAreaForChild);
 	}
 }

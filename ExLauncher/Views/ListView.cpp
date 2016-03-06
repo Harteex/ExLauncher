@@ -101,6 +101,7 @@ View* ListView::Copy()
 	CopyBase(view);
 	view->SetOrientation(orientation);
 	view->SetItemSize(itemSize);
+	view->SetContentInset(leadingContentInset, trailingContentInset);
 
 	return view;
 }

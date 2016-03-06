@@ -104,6 +104,7 @@ View* GridView::Copy()
 	view->SetOrientation(orientation);
 	view->SetGridSpacing(gridSpacing);
 	view->SetItemSize(itemSize);
+	view->SetContentInset(leadingContentInset, trailingContentInset);
 
 	return view;
 }
