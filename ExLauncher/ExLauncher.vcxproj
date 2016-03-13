@@ -37,6 +37,7 @@
     <ClCompile Include="ThemeManager.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="ViewSystem\CollectionView.cpp" />
+    <ClCompile Include="ViewSystem\LayoutHelper.cpp" />
     <ClCompile Include="ViewSystem\ScrollView.cpp" />
     <ClCompile Include="ViewSystem\View.cpp" />
     <ClCompile Include="Views\FramePanel.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="utils.h" />
     <ClInclude Include="ViewSystem\CollectionView.h" />
     <ClInclude Include="ViewSystem\ISelectionHandler.h" />
+    <ClInclude Include="ViewSystem\LayoutHelper.h" />
     <ClInclude Include="ViewSystem\ScrollView.h" />
     <ClInclude Include="ViewSystem\View.h" />
     <ClInclude Include="Views\FramePanel.h" />
@@ -170,7 +172,9 @@
     <Xml Include="data\themes\test\appTemplate.xml" />
     <Xml Include="data\themes\test\contentsizebug.xml" />
     <Xml Include="data\themes\test\grid.xml" />
+    <Xml Include="data\themes\test\griditemtest.xml" />
     <Xml Include="data\themes\test\list.xml" />
+    <Xml Include="data\themes\test\listitemtest.xml" />
     <Xml Include="data\themes\test\recentAppTemplate.xml" />
     <Xml Include="data\themes\test\tab.xml" />
     <Xml Include="data\themes\test\test.xml" />

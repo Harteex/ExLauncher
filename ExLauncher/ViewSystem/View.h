@@ -141,7 +141,6 @@ public:
 	void FillDataAll(std::map<std::string, std::string>& data);
 	void PropagateStateChange(std::string stateName, std::string stateValue);
 	virtual void OnStateChange(std::string stateName, std::string stateValue);
-	Position GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity);
 	/*virtual void SetTransition(TransitionEffect effect, double value) = 0;
 	virtual void ClearTransitions();*/
 };

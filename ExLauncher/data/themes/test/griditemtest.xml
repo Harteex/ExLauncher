@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
+  id="inputView"
+  width="*"
+  height="*"
+  itemWidth="50"
+  itemHeight="50"
+  orientation="vertical">
+
+  <RectangleShape
+    width="10"
+    height="10"
+    strokeColor="green"
+    strokeWidth="1"
+    layoutMargin="10 0 0 0" />
+
+  <RectangleShape
+    width="10"
+    height="10"
+    strokeColor="green"
+    strokeWidth="1"
+    layoutMargin="10 0 0 0"
+    layoutGravity="bottom|right" />
+  
+</GridView>

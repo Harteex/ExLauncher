@@ -19,6 +19,7 @@ limitations under the License.
 #include <sstream>
 #include <algorithm>
 #include "FramePanel.h"
+#include "../ViewSystem/LayoutHelper.h"
 
 using namespace std;
 
@@ -85,12 +86,12 @@ void ListView::OnLayoutChange()
 		View* v = children.at(i);
 
 		// TODO Possibly wait with doing this until necessary (lazy loading). Do it on draw instead, if it's not initialized.
-		v->CalculateLayout(sizeAvailableForChild);
+		LayoutHelper::LayoutChildInContainer(sizeAvailableForChild, v);
 
 		if (orientation == OrientationHorizontal)
-			v->SetRelativePosition(i * sizeAvailableForChild.w + leadingContentInset, 0);
+			v->SetRelativePosition(v->GetRelativePosition() + Position(i * sizeAvailableForChild.w + leadingContentInset, 0));
 		else
-			v->SetRelativePosition(0, i * sizeAvailableForChild.h + leadingContentInset);
+			v->SetRelativePosition(v->GetRelativePosition() + Position(0, i * sizeAvailableForChild.h + leadingContentInset));
 	}
 }
 
@@ -104,22 +105,6 @@ View* ListView::Copy()
 	view->SetContentInset(leadingContentInset, trailingContentInset);
 
 	return view;
-}
-
-void ListView::AddChildView(View* view)
-{
-	// Instead of duplicating much layouting logic for children in ListView, wrap children in a FramePanel
-	FramePanel* framePanel = new FramePanel();
-	framePanel->SetSize(SIZE_FILL_PARENT, SIZE_FILL_PARENT);
-	framePanel->SetAction(view->GetAction());
-	framePanel->SetActionArgs(view->GetActionArgs());
-	framePanel->SetName(view->GetName());
-	framePanel->SetId(view->GetId());
-
-	view->SetId("");
-
-	framePanel->AddChildView(view);
-	View::AddChildView(framePanel);
 }
 
 Orientation ListView::GetOrientation()

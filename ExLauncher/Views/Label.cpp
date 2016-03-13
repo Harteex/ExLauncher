@@ -20,6 +20,7 @@ limitations under the License.
 #include <sstream>
 #include <limits.h>
 #include "../ScreenSystem/Screen.h"
+#include "../ViewSystem/LayoutHelper.h"
 
 using namespace std;
 
@@ -120,7 +121,7 @@ void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 	r.w = contentSize.w;
 	r.h = contentSize.h;
 
-	Position gravityOffset = GetGravityOffset(contentSize, calculatedSize, gravity);
+	Position gravityOffset = LayoutHelper::GetGravityOffset(contentSize, calculatedSize, gravity);
 	r.x += gravityOffset.x;
 	r.y += gravityOffset.y;
 

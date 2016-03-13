@@ -58,6 +58,7 @@ set(CPPFILES
 	ExLauncher/ViewSystem/CollectionView.cpp
 	ExLauncher/ViewSystem/ScrollView.cpp
 	ExLauncher/ViewSystem/View.cpp
+	ExLauncher/ViewSystem/LayoutHelper.cpp
 	ExLauncher/AppManager.cpp
 	ExLauncher/HomeDirectory.cpp
 	ExLauncher/ScreenSystem/ScreenManager.cpp

@@ -670,26 +670,6 @@ void View::OnStateChange(string stateName, string stateValue)
 {
 }
 
-Position View::GetGravityOffset(Size childSize, Size containerSize, int childLayoutGravity)
-{
-	Size freeSpace = containerSize - childSize;
-
-	int gravityOffsetW = 0;
-	int gravityOffsetH = 0;
-
-	if ((childLayoutGravity & GRAVITY_HCENTER) > 0)
-		gravityOffsetW = freeSpace.w / 2;
-	else if ((childLayoutGravity & GRAVITY_RIGHT) > 0)
-		gravityOffsetW = freeSpace.w;
-
-	if ((childLayoutGravity & GRAVITY_VCENTER) > 0)
-		gravityOffsetH = freeSpace.h / 2;
-	else if ((childLayoutGravity & GRAVITY_BOTTOM) > 0)
-		gravityOffsetH = freeSpace.h;
-
-	return Position(gravityOffsetW, gravityOffsetH);
-}
-
 string View::FindAndReplace(string origString, map<string, string>& values)
 {
 	int searchFrom = 0;

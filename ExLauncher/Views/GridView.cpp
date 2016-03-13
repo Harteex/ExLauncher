@@ -16,6 +16,7 @@ limitations under the License.
 
 #include "GridView.h"
 #include <sstream>
+#include "../ViewSystem/LayoutHelper.h"
 
 using namespace std;
 
@@ -91,8 +92,8 @@ void GridView::OnLayoutChange()
 			topContentInset = leadingContentInset;
 		}
 
-		v->CalculateLayout(itemSize);
-		v->SetRelativePosition(Position(curColumn * (itemSize.w + gridSpacing.w) + leftContentInset, curRow * (itemSize.h + gridSpacing.h) + topContentInset));
+		LayoutHelper::LayoutChildInContainer(itemSize, v);
+		v->SetRelativePosition(v->GetRelativePosition() + Position(curColumn * (itemSize.w + gridSpacing.w) + leftContentInset, curRow * (itemSize.h + gridSpacing.h) + topContentInset));
 	}
 }
 

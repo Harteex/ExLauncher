@@ -41,7 +41,6 @@ public:
 	void OnInitialize();
 	void OnLayoutChange();
 	View* Copy();
-	void AddChildView(View* view);
 
 	Orientation GetOrientation();
 	void SetOrientation(Orientation orientation);

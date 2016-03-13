@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../../schema/screen.xsd"
+  id="inputView"
+  width="*"
+  height="*"
+  itemSize="30"
+  orientation="vertical">
+
+  <Label
+    width="wrap_content"
+    height="*"
+    text="test one right aligned"
+    layoutGravity="right" />
+
+  <Label
+    width="wrap_content"
+    height="*"
+    text="test again"
+    layoutGravity="right" />
+
+  <Label
+    width="wrap_content"
+    height="*"
+    text="no gravity" />
+
+  <Label
+    width="wrap_content"
+    height="*"
+    text="center gravity"
+    layoutGravity="center_horizontal" />
+
+  <Label
+    width="wrap_content"
+    height="*"
+    text="center gravity + left margin"
+    layoutGravity="center_horizontal"
+    layoutMargin="0 0 40 0" />
+  
+</ListView>

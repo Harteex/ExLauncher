@@ -16,6 +16,7 @@ limitations under the License.
 
 #include "FramePanel.h"
 #include <algorithm>
+#include "../ViewSystem/LayoutHelper.h"
 
 using namespace std;
 
@@ -74,7 +75,7 @@ void FramePanel::OnLayoutChange()
 	{
 		View* v = children.at(i);
 
-		Position gravityOffset = GetGravityOffset(childSizes[i], containerSize, children[i]->GetLayoutGravity());
+		Position gravityOffset = LayoutHelper::GetGravityOffset(childSizes[i], containerSize, children[i]->GetLayoutGravity());
 		v->SetRelativePosition(v->GetRelativePosition() + gravityOffset);
 	}
 

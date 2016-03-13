@@ -72,4 +72,20 @@
       text="Go to font test" />
   </Item>
 
+  <Item
+    action="screen:@theme/griditemtest.xml">
+    <Label
+      width="*"
+      height="wrap_content"
+      text="Go to grid item margin and gravity test" />
+  </Item>
+
+  <Item
+  action="screen:@theme/listitemtest.xml">
+    <Label
+      width="*"
+      height="wrap_content"
+      text="Go to list item margin and gravity test" />
+  </Item>
+
 </ListView>
