@@ -118,6 +118,10 @@ void RecentAppView::FillViewWithRecent()
 		}
 		else
 		{
+			map<string, string> tempMap;
+			tempMap["iconId"] = "appIconDefault";
+			v->FillDataAll(tempMap);
+
 			PropagateStateChange("stateRecentType", "noItem");
 		}
 	}

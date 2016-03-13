@@ -37,8 +37,7 @@
           height="32"
           layoutMargin="12 0 0 0"
           layoutGravity="center_horizontal"
-          path="{iconId}"
-          altPath="@theme/appIconDefault.png"/>
+          path="{iconId}" />
         <Label
           width="*"
           height="wrap_content"
