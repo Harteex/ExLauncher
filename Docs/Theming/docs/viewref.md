@@ -100,7 +100,7 @@ Defines how far from the border a selected view should be. Leading and trailing 
 
 ## TabPanel
 
-The TabPanel displays its children under each own tab. For the tabs' labels, the name attribute will be used.
+The TabPanel displays its children as the content under each tab. For the tabs' labels, the name attribute will be used. The tabs are not currently customizable. 
 
 *No specific attributes*
 
