@@ -8,40 +8,40 @@
     orientation="vertical"
     layoutMargin="5">
       <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/ButtonA.png"/>
       <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/smallSmoke.png"/>
       <GridView
           id="itemContainer"
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           orientation="horizontal"
           itemCountSecondaryDirection="2"
           layoutMargin="5">
         <Image
-            width="wrap_content"
-            height="wrap_content"
+            width="content"
+            height="content"
             path="data/graphics/testicon1.png"/>
         <Image
-            width="wrap_content"
-            height="wrap_content"
+            width="content"
+            height="content"
             path="data/graphics/testicon1.png"/>
         <Image
-            width="wrap_content"
-            height="wrap_content"
+            width="content"
+            height="content"
             path="data/graphics/testicon1.png"/>
         <Image
-            width="wrap_content"
-            height="wrap_content"
+            width="content"
+            height="content"
             path="data/graphics/testicon1.png"/>
       </GridView>
       <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/testicon1.png"/>
       <Image
           width="*"

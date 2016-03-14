@@ -9,7 +9,7 @@
 
   <ListView
     id="inputView"
-    width="wrap_content"
+    width="content"
     height="40"
     orientation="horizontal"
     itemSize="52"
@@ -121,8 +121,8 @@
 
   <Label
       id="selectionLabel"
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       layoutGravity="center_horizontal"
       layoutMargin="6 0 0 0"
       text="testtext goes here" />

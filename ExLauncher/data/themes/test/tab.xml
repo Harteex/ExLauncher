@@ -23,8 +23,8 @@
     height="*"
     name="testtab1">
     <Label
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       text="lol"
       textColor="#ff8080" />
   </LinearPanel>
@@ -34,16 +34,16 @@
     height="*"
     name="testtab2">
     <Label
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       text="omg!"
       textSize="24"
       font="light" />
   </LinearPanel>
   
   <Label
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       name="aaaaaaaaaaaaaaaaaaaaaa"
       text="aaaaaaaaaaaaaaaaaaaaaa" />
   

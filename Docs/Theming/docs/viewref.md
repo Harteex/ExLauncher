@@ -5,9 +5,9 @@
 Some attributes are applicable to all (or most) views.
 
 #### width / height
-Width and height are defined by either a value in pixels, * or **wrap_content**.
-If * is specified, the view will fill the parent view. If multiple child views for a view specify *, the children will share the space.
-The value wrap_content means the view will calculate its size from its child views.
+Width and height are defined by either a value in pixels, \* or **content**.
+If \* is specified, the view will fill the parent view. If multiple child views for a view specify \*, the children will share the space.
+The value *content* means the view will calculate its size from the content, which is its child views.
 
 #### id
 Id is set so that ExLauncher can find some specific views. An example of an id value is **inputView**. ExLauncher will search for the inputView View and use this for key input.

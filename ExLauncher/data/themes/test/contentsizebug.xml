@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Screen title="">
   <LinearPanel
-    width="wrap_content"
-    height="wrap_content">
+    width="content"
+    height="content">
     <GridView
       id="inputView"
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       orientation="vertical"
       itemCountSecondaryDirection="4"
       itemTemplate="@theme/appTemplate.xml"

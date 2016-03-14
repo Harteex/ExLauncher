@@ -7,14 +7,14 @@
       height="*">
     <State stateSelected="true">
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="@theme/markerBg.png"/>
     </State>
     <State stateRecentType="recentItem">
       <LinearPanel
         width="*"
-        height="wrap_content"
+        height="content"
         orientation="vertical"
         layoutGravity="center_horizontal">
         <Image
@@ -25,7 +25,7 @@
           altPath="@theme/appIconDefault.png"/>
         <Label
           width="*"
-          height="wrap_content"
+          height="content"
           text="{name}"
           gravity="center_horizontal"/>
       </LinearPanel>
@@ -33,7 +33,7 @@
     <State stateRecentType="noItem">
       <Label
         width="*"
-        height="wrap_content"
+        height="content"
         text="No Recent"
         gravity="center_horizontal"/>
     </State>

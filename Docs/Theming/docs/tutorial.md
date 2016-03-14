@@ -55,8 +55,8 @@ Let's start by adding a text label to the LinearPanel. The view name for a text 
 	  height="*">
 
 	  <Label
-		width="wrap_content"
-		height="wrap_content"
+		width="content"
+		height="content"
 		text="My awesome theme"
 		textSize="24"
 		textColor="white"
@@ -68,7 +68,7 @@ Let's start by adding a text label to the LinearPanel. The view name for a text 
 
 You may notice that the linear panel and the label use different values for width and height. The linear panel uses a star, which means it will size itself so that it fills its parent. As the linear panel already is highest in the hierarchy, it will fill the screen.
 
-The label instead uses **wrap_content**, which means it will have the size of its content. In other words, the size will be just large enough to display the text in it.
+The label instead uses **content**, which means it will have the size of its content. In other words, the size will be just large enough to display the text in it.
 
 Next up we want to show categories of apps for the user to select. For this tutorial we will use a simple list for this purpose.
 
@@ -84,8 +84,8 @@ The list view also requires another attribute, **itemSize**. If the orientation 
 	  orientation="vertical">
 
 	  <Label
-		width="wrap_content"
-		height="wrap_content"
+		width="content"
+		height="content"
 		text="My awesome theme"
 		textSize="24"
 		textColor="white"
@@ -252,7 +252,7 @@ appTemplate.xml
 
       <LinearPanel
         width="*"
-        height="wrap_content"
+        height="content"
         orientation="vertical"
         layoutGravity="center_horizontal"
         layoutMargin="0 2 0 0">
@@ -263,7 +263,7 @@ appTemplate.xml
           path="{iconId}" />
         <Label
           width="*"
-          height="wrap_content"
+          height="content"
           text="{name}"
           gravity="center_horizontal"/>
       </LinearPanel>
@@ -393,7 +393,7 @@ Add the following child to the tab panel. It can be added above or below the tab
       <ListView.ItemTemplate>
         <Label 
           width="*"
-          height="wrap_content"
+          height="content"
           layoutGravity="center_vertical"
           text="{name}" />
       </ListView.ItemTemplate>

@@ -19,7 +19,7 @@
   </Selector>
   <LinearPanel
     width="*"
-    height="wrap_content"
+    height="content"
     orientation="vertical"
     layoutGravity="center_horizontal|bottom"
     layoutMargin="0 2 0 0">
@@ -30,7 +30,7 @@
       path="{iconId}" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="{name}"
       gravity="center_horizontal"/>
   </LinearPanel>

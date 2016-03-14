@@ -56,7 +56,7 @@ void TabPanel::OnDraw(SDL_Renderer* renderer, Position offset)
 
 void TabPanel::OnLayoutChange()
 {
-	contentSize = calculatedSize; // This will cause (0, 0) on wrap_content usage, but it's ok since we don't support wrap_content here
+	contentSize = calculatedSize; // This will cause (0, 0) on wrap content usage, but it's ok since we don't support wrap content here
 
 	tabStrip->CalculateLayout(calculatedSize);
 

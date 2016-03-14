@@ -504,7 +504,7 @@ bool View::SetProperty(string name, string value)
 	}
 	else if (name == "width")
 	{
-		if (value == "wrap_content")
+		if (value == "content")
 			size.w = SIZE_WRAP_CONTENT;
 		else if (value == "*")
 			size.w = SIZE_FILL_PARENT;
@@ -521,7 +521,7 @@ bool View::SetProperty(string name, string value)
 	}
 	else if (name == "height")
 	{
-		if (value == "wrap_content")
+		if (value == "content")
 			size.h = SIZE_WRAP_CONTENT;
 		else if (value == "*")
 			size.h = SIZE_FILL_PARENT;

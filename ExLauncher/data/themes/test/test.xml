@@ -2,12 +2,12 @@
 <Screen title="">
   <!--<TabView tabsVisible="true" tabBackground="" tabBackgroundFocus="">-->
   <LinearPanel
-    width="wrap_content"
-    height="wrap_content">
+    width="content"
+    height="content">
     <GridView
       id="inputView"
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       orientation="horizontal"
       itemCountSecondaryDirection="2"
       itemTemplate="@theme/appTemplate.xml"
@@ -15,29 +15,29 @@
       tag="fillItems|lol">
       <Label
         id="testlabel"
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         text="testlabel!{var}"/>
       <Item />
       <!--<Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/ButtonA.png"/>
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/smallSmoke.png"/>
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/testicon1.png"/>
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/testicon1.png"/>
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/testicon1.png"/>-->
     </GridView>
   </LinearPanel>

@@ -3,18 +3,18 @@
   width="77"
   height="50">
   <Selector
-      width="wrap_content"
-      height="wrap_content">
+      width="content"
+      height="content">
     <State stateSelected="true">
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="@theme/markerBg.png"/>
     </State>
   </Selector>
   <LinearPanel
     width="*"
-    height="wrap_content"
+    height="content"
     orientation="vertical"
     layoutGravity="center_horizontal">
     <Image
@@ -25,7 +25,7 @@
       altPath="@theme/appIconDefault.png"/>
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="{name}"
       gravity="center_horizontal"/>
   </LinearPanel>

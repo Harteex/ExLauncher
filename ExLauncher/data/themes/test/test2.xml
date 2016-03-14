@@ -7,32 +7,32 @@
     orientation="vertical"
     layoutMargin="5">
     <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/ButtonA.png"/>
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/smallSmoke.png"/>
       <LinearPanel
         width="*"
-        height="wrap_content">
+        height="content">
         <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/testicon1.png"/>
         <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/testicon1.png"/>
         <Image
           width="*"
-          height="wrap_content"
+          height="content"
           path="data/graphics/testicon1.png"/>
       </LinearPanel>
       <Image
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         path="data/graphics/testicon1.png"/>
       <Image
         width="*"

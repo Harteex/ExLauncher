@@ -10,61 +10,61 @@
     orientation="vertical">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test regular"
       font="regular" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test bold"
       font="bold" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test bold italic"
       font="bolditalic" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test condensed bold"
       font="condensedbold" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test condensed light"
       font="condensedlight" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test condensed light italic"
       font="condensedlightitalic" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test italic"
       font="italic" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test light"
       font="light" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test light italic"
       font="lightitalic" />
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test semi bold"
       font="semibold" />
@@ -75,7 +75,7 @@
     orientation="vertical">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       textSize="16"
       text="test semi bold italic"
       font="semibolditalic" />

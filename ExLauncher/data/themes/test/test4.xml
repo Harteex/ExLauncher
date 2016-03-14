@@ -8,32 +8,32 @@
     orientation="vertical"
     layoutMargin="5">
       <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/ButtonA.png"
           layoutGravity="right|center_vertical"/>
       <LinearPanel
-        width="wrap_content"
-        height="wrap_content"
+        width="content"
+        height="content"
         orientation="horizontal"
         layoutMargin="5">
         <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/ButtonA.png"/>
         <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/ButtonA.png"/>
         <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           path="data/graphics/ButtonA.png"
           layoutMargin="15"/>
       </LinearPanel>
       <Image
           width="*"
-          height="wrap_content"
+          height="content"
           path="data/graphics/testicon1.png"
           layoutMargin="15"/>
   </LinearPanel>

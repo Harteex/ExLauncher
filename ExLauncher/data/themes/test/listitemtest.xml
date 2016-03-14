@@ -10,30 +10,30 @@
   orientation="vertical">
 
   <Label
-    width="wrap_content"
+    width="content"
     height="*"
     text="test one right aligned"
     layoutGravity="right" />
 
   <Label
-    width="wrap_content"
+    width="content"
     height="*"
     text="test again"
     layoutGravity="right" />
 
   <Label
-    width="wrap_content"
+    width="content"
     height="*"
     text="no gravity" />
 
   <Label
-    width="wrap_content"
+    width="content"
     height="*"
     text="center gravity"
     layoutGravity="center_horizontal" />
 
   <Label
-    width="wrap_content"
+    width="content"
     height="*"
     text="center gravity + left margin"
     layoutGravity="center_horizontal"

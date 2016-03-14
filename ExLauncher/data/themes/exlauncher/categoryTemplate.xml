@@ -19,8 +19,8 @@
     </State>
   </Selector>
   <Image
-      width="wrap_content"
-      height="wrap_content"
+      width="content"
+      height="content"
       path="@theme/tilehighlight.png" />
   <Image
     width="32"
@@ -30,7 +30,7 @@
     path="@theme/ic_applications.png" />
   <Label
     width="*"
-    height="wrap_content"
+    height="content"
     text="{categoryName}"
     font="semibold"
     textColor="white"

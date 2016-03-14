@@ -25,13 +25,13 @@
         width="*"
         height="*">
         <Image
-          width="wrap_content"
-          height="wrap_content"
+          width="content"
+          height="content"
           layoutGravity="center_vertical"
           layoutMargin="2"
           path="@theme/appIconDefault.png"/>
         <Label
-          width="wrap_content"
+          width="content"
           height="*"
           gravity="center_vertical"
           layoutMargin="6"

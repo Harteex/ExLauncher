@@ -8,7 +8,7 @@
   orientation="vertical">
   <Label
     width="280"
-    height="wrap_content"
+    height="content"
     layoutMargin="5"
     text="{categoryName}"
     textSize="26"

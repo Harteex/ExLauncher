@@ -10,7 +10,7 @@
   <ListView.ItemTemplate>
     <FramePanel
       width="*"
-      height="wrap_content">
+      height="content">
       <Selector
         width="*"
         height="20">
@@ -28,7 +28,7 @@
     action="screen:@theme/testoverview.xml:testvar=lol;testvar2=omg=bbq">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Press me {testvar}" />
   </Item>
 
@@ -36,7 +36,7 @@
     action="screen:@theme/tab.xml">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to tab view (noarg)" />
   </Item>
 
@@ -44,7 +44,7 @@
     action="screen:@theme/tab.xml:category=games">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to tab view (arg)" />
   </Item>
 
@@ -52,7 +52,7 @@
     action="screen:@theme/list.xml">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to list view" />
   </Item>
 
@@ -60,7 +60,7 @@
     action="screen:@theme/testrecent.xml">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to recent test view" />
   </Item>
 
@@ -68,7 +68,7 @@
     action="screen:@theme/testfonts.xml">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to font test" />
   </Item>
 
@@ -76,7 +76,7 @@
     action="screen:@theme/griditemtest.xml">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to grid item margin and gravity test" />
   </Item>
 
@@ -84,7 +84,7 @@
   action="screen:@theme/listitemtest.xml">
     <Label
       width="*"
-      height="wrap_content"
+      height="content"
       text="Go to list item margin and gravity test" />
   </Item>
 
