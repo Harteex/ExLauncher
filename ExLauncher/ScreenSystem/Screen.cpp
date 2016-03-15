@@ -28,6 +28,7 @@ Screen::Screen()
 	isExiting = false;
 	exited = false;
 	otherScreenHasFocus = true;
+	pinned = false;
 	popup = false;
 	screenManager = NULL;
 	arguments = new DataStore();
@@ -133,6 +134,11 @@ bool Screen::IsExiting()
 bool Screen::HasExited()
 {
 	return exited;
+}
+
+bool Screen::IsPinned()
+{
+	return pinned;
 }
 
 bool Screen::IsPopup()

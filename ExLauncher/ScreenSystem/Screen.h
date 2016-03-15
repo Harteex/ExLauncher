@@ -69,6 +69,10 @@ public:
 	// Returns true if the screen is exiting.
 	bool HasExited();
 
+	// Returns true if the screen is pinned.
+	// A pinned screen will not exit when ExitAllScreens is called on the ScreenManager, it will only exit if ExitScreen is called directly.
+	bool IsPinned();
+
 	// Returns true if the screen is a popup screen.
 	bool IsPopup();
 
@@ -110,6 +114,7 @@ protected:
 	DataStore* arguments;
 	ScreenState screenstate;
 	std::string lastError;
+	bool pinned;
 	bool popup;
 	double transitionPosition;
 	double transitionOnTime;

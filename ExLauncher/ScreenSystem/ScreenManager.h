@@ -47,13 +47,15 @@ private:
 	AppManager appManager;
 	SDL_Event event;
 	std::string lastError;
+
+	void DeleteAllScreens();
 public:
 	ScreenManager();
 	~ScreenManager();
 	void Draw();
 	void Update();
 	void AddScreen(Screen * screen);
-	void DeleteAllScreens();
+	void ExitAllScreens();
 	void Exit();
 	bool HasExit();
 	void TraceScreens();

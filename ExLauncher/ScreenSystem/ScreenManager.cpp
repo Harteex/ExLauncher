@@ -222,6 +222,15 @@ void ScreenManager::AddScreen(Screen * screen)
 	}
 }
 
+void ScreenManager::ExitAllScreens()
+{
+	for (list<Screen *>::iterator i = screens.begin(); i != screens.end(); i++)
+	{
+		if (!(*i)->IsPinned())
+			(*i)->ExitScreen();
+	}
+}
+
 void ScreenManager::DeleteAllScreens()
 {
 	for (list<Screen *>::iterator i = screens.begin(); i != screens.end(); i++)

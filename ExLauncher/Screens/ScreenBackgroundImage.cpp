@@ -28,6 +28,7 @@ ScreenBackgroundImage::ScreenBackgroundImage()
 	curImage = 0;
 	curTime = 0;
 	isInTransition = false;
+	pinned = true;
 
 	SetTimeBetweenImages(20);
 	SetTransitionTime(1);
