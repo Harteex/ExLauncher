@@ -30,6 +30,7 @@ limitations under the License.
 #include <algorithm>
 #include "ScreenAppLaunch.h"
 #include "ScreenSystemDialog.h"
+#include "ScreenSettingsSelectTheme.h"
 
 using namespace std;
 
@@ -397,6 +398,12 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 			{
 				if (eventArgs.empty())
 					return;
+
+				if (eventArgs[0] == "settingsChangeTheme")
+				{
+					screenManager->AddScreen(new ScreenSettingsSelectTheme());
+					return;
+				}
 
 				Position senderPos = sender->GetAbsolutePosition();
 				Size senderSize = sender->GetCalculatedSize();

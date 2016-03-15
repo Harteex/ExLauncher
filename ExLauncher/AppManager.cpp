@@ -479,6 +479,14 @@ bool AppManager::LoadApps()
 	AddApp(app);
 #endif
 
+	App* changeThemeApp = new App();
+	changeThemeApp->SetData("id", "settingsChangeTheme");
+	changeThemeApp->SetData("name", "Change Theme");
+	changeThemeApp->SetData("categories", "settings;");
+	changeThemeApp->SetData("iconId", "appIconDefault");
+	changeThemeApp->SetExec({ "settingsChangeTheme" });
+	AddApp(changeThemeApp);
+
 	return true;
 }
 

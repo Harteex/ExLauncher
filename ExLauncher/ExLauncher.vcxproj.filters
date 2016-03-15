@@ -186,6 +186,9 @@
     <ClCompile Include="ViewSystem\LayoutHelper.cpp">
       <Filter>Source Files\ViewSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Screens\ScreenSettingsSelectTheme.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -328,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="ViewSystem\LayoutHelper.h">
       <Filter>Source Files\ViewSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\ScreenSettingsSelectTheme.h">
+      <Filter>Source Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -496,6 +502,9 @@
     </Xml>
     <Xml Include="data\themes\test\listitemtest.xml">
       <Filter>Resource Files\data\themes\test</Filter>
+    </Xml>
+    <Xml Include="data\system\settingsSelectTheme.xml">
+      <Filter>Resource Files\data\system</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

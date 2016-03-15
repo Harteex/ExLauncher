@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearPanel
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../schema/screen.xsd"
+  width="*"
+  height="*"
+  orientation="vertical">
+
+  <Label 
+    width="content"
+    height="content"
+    text="Select a theme"
+    textSize="16"
+    font="regular" />
+
+  <ListView
+    id="inputView"
+    width="*"
+    height="*"
+    orientation="vertical"
+    itemSize="30"
+    layoutGravity="center_horizontal"
+    layoutMargin="12 0 0 0">
+
+    <ListView.ItemTemplate>
+      <FramePanel
+        width="*"
+        height="*">
+        <Selector
+          width="*"
+          height="*">
+          <State stateSelected="true">
+            <RectangleShape
+              width="*"
+              height="*"
+              strokeColor="white"
+              fillColor="#40ffffff"/>
+          </State>
+        </Selector>
+
+        <Label
+          width="*"
+          height="content"
+          text="{themeName}"
+          layoutGravity="center_vertical" />
+        
+      </FramePanel>
+    </ListView.ItemTemplate>
+    
+  </ListView>
+  
+</LinearPanel>

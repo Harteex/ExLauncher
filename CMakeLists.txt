@@ -37,6 +37,7 @@ set(CPPFILES
 	ExLauncher/Screens/ScreenBackgroundImage.cpp
 	ExLauncher/Screens/ScreenSystemInfo.cpp
 	ExLauncher/Screens/ScreenShutdown.cpp
+	ExLauncher/Screens/ScreenSettingsSelectTheme.cpp
 	ExLauncher/utils.cpp
 	ExLauncher/Animator.cpp
 	ExLauncher/Theme.cpp
