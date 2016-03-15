@@ -14,8 +14,16 @@
   <xs:simpleType name="font">
     <xs:restriction base="xs:string">
       <xs:enumeration value="regular" />
+      <xs:enumeration value="bold" />
+      <xs:enumeration value="bolditalic" />
+      <xs:enumeration value="condensedbold" />
+      <xs:enumeration value="condensedlight" />
+      <xs:enumeration value="condensedlightitalic" />
+      <xs:enumeration value="italic" />
       <xs:enumeration value="light" />
+      <xs:enumeration value="lightitalic" />
       <xs:enumeration value="semibold" />
+      <xs:enumeration value="semibolditalic" />
     </xs:restriction>
   </xs:simpleType>
 
