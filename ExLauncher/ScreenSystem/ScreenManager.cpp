@@ -106,6 +106,11 @@ AppManager* ScreenManager::GetAppManager()
 	return &appManager;
 }
 
+ThemeManager * ScreenManager::GetThemeManager()
+{
+	return &themeManager;
+}
+
 void ScreenManager::Draw()
 {
 	if (renderer == NULL)

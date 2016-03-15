@@ -38,10 +38,13 @@ public:
 	static std::string ProcessPath(std::string path);
 	static std::string GetCurrentThemeId();
 	static void SetTheme(std::string themeId);
+	static void LoadSettings();
+	static void SaveSettings();
 
 	void LoadThemes();
 	void UnloadThemes();
 	Theme* GetTheme(std::string id);
+	std::map<std::string, Theme*> GetAllThemes();
 };
 
 #endif

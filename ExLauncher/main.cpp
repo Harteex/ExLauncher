@@ -45,7 +45,7 @@ bool _resetFrameSkip = false;
 bool debugViewBounds = false;
 bool isLauncher = false;
 bool launchFailed = false;
-ThemeManager themeManager;
+bool dontUseThemeInConfig = false;
 
 bool initializeSDL()
 {
@@ -186,7 +186,10 @@ void parseArguments(int argc, char **argv)
 		else if (arg == "--debugViewBounds")
 			debugViewBounds = true;
 		else if (arg.substr(0, 8) == "--theme=")
+		{
 			ThemeManager::SetTheme(arg.substr(8));
+			dontUseThemeInConfig = true;
+		}
 	}
 }
 
@@ -251,9 +254,12 @@ mainStart:
 
 	setKeyBindings();
 
-	themeManager.LoadThemes();
-	// TODO read theme setting from config and set it
-	Theme* theme = themeManager.GetTheme(ThemeManager::GetCurrentThemeId());
+	screenManager->GetThemeManager()->LoadThemes();
+
+	if (!dontUseThemeInConfig)
+		screenManager->GetThemeManager()->LoadSettings();
+
+	Theme* theme = screenManager->GetThemeManager()->GetTheme(ThemeManager::GetCurrentThemeId());
 	string themeEntryPoint = "";
 	if (theme != nullptr)
 		themeEntryPoint = string("@theme/") + theme->GetEntryPoint();

@@ -16,8 +16,10 @@ limitations under the License.
 
 #include "ThemeManager.h"
 #include <sstream>
+#include <fstream>
 #include "utils.h"
 #include <iostream>
+#include "HomeDirectory.h"
 
 using namespace std;
 
@@ -52,6 +54,29 @@ std::string ThemeManager::GetCurrentThemeId()
 void ThemeManager::SetTheme(std::string themeId)
 {
 	curTheme = themeId;
+}
+
+void ThemeManager::LoadSettings()
+{
+	string configPath = HomeDirectory::GetConfigPath();
+	string recentFile = configPath + "/theme.cfg";
+
+	ifstream infile(recentFile);
+	std::string line;
+	if (std::getline(infile, line))
+	{
+		// FIXME make sure we have loaded the theme, if not use default
+		curTheme = line;
+	}
+}
+
+void ThemeManager::SaveSettings()
+{
+	string configPath = HomeDirectory::GetConfigPath();
+	string recentFile = configPath + "/theme.cfg";
+
+	ofstream outfile(recentFile, ios::out);
+	outfile << curTheme;
 }
 
 void ThemeManager::LoadThemes()
@@ -103,4 +128,9 @@ Theme * ThemeManager::GetTheme(std::string id)
 	{
 		return nullptr;
 	}
+}
+
+map<string, Theme*> ThemeManager::GetAllThemes()
+{
+	return themes;
 }

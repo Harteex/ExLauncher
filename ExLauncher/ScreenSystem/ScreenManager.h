@@ -24,6 +24,7 @@ limitations under the License.
 #include "../ResourceManager.h"
 /*#include "NetworkManager.h"*/
 #include "../AppManager.h"
+#include "../ThemeManager.h"
 #include "../structures.h"
 #include <list>
 #include <iostream>
@@ -45,6 +46,7 @@ private:
 	ResourceManager resourceManager;
 	/*NetworkManager networkManager;*/
 	AppManager appManager;
+	ThemeManager themeManager;
 	SDL_Event event;
 	std::string lastError;
 
@@ -67,6 +69,7 @@ public:
 	ResourceManager* GetResourceManager();
 	/*NetworkManager* GetNetworkManagerManager();*/
 	AppManager* GetAppManager();
+	ThemeManager* GetThemeManager();
 	void SetGameKeyBindings(int* keyMappingArray, int numberOfKeys);
 	std::string GetLastError();
 };
