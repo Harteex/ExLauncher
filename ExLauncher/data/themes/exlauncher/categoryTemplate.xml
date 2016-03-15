@@ -32,7 +32,7 @@
     width="*"
     height="content"
     text="{categoryName}"
-    font="semibold"
+    font="condensedbold"
     textColor="white"
     textSize="12"
     gravity="center_horizontal"

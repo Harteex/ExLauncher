@@ -485,9 +485,6 @@
     <Xml Include="data\themes\test\testfonts.xml">
       <Filter>Resource Files\data\themes\test</Filter>
     </Xml>
-    <Xml Include="data\themes\tabbed\apps.xml">
-      <Filter>Resource Files\data\themes\tabbed</Filter>
-    </Xml>
     <Xml Include="data\themes\tabbed\appTemplate.xml">
       <Filter>Resource Files\data\themes\tabbed</Filter>
     </Xml>

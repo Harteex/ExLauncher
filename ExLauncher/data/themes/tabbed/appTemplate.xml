@@ -32,6 +32,7 @@
       width="*"
       height="content"
       text="{name}"
-      gravity="center_horizontal"/>
+      gravity="center_horizontal"
+      font="condensedbold" />
   </LinearPanel>
 </FramePanel>

@@ -168,7 +168,6 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="data\themes\exlauncher\theme.xml" />
-    <Xml Include="data\themes\tabbed\apps.xml" />
     <Xml Include="data\themes\tabbed\appTemplate.xml" />
     <Xml Include="data\themes\tabbed\main.xml" />
     <Xml Include="data\themes\tabbed\theme.xml" />
