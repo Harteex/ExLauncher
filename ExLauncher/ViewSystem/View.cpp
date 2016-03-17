@@ -46,6 +46,14 @@ View::View()
 	actionArgs = vector<string>();
 }
 
+View::~View()
+{
+	for (View* v : children)
+		delete v;
+
+	children.clear();
+}
+
 string View::GetId()
 {
 	return id;

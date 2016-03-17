@@ -48,6 +48,8 @@ ScreenMenu::ScreenMenu(std::string layout)
 
 ScreenMenu::~ScreenMenu()
 {
+	if (contentView != nullptr)
+		delete contentView;
 }
 
 bool ScreenMenu::Initialize()

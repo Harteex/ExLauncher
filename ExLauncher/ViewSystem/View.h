@@ -80,7 +80,7 @@ protected:
 	std::string FindAndReplace(std::string origString, std::map<std::string, std::string>& values);
 public:
 	View();
-    virtual ~View() {}
+	virtual ~View();
 	void Initialize(Screen* context);
 	virtual void OnInitialize();
 	void InitializeAll(Screen* context);

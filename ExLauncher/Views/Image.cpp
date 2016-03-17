@@ -29,6 +29,7 @@ Image::Image()
 
 Image::~Image()
 {
+	// Images are loaded through the resource manager, and will be freed there.
 }
 
 void Image::OnInitialize()
