@@ -33,6 +33,13 @@ limitations under the License.
 #include <unistd.h>
 #include <stdlib.h>
 #endif
+#ifdef PLATFORM_GCW0
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <linux/fb.h>
+#endif
 
 using namespace std;
 
@@ -49,7 +56,7 @@ bool dontUseThemeInConfig = false;
 
 bool initializeSDL()
 {
-#ifdef UNIX
+#ifdef PLATFORM_GCW0
 	// Avoid the framebuffer being cleared on exit on the GCW Zero
 	setenv("SDL_FBCON_DONT_CLEAR", "1", 0);
 #endif
@@ -112,6 +119,17 @@ bool initializeSDL()
 	return true;
 }
 
+void RestoreFb()
+{
+#ifdef PLATFORM_GCW0
+	fb_var_screeninfo varInfo;
+	int fd = open("/dev/fb0", O_RDWR);
+	ioctl(fd, FBIOGET_VSCREENINFO, &varInfo);
+	varInfo.yoffset = varInfo.xoffset = 0;
+	ioctl(fd, FBIOPUT_VSCREENINFO, &varInfo);
+#endif
+}
+
 void terminateSDL()
 {
 	int audioTimesOpened, frequency, channels;
@@ -151,9 +169,11 @@ void terminateSDL()
 		SDLInited = false;
 	}
 
-#ifdef UNIX
+#ifdef PLATFORM_GCW0
 	unsetenv("SDL_FBCON_DONT_CLEAR");
 #endif
+
+	RestoreFb();
 }
 
 void setKeyBindings()
