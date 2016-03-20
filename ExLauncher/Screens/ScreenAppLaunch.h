@@ -32,6 +32,7 @@ private:
 	Box curBox;
 	std::string appId;
 	std::vector<std::string> exec;
+	int drawnFramesAfterTransition;
 public:
 	ScreenAppLaunch();
 	~ScreenAppLaunch();

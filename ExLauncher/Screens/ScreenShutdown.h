@@ -31,7 +31,7 @@ class ScreenShutdown : public Screen
 private:
 	View* contentView;
 	bool reboot;
-	bool hasDrawnLastFrame;
+	int drawnFramesAfterTransition;
 public:
 	ScreenShutdown();
 	ScreenShutdown(bool reboot);

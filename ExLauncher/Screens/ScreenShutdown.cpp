@@ -27,7 +27,7 @@ ScreenShutdown::ScreenShutdown()
 
 	contentView = NULL;
 	reboot = false;
-	hasDrawnLastFrame = false;
+	drawnFramesAfterTransition = 0;
 }
 
 ScreenShutdown::ScreenShutdown(bool reboot)
@@ -36,7 +36,7 @@ ScreenShutdown::ScreenShutdown(bool reboot)
 
 	contentView = NULL;
 	this->reboot = reboot;
-	hasDrawnLastFrame = false;
+	drawnFramesAfterTransition = 0;
 }
 
 ScreenShutdown::~ScreenShutdown()
@@ -79,7 +79,8 @@ void ScreenShutdown::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 {
 	Screen::Update(otherScreenHasFocus, coveredByOtherScreen);
 
-	if (hasDrawnLastFrame)
+	// Make sure we have drawn a few extra times because of double / triple buffering.
+	if (drawnFramesAfterTransition >= 3)
 	{
 		if (reboot)
 			screenManager->GetAppManager()->SetCommandToLaunch({ "/sbin/reboot" });
@@ -104,5 +105,5 @@ void ScreenShutdown::Draw(SDL_Renderer* renderer)
 		contentView->Draw();
         
 	if (TransitionHasFinished())
-		hasDrawnLastFrame = true;
+		drawnFramesAfterTransition++;
 }

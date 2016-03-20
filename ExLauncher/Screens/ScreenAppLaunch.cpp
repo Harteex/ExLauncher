@@ -23,6 +23,7 @@ ScreenAppLaunch::ScreenAppLaunch()
 {
 	exec = vector<string>();
 	popup = true;
+	drawnFramesAfterTransition = 0;
 	SetTransitionTime(0.2, 0.1);
 }
 
@@ -76,7 +77,10 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 	curBox.left = dBox.left * transitionPosition;
 	curBox.right = dispSize.w - dBox.right * transitionPosition;
 
-	if (TransitionHasFinished())
+	// Make sure we have drawn a few extra times because of double / triple buffering.
+	// If we don't do this, a launched game might use the other buffer and that will
+	// cause an image of the unfinished transition to appear for a short while.
+	if (drawnFramesAfterTransition >= 3)
 	{
 		if (appId.empty())
 			screenManager->GetAppManager()->SetCommandToLaunch(exec);
@@ -98,4 +102,7 @@ void ScreenAppLaunch::Draw(SDL_Renderer* renderer)
 	r.h = curBox.bottom - curBox.top;
 
 	SDL_RenderFillRect(renderer, &r);
+
+	if (TransitionHasFinished())
+		drawnFramesAfterTransition++;
 }
