@@ -21,7 +21,7 @@ limitations under the License.
 #define WINDOWS
 #endif
 
-#if defined(__unix) || defined(__unix__)
+#if defined(__unix) || defined(__unix__) || defined(__APPLE__)
 #define UNIX
 #endif
 
