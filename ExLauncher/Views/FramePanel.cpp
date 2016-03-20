@@ -49,7 +49,10 @@ void FramePanel::OnLayoutChange()
 
 		if (v->GetSize().w == SIZE_FILL_PARENT && size.w == SIZE_WRAP_CONTENT ||
 			v->GetSize().h == SIZE_FILL_PARENT && size.h == SIZE_WRAP_CONTENT)
+		{
+			delete[] childSizes;
 			throw runtime_error("cannot calculate layout size");
+		}
 
 		Box childMargin = v->GetLayoutMargin();
 		v->SetRelativePosition(Position(childMargin.left, childMargin.top));
