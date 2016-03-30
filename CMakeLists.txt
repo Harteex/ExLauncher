@@ -81,3 +81,16 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 		CXX_STANDARD_REQUIRED ON
 		CXX_EXTENSIONS OFF
 )
+
+find_library(LIBOPK opk)
+find_path(LIBOPK_INCLUDE_DIR opk.h)
+
+if (LIBOPK AND LIBOPK_INCLUDE_DIR)
+	option(ENABLE_OPK "Enable support for OPKs" ON)
+
+	if (ENABLE_OPK)
+		include_directories(${LIBOPK_INCLUDE_DIR})
+		target_link_libraries(${PROJECT_NAME} ${LIBOPK})
+		add_definitions(-DHAS_LIBOPK=1)
+	endif()
+endif()
