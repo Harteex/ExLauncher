@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(exlauncher C CXX)
 
-add_definitions(-std=c++11)
-
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(FindSDL2 REQUIRED)
@@ -76,4 +74,10 @@ target_link_libraries(${PROJECT_NAME}
 	${SDL2_IMAGE}
 	${SDL2_TTF}
 	${SDL2_MIXER}
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+		CXX_STANDARD 11
+		CXX_STANDARD_REQUIRED ON
+		CXX_EXTENSIONS OFF
 )
