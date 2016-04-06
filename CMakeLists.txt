@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(exlauncher C CXX)
 
-add_definitions(-std=c++11)
-
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(FindSDL2 REQUIRED)
@@ -77,3 +75,22 @@ target_link_libraries(${PROJECT_NAME}
 	${SDL2_TTF}
 	${SDL2_MIXER}
 )
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+		CXX_STANDARD 11
+		CXX_STANDARD_REQUIRED ON
+		CXX_EXTENSIONS OFF
+)
+
+find_library(LIBOPK opk)
+find_path(LIBOPK_INCLUDE_DIR opk.h)
+
+if (LIBOPK AND LIBOPK_INCLUDE_DIR)
+	option(ENABLE_OPK "Enable support for OPKs" ON)
+
+	if (ENABLE_OPK)
+		include_directories(${LIBOPK_INCLUDE_DIR})
+		target_link_libraries(${PROJECT_NAME} ${LIBOPK})
+		add_definitions(-DHAS_LIBOPK=1)
+	endif()
+endif()
