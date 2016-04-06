@@ -20,6 +20,7 @@ limitations under the License.
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "structures.h"
+#include <stdint.h>
 
 #define HCENTER				1
 #define VCENTER				2
