@@ -51,7 +51,7 @@ void Theme::LoadTheme()
 	xml_node<> * startNode = NULL;
 	startNode = doc.first_node();
 
-	if (startNode == NULL && startNode->name() != "Theme")
+	if (startNode == NULL || startNode->name() != "Theme")
 		throw runtime_error("not a valid theme");
 
 	for (xml_node<> * node = startNode->first_node(); node; node = node->next_sibling())
