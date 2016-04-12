@@ -175,7 +175,7 @@ void AppManager::LoadAppXml(string path)
 		xml_node<> * startNode = NULL;
 		startNode = doc.first_node();
 
-		if (startNode == NULL || startNode->name() != "App")
+		if (startNode == NULL || strcmp(startNode->name(), "App") != 0)
 			throw runtime_error("not a valid app");
 
 		app = new App();
