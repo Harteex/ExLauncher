@@ -49,9 +49,6 @@
     <Filter Include="Resource Files\data\themes\exlauncher">
       <UniqueIdentifier>{d44ec99f-1917-4bf9-8cc1-c12b7dc904d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\data\schema">
-      <UniqueIdentifier>{b7370a75-4587-44c1-9193-596e46cc8a72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\data\themes\test">
       <UniqueIdentifier>{535cd0b3-1db3-4c83-9f2b-50657577ec59}</UniqueIdentifier>
     </Filter>
@@ -511,10 +508,5 @@
     <Text Include="data\themes\exlauncher\LICENSE.txt">
       <Filter>Resource Files\data\themes\exlauncher</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xsd Include="data\schema\screen.xsd">
-      <Filter>Resource Files\data\schema</Filter>
-    </Xsd>
   </ItemGroup>
 </Project>
