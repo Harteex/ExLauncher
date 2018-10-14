@@ -40,11 +40,11 @@ public:
 	void SetTimeBetweenImages(int seconds);
 	void SetTransitionTime(int seconds);
 	void HandleInput(InputState* input);
-	bool Initialize();
+	bool Initialize(Graphics& graphics);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	void AddImage(std::string id);
 protected:
-	void Draw(SDL_Renderer* renderer);
+	void Draw(Graphics& graphics);
 };
 
 /*********************************************/

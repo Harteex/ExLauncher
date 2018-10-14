@@ -37,9 +37,15 @@ private:
 	std::map<std::string, SDL_Texture*> images;
 	std::map<std::string, TTF_Font*> ttfFonts;
 	SDL_Renderer* renderer;
+
+	//SDL_Surface* LoadSurface(const char* filename);
+	SDL_Texture* LoadTexture(const char* filename);
+	SDL_Texture* LoadTexture(void* buffer, int size);
 public:
 	ResourceManager();
 	~ResourceManager();
+
+	SDL_Surface* LoadSurface(const char* filename);
 		
 	SDL_Texture* GetImage(std::string id);
 	void SetImage(std::string id, SDL_Texture* image);
@@ -48,6 +54,7 @@ public:
 #ifdef HAS_LIBOPK
 	SDL_Texture* LoadImageFromOpk(std::string id, struct OPK *opk, std::string filename);
 #endif
+	void UnloadImage(std::string id);
 	void UnloadImages();
 
 	/*BitmapFont* GetFont(string id);

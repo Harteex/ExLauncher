@@ -77,6 +77,9 @@ struct Rectangle
 	Rectangle(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) {}
 };
 
+#define BLACK 0xff000000
+#define WHITE 0xffffffff
+
 struct Color
 {
 	int r;
@@ -84,7 +87,8 @@ struct Color
 	int b;
 	int a;
 
-	Color() : r(0), g(0), b(0), a(0) {}
+	Color() : r(0), g(0), b(0), a(0xff) {}
+	Color(int r, int g, int b) : r(r), g(g), b(b), a(0xff) {}
 	Color(int r, int g, int b, int a) : r(r), g(g), b(b), a(a) {}
 	Color(unsigned int color) : r((color >> 16) & 0xff), g((color >> 8) & 0xff), b(color & 0xff), a((color >> 24) & 0xff) {}
 };

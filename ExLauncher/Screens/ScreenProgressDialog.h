@@ -36,12 +36,12 @@ public:
 	ScreenProgressDialog();
 	~ScreenProgressDialog();
 	void HandleInput(InputState* input);
-	bool Initialize();
+	bool Initialize(Graphics& graphics);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	void SetText(std::string text);
 protected:
-	bool BuildTextImage();
-	void Draw(SDL_Renderer* renderer);
+	bool BuildTextImage(Graphics& graphics);
+	void Draw(Graphics& graphics);
 };
 
 /*********************************************/

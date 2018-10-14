@@ -47,7 +47,7 @@ public:
 	ScreenMenu(std::string layout);
 	virtual ~ScreenMenu();
 	void HandleInput(InputState* input);
-	bool Initialize();
+	bool Initialize(Graphics& graphics);
 	void ParseCategoriesFromTags(std::vector<std::string> tags);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	View* GetViewById(std::string id);
@@ -65,7 +65,7 @@ public:
 	bool GetCanGoBack();
 	void SetCanGoBack(bool canGoBack);
 protected:
-	void Draw(SDL_Renderer* renderer);
+	void Draw(Graphics& graphics);
 };
 
 /*********************************************/

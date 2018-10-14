@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 #include "ResourceManager.h"
-#include "graphics_utils.h"
+#include <SDL_image.h>
 
 // TODO:
 // * Handle wallpapers separately
@@ -57,7 +57,7 @@ SDL_Texture* ResourceManager::LoadImage(string id, const char* filename)
 	if (renderer == NULL)
 		return NULL;
 
-	SDL_Texture* tempImg = loadImage(filename, renderer);
+	SDL_Texture* tempImg = LoadTexture(filename);
 	if (tempImg == NULL)
 		return NULL;
 
@@ -96,7 +96,7 @@ SDL_Texture* ResourceManager::LoadImageFromOpk(string id, struct OPK *opk, strin
 	if (ret < 0)
 		return NULL;
 
-	SDL_Texture* tempImg = loadImageFromMemory(buffer, length, renderer);
+	SDL_Texture* tempImg = LoadTexture(buffer, length);
 	if (tempImg == NULL)
 		return NULL;
 
@@ -104,6 +104,18 @@ SDL_Texture* ResourceManager::LoadImageFromOpk(string id, struct OPK *opk, strin
 	return images[id];
 }
 #endif
+
+void ResourceManager::UnloadImage(string id)
+{
+	auto it = images.find(id);
+	if (it != images.end())
+	{
+		if (it->second != NULL)
+			SDL_DestroyTexture(it->second);
+
+		images.erase(it);
+	}
+}
 
 void ResourceManager::UnloadImages()
 {
@@ -182,4 +194,41 @@ void ResourceManager::UnloadContent()
 {
 	UnloadImages();
 	UnloadTTFFonts();
+}
+
+SDL_Surface* ResourceManager::LoadSurface(const char* filename)
+{
+	if (filename == NULL)
+		return NULL;
+
+	return IMG_Load(filename);
+}
+
+SDL_Texture* ResourceManager::LoadTexture(const char* filename)
+{
+	SDL_Surface* temp = LoadSurface(filename);
+
+	if (temp == NULL)
+		return NULL;
+
+	int colorkey = SDL_MapRGB(temp->format, 0xff, 0x00, 0xff);
+	SDL_SetColorKey(temp, SDL_TRUE, colorkey);
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, temp);
+
+	SDL_FreeSurface(temp);
+
+	return texture;
+}
+
+SDL_Texture* ResourceManager::LoadTexture(void* buffer, int size)
+{
+	SDL_RWops* sdlRw = SDL_RWFromMem(buffer, size);
+	SDL_Surface *image = IMG_Load_RW(sdlRw, 1);
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
+
+	SDL_FreeSurface(image);
+
+	return texture;
 }

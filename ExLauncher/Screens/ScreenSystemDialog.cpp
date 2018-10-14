@@ -39,7 +39,7 @@ ScreenSystemDialog::~ScreenSystemDialog()
 	contentView = NULL;
 }
 
-bool ScreenSystemDialog::Initialize()
+bool ScreenSystemDialog::Initialize(Graphics& graphics)
 {
 	contentView = new FramePanel();
 	contentView->SetSize(Size(SIZE_FILL_PARENT, SIZE_FILL_PARENT));
@@ -106,14 +106,11 @@ void ScreenSystemDialog::Update(bool otherScreenHasFocus, bool coveredByOtherScr
 	}
 }
 
-void ScreenSystemDialog::Draw(SDL_Renderer* renderer)
+void ScreenSystemDialog::Draw(Graphics& graphics)
 {
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xA0 * (1 - transitionPosition));
-	SDL_RenderFillRect(renderer, NULL);
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+	graphics.FillRect(Color(0x00, 0x00, 0x00, 0xa0 * (1 - transitionPosition)));
 
-	if (contentView != NULL && screenstate != TransitionOff) // Hide immediately when transitioning off
+	if (contentView != NULL && GetScreenState() != TransitionOff) // Hide immediately when transitioning off
 		contentView->Draw();
 }
 

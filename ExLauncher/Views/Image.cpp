@@ -45,17 +45,18 @@ void Image::OnInitialize()
 	SDL_QueryTexture(image, NULL, NULL, &contentSize.w, &contentSize.h);
 }
 
-void Image::OnDraw(SDL_Renderer* renderer, Position offset)
+void Image::OnDraw(Graphics& graphics, Position offset)
 {
 	if (image == NULL)
 		return;
 
+	// FIXME Move rect calculation into the base class??
 	SDL_Rect r;
 	r.x = absolutePosition.x + offset.x;
 	r.y = absolutePosition.y + offset.y;
 	r.w = calculatedSize.w;
 	r.h = calculatedSize.h;
-	drawTexture(&r, image, renderer);
+	graphics.DrawTexture(&r, image);
 }
 
 View* Image::Copy()

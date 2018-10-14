@@ -46,13 +46,13 @@ public:
 	virtual void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 
 	// Does complementary draw work. Calls the Draw method. This handled by the ScreenManager, and should not be done manually.
-	void DrawHelper(SDL_Renderer* renderer);
+	void DrawHelper(Graphics& graphics);
 
 	// Handles input. Calling of this method is handled by the ScreenManager, and should not be done manually.
 	virtual void HandleInput(InputState* input) = 0;
 
 	// Initializes the screen. This handled by the ScreenManager, and should not be done manually.
-	virtual bool Initialize() = 0;
+	virtual bool Initialize(Graphics& graphics) = 0;
 
 	// Gets the last error text.
 	std::string GetLastError();
@@ -83,7 +83,7 @@ public:
 	bool TransitionHasFinished();
 
 	// Returns the renderer used for this screen
-	SDL_Renderer* GetRenderer();
+	Graphics& GetGraphics();
 
 	// Returns the resource manager used for this screen
 	ResourceManager* GetResourceManager();
@@ -99,12 +99,13 @@ public:
 private:
 	bool isExiting;
 	bool exited;
+	ScreenState screenstate;
 
 	// Updates the transition. Returns true if still transitioning, and false if done. Direction is either 1 or -1.
 	bool UpdateTransition(double time, int direction);
 protected:
 	// Handles drawing. Calling of this method is handled by the ScreenManager, and should not be done manually.
-	virtual void Draw(SDL_Renderer* renderer) = 0;
+	virtual void Draw(Graphics& graphics) = 0;
 
 	double GetTransitionPosition();
 	Uint8 GetTransitionAlpha();
@@ -112,7 +113,6 @@ protected:
 
 	ScreenManager* screenManager;
 	DataStore* arguments;
-	ScreenState screenstate;
 	std::string lastError;
 	bool pinned;
 	bool popup;

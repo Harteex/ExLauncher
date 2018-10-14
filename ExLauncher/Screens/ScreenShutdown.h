@@ -37,11 +37,11 @@ public:
 	ScreenShutdown(bool reboot);
 	~ScreenShutdown();
 	void HandleInput(InputState* input);
-	bool Initialize();
+	bool Initialize(Graphics& graphics);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	void SetReboot(bool reboot);
 protected:
-	void Draw(SDL_Renderer* renderer);
+	void Draw(Graphics& graphics);
 };
 
 /*********************************************/

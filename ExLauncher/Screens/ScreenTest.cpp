@@ -29,20 +29,22 @@ ScreenTest::ScreenTest()
 
 ScreenTest::~ScreenTest()
 {
+	auto resourceManager = screenManager->GetResourceManager();
+	resourceManager->UnloadImage("test_icon_1");
+	resourceManager->UnloadImage("test_icon_2");
+	resourceManager->UnloadImage("test_icon_3");
+	
 	if (texture != NULL)
 		SDL_DestroyTexture(texture);
 
-	if (icon1 != NULL)
-		SDL_DestroyTexture(icon1);
+	if (texture2 != NULL)
+		SDL_DestroyTexture(texture2);
 
-	if (icon2 != NULL)
-		SDL_DestroyTexture(icon2);
-
-	if (icon3 != NULL)
-		SDL_DestroyTexture(icon3);
+	if (texture3 != NULL)
+		SDL_DestroyTexture(texture3);
 }
 
-bool ScreenTest::Initialize()
+bool ScreenTest::Initialize(Graphics& graphics)
 {
 	SDL_Color fromColor;
 	fromColor.r = 0xff;
@@ -56,13 +58,13 @@ bool ScreenTest::Initialize()
 	toColor.b = 0xff;
 	toColor.a = 0x00;
 
-	SDL_Surface* surface = CreateGradientSurface(50, 50, fromColor, toColor);
+	SDL_Surface* surface = graphics.CreateGradientSurface(50, 50, fromColor, toColor);
 	if (surface == NULL)
 		return false;
 
 	//dumpSurface("surf.bin", surface);
 
-	texture = SDL_CreateTextureFromSurface(screenManager->GetRenderer(), surface);
+	texture = graphics.CreateTextureFromSurface(surface);
 	SDL_FreeSurface(surface);
 
 	if (texture == NULL)
@@ -70,9 +72,11 @@ bool ScreenTest::Initialize()
 
 	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
-	icon1 = loadImage("data/graphics/testicon1.png", screenManager->GetRenderer());
-	icon2 = loadImage("data/graphics/testicon2.png", screenManager->GetRenderer());
-	icon3 = loadImage("data/graphics/testicon3.png", screenManager->GetRenderer());
+	auto resourceManager = screenManager->GetResourceManager();
+
+	icon1 = resourceManager->LoadImage("test_icon_1", "data/graphics/testicon1.png");
+	icon2 = resourceManager->LoadImage("test_icon_2", "data/graphics/testicon2.png");
+	icon3 = resourceManager->LoadImage("test_icon_3", "data/graphics/testicon3.png");
 
 	return true;
 }
@@ -87,24 +91,39 @@ void ScreenTest::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 	Screen::Update(otherScreenHasFocus, coveredByOtherScreen);
 }
 
-void ScreenTest::Draw(SDL_Renderer* renderer)
+void ScreenTest::Draw(Graphics& graphics)
 {
+	graphics.FillRect(5, 5, 65, 30, Color(0xff, 0xff, 0xff));
+	
 	if (texture != NULL)
 	{
-		drawTexture(5, 5, texture, renderer, TOP|LEFT);
+		graphics.DrawTexture(5, 5, texture, TOP|LEFT);
 	}
 
-	drawTexture(40, 50, icon1, renderer, VCENTER|HCENTER, NULL, 0, 0.9, false);
-	drawTexture(80, 50, icon1, renderer, VCENTER|HCENTER, NULL, 0, 1, false);
-	drawTexture(120, 50, icon1, renderer, VCENTER|HCENTER, NULL, 0, 1.1, false);
+	if (texture2 != NULL)
+	{
+		graphics.DrawTexture(240, 190, texture2, TOP | LEFT);
+	}
 
-	drawTexture(40, 100, icon2, renderer, VCENTER|HCENTER, NULL, 0, 0.9, false);
-	drawTexture(80, 100, icon2, renderer, VCENTER|HCENTER, NULL, 0, 1, false);
-	drawTexture(120, 100, icon2, renderer, VCENTER|HCENTER, NULL, 0, 1.1, false);
+	if (texture3 != NULL)
+	{
+		graphics.DrawTexture(280, 190, texture3, TOP | LEFT);
+	}
 
-	drawTexture(40, 150, icon3, renderer, VCENTER|HCENTER, NULL, 0, 0.9, false);
-	drawTexture(80, 150, icon3, renderer, VCENTER|HCENTER, NULL, 0, 1, false);
-	drawTexture(120, 150, icon3, renderer, VCENTER|HCENTER, NULL, 0, 1.1, false);
+	graphics.DrawTexture(40, 50, icon1, VCENTER|HCENTER, NULL, 0, 0.9, false);
+	graphics.DrawTexture(80, 50, icon1, VCENTER|HCENTER, NULL, 0, 1, false);
+	graphics.DrawTexture(120, 50, icon1, VCENTER|HCENTER, NULL, 0, 1.1, false);
+
+	graphics.DrawTexture(40, 100, icon2, VCENTER|HCENTER, NULL, 0, 0.9, false);
+	graphics.DrawTexture(80, 100, icon2, VCENTER|HCENTER, NULL, 0, 1, false);
+	graphics.DrawTexture(120, 100, icon2, VCENTER|HCENTER, NULL, 0, 1.1, false);
+
+	graphics.DrawTexture(40, 150, icon3, VCENTER|HCENTER, NULL, 0, 0.9, false);
+	graphics.DrawTexture(80, 150, icon3, VCENTER|HCENTER, NULL, 0, 1, false);
+	graphics.DrawTexture(120, 150, icon3, VCENTER|HCENTER, NULL, 0, 1.1, false);
+
+	graphics.DrawTexture(50, 5, texttexture, 0);
+	graphics.DrawTexture(51, 6, texttexture2, 0);
 }
 
 void ScreenTest::SetError(string errorMsg)

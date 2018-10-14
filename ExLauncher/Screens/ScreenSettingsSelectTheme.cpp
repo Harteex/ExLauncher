@@ -37,7 +37,7 @@ ScreenSettingsSelectTheme::~ScreenSettingsSelectTheme()
 	contentView = NULL;
 }
 
-bool ScreenSettingsSelectTheme::Initialize()
+bool ScreenSettingsSelectTheme::Initialize(Graphics& graphics)
 {
 	contentView = new FramePanel();
 	contentView->SetSize(Size(SIZE_FILL_PARENT, SIZE_FILL_PARENT));
@@ -115,7 +115,7 @@ void ScreenSettingsSelectTheme::Update(bool otherScreenHasFocus, bool coveredByO
 	}
 }
 
-void ScreenSettingsSelectTheme::Draw(SDL_Renderer* renderer)
+void ScreenSettingsSelectTheme::Draw(Graphics& graphics)
 {
 	if (contentView != NULL)
 		contentView->Draw();

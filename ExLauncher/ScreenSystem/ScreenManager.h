@@ -26,6 +26,7 @@ limitations under the License.
 #include "../AppManager.h"
 #include "../ThemeManager.h"
 #include "../structures.h"
+#include "../Graphics.h"
 #include <list>
 #include <iostream>
 #include <sstream>
@@ -41,7 +42,7 @@ private:
 	bool exit;
 	bool isExiting;
 	InputState* input;
-	SDL_Renderer* renderer;
+	Graphics graphics;
 	Size displaySize;
 	ResourceManager resourceManager;
 	/*NetworkManager networkManager;*/
@@ -61,10 +62,9 @@ public:
 	void Exit();
 	bool HasExit();
 	void TraceScreens();
-	bool Init();
+	bool Init(SDL_Renderer* renderer);
 	bool LoadGlobalResources();
-	void SetRenderer(SDL_Renderer* renderer);
-	SDL_Renderer* GetRenderer();
+	Graphics& GetGraphics();
 	Size GetDisplaySize();
 	ResourceManager* GetResourceManager();
 	/*NetworkManager* GetNetworkManagerManager();*/

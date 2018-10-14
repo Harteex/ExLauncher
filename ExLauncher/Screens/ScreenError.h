@@ -33,10 +33,10 @@ private:
 public:
 	ScreenError(std::string errorText);
 	void HandleInput(InputState* input);
-	bool Initialize();
+	bool Initialize(Graphics& graphics);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 protected:
-	void Draw(SDL_Renderer* renderer);
+	void Draw(Graphics& graphics);
 };
 
 /*********************************************/

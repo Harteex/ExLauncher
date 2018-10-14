@@ -148,15 +148,17 @@ void View::Draw(Position offset, Rectangle parentViewBounds)
 
 	DrawDebugViewBounds(viewBounds);
 
-	SDL_RenderSetClipRect(context->GetRenderer(), &viewBoundsRectangle);
+	Graphics& graphics = context->GetGraphics();
+
+	graphics.SetClipRect(viewBounds);
 	DrawBackground(offset);
-	OnDraw(context->GetRenderer(), offset);
-	SDL_RenderSetClipRect(context->GetRenderer(), NULL);
+	OnDraw(graphics, offset);
+	graphics.ClearClipRect();
 
 	DrawChildren(offset, viewBounds);
 }
 
-void View::OnDraw(SDL_Renderer* renderer, Position offset)
+void View::OnDraw(Graphics& graphics, Position offset)
 {
 }
 
@@ -164,14 +166,8 @@ void View::DrawBackground(Position offset)
 {
 	if (background.a > 0)
 	{
-		SDL_SetRenderDrawColor(context->GetRenderer(), background.r, background.g, background.b, background.a);
-		SDL_Rect rectangle;
-
-		rectangle.x = absolutePosition.x + offset.x;
-		rectangle.y = absolutePosition.y + offset.y;
-		rectangle.w = calculatedSize.w;
-		rectangle.h = calculatedSize.h;
-		SDL_RenderFillRect(context->GetRenderer(), &rectangle);
+		Graphics& graphics = context->GetGraphics();
+		graphics.FillRect(absolutePosition.x + offset.x, absolutePosition.y + offset.y, calculatedSize.w, calculatedSize.h, background);
 	}
 }
 
@@ -179,14 +175,7 @@ void View::DrawDebugViewBounds(Rectangle viewBounds)
 {
 	if (debugViewBounds)
 	{
-		SDL_Rect viewBoundsRectangle;
-		viewBoundsRectangle.x = viewBounds.x;
-		viewBoundsRectangle.y = viewBounds.y;
-		viewBoundsRectangle.w = viewBounds.w;
-		viewBoundsRectangle.h = viewBounds.h;
-
-		SDL_SetRenderDrawColor(context->GetRenderer(), 0xff, 0x00, 0x00, 0xff);
-		SDL_RenderDrawRect(context->GetRenderer(), &viewBoundsRectangle);
+		context->GetGraphics().DrawRect(viewBounds, Color(0xff, 0x00, 0x00, 0xff));
 	}
 }
 

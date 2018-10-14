@@ -24,7 +24,7 @@ ScreenError::ScreenError(string errorText)
 	this->errorText = errorText;
 }
 
-bool ScreenError::Initialize()
+bool ScreenError::Initialize(Graphics& graphics)
 {
 	try
 	{
@@ -60,7 +60,7 @@ void ScreenError::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 	Screen::Update(otherScreenHasFocus, coveredByOtherScreen);
 }
 
-void ScreenError::Draw(SDL_Renderer* renderer)
+void ScreenError::Draw(Graphics& graphics)
 {
 	if (errorLabel != NULL)
 	{

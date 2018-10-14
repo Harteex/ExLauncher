@@ -34,7 +34,7 @@ ScreenBackgroundImage::ScreenBackgroundImage()
 	SetTransitionTime(1);
 }
 
-bool ScreenBackgroundImage::Initialize()
+bool ScreenBackgroundImage::Initialize(Graphics& graphics)
 {
 	return true;
 }
@@ -83,7 +83,7 @@ void ScreenBackgroundImage::AddImage(string id)
 		images.push_back(img);
 }
 
-void ScreenBackgroundImage::Draw(SDL_Renderer* renderer)
+void ScreenBackgroundImage::Draw(Graphics& graphics)
 {
 	if (images.empty())
 	{
@@ -98,17 +98,17 @@ void ScreenBackgroundImage::Draw(SDL_Renderer* renderer)
 		if (prevImage < 0)
 			prevImage += images.size();
 
-		drawTexture(0, 0, images.at(prevImage), renderer, TOP|LEFT);
+		graphics.DrawTexture(0, 0, images.at(prevImage), TOP|LEFT);
 
 		// Draw new with appropriate alpha
 		SDL_Texture* curTexture = images.at(curImage);
 		SDL_SetTextureAlphaMod(curTexture, 0xff * ((double)curTime / (double)transitionTime));
-		drawTexture(0, 0, curTexture, renderer, TOP|LEFT);
+		graphics.DrawTexture(0, 0, curTexture, TOP|LEFT);
 	}
 	else
 	{
 		SDL_Texture* curTexture = images.at(curImage);
 		SDL_SetTextureAlphaMod(curTexture, 0xff);
-		drawTexture(0, 0, curTexture, renderer, TOP|LEFT);
+		graphics.DrawTexture(0, 0, curTexture, TOP|LEFT);
 	}
 }

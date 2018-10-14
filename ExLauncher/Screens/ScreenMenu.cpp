@@ -52,7 +52,7 @@ ScreenMenu::~ScreenMenu()
 		delete contentView;
 }
 
-bool ScreenMenu::Initialize()
+bool ScreenMenu::Initialize(Graphics& graphics)
 {
 	contentView->SetSize(Size(SIZE_FILL_PARENT, SIZE_FILL_PARENT));
 
@@ -177,7 +177,7 @@ void ScreenMenu::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 	}
 }
 
-void ScreenMenu::Draw(SDL_Renderer* renderer)
+void ScreenMenu::Draw(Graphics& graphics)
 {
 	// Antingen detta... eller:
 	// vanlig fade time både in och ut, och alla fadeas samtidigt utan delay

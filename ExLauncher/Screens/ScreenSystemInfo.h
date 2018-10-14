@@ -34,11 +34,11 @@ public:
 	ScreenSystemInfo();
 	~ScreenSystemInfo();
 	void HandleInput(InputState* input);
-	bool Initialize();
+	bool Initialize(Graphics& graphics);
 	void Update(bool otherScreenHasFocus, bool coveredByOtherScreen);
 	void OnEvent(View* sender, EventType eventType, std::string eventValue, std::vector<std::string> eventArgs = std::vector<std::string>());
 protected:
-	void Draw(SDL_Renderer* renderer);
+	void Draw(Graphics& graphics);
 };
 
 /*********************************************/

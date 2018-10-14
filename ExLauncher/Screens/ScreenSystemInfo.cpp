@@ -35,7 +35,7 @@ ScreenSystemInfo::~ScreenSystemInfo()
 	contentView = NULL;
 }
 
-bool ScreenSystemInfo::Initialize()
+bool ScreenSystemInfo::Initialize(Graphics& graphics)
 {
 	contentView = new FramePanel();
 	contentView->SetSize(Size(SIZE_FILL_PARENT, SIZE_FILL_PARENT));
@@ -70,7 +70,7 @@ void ScreenSystemInfo::Update(bool otherScreenHasFocus, bool coveredByOtherScree
 	}
 }
 
-void ScreenSystemInfo::Draw(SDL_Renderer* renderer)
+void ScreenSystemInfo::Draw(Graphics& graphics)
 {
 	if (contentView != NULL)
 		contentView->Draw();

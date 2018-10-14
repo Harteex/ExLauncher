@@ -64,6 +64,7 @@ bool initializeSDL()
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
 		std::cout << "SDL_Init error: " << SDL_GetError() << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL initialization error", SDL_GetError(), NULL);
 		return false;
 	}
 	SDLInited = true;
@@ -72,6 +73,7 @@ bool initializeSDL()
 	if (win == NULL)
 	{
 		std::cout << SDL_GetError() << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Couldn't create window", SDL_GetError(), NULL);
 		return false;
 	}
 
@@ -79,6 +81,7 @@ bool initializeSDL()
 	if (ren == NULL)
 	{
 		std::cout << SDL_GetError() << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Couldn't create renderer", SDL_GetError(), NULL);
 		return false;
 	}
 
@@ -86,6 +89,7 @@ bool initializeSDL()
 	if (SDL_GetRendererInfo(ren, &renInfo) < 0)
 	{
 		std::cout << "Unable to query renderer" << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Query failed", "Unable to query renderer", NULL);
 		return false;
 	}
 
@@ -98,6 +102,7 @@ bool initializeSDL()
 	if (TTF_Init() != 0)
 	{
 		std::cout << TTF_GetError() << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "TTF initialization failed", TTF_GetError(), NULL);
 		return false;
 	}
 
@@ -105,12 +110,14 @@ bool initializeSDL()
 	if ((Mix_Init(mixFlags) & mixFlags) != mixFlags)
 	{
 		std::cout << Mix_GetError() << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Mixer initialization failed", Mix_GetError(), NULL);
 		return false;
 	}
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1)
 	{
 		std::cout << Mix_GetError() << std::endl;
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Couldn't open audio", Mix_GetError(), NULL);
 		return false;
 	}
 
@@ -230,7 +237,7 @@ mainStart:
 
 	std::cout << "Initializing ScreenManager... ";
 	screenManager = new ScreenManager();
-	if (!screenManager->Init())
+	if (!screenManager->Init(ren))
 	{
 		std::cout << "FAILED" << std::endl;
 		terminateSDL();
@@ -238,7 +245,6 @@ mainStart:
 	}
 	std::cout << "OK" << std::endl;
 
-	screenManager->SetRenderer(ren);
 	std::cout << "Loading resources... ";
 	if (!screenManager->LoadGlobalResources())
 	{
@@ -305,6 +311,8 @@ mainStart:
 		screenManager->AddScreen(new ScreenError("Failed to load theme"));
 	else
 		screenManager->AddScreen(new ScreenMenu(themeEntryPoint));
+
+	//screenManager->AddScreen(new ScreenTest());
 
 	if (launchFailed)
 	{

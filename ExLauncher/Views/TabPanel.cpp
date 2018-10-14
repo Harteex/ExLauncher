@@ -48,7 +48,7 @@ void TabPanel::OnUpdate()
 	tabStrip->Update();
 }
 
-void TabPanel::OnDraw(SDL_Renderer* renderer, Position offset)
+void TabPanel::OnDraw(Graphics& graphics, Position offset)
 {
 	// TODO offset etc
 	tabStrip->Draw();

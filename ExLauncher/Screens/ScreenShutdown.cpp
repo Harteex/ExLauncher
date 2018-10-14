@@ -46,7 +46,7 @@ ScreenShutdown::~ScreenShutdown()
 	contentView = NULL;
 }
 
-bool ScreenShutdown::Initialize()
+bool ScreenShutdown::Initialize(Graphics& graphics)
 {
 	contentView = new FramePanel();
 	contentView->SetSize(Size(SIZE_FILL_PARENT, SIZE_FILL_PARENT));
@@ -96,10 +96,9 @@ void ScreenShutdown::SetReboot(bool reboot)
 	this->reboot = reboot;
 }
 
-void ScreenShutdown::Draw(SDL_Renderer* renderer)
+void ScreenShutdown::Draw(Graphics& graphics)
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(renderer);
+	graphics.Clear(Color(BLACK));
 
 	if (contentView != NULL)
 		contentView->Draw();

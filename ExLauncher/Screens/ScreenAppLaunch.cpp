@@ -47,7 +47,7 @@ void ScreenAppLaunch::SetExec(vector<string> exec)
 	this->exec = exec;
 }
 
-bool ScreenAppLaunch::Initialize()
+bool ScreenAppLaunch::Initialize(Graphics& graphics)
 {
 	return true;
 }
@@ -91,17 +91,9 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 	}
 }
 
-void ScreenAppLaunch::Draw(SDL_Renderer* renderer)
+void ScreenAppLaunch::Draw(Graphics& graphics)
 {
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
-
-	SDL_Rect r;
-	r.x = curBox.left;
-	r.y = curBox.top;
-	r.w = curBox.right - curBox.left;
-	r.h = curBox.bottom - curBox.top;
-
-	SDL_RenderFillRect(renderer, &r);
+	graphics.FillRect(curBox, Color(0, 0, 0));
 
 	if (TransitionHasFinished())
 		drawnFramesAfterTransition++;

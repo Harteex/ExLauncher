@@ -42,7 +42,7 @@ public:
 	virtual ~TabPanel();
 	void OnInitialize();
 	void OnUpdate();
-	void OnDraw(SDL_Renderer* renderer, Position offset);
+	void OnDraw(Graphics& graphics, Position offset);
 	void OnLayoutChange();
 	virtual View* Copy();
 

@@ -85,12 +85,12 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		r.y = 0;
 		r.w = areaWidth;
 		r.h = tempSurface->h;
-		clippedSurface = ClipSurface(tempSurface, &r);
+		clippedSurface = context->GetGraphics().ClipSurface(tempSurface, &r);
 
 		SDL_FreeSurface(tempSurface);
 
 		// Apply alpha fadeout at end if text doesn't fit completely
-		FadeOutSurface(clippedSurface, 16);
+		context->GetGraphics().FadeOutSurface(clippedSurface, 16);
 	}
 	else
 	{
@@ -100,7 +100,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	if (clippedSurface == NULL)
 		return false;
 
-	texture = SDL_CreateTextureFromSurface(context->GetRenderer(), clippedSurface);
+	texture = context->GetGraphics().CreateTextureFromSurface(clippedSurface);
 	SDL_FreeSurface(clippedSurface);
 	if (texture == NULL)
 		return false;
@@ -110,7 +110,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	return true;
 }
 
-void Label::OnDraw(SDL_Renderer* renderer, Position offset)
+void Label::OnDraw(Graphics& graphics, Position offset)
 {
 	if (texture == NULL)
 		return;
@@ -125,9 +125,9 @@ void Label::OnDraw(SDL_Renderer* renderer, Position offset)
 	r.x += gravityOffset.x;
 	r.y += gravityOffset.y;
 
-	SDL_SetTextureColorMod(texture, textColor.r, textColor.g, textColor.b);
+	SDL_SetTextureColorMod(texture, textColor.r, textColor.g, textColor.b); // FIXME
 
-	drawTexture(&r, texture, renderer);
+	graphics.DrawTexture(&r, texture);
 }
 
 void Label::OnLayoutChange()

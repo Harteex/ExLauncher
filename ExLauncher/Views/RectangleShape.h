@@ -37,7 +37,7 @@ public:
 	RectangleShape();
 	~RectangleShape();
 	void OnInitialize();
-	void OnDraw(SDL_Renderer* renderer, Position offset);
+	void OnDraw(Graphics& graphics, Position offset);
 	View* Copy();
 
 	void SetStrokeColor(Color strokeColor);

@@ -24,6 +24,7 @@ limitations under the License.
 #include <string>
 #include "../structures.h"
 #include "../ResourceManager.h"
+#include "../Graphics.h"
 #include "../ScreenSystem/InputState.h"
 
 /*********************************************/
@@ -88,7 +89,7 @@ public:
 	void Update();
 	virtual void OnUpdate();
 	virtual void Draw(Position offset = Position(0, 0), Rectangle parentViewBounds = Rectangle(-1, -1, -1, -1));
-	virtual void OnDraw(SDL_Renderer* renderer, Position offset);
+	virtual void OnDraw(Graphics& graphics, Position offset);
 	std::string GetId();
 	void SetId(std::string id);
 	std::string GetName();

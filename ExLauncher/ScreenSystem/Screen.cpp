@@ -52,7 +52,7 @@ string Screen::GetLastError()
 	return lastError;
 }
 
-void Screen::DrawHelper(SDL_Renderer* renderer)
+void Screen::DrawHelper(Graphics& graphics)
 {
 	/*if (SDL_MUSTLOCK(display))
     {
@@ -60,7 +60,7 @@ void Screen::DrawHelper(SDL_Renderer* renderer)
 			return;
     }*/
 
-	Draw(renderer);
+	Draw(graphics);
 
 	/*if (SDL_MUSTLOCK(display))
 		SDL_UnlockSurface(display);*/
@@ -70,33 +70,31 @@ void Screen::Update(bool otherScreenHasFocus, bool coveredByOtherScreen)
 {
 	this->otherScreenHasFocus = otherScreenHasFocus;
 
-	if (isExiting)
+	// Update state
+	if ((isExiting || coveredByOtherScreen) && screenstate != Hidden)
 	{
 		screenstate = TransitionOff;
+	}
+	else if (!coveredByOtherScreen && screenstate != Active)
+	{
+		screenstate = TransitionOn;
+	}
 
+	// Handle transitions
+	if (screenstate == TransitionOff)
+	{
 		if (!UpdateTransition(transitionOffTime, 1))
 		{
-			exited = true;
-		}
-	}
-	else if (coveredByOtherScreen)
-	{
-		if (UpdateTransition(transitionOffTime, 1))
-		{
-			screenstate = TransitionOff;
-		}
-		else
-		{
 			screenstate = Hidden;
+
+			if (isExiting)
+				exited = true;
 		}
 	}
-	else
+	
+	if (screenstate == TransitionOn)
 	{
-		if (UpdateTransition(transitionOnTime, -1))
-		{
-			screenstate = TransitionOn;
-		}
-		else
+		if (!UpdateTransition(transitionOnTime, -1))
 		{
 			screenstate = Active;
 		}
@@ -156,9 +154,9 @@ bool Screen::TransitionHasFinished()
 	return screenstate == Active;
 }
 
-SDL_Renderer* Screen::GetRenderer()
+Graphics& Screen::GetGraphics()
 {
-	return screenManager->GetRenderer();
+	return screenManager->GetGraphics();
 }
 
 ResourceManager* Screen::GetResourceManager()

@@ -23,7 +23,6 @@ using namespace std;
 ScreenManager::ScreenManager()
 {
 	input = NULL;
-	renderer = NULL;
 	displaySize.w = 0;
 	displaySize.h = 0;
 	lastError = "No error";
@@ -37,9 +36,16 @@ ScreenManager::~ScreenManager()
 		delete input;
 }
 
-bool ScreenManager::Init()
+bool ScreenManager::Init(SDL_Renderer* renderer)
 {
 	input = new InputState();
+	resourceManager.SetRenderer(renderer);
+	graphics.SetRenderer(renderer);
+
+	SDL_Rect r;
+	SDL_RenderGetViewport(renderer, &r);
+	displaySize.w = r.w;
+	displaySize.h = r.h;
 
 	return true;
 }
@@ -67,23 +73,9 @@ bool ScreenManager::LoadGlobalResources()
 	return true;
 }
 
-void ScreenManager::SetRenderer(SDL_Renderer* renderer)
+Graphics& ScreenManager::GetGraphics()
 {
-	this->renderer = renderer;
-	resourceManager.SetRenderer(renderer);
-
-	if (renderer != NULL)
-	{
-		SDL_Rect r;
-		SDL_RenderGetViewport(renderer, &r);
-		displaySize.w = r.w;
-		displaySize.h = r.h;
-	}
-}
-
-SDL_Renderer* ScreenManager::GetRenderer()
-{
-	return renderer;
+	return graphics;
 }
 
 Size ScreenManager::GetDisplaySize()
@@ -113,14 +105,10 @@ ThemeManager * ScreenManager::GetThemeManager()
 
 void ScreenManager::Draw()
 {
-	if (renderer == NULL)
-		return;
-
 	if (HasExit())
 		return;
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(renderer);
+	graphics.Clear(Color(0, 0, 0));
 
 	for (list<Screen *>::iterator i = screens.end(); i != screens.begin(); )
 	{
@@ -129,10 +117,10 @@ void ScreenManager::Draw()
 		if ((*i)->GetScreenState() == Hidden || (*i)->HasExited())
 			continue;
 
-		(*i)->DrawHelper(renderer);
+		(*i)->DrawHelper(graphics);
 	}
 
-	SDL_RenderPresent(renderer);
+	graphics.Present();
 }
 
 void ScreenManager::Update()
@@ -206,7 +194,7 @@ void ScreenManager::AddScreen(Screen * screen)
 {
 	screen->SetScreenManager(this);
 
-	if (!screen->Initialize())
+	if (!screen->Initialize(graphics))
 	{
 		string errMsg = "Failed to initialize screen: ";
 		errMsg = errMsg + screen->GetLastError();
@@ -216,7 +204,7 @@ void ScreenManager::AddScreen(Screen * screen)
 
 		ScreenError* errorScreen = new ScreenError(errMsg);
 		errorScreen->SetScreenManager(this);
-		if (!errorScreen->Initialize())
+		if (!errorScreen->Initialize(graphics))
 			Exit();
 
 		screens.push_front(errorScreen);

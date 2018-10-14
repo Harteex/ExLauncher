@@ -72,7 +72,7 @@ Position TabStrip::GetSelectedTabPosition(View* selectedTab)
 	return selectedPos;
 }
 
-void TabStrip::OnDraw(SDL_Renderer* renderer, Position offset)
+void TabStrip::OnDraw(Graphics& graphics, Position offset)
 {
 	// TODO offset argument etc?
 
