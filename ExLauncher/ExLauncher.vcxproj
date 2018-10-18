@@ -16,6 +16,7 @@
     <ClCompile Include="AppManager.cpp" />
     <ClCompile Include="DataStore.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Graphics\GaussianBlur.cpp" />
     <ClCompile Include="graphics_utils.cpp" />
     <ClCompile Include="HomeDirectory.cpp" />
     <ClCompile Include="main.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="DataStore.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Graphics\GaussianBlur.h" />
     <ClInclude Include="graphics_utils.h" />
     <ClInclude Include="HomeDirectory.h" />
     <ClInclude Include="RapidXml\rapidxml.hpp" />

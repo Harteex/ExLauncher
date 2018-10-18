@@ -57,6 +57,7 @@ public:
 
 	SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
 	SDL_Surface* CreateEmptySurface(int width, int height);
+	SDL_Surface* ExtendSurface(SDL_Surface* srcSurface, int paddingTopBottom, int paddingLeftRight);
 	SDL_Surface* CreateGradientSurface(int width, int height, SDL_Color fromColor, SDL_Color toColor);
 
 	SDL_Texture* RenderText(const char* text, Color c, TTF_Font* font, Uint32 maxWidth);
@@ -88,6 +89,7 @@ public:
 	SDL_Surface* ClipSurface(SDL_Surface* surface, SDL_Rect* clip);
 
 	bool FadeOutSurface(SDL_Surface* surface, int fadeLength);
+	SDL_BlendMode ApplyBlendMode(SDL_Surface* surface, SDL_BlendMode newBlendMode);
 
 	/*SDL_Texture* LoadImage(std::string id, const char* filename);
 	SDL_Texture* LoadImageForceLoad(std::string id, const char* filename);

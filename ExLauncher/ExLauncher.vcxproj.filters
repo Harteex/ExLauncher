@@ -55,6 +55,9 @@
     <Filter Include="Resource Files\data\themes\tabbed">
       <UniqueIdentifier>{1d6c2ced-cc66-4e8c-ba50-fc7a7ec08879}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{cf6d6b40-7c18-4f4d-8cff-b22cc3613f97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structures.cpp">
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="Graphics.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GaussianBlur.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GaussianBlur.h">
+      <Filter>Source Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

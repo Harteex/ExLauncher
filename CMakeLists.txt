@@ -63,6 +63,7 @@ set(CPPFILES
 	ExLauncher/ScreenSystem/ScreenManager.cpp
 	ExLauncher/ScreenSystem/Screen.cpp
 	ExLauncher/ScreenSystem/InputState.cpp
+	ExLauncher/Graphics/GaussianBlur.cpp
 )
 
 include_directories(${PROJECT_NAME} ${SDL2_INCLUDE_DIR})

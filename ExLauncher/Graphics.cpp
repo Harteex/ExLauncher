@@ -174,6 +174,30 @@ SDL_Surface* Graphics::CreateEmptySurface(int width, int height)
 	return surface;
 }
 
+SDL_Surface* Graphics::ExtendSurface(SDL_Surface* srcSurface, int paddingTopBottom, int paddingLeftRight)
+{
+	SDL_Surface* oldSurface = srcSurface;
+
+	if (oldSurface->format->format != SDL_PIXELFORMAT_ARGB8888)
+		oldSurface = SDL_ConvertSurfaceFormat(srcSurface, SDL_PIXELFORMAT_ARGB8888, 0);
+
+	SDL_Surface* newSurface = SDL_CreateRGBSurfaceWithFormat(0, srcSurface->w + paddingLeftRight * 2, srcSurface->h + paddingTopBottom * 2, 32, SDL_PIXELFORMAT_ARGB8888);
+
+	if (newSurface == NULL)
+		return NULL;
+
+	SDL_FillRect(newSurface, NULL, 0x00000000);
+
+	auto oldBlendMode = ApplyBlendMode(oldSurface, SDL_BLENDMODE_NONE);
+	DrawSurface(paddingLeftRight, paddingTopBottom, oldSurface, newSurface);
+	ApplyBlendMode(oldSurface, oldBlendMode);
+
+	if (oldSurface != srcSurface)
+		SDL_FreeSurface(oldSurface);
+
+	return newSurface;
+}
+
 // FIXME TEST!!
 SDL_Surface* Graphics::CreateGradientSurface(int width, int height, SDL_Color fromColor, SDL_Color toColor)
 {
@@ -563,4 +587,13 @@ bool Graphics::FadeOutSurface(SDL_Surface* surface, int fadeLength)
 	}
 
 	return true;
+}
+
+SDL_BlendMode Graphics::ApplyBlendMode(SDL_Surface * surface, SDL_BlendMode newBlendMode)
+{
+	SDL_BlendMode oldBlendMode;
+	SDL_GetSurfaceBlendMode(surface, &oldBlendMode);
+	SDL_SetSurfaceBlendMode(surface, newBlendMode);
+
+	return oldBlendMode;
 }
