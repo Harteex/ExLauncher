@@ -98,6 +98,7 @@ enum Orientation {OrientationHorizontal, OrientationVertical};
 enum SizeMode {SizeModeNormal, SizeModeCompact};
 enum TransitionEffect {TransitionEffectZoom};
 enum EventType {EventTypeAction, EventTypeGoBack, EventTypeSelectionChanged};
+enum TextStyle {TextStylePlain, TextStyleShadow};
 
 #define GRAVITY_LEFT 0
 #define GRAVITY_TOP 0

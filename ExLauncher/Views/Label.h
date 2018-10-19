@@ -32,10 +32,12 @@ class Label : public View
 {
 private:
 	SDL_Texture* texture;
+	SDL_Texture* textureBg;
 	std::string text;
 	int textSize;
 	Color textColor;
 	std::string font;
+	TextStyle textStyle;
 	ResourceManager* resourceManager;
 	TTF_Font* ttfFont;
 
@@ -56,6 +58,8 @@ public:
 	void SetTextColor(Color textColor);
 	std::string GetFont();
 	void SetFont(std::string font);
+	TextStyle GetTextStyle();
+	void SetTextStyle(TextStyle textStyle);
 	bool SetProperty(std::string name, std::string value);
 	void FillData(std::map<std::string, std::string>& data);
 };

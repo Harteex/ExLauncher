@@ -21,22 +21,28 @@ limitations under the License.
 #include <limits.h>
 #include "../ScreenSystem/Screen.h"
 #include "../ViewSystem/LayoutHelper.h"
+#include "../Graphics/GaussianBlur.h"
 
 using namespace std;
 
 Label::Label()
 {
 	texture = NULL;
+	textureBg = NULL;
 	text = "";
 	textSize = 12;
 	textColor = Color(0xff, 0xff, 0xff, 0xff);
 	font = "semibold";
+	textStyle = TextStylePlain;
 	ttfFont = NULL;
 }
 
 Label::~Label()
 {
 	if (texture != NULL)
+		SDL_DestroyTexture(texture);
+
+	if (textureBg != NULL)
 		SDL_DestroyTexture(texture);
 }
 
@@ -57,20 +63,47 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		return false;
 
 	if (texture != NULL)
+	{
 		SDL_DestroyTexture(texture);
+		texture = NULL;
+	}
 
-	texture = NULL;
+	if (textureBg != NULL)
+	{
+		SDL_DestroyTexture(textureBg);
+		textureBg = NULL;
+	}
 
-	SDL_Color color;
-	color.r = 0xff;
-	color.g = 0xff;
-	color.b = 0xff;
-	color.a = 0xff;
-	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), color, textAreaWidth);
+	int outlineSize = 1;
+
+	int padding = 0;
+	if (textStyle == TextStyleShadow)
+		padding = outlineSize;
+
+	SDL_Color white = { 0xFF, 0xFF, 0xFF };
+	SDL_Color black = { 0x00, 0x00, 0x00 };
+	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), white, textAreaWidth - padding * 2);
 	if (tempSurface == NULL)
 		return false;
 
+	SDL_Surface* tempSurfaceBg = NULL;
+	if (textStyle == TextStyleShadow)
+	{
+		auto extendedSurface = context->GetGraphics().ExtendSurface(tempSurface, padding, padding);
+		SDL_FreeSurface(tempSurface);
+		tempSurface = extendedSurface;
+
+		TTF_SetFontOutline(ttfFont, outlineSize);
+		tempSurfaceBg = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), black, textAreaWidth - padding * 2);
+		TTF_SetFontOutline(ttfFont, 0);
+
+		GaussianBlur blur(tempSurfaceBg);
+		SDL_FreeSurface(tempSurfaceBg);
+		tempSurfaceBg = blur.Process(outlineSize);
+	}
+
 	SDL_Surface* clippedSurface = NULL;
+	SDL_Surface* clippedSurfaceBg = NULL;
 
 	int areaWidth = size.w;
 	if (size.w == SIZE_FILL_PARENT)
@@ -86,15 +119,22 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		r.w = areaWidth;
 		r.h = tempSurface->h;
 		clippedSurface = context->GetGraphics().ClipSurface(tempSurface, &r);
+		if (textStyle == TextStyleShadow)
+			clippedSurfaceBg = context->GetGraphics().ClipSurface(tempSurfaceBg, &r);
 
 		SDL_FreeSurface(tempSurface);
+		if (textStyle == TextStyleShadow)
+			SDL_FreeSurface(tempSurfaceBg);
 
 		// Apply alpha fadeout at end if text doesn't fit completely
 		context->GetGraphics().FadeOutSurface(clippedSurface, 16);
+		if (textStyle == TextStyleShadow)
+			context->GetGraphics().FadeOutSurface(clippedSurfaceBg, 16);
 	}
 	else
 	{
 		clippedSurface = tempSurface;
+		clippedSurfaceBg = tempSurfaceBg;
 	}
 
 	if (clippedSurface == NULL)
@@ -104,6 +144,16 @@ bool Label::RenderText(Uint32 textAreaWidth)
 	SDL_FreeSurface(clippedSurface);
 	if (texture == NULL)
 		return false;
+
+	if (textStyle == TextStyleShadow)
+	{
+		SDL_SetSurfaceAlphaMod(clippedSurfaceBg, 0xb0);
+		textureBg = context->GetGraphics().CreateTextureFromSurface(clippedSurfaceBg);
+		SDL_FreeSurface(clippedSurfaceBg);
+
+		if (textureBg == NULL)
+			return false;
+	}
 
 	SDL_QueryTexture(texture, NULL, NULL, &contentSize.w, &contentSize.h);
 
@@ -127,6 +177,9 @@ void Label::OnDraw(Graphics& graphics, Position offset)
 
 	SDL_SetTextureColorMod(texture, textColor.r, textColor.g, textColor.b); // FIXME
 
+	if (textureBg != NULL)
+		graphics.DrawTexture(&r, textureBg);
+
 	graphics.DrawTexture(&r, texture);
 }
 
@@ -145,6 +198,7 @@ View* Label::Copy()
 	view->SetTextSize(textSize);
 	view->SetTextColor(textColor);
 	view->SetFont(font);
+	view->SetTextStyle(textStyle);
 
 	return view;
 }
@@ -201,6 +255,16 @@ void Label::SetFont(string font)
 	this->font = font;
 }
 
+TextStyle Label::GetTextStyle()
+{
+	return textStyle;
+}
+
+void Label::SetTextStyle(TextStyle textStyle)
+{
+	this->textStyle = textStyle;
+}
+
 bool Label::SetProperty(string name, string value)
 {
 	bool propertyHandled = View::SetProperty(name, value);
@@ -230,6 +294,17 @@ bool Label::SetProperty(string name, string value)
 	else if (name == "font")
 	{
 		font = value;
+		return true;
+	}
+	else if (name == "textStyle")
+	{
+		if (value == "plain")
+			SetTextStyle(TextStylePlain);
+		else if (value == "shadow")
+			SetTextStyle(TextStyleShadow);
+		else
+			throw runtime_error("invalid textStyle value");
+
 		return true;
 	}
 
