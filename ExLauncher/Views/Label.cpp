@@ -99,7 +99,7 @@ bool Label::RenderText(Uint32 textAreaWidth)
 
 		GaussianBlur blur(tempSurfaceBg);
 		SDL_FreeSurface(tempSurfaceBg);
-		tempSurfaceBg = blur.Process(outlineSize);
+		tempSurfaceBg = blur.ProcessAlphaOnly(outlineSize);
 	}
 
 	SDL_Surface* clippedSurface = NULL;
@@ -175,7 +175,7 @@ void Label::OnDraw(Graphics& graphics, Position offset)
 	r.x += gravityOffset.x;
 	r.y += gravityOffset.y;
 
-	SDL_SetTextureColorMod(texture, textColor.r, textColor.g, textColor.b); // FIXME
+	SDL_SetTextureColorMod(texture, textColor.r, textColor.g, textColor.b);
 
 	if (textureBg != NULL)
 		graphics.DrawTexture(&r, textureBg);

@@ -90,6 +90,34 @@ SDL_Surface* GaussianBlur::Process(int radial)
 	return image;
 }
 
+SDL_Surface* GaussianBlur::ProcessAlphaOnly(int radial)
+{
+	auto newAlpha = new int[_width * _height];
+	auto dest = new int[_width * _height];
+
+	GaussBlur4(_alpha, newAlpha, radial);
+
+	for (int i = 0; i < (_width * _height); i++)
+	{
+		if (newAlpha[i] > 255)
+			newAlpha[i] = 255;
+
+		if (newAlpha[i] < 0)
+			newAlpha[i] = 0;
+
+		dest[i] = (int)((unsigned int)(newAlpha[i] << 24));
+	}
+
+	delete[] newAlpha;
+
+	auto image = SDL_CreateRGBSurfaceWithFormat(0, _width, _height, 32, SDL_PIXELFORMAT_ARGB8888);
+	memcpy(image->pixels, dest, _width * _height * 4);
+
+	delete[] dest;
+
+	return image;
+}
+
 void GaussianBlur::GaussBlur4(int* source, int* dest, int r)
 {
 	auto bxs = BoxesForGauss(r, 3);

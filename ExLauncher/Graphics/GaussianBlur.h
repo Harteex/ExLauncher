@@ -19,6 +19,7 @@ public:
 	~GaussianBlur();
 
 	SDL_Surface* Process(int radial);
+	SDL_Surface* ProcessAlphaOnly(int radial);
 private:
 	int* _alpha;
 	int* _red;
