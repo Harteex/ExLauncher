@@ -39,6 +39,7 @@ private:
 
 	std::vector<App*>* FindOrCreateCategory(std::string category);
 	void AddApp(App* app);
+	void RemoveApp(std::string path);
 	void FindAndRemoveAppFromRecent(std::string appId);
 	void LoadAllAppsXml();
 	void LoadAppXml(std::string path);

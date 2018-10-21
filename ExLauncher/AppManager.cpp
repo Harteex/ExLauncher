@@ -74,6 +74,41 @@ void AppManager::AddApp(App* app)
 	}
 }
 
+void AppManager::RemoveApp(std::string path)
+{
+	// Remove app from all category structures
+	for (auto appCategory : appsInCategories)
+	{
+		vector<App*>* appsVector = appCategory.second;
+
+		for (auto it = appsVector->begin(); it != appsVector->end(); )
+		{
+			if ((*it)->GetData("path", "") == path)
+				it = appsVector->erase(it);
+			else
+				it++;
+		}
+	}
+
+	// Remove app from all apps list, remove it from the recent list, and finally also free the app object
+	for (auto it = apps.begin(); it != apps.end(); )
+	{
+		App* app = it->second;
+
+		if (app->GetData("path", "") == path)
+		{
+			FindAndRemoveAppFromRecent(app->GetData("id", ""));
+
+			it = apps.erase(it);
+			delete app;
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
+
 #ifdef HAS_LIBOPK
 bool ListOpks(vector<string>& listToFill, string path)
 {
@@ -142,6 +177,77 @@ App* ParseOpkMetadata(struct OPK *opk)
 	}
 
 	return app;
+}
+
+bool LoadOpk(string path)
+{
+	struct OPK *opk = opk_open(opkPath.c_str());
+	if (!opk)
+	{
+		// TODO error
+		return false;
+	}
+
+	while (true)
+	{
+		const char *metadataName;
+		int ret = opk_open_metadata(opk, &metadataName);
+		if (ret <= 0)
+		{
+			// TODO error that loading metadata failed?
+			return false;
+		}
+
+		string name(metadataName);
+		string platform = "";
+		size_t pos1 = string::npos;
+		size_t pos2 = string::npos;
+
+		pos2 = name.rfind(".");
+		if (pos2 != string::npos && pos2 > 0)
+		{
+			pos1 = name.rfind(".", pos2 - 1);
+			if (pos1 != string::npos)
+			{
+				pos1++;
+				platform = name.substr(pos1, pos2 - pos1);
+			}
+		}
+
+		// FIXME PLATFORM gcw0 is hardcoded
+		if (platform.compare("gcw0") == 0 || platform.compare("all") == 0)
+		{
+			// We have metadata to load
+			App* app = ParseOpkMetadata(opk);
+			if (app != NULL)
+			{
+				app->SetData("path", opkPath);
+				app->SetData("metadata", metadataName);
+
+				stringstream appId;
+				appId << opkPath << " " << metadataName;
+				app->SetData("id", appId.str());
+
+				stringstream exec;
+				exec << "opkrun -m " << metadataName << " " << opkPath;
+				app->SetData("exec", exec.str());
+				app->SetExec({ "opkrun", "-m", metadataName, opkPath });
+
+				// FIXME do not try to load icon if none is specified
+				string iconId = opkPath + "/" + app->GetData("iconName", "");
+				app->SetData("iconId", iconId);
+
+				SDL_Texture* iconTexture = resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");
+				if (iconTexture == nullptr)
+					app->SetData("iconId", "appIconDefault");
+
+				AddApp(app);
+			}
+		}
+	}
+
+	opk_close(opk);
+	return true;
 }
 #endif
 
@@ -233,76 +339,8 @@ bool AppManager::LoadApps()
 
 	for (string opkPath : opkPaths)
 	{
-		struct OPK *opk = opk_open(opkPath.c_str());
-		if (!opk)
-		{
-			// TODO error
-			continue;
-		}
-
-		while (true)
-		{
-			const char *metadataName;
-			int ret = opk_open_metadata(opk, &metadataName);
-			if (ret < 0)
-			{
-				// TODO error that loading metadata failed
-				break;
-			}
-			else if (!ret)
-			{
-				break;
-			}
-
-			string name(metadataName);
-			string platform = "";
-			size_t pos1 = string::npos;
-			size_t pos2 = string::npos;
-
-			pos2 = name.rfind(".");
-			if (pos2 != string::npos && pos2 > 0)
-			{
-				pos1 = name.rfind(".", pos2 - 1);
-				if (pos1 != string::npos)
-				{
-					pos1++;
-					platform = name.substr(pos1, pos2 - pos1);
-				}
-			}
-
-			// FIXME PLATFORM gcw0 is hardcoded
-			if (platform.compare("gcw0") == 0 || platform.compare("all") == 0)
-			{
-				// We have metadata to load
-				App* app = ParseOpkMetadata(opk);
-				if (app != NULL)
-				{
-					app->SetData("path", opkPath);
-					app->SetData("metadata", metadataName);
-
-					stringstream appId;
-					appId << opkPath << " " << metadataName;
-					app->SetData("id", appId.str());
-
-					stringstream exec;
-					exec << "opkrun -m " << metadataName << " " << opkPath;
-					app->SetData("exec", exec.str());
-					app->SetExec({ "opkrun", "-m", metadataName, opkPath });
-
-					// FIXME do not try to load icon if none is specified
-					string iconId = opkPath + "/" + app->GetData("iconName", "");
-					app->SetData("iconId", iconId);
-					
-					SDL_Texture* iconTexture = resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");
-					if (iconTexture == nullptr)
-						app->SetData("iconId", "appIconDefault");
-
-					AddApp(app);
-				}
-			}
-		}
-
-		opk_close(opk);
+		bool result = LoadOpk(opkPath);
+		// FIXME show error if any fails?
 	}
 
 #else
@@ -383,6 +421,7 @@ bool AppManager::LoadApps()
 
 	app = new App();
 	app->SetData("id", "justcause2");
+	app->SetData("path", "/path/to/justcause2.opk");
 	app->SetData("name", "Just Cause 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
@@ -390,6 +429,7 @@ bool AppManager::LoadApps()
 
 	app = new App();
 	app->SetData("id", "thewitcher");
+	app->SetData("path", "/path/to/thewitcher.opk");
 	app->SetData("name", "The Witcher");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
@@ -397,6 +437,7 @@ bool AppManager::LoadApps()
 
 	app = new App();
 	app->SetData("id", "ageofempires");
+	app->SetData("path", "/path/to/ageofempires.opk");
 	app->SetData("name", "Age of Empires");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
@@ -404,6 +445,7 @@ bool AppManager::LoadApps()
 
 	app = new App();
 	app->SetData("id", "teamfortress2");
+	app->SetData("path", "/path/to/teamfortress2.opk");
 	app->SetData("name", "Team Fortress 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
@@ -620,6 +662,9 @@ App* AppManager::GetRecent(int recentIndex)
 
 void AppManager::FindAndRemoveAppFromRecent(string appId)
 {
+	if (appId == "")
+		return;
+
 	for (auto it = recentApps.begin(); it != recentApps.end(); it++)
 	{
 		if ((*it)->GetData("id", "") == appId)

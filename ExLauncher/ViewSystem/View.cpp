@@ -79,6 +79,11 @@ vector<string> View::GetTags()
 	return tags;
 }
 
+void View::AddTag(std::string tag)
+{
+	tags.push_back(tag);
+}
+
 void View::Initialize(Screen* context)
 {
 	if (isInitialized)

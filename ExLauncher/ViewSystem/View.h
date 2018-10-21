@@ -95,6 +95,7 @@ public:
 	std::string GetName();
 	void SetName(std::string name);
 	std::vector<std::string> GetTags();
+	void AddTag(std::string tag);
 	View* GetParentView();
 	void SetParentView(View* parent);
 	View* GetChildViewById(std::string id);

@@ -41,7 +41,7 @@ private:
 	std::map<std::string, std::string> fillData;
 	bool canGoBack;
 
-	View* FindOrCreateCategoryView(std::string category);
+	View* FindCategoryView(std::string category, bool createIfNotFound);
 	bool ShouldCategoryBeIncluded(std::string category);
 public:
 	ScreenMenu(std::string layout);
@@ -56,8 +56,9 @@ public:
 	bool AddApp(App* app, std::string category);
 	void StartUpdateApps();
 	void EndUpdateApps();
-	void RemoveApp(std::string id);
+	void RemoveApp(std::string path);
 	bool AddViewForApp(View* fillView, App* app);
+	void RemoveViewForApp(View* fillView, std::string appPath);
 	void FillDataArguments();
 	void FillDataInView(View* v, std::map<std::string, std::string> data);
 	void SortItemsByName(View* containingView);

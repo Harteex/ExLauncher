@@ -249,7 +249,7 @@ bool ScreenMenu::HandleApps()
 	return result;
 }
 
-View* ScreenMenu::FindOrCreateCategoryView(string category)
+View* ScreenMenu::FindCategoryView(string category, bool createIfNotFound)
 {
 	View* categoryView = nullptr;
 	for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
@@ -262,7 +262,7 @@ View* ScreenMenu::FindOrCreateCategoryView(string category)
 		}
 	}
 
-	if (categoryView == nullptr && ShouldCategoryBeIncluded(category))
+	if (createIfNotFound && categoryView == nullptr && ShouldCategoryBeIncluded(category))
 	{
 		auto fillMap = map<string, string>();
 		fillMap["category"] = category;
@@ -285,7 +285,7 @@ bool ScreenMenu::AddApp(App* app, string category)
 
 	if (categoryFillView != nullptr)
 	{
-		View* categoryView = FindOrCreateCategoryView(category);
+		View* categoryView = FindCategoryView(category, true);
 		if (categoryView != nullptr)
 			result = AddViewForApp(categoryView, app);
 	}
@@ -296,6 +296,22 @@ bool ScreenMenu::AddApp(App* app, string category)
 	}
 
 	return result;
+}
+
+void ScreenMenu::RemoveApp(string path)
+{
+	if (categoryFillView != nullptr)
+	{
+		for (int i = 0; i < categoryFillView->GetNumberOfChildren(); i++)
+		{
+			View* c = categoryFillView->GetChildView(i);
+			RemoveViewForApp(c, path);
+		}
+	}
+	else if (itemFillView != nullptr)
+	{
+		RemoveViewForApp(itemFillView, path);
+	}
 }
 
 void ScreenMenu::StartUpdateApps()
@@ -349,15 +365,10 @@ void ScreenMenu::EndUpdateApps()
 	}
 }
 
-void ScreenMenu::RemoveApp(string id)
-{
-	// TODO implement
-}
-
 bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 {
 	if (fillView->GetItemTemplate() == nullptr)
-		return true; // This is valid, if so, do nothing (operation still succeeded)
+		return true; // This is valid, so do nothing in this case (operation still succeeded)
 
 	View* newView = fillView->GetItemTemplate()->Copy();
 
@@ -367,9 +378,36 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 
 	newView->FillDataAll(app->GetAllData());
 	newView->SetName(app->GetData("name", ""));
+
+	string path = app->GetData("path", "");
+	if (path != "")
+		newView->AddTag(path);
+
 	fillView->AddChildView(newView);
 
 	return true;
+}
+
+void ScreenMenu::RemoveViewForApp(View* fillView, string appPath)
+{
+	int i = 0;
+	while (true)
+	{
+		if (i >= fillView->GetNumberOfChildren())
+			return;
+
+		View* v = fillView->GetChildView(i);
+		auto tags = v->GetTags();
+		if (std::find(tags.begin(), tags.end(), appPath) != tags.end())
+		{
+			fillView->DeleteChildView(i);
+			i--;
+
+			// Do not return here since there could be more apps with the same path
+		}
+
+		i++;
+	}
 }
 
 void ScreenMenu::FillDataInView(View* v, map<string, string> data)
