@@ -26,9 +26,6 @@ limitations under the License.
 
 using namespace std;
 
-const double PI = 3.14159265358979323846;
-map<int, double*> gaussianKernels;
-
 Rectangle ClipRect(Rectangle clip, Rectangle origClip)
 {
 	int newX, newY, newX2, newY2;

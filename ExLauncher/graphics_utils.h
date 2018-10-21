@@ -22,13 +22,6 @@ limitations under the License.
 #include "structures.h"
 #include <stdint.h>
 
-#define HCENTER				1
-#define VCENTER				2
-#define LEFT				4
-#define RIGHT				8
-#define TOP					16
-#define BOTTOM				32
-
 Rectangle ClipRect(Rectangle clip, Rectangle origClip);
 Color ParseColor(std::string colorStr);
 
