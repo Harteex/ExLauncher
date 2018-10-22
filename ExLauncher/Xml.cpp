@@ -30,7 +30,7 @@ limitations under the License.
 #include "Views/Image.h"
 #include "Views/Label.h"
 #include "Views/RectangleShape.h"
-#include "ThemeManager.h"
+#include "Theme/ThemeManager.h"
 
 using namespace rapidxml;
 using namespace std;

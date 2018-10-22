@@ -18,9 +18,9 @@ limitations under the License.
 #include "../utils.h"
 #include <algorithm>
 #include "../global.h"
-#include "../graphics_utils.h"
+#include "../Graphics/graphics_utils.h"
 #include "../ScreenSystem/Screen.h"
-#include "../ThemeManager.h"
+#include "../Theme/ThemeManager.h"
 
 using namespace std;
 

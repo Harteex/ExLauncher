@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 #include "Theme.h"
-#include "RapidXml/rapidxml.hpp"
+#include "../RapidXml/rapidxml.hpp"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>

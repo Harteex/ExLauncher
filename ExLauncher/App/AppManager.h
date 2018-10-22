@@ -24,7 +24,7 @@ limitations under the License.
 #include <string>
 #include <vector>
 #include <map>
-#include "ResourceManager.h"
+#include "../ResourceManager.h"
 
 /*********************************************/
 

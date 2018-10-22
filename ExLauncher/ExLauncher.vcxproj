@@ -12,13 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
-    <ClCompile Include="App.cpp" />
-    <ClCompile Include="AppManager.cpp" />
-    <ClCompile Include="DataStore.cpp" />
-    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="App\App.cpp" />
+    <ClCompile Include="App\AppManager.cpp" />
+    <ClCompile Include="ScreenSystem\DataStore.cpp" />
+    <ClCompile Include="Graphics\Graphics.cpp" />
     <ClCompile Include="Graphics\GaussianBlur.cpp" />
-    <ClCompile Include="graphics_utils.cpp" />
-    <ClCompile Include="HomeDirectory.cpp" />
+    <ClCompile Include="Graphics\graphics_utils.cpp" />
+    <ClCompile Include="Filesystem\HomeDirectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ScreenSystem\InputState.cpp" />
@@ -34,10 +34,9 @@
     <ClCompile Include="Screens\ScreenShutdown.cpp" />
     <ClCompile Include="Screens\ScreenSystemDialog.cpp" />
     <ClCompile Include="Screens\ScreenSystemInfo.cpp" />
-    <ClCompile Include="Screens\ScreenTest.cpp" />
     <ClCompile Include="structures.cpp" />
-    <ClCompile Include="Theme.cpp" />
-    <ClCompile Include="ThemeManager.cpp" />
+    <ClCompile Include="Theme\Theme.cpp" />
+    <ClCompile Include="Theme\ThemeManager.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="ViewSystem\CollectionView.cpp" />
     <ClCompile Include="ViewSystem\LayoutHelper.cpp" />
@@ -59,14 +58,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animator.h" />
-    <ClInclude Include="App.h" />
-    <ClInclude Include="AppManager.h" />
-    <ClInclude Include="DataStore.h" />
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="App\AppManager.h" />
+    <ClInclude Include="ScreenSystem\DataStore.h" />
     <ClInclude Include="global.h" />
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Graphics\Graphics.h" />
     <ClInclude Include="Graphics\GaussianBlur.h" />
-    <ClInclude Include="graphics_utils.h" />
-    <ClInclude Include="HomeDirectory.h" />
+    <ClInclude Include="Graphics\graphics_utils.h" />
+    <ClInclude Include="Filesystem\HomeDirectory.h" />
     <ClInclude Include="RapidXml\rapidxml.hpp" />
     <ClInclude Include="RapidXml\rapidxml_iterators.hpp" />
     <ClInclude Include="RapidXml\rapidxml_print.hpp" />
@@ -85,9 +84,8 @@
     <ClInclude Include="Screens\ScreenShutdown.h" />
     <ClInclude Include="Screens\ScreenSystemDialog.h" />
     <ClInclude Include="Screens\ScreenSystemInfo.h" />
-    <ClInclude Include="Screens\ScreenTest.h" />
-    <ClInclude Include="Theme.h" />
-    <ClInclude Include="ThemeManager.h" />
+    <ClInclude Include="Theme\Theme.h" />
+    <ClInclude Include="Theme\ThemeManager.h" />
     <ClInclude Include="structures.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="ViewSystem\CollectionView.h" />

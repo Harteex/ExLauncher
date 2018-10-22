@@ -21,11 +21,11 @@ limitations under the License.
 
 #include <SDL.h>
 #include <string>
-#include "../graphics_utils.h"
+#include "../Graphics/graphics_utils.h"
 #include "../ScreenSystem/InputState.h"
 #include "../ViewSystem/View.h"
-#include "../DataStore.h"
-#include "../AppManager.h"
+#include "../ScreenSystem/DataStore.h"
+#include "../App/AppManager.h"
 
 /*********************************************/
 

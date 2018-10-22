@@ -30,7 +30,7 @@ limitations under the License.
 #include <string>
 #include <map>
 #include <list>
-#include "structures.h"
+#include "../structures.h"
 #include <SDL_ttf.h>
 
 /*********************************************/

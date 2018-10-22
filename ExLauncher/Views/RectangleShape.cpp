@@ -15,7 +15,6 @@ limitations under the License.
 */
 
 #include "RectangleShape.h"
-#include "../ThemeManager.h"
 #include "../ScreenSystem/Screen.h"
 #include <sstream>
 

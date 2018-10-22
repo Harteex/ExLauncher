@@ -24,7 +24,7 @@ limitations under the License.
 #include <string>
 #include "../structures.h"
 #include "../ResourceManager.h"
-#include "../Graphics.h"
+#include "../Graphics/Graphics.h"
 #include "../ScreenSystem/InputState.h"
 
 /*********************************************/

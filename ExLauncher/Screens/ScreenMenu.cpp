@@ -26,7 +26,7 @@ limitations under the License.
 #include <stdlib.h>
 #include "../Xml.h"
 #include "../utils.h"
-#include "../ThemeManager.h"
+#include "../Theme/ThemeManager.h"
 #include <algorithm>
 #include "ScreenAppLaunch.h"
 #include "ScreenSystemDialog.h"

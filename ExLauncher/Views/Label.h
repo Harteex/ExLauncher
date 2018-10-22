@@ -23,7 +23,7 @@ limitations under the License.
 #include "../structures.h"
 #include <vector>
 #include <string>
-#include "../graphics_utils.h"
+#include "../Graphics/graphics_utils.h"
 #include <SDL_ttf.h>
 
 /*********************************************/

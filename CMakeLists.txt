@@ -21,12 +21,12 @@ endif()
 
 set(CPPFILES
 	ExLauncher/ResourceManager.cpp
-	ExLauncher/graphics_utils.cpp
+	ExLauncher/Graphics/graphics_utils.cpp
+	ExLauncher/Graphics/Graphics.cpp
 	ExLauncher/main.cpp
-	ExLauncher/App.cpp
-	ExLauncher/DataStore.cpp
+	ExLauncher/App/App.cpp
+	ExLauncher/ScreenSystem/DataStore.cpp
 	ExLauncher/Screens/ScreenAppLaunch.cpp
-	ExLauncher/Screens/ScreenTest.cpp
 	ExLauncher/Screens/ScreenMenu.cpp
 	ExLauncher/Screens/ScreenError.cpp
 	ExLauncher/Screens/ScreenProgressDialog.cpp
@@ -38,8 +38,8 @@ set(CPPFILES
 	ExLauncher/Screens/ScreenSettingsSelectTheme.cpp
 	ExLauncher/utils.cpp
 	ExLauncher/Animator.cpp
-	ExLauncher/Theme.cpp
-	ExLauncher/ThemeManager.cpp
+	ExLauncher/Theme/Theme.cpp
+	ExLauncher/Theme/ThemeManager.cpp
 	ExLauncher/Views/Image.cpp
 	ExLauncher/Views/LinearPanel.cpp
 	ExLauncher/Views/ListView.cpp
@@ -58,8 +58,8 @@ set(CPPFILES
 	ExLauncher/ViewSystem/ScrollView.cpp
 	ExLauncher/ViewSystem/View.cpp
 	ExLauncher/ViewSystem/LayoutHelper.cpp
-	ExLauncher/AppManager.cpp
-	ExLauncher/HomeDirectory.cpp
+	ExLauncher/App/AppManager.cpp
+	ExLauncher/Filesystem/HomeDirectory.cpp
 	ExLauncher/ScreenSystem/ScreenManager.cpp
 	ExLauncher/ScreenSystem/Screen.cpp
 	ExLauncher/ScreenSystem/InputState.cpp

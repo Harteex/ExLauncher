@@ -17,9 +17,9 @@ limitations under the License.
 #include "ThemeManager.h"
 #include <sstream>
 #include <fstream>
-#include "utils.h"
+#include "../utils.h"
 #include <iostream>
-#include "HomeDirectory.h"
+#include "../Filesystem/HomeDirectory.h"
 
 using namespace std;
 

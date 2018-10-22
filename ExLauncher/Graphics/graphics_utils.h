@@ -19,7 +19,7 @@ limitations under the License.
 
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include "structures.h"
+#include "../structures.h"
 #include <stdint.h>
 
 Rectangle ClipRect(Rectangle clip, Rectangle origClip);

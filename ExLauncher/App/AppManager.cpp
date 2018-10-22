@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 #include "AppManager.h"
-#include "utils.h"
+#include "../utils.h"
 #include <algorithm>
-#include "HomeDirectory.h"
-#include "RapidXml/rapidxml.hpp"
+#include "../Filesystem/HomeDirectory.h"
+#include "../RapidXml/rapidxml.hpp"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>

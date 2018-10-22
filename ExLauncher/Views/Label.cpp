@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "Label.h"
 #include <SDL.h>
-#include "../graphics_utils.h"
+#include "../Graphics/graphics_utils.h"
 #include <sstream>
 #include <limits.h>
 #include "../ScreenSystem/Screen.h"

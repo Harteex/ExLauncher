@@ -21,12 +21,11 @@ limitations under the License.
 #include "ScreenSystem/ScreenManager.h"
 #include "Screens/ScreenBackgroundImage.h"
 #include "Screens/ScreenMenu.h"
-#include "Screens/ScreenTest.h"
 #include "Screens/ScreenMessageDialog.h"
 #include "Screens/ScreenError.h"
-#include "ThemeManager.h"
+#include "Theme/ThemeManager.h"
 #include "global.h"
-#include "HomeDirectory.h"
+#include "Filesystem/HomeDirectory.h"
 #include <string>
 #include "utils.h"
 #ifdef UNIX
@@ -311,8 +310,6 @@ mainStart:
 		screenManager->AddScreen(new ScreenError("Failed to load theme"));
 	else
 		screenManager->AddScreen(new ScreenMenu(themeEntryPoint));
-
-	//screenManager->AddScreen(new ScreenTest());
 
 	if (launchFailed)
 	{

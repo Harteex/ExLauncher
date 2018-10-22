@@ -19,9 +19,9 @@ limitations under the License.
 #include <stdio.h>
 #include <math.h>
 #include <SDL_image.h>
-#include "utils.h"
+#include "../utils.h"
 #include <map>
-#include "global.h"
+#include "../global.h"
 #include <algorithm>
 
 using namespace std;

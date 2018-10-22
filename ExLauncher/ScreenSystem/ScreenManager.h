@@ -23,10 +23,10 @@ limitations under the License.
 #include "InputState.h"
 #include "../ResourceManager.h"
 /*#include "NetworkManager.h"*/
-#include "../AppManager.h"
-#include "../ThemeManager.h"
+#include "../App/AppManager.h"
+#include "../Theme/ThemeManager.h"
 #include "../structures.h"
-#include "../Graphics.h"
+#include "../Graphics/Graphics.h"
 #include <list>
 #include <iostream>
 #include <sstream>
