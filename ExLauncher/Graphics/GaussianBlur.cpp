@@ -8,6 +8,7 @@
 #include <SDL_image.h>
 #include <cstring>
 #include <cmath>
+#include "graphics_utils.h"
 
 GaussianBlur::GaussianBlur(SDL_Surface * image)
 {
@@ -82,7 +83,7 @@ SDL_Surface* GaussianBlur::Process(int radial)
 	delete[] newGreen;
 	delete[] newBlue;
 
-	auto image = SDL_CreateRGBSurfaceWithFormat(0, _width, _height, 32, SDL_PIXELFORMAT_ARGB8888);
+	auto image = _CreateEmptySurface(_width, _height);
 	memcpy(image->pixels, dest, _width * _height * 4);
 
 	delete[] dest;
@@ -110,7 +111,7 @@ SDL_Surface* GaussianBlur::ProcessAlphaOnly(int radial)
 
 	delete[] newAlpha;
 
-	auto image = SDL_CreateRGBSurfaceWithFormat(0, _width, _height, 32, SDL_PIXELFORMAT_ARGB8888);
+	auto image = _CreateEmptySurface(_width, _height);
 	memcpy(image->pixels, dest, _width * _height * 4);
 
 	delete[] dest;

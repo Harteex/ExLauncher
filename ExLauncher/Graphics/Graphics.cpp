@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 #include "Graphics.h"
+#include "graphics_utils.h"
 #include <algorithm>
 
 Graphics::Graphics()
@@ -151,27 +152,9 @@ SDL_Texture* Graphics::CreateTextureFromSurface(SDL_Surface* surface)
 	return SDL_CreateTextureFromSurface(renderer, surface);
 }
 
-// FIXME can we do this better? like create format after screen? or at least make sure we handle conversion to texture ok when we create like this
 SDL_Surface* Graphics::CreateEmptySurface(int width, int height)
 {
-	SDL_Surface *surface;
-	Uint32 rmask, gmask, bmask, amask;
-
-	// SDL interprets each pixel as a 32-bit number, so our masks must depend on the endianness (byte order) of the machine
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	rmask = 0xff000000;
-	gmask = 0x00ff0000;
-	bmask = 0x0000ff00;
-	amask = 0x000000ff;
-#else
-	rmask = 0x000000ff;
-	gmask = 0x0000ff00;
-	bmask = 0x00ff0000;
-	amask = 0xff000000;
-#endif
-
-	surface = SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
-	return surface;
+	return _CreateEmptySurface(width, height);
 }
 
 SDL_Surface* Graphics::ExtendSurface(SDL_Surface* srcSurface, int paddingTopBottom, int paddingLeftRight)
@@ -181,7 +164,7 @@ SDL_Surface* Graphics::ExtendSurface(SDL_Surface* srcSurface, int paddingTopBott
 	if (oldSurface->format->format != SDL_PIXELFORMAT_ARGB8888)
 		oldSurface = SDL_ConvertSurfaceFormat(srcSurface, SDL_PIXELFORMAT_ARGB8888, 0);
 
-	SDL_Surface* newSurface = SDL_CreateRGBSurfaceWithFormat(0, srcSurface->w + paddingLeftRight * 2, srcSurface->h + paddingTopBottom * 2, 32, SDL_PIXELFORMAT_ARGB8888);
+	SDL_Surface* newSurface = CreateEmptySurface(srcSurface->w + paddingLeftRight * 2, srcSurface->h + paddingTopBottom * 2);
 
 	if (newSurface == NULL)
 		return NULL;

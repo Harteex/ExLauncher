@@ -22,6 +22,7 @@ limitations under the License.
 #include "../structures.h"
 #include <stdint.h>
 
+SDL_Surface* _CreateEmptySurface(int width, int height);
 Rectangle ClipRect(Rectangle clip, Rectangle origClip);
 Color ParseColor(std::string colorStr);
 
