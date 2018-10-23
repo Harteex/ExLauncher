@@ -24,6 +24,7 @@ limitations under the License.
 #include <string>
 #include <vector>
 #include <map>
+#include <vector>
 #include "../ResourceManager.h"
 
 /*********************************************/
@@ -43,6 +44,11 @@ private:
 	void FindAndRemoveAppFromRecent(std::string appId);
 	void LoadAllAppsXml();
 	void LoadAppXml(std::string path);
+#ifdef HAS_LIBOPK
+	bool ListOpks(std::vector<std::string>& listToFill, std::string path);
+	App* ParseOpkMetadata(struct OPK *opk);
+	bool LoadOpk(std::string path);
+#endif
 public:
 	AppManager();
 	~AppManager();

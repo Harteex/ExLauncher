@@ -19,6 +19,7 @@ limitations under the License.
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <cstring>
 
 using namespace rapidxml;
 using namespace std;

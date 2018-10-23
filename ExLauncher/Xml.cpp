@@ -19,6 +19,7 @@ limitations under the License.
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include <exception>
 #include "Views/LinearPanel.h"
 #include "Views/ListView.h"

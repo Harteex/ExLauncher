@@ -110,7 +110,7 @@ void AppManager::RemoveApp(std::string path)
 }
 
 #ifdef HAS_LIBOPK
-bool ListOpks(vector<string>& listToFill, string path)
+bool AppManager::ListOpks(vector<string>& listToFill, string path)
 {
 	DIR* dir;
 	struct dirent* dnt;
@@ -138,7 +138,7 @@ bool ListOpks(vector<string>& listToFill, string path)
 	return true;
 }
 
-App* ParseOpkMetadata(struct OPK *opk)
+App* AppManager::ParseOpkMetadata(struct OPK *opk)
 {
 	const char *key, *val;
 	size_t keyLength, valLength;
@@ -179,9 +179,9 @@ App* ParseOpkMetadata(struct OPK *opk)
 	return app;
 }
 
-bool LoadOpk(string path)
+bool AppManager::LoadOpk(string path)
 {
-	struct OPK *opk = opk_open(opkPath.c_str());
+	struct OPK *opk = opk_open(path.c_str());
 	if (!opk)
 	{
 		// TODO error
@@ -221,20 +221,20 @@ bool LoadOpk(string path)
 			App* app = ParseOpkMetadata(opk);
 			if (app != NULL)
 			{
-				app->SetData("path", opkPath);
+				app->SetData("path", path);
 				app->SetData("metadata", metadataName);
 
 				stringstream appId;
-				appId << opkPath << " " << metadataName;
+				appId << path << " " << metadataName;
 				app->SetData("id", appId.str());
 
 				stringstream exec;
-				exec << "opkrun -m " << metadataName << " " << opkPath;
+				exec << "opkrun -m " << metadataName << " " << path;
 				app->SetData("exec", exec.str());
-				app->SetExec({ "opkrun", "-m", metadataName, opkPath });
+				app->SetExec({ "opkrun", "-m", metadataName, path });
 
 				// FIXME do not try to load icon if none is specified
-				string iconId = opkPath + "/" + app->GetData("iconName", "");
+				string iconId = path + "/" + app->GetData("iconName", "");
 				app->SetData("iconId", iconId);
 
 				SDL_Texture* iconTexture = resourceManager->LoadImageFromOpk(iconId, opk, (string)app->GetData("iconName", "") + ".png");
