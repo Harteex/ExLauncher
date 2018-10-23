@@ -45,6 +45,7 @@
           font="condensedbold"
           textColor="white"
           textSize="12"
+          textStyle="shadow"
           gravity="center_horizontal"
           layoutGravity="bottom"
           layoutMargin="0 4 0 0" />
