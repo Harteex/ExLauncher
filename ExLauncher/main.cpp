@@ -244,6 +244,9 @@ mainStart:
 	}
 	std::cout << "OK" << std::endl;
 
+	std::cout << "Initializing file system watch" << std::endl;
+	screenManager->InitFilesystemWatch();
+
 	std::cout << "Loading resources... ";
 	if (!screenManager->LoadGlobalResources())
 	{

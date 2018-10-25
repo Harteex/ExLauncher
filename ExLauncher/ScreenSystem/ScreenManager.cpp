@@ -47,9 +47,12 @@ bool ScreenManager::Init(SDL_Renderer* renderer)
 	displaySize.w = r.w;
 	displaySize.h = r.h;
 
-	filesystemWatchManager.Init(this, &appManager);
-
 	return true;
+}
+
+bool ScreenManager::InitFilesystemWatch()
+{
+	return filesystemWatchManager.Init(this, &appManager);
 }
 
 bool ScreenManager::LoadGlobalResources()

@@ -65,6 +65,7 @@ public:
 	bool HasExit();
 	void TraceScreens();
 	bool Init(SDL_Renderer* renderer);
+	bool InitFilesystemWatch();
 	bool LoadGlobalResources();
 	Graphics& GetGraphics();
 	Size GetDisplaySize();
