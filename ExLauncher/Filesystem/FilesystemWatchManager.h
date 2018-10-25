@@ -19,6 +19,7 @@ limitations under the License.
 
 /*********************************************/
 
+#include "../global.h"
 #include "SimpleFileWatcher/FileWatcher.h"
 #include "FilesystemWatchListener.h"
 
