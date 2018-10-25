@@ -31,7 +31,6 @@ class CollectionView : public View, public ISelectionHandler
 {
 protected:
 	int selectedIndex;
-	View* selectedItem;
 public:
 	CollectionView();
 
@@ -40,6 +39,7 @@ public:
 	View* GetSelectedView();
 	bool SelectByName(std::string name);
 	bool SelectByIndex(int index);
+	bool SelectById(std::string id);
 	virtual void OnSelectionChanged() = 0;
 };
 

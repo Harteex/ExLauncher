@@ -26,7 +26,6 @@ CollectionView::CollectionView()
 	contentSize.h = 0;
 
 	selectedIndex = 0;
-	selectedItem = NULL;
 }
 
 void CollectionView::HandleInput(InputState* input)
@@ -76,6 +75,12 @@ bool CollectionView::SelectByName(string name)
 
 bool CollectionView::SelectByIndex(int index)
 {
+	if (children.size() == 0)
+	{
+		selectedIndex = 0;
+		return false; // No real selection has been made except for resetting the variable
+	}
+
 	if (index < 0 || index >= children.size())
 		return false;
 
@@ -90,4 +95,18 @@ bool CollectionView::SelectByIndex(int index)
 		context->OnEvent(selectedView, EventTypeSelectionChanged, "");
 
 	return true;
+}
+
+bool CollectionView::SelectById(std::string id)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		View* v = children[i];
+
+		if (v->GetId() == id)
+			return SelectByIndex(i);
+	}
+
+	// No view with the specified name was found
+	return false;
 }

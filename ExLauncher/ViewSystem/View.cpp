@@ -434,7 +434,7 @@ void View::AddChildView(View* view)
 
 void View::DeleteChildView(int i)
 {
-	if (i < GetNumberOfChildren())
+	if (i >= 0 && i < GetNumberOfChildren())
 	{
 		delete children.at(i);
 		children.erase(children.begin() + i);

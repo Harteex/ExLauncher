@@ -54,6 +54,7 @@ public:
 	View* GetSelectedView();
 	bool SelectByName(std::string name);
 	bool SelectByIndex(int index);
+	bool SelectById(std::string id);
 	View* SelectNext(Direction direction);
 };
 
