@@ -356,10 +356,19 @@ void ScreenMenu::EndUpdateApps()
 		{
 			View* categoryView = categoryFillView->GetChildView(i);
 
+			// Reapply selection
 			// Selection must be done after layout calculations are finished
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
 			if (selectionHandler != nullptr)
-				selectionHandler->SelectByIndex(0);
+			{
+				int selectionIndex = selectionHandler->GetSelectedIndex();
+				if (selectionIndex > categoryView->GetNumberOfChildren() - 1)
+					selectionIndex = categoryView->GetNumberOfChildren() - 1;
+				if (selectionIndex < 0)
+					selectionIndex = 0;
+
+				selectionHandler->SelectByIndex(selectionIndex);
+			}
 		}
 	}
 	else if (itemFillView != nullptr)
@@ -371,10 +380,19 @@ void ScreenMenu::EndUpdateApps()
 		FillDataInView(itemFillView, arguments->GetStringMap());
 		itemFillView->RecalculateLayout();
 
+		// Reapply selection
 		// Selection must be done after layout calculations are finished
 		ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(itemFillView);
 		if (selectionHandler != nullptr)
-			selectionHandler->SelectByIndex(0);
+		{
+			int selectionIndex = selectionHandler->GetSelectedIndex();
+			if (selectionIndex > itemFillView->GetNumberOfChildren() - 1)
+				selectionIndex = itemFillView->GetNumberOfChildren() - 1;
+			if (selectionIndex < 0)
+				selectionIndex = 0;
+
+			selectionHandler->SelectByIndex(selectionIndex);
+		}
 	}
 }
 
