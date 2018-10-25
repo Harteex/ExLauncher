@@ -67,6 +67,9 @@
     <Filter Include="Source Files\Theme">
       <UniqueIdentifier>{ec1c3351-aff6-4972-a165-b04606f24218}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Filesystem\SimpleFileWatcher">
+      <UniqueIdentifier>{c08d0b57-3ef1-435e-8ffc-2e15a3d1c8a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="structures.cpp">
@@ -200,6 +203,24 @@
     </ClCompile>
     <ClCompile Include="Theme\ThemeManager.cpp">
       <Filter>Source Files\Theme</Filter>
+    </ClCompile>
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcher.cpp">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcherLinux.cpp">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcherOSX.cpp">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcherWin32.cpp">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="Filesystem\FilesystemWatchListener.cpp">
+      <Filter>Source Files\Filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Filesystem\FilesystemWatchManager.cpp">
+      <Filter>Source Files\Filesystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +370,27 @@
     </ClInclude>
     <ClInclude Include="Theme\ThemeManager.h">
       <Filter>Source Files\Theme</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcher.h">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherImpl.h">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherLinux.h">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherOSX.h">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherWin32.h">
+      <Filter>Source Files\Filesystem\SimpleFileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\FilesystemWatchListener.h">
+      <Filter>Source Files\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\FilesystemWatchManager.h">
+      <Filter>Source Files\Filesystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

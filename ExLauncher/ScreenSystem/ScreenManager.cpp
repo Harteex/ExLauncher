@@ -47,6 +47,8 @@ bool ScreenManager::Init(SDL_Renderer* renderer)
 	displaySize.w = r.w;
 	displaySize.h = r.h;
 
+	filesystemWatchManager.Init(this, &appManager);
+
 	return true;
 }
 
@@ -125,6 +127,8 @@ void ScreenManager::Draw()
 
 void ScreenManager::Update()
 {
+	filesystemWatchManager.Update();
+
 	input->Update();
 
 	while(SDL_PollEvent(&event)) 

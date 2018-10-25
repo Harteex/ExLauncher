@@ -27,6 +27,7 @@ limitations under the License.
 #include "../Theme/ThemeManager.h"
 #include "../structures.h"
 #include "../Graphics/Graphics.h"
+#include "../Filesystem/FilesystemWatchManager.h"
 #include <list>
 #include <iostream>
 #include <sstream>
@@ -48,6 +49,7 @@ private:
 	/*NetworkManager networkManager;*/
 	AppManager appManager;
 	ThemeManager themeManager;
+	FilesystemWatchManager filesystemWatchManager;
 	SDL_Event event;
 	std::string lastError;
 
