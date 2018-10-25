@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Andreas Bjerkeholt
+Copyright 2018 Andreas Bjerkeholt
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,35 +14,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef _COLLECTION_VIEW_H_
-#define _COLLECTION_VIEW_H_
+#ifndef _FILESYSTEM_WATCH_LISTENER_H
+#define _FILESYSTEM_WATCH_LISTENER_H
 
 /*********************************************/
 
-#include "View.h"
-#include "ISelectionHandler.h"
-#include "../structures.h"
-#include "../ScreenSystem/InputState.h"
-#include <vector>
+#include <SDL.h>
+#include "SimpleFileWatcher/FileWatcher.h"
+#include <string>
 
 /*********************************************/
 
-class CollectionView : public View, public ISelectionHandler
+class ScreenManager;
+class AppManager;
+
+class FilesystemWatchListener : public FW::FileWatchListener
 {
-protected:
-	int selectedIndex;
+private:
+	ScreenManager* screenManager;
+	AppManager* appManager;
 public:
-	CollectionView();
-
-	void HandleInput(InputState* input);
-	int GetSelectedIndex();
-	View* GetSelectedView();
-	bool SelectByName(std::string name);
-	bool SelectByIndex(int index);
-	bool SelectById(std::string id);
-	virtual void OnSelectionChanged() = 0;
+	FilesystemWatchListener();
+	~FilesystemWatchListener();
+	void handleFileAction(FW::WatchID watchid, const FW::String& dir, const FW::String& filename, FW::Action action);
+	void SetScreenManager(ScreenManager* screenManager);
+	void SetAppManager(AppManager* appManager);
 };
-
-/*********************************************/
 
 #endif

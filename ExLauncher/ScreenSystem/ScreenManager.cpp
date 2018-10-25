@@ -50,6 +50,11 @@ bool ScreenManager::Init(SDL_Renderer* renderer)
 	return true;
 }
 
+bool ScreenManager::InitFilesystemWatch()
+{
+	return filesystemWatchManager.Init(this, &appManager);
+}
+
 bool ScreenManager::LoadGlobalResources()
 {
 	if (GetResourceManager()->GetTTFFont("semibold", 18) == nullptr)
@@ -125,6 +130,8 @@ void ScreenManager::Draw()
 
 void ScreenManager::Update()
 {
+	filesystemWatchManager.Update();
+
 	input->Update();
 
 	while(SDL_PollEvent(&event)) 
@@ -287,4 +294,12 @@ void ScreenManager::SetGameKeyBindings(int* keyMappingArray, int numberOfKeys)
 string ScreenManager::GetLastError()
 {
 	return lastError;
+}
+
+void ScreenManager::SendEvent(EventType type, std::string value, std::vector<std::string> args)
+{
+	for (Screen* screen : screens)
+	{
+		screen->OnEvent(NULL, type, value, args);
+	}
 }

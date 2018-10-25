@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Andreas Bjerkeholt
+Copyright 2018 Andreas Bjerkeholt
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,35 +14,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef _COLLECTION_VIEW_H_
-#define _COLLECTION_VIEW_H_
+#ifndef _FILESYSTEM_WATCH_MANAGER_H
+#define _FILESYSTEM_WATCH_MANAGER_H
 
 /*********************************************/
 
-#include "View.h"
-#include "ISelectionHandler.h"
-#include "../structures.h"
-#include "../ScreenSystem/InputState.h"
-#include <vector>
+#include "../global.h"
+#include "SimpleFileWatcher/FileWatcher.h"
+#include "FilesystemWatchListener.h"
 
 /*********************************************/
 
-class CollectionView : public View, public ISelectionHandler
+class ScreenManager;
+class AppManager;
+
+class FilesystemWatchManager
 {
-protected:
-	int selectedIndex;
+private:
+	FilesystemWatchListener listener;
+	FW::FileWatcher fileWatcher;
+	int watchesCount;
 public:
-	CollectionView();
+	FilesystemWatchManager();
+	~FilesystemWatchManager();
 
-	void HandleInput(InputState* input);
-	int GetSelectedIndex();
-	View* GetSelectedView();
-	bool SelectByName(std::string name);
-	bool SelectByIndex(int index);
-	bool SelectById(std::string id);
-	virtual void OnSelectionChanged() = 0;
+	bool Init(ScreenManager* screenManager, AppManager* appManager);
+	void Update();
 };
-
-/*********************************************/
 
 #endif

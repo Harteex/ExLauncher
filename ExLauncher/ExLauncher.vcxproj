@@ -14,6 +14,12 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppManager.cpp" />
+    <ClCompile Include="Filesystem\FilesystemWatchListener.cpp" />
+    <ClCompile Include="Filesystem\FilesystemWatchManager.cpp" />
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcher.cpp" />
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcherLinux.cpp" />
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcherOSX.cpp" />
+    <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcherWin32.cpp" />
     <ClCompile Include="ScreenSystem\DataStore.cpp" />
     <ClCompile Include="Graphics\Graphics.cpp" />
     <ClCompile Include="Graphics\GaussianBlur.cpp" />
@@ -60,6 +66,13 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppManager.h" />
+    <ClInclude Include="Filesystem\FilesystemWatchListener.h" />
+    <ClInclude Include="Filesystem\FilesystemWatchManager.h" />
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcher.h" />
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherImpl.h" />
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherLinux.h" />
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherOSX.h" />
+    <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcherWin32.h" />
     <ClInclude Include="ScreenSystem\DataStore.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="Graphics\Graphics.h" />

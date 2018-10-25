@@ -159,6 +159,12 @@ void TabPanel::DoSelectTabByIndex(int index)
 
 bool TabPanel::SelectByIndex(int index)
 {
+	if (children.size() == 0)
+	{
+		selectedIndex = 0;
+		return false; // No real selection has been made except for resetting the variable
+	}
+
 	if (index < 0 || index >= children.size())
 		return false;
 
@@ -166,6 +172,20 @@ bool TabPanel::SelectByIndex(int index)
 	
 	tabStrip->SelectTab(index);
 	return true;
+}
+
+bool TabPanel::SelectById(string id)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		View* v = children[i];
+
+		if (v->GetId() == id)
+			return SelectByIndex(i);
+	}
+
+	// No view with the specified name was found
+	return false;
 }
 
 View* TabPanel::SelectNext(Direction direction)

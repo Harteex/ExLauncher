@@ -279,6 +279,19 @@ View* ScreenMenu::FindCategoryView(string category, bool createIfNotFound)
 	return categoryView;
 }
 
+bool ScreenMenu::AddApp(string path)
+{
+	bool result = true;
+
+	auto apps = screenManager->GetAppManager()->GetAppsByPathWithCategoryList(path);
+	for (auto app : apps)
+	{
+		result = result && AddApp(get<1>(app), get<0>(app));
+	}
+
+	return result;
+}
+
 bool ScreenMenu::AddApp(App* app, string category)
 {
 	bool result = true;
@@ -343,10 +356,19 @@ void ScreenMenu::EndUpdateApps()
 		{
 			View* categoryView = categoryFillView->GetChildView(i);
 
+			// Reapply selection
 			// Selection must be done after layout calculations are finished
 			ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(categoryView);
 			if (selectionHandler != nullptr)
-				selectionHandler->SelectByIndex(0);
+			{
+				int selectionIndex = selectionHandler->GetSelectedIndex();
+				if (selectionIndex > categoryView->GetNumberOfChildren() - 1)
+					selectionIndex = categoryView->GetNumberOfChildren() - 1;
+				if (selectionIndex < 0)
+					selectionIndex = 0;
+
+				selectionHandler->SelectByIndex(selectionIndex);
+			}
 		}
 	}
 	else if (itemFillView != nullptr)
@@ -358,10 +380,19 @@ void ScreenMenu::EndUpdateApps()
 		FillDataInView(itemFillView, arguments->GetStringMap());
 		itemFillView->RecalculateLayout();
 
+		// Reapply selection
 		// Selection must be done after layout calculations are finished
 		ISelectionHandler* selectionHandler = dynamic_cast<ISelectionHandler*>(itemFillView);
 		if (selectionHandler != nullptr)
-			selectionHandler->SelectByIndex(0);
+		{
+			int selectionIndex = selectionHandler->GetSelectedIndex();
+			if (selectionIndex > itemFillView->GetNumberOfChildren() - 1)
+				selectionIndex = itemFillView->GetNumberOfChildren() - 1;
+			if (selectionIndex < 0)
+				selectionIndex = 0;
+
+			selectionHandler->SelectByIndex(selectionIndex);
+		}
 	}
 }
 
@@ -489,6 +520,25 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 	case EventTypeGoBack:
 		if (canGoBack)
 			ExitScreen();
+		break;
+	case EventTypeDataCollectionChanged:
+		std::cout << "EventTypeDataCollectionChanged event: " << eventValue << " " << eventArgs[0] << std::endl;
+
+		if (eventValue == "added")
+		{
+			AddApp(eventArgs[0]);
+		}
+		else if (eventValue == "deleted")
+		{
+			RemoveApp(eventArgs[0]);
+		}
+		else if (eventValue == "modified")
+		{
+			RemoveApp(eventArgs[0]);
+			AddApp(eventArgs[0]);
+		}
+
+		EndUpdateApps();
 		break;
 	}
 }

@@ -36,6 +36,7 @@ public:
 	virtual View* GetSelectedView() = 0;
 	virtual bool SelectByName(std::string name) = 0;
 	virtual bool SelectByIndex(int index) = 0;
+	virtual bool SelectById(std::string id) = 0;
 	virtual View* SelectNext(Direction direction) = 0;
 };
 

@@ -25,6 +25,7 @@ limitations under the License.
 #include <vector>
 #include <map>
 #include <vector>
+#include <list>
 #include "../ResourceManager.h"
 
 /*********************************************/
@@ -39,6 +40,7 @@ private:
 	std::vector<std::string> commandToLaunch;
 
 	std::vector<App*>* FindOrCreateCategory(std::string category);
+	std::vector<App*>* FindOrCreateCategory(std::string category, std::map<std::string, std::vector<App*>*>* categoryMap);
 	void AddApp(App* app);
 	void RemoveApp(std::string path);
 	void FindAndRemoveAppFromRecent(std::string appId);
@@ -56,8 +58,11 @@ public:
 	void SetResourceManager(ResourceManager* resourceManager);
 	bool LoadApps();
 	void UnloadApps();
+	void HandleAppChange(std::string path, FileStatus status);
 	std::map<std::string, std::vector<App*>*>* GetAllAppsWithCategoryMap();
+	std::list<std::tuple<std::string, App*>> GetAppsByPathWithCategoryList(std::string path);
 	std::vector<App*>* GetApps(std::string category);
+	std::vector<App*> GetAppsByPath(std::string path);
 	int GetNumberOfApps();
 	bool SetAppToLaunch(std::string appId, std::vector<std::string> command);
 	void SetCommandToLaunch(std::vector<std::string> command);

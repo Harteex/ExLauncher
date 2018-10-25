@@ -53,6 +53,7 @@ public:
 	View* GetViewById(std::string id);
 	View* GetFirstViewByTag(std::string tag);
 	bool HandleApps();
+	bool AddApp(std::string path);
 	bool AddApp(App* app, std::string category);
 	void StartUpdateApps();
 	void EndUpdateApps();

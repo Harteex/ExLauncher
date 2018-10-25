@@ -165,11 +165,6 @@ void InputState::Update()
 
 void InputState::KeyStateChanged(SDL_KeyboardEvent* sdlkey)
 {
-	if (sdlkey->repeat == 1)
-	{
-		printf("repeat\n");
-	}
-	
 	if (sdlkey->repeat == 0)
 	{
 		keyState[sdlkey->keysym.scancode] = (sdlkey->type == SDL_KEYDOWN) ? 1 : 0;

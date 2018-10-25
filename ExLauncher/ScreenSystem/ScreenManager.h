@@ -27,6 +27,7 @@ limitations under the License.
 #include "../Theme/ThemeManager.h"
 #include "../structures.h"
 #include "../Graphics/Graphics.h"
+#include "../Filesystem/FilesystemWatchManager.h"
 #include <list>
 #include <iostream>
 #include <sstream>
@@ -48,6 +49,7 @@ private:
 	/*NetworkManager networkManager;*/
 	AppManager appManager;
 	ThemeManager themeManager;
+	FilesystemWatchManager filesystemWatchManager;
 	SDL_Event event;
 	std::string lastError;
 
@@ -63,6 +65,7 @@ public:
 	bool HasExit();
 	void TraceScreens();
 	bool Init(SDL_Renderer* renderer);
+	bool InitFilesystemWatch();
 	bool LoadGlobalResources();
 	Graphics& GetGraphics();
 	Size GetDisplaySize();
@@ -72,6 +75,7 @@ public:
 	ThemeManager* GetThemeManager();
 	void SetGameKeyBindings(int* keyMappingArray, int numberOfKeys);
 	std::string GetLastError();
+	void SendEvent(EventType type, std::string value, std::vector<std::string> args);
 };
 
 /*********************************************/
