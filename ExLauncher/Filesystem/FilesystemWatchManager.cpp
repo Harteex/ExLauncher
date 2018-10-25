@@ -1,5 +1,7 @@
 #include "FilesystemWatchManager.h"
 
+using namespace std;
+
 FilesystemWatchManager::FilesystemWatchManager()
 {
 	watchesCount = 0;
