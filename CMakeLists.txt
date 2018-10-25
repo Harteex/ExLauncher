@@ -59,7 +59,13 @@ set(CPPFILES
 	ExLauncher/ViewSystem/View.cpp
 	ExLauncher/ViewSystem/LayoutHelper.cpp
 	ExLauncher/App/AppManager.cpp
+	ExLauncher/Filesystem/FilesystemWatchListener.cpp
+	ExLauncher/Filesystem/FilesystemWatchManager.cpp
 	ExLauncher/Filesystem/HomeDirectory.cpp
+	ExLauncher/Filesystem/SimpleFileWatcher/FileWatcher.cpp
+	ExLauncher/Filesystem/SimpleFileWatcher/FileWatcherLinux.cpp
+	ExLauncher/Filesystem/SimpleFileWatcher/FileWatcherOSX.cpp
+	ExLauncher/Filesystem/SimpleFileWatcher/FileWatcherWin32.cpp
 	ExLauncher/ScreenSystem/ScreenManager.cpp
 	ExLauncher/ScreenSystem/Screen.cpp
 	ExLauncher/ScreenSystem/InputState.cpp
