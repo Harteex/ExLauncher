@@ -74,6 +74,7 @@ public:
 	ThemeManager* GetThemeManager();
 	void SetGameKeyBindings(int* keyMappingArray, int numberOfKeys);
 	std::string GetLastError();
+	void SendEvent(EventType type, std::string value, std::vector<std::string> args);
 };
 
 /*********************************************/

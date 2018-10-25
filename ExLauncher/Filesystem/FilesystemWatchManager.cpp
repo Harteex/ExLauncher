@@ -2,6 +2,7 @@
 
 FilesystemWatchManager::FilesystemWatchManager()
 {
+	watchesCount = 0;
 }
 
 FilesystemWatchManager::~FilesystemWatchManager()
@@ -13,12 +14,17 @@ bool FilesystemWatchManager::Init(ScreenManager* screenManager, AppManager* appM
 	listener.SetScreenManager(screenManager);
 	listener.SetAppManager(appManager);
 
-	FW::WatchID watchID = fileWatcher.addWatch("/media/data/apps", &listener); // FIXME path?
+#ifdef PLATFORM_GCW0
+	FW::WatchID watchID = fileWatcher.addWatch("/media/data/apps", &listener);
+	if (watchID >= 0)
+		watchesCount++;
+#endif
 
 	return true;
 }
 
 void FilesystemWatchManager::Update()
 {
-	fileWatcher.update();
+	if (watchesCount > 0)
+		fileWatcher.update();
 }

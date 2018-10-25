@@ -49,12 +49,17 @@ void AppManager::SetResourceManager(ResourceManager* resourceManager)
 
 vector<App*>* AppManager::FindOrCreateCategory(string category)
 {
-	auto categoryResult = appsInCategories.find(category);
-	if (categoryResult != appsInCategories.end())
+	return FindOrCreateCategory(category, &appsInCategories);
+}
+
+std::vector<App*>* AppManager::FindOrCreateCategory(string category, map<string, vector<App*>*>* categoryMap)
+{
+	auto categoryResult = categoryMap->find(category);
+	if (categoryResult != categoryMap->end())
 		return categoryResult->second;
 
 	vector<App*>* categoryNew = new vector<App*>();
-	appsInCategories[category] = categoryNew;
+	(*categoryMap)[category] = categoryNew;
 
 	return categoryNew;
 }
@@ -569,9 +574,46 @@ void AppManager::UnloadApps()
 	appsToDelete.clear();
 }
 
+void AppManager::HandleAppChange(std::string path, FileStatus status)
+{
+	if (status == FileStatusDeleted || status == FileStatusModified)
+	{
+		RemoveApp(path);
+	}
+
+	if (status == FileStatusAdded || status == FileStatusModified)
+	{
+#ifdef HAS_LIBOPK
+		if (stringEndsWith(path, ".opk"))
+		{
+			LoadOpk(path);
+		}
+#endif
+	}
+}
+
 map<string, vector<App*>*>* AppManager::GetAllAppsWithCategoryMap()
 {
 	return &appsInCategories;
+}
+
+list<tuple<string, App*>> AppManager::GetAppsByPathWithCategoryList(string path)
+{
+	list<tuple<string, App*>> tempList;
+
+	auto tempApps = GetAppsByPath(path);
+	for (App* app : tempApps)
+	{
+		string categoriesString = app->GetData("categories", "uncategorized");
+		vector<string> categories = split(categoriesString, ';');
+
+		for (string category : categories)
+		{
+			tempList.push_back(make_tuple(category, app));
+		}
+	}
+
+	return tempList;
 }
 
 vector<App*>* AppManager::GetApps(string category)
@@ -580,6 +622,22 @@ vector<App*>* AppManager::GetApps(string category)
 		return NULL;
 
 	return appsInCategories[category];
+}
+
+vector<App*> AppManager::GetAppsByPath(string path)
+{
+	vector<App*> tempApps;
+
+	if (path == "")
+		return tempApps;
+	
+	for (auto app : apps)
+	{
+		if (app.second->GetData("path", "") == path)
+			tempApps.push_back(app.second);
+	}
+
+	return tempApps;
 }
 
 int AppManager::GetNumberOfApps()

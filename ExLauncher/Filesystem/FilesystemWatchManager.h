@@ -32,6 +32,7 @@ class FilesystemWatchManager
 private:
 	FilesystemWatchListener listener;
 	FW::FileWatcher fileWatcher;
+	int watchesCount;
 public:
 	FilesystemWatchManager();
 	~FilesystemWatchManager();

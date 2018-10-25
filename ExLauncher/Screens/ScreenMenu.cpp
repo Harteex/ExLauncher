@@ -279,6 +279,19 @@ View* ScreenMenu::FindCategoryView(string category, bool createIfNotFound)
 	return categoryView;
 }
 
+bool ScreenMenu::AddApp(string path)
+{
+	bool result = true;
+
+	auto apps = screenManager->GetAppManager()->GetAppsByPathWithCategoryList(path);
+	for (auto app : apps)
+	{
+		result = result && AddApp(get<1>(app), get<0>(app));
+	}
+
+	return result;
+}
+
 bool ScreenMenu::AddApp(App* app, string category)
 {
 	bool result = true;
@@ -489,6 +502,25 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 	case EventTypeGoBack:
 		if (canGoBack)
 			ExitScreen();
+		break;
+	case EventTypeDataCollectionChanged:
+		std::cout << "EventTypeDataCollectionChanged event: " << eventValue << " " << eventArgs[0] << std::endl;
+
+		if (eventValue == "added")
+		{
+			AddApp(eventArgs[0]);
+		}
+		else if (eventValue == "deleted")
+		{
+			RemoveApp(eventArgs[0]);
+		}
+		else if (eventValue == "modified")
+		{
+			RemoveApp(eventArgs[0]);
+			AddApp(eventArgs[0]);
+		}
+
+		EndUpdateApps();
 		break;
 	}
 }
