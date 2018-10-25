@@ -15,9 +15,18 @@ bool FilesystemWatchManager::Init(ScreenManager* screenManager, AppManager* appM
 	listener.SetAppManager(appManager);
 
 #ifdef PLATFORM_GCW0
-	FW::WatchID watchID = fileWatcher.addWatch("/media/data/apps", &listener);
+	string watchPath = "/media/data/apps";
+	std::cout << "Setting up watch for path '" << watchPath << "'... ";
+	FW::WatchID watchID = fileWatcher.addWatch(watchPath.c_str(), &listener);
 	if (watchID >= 0)
+	{
 		watchesCount++;
+		std::cout << "OK" << std::endl;
+	}
+	else
+	{
+		std::cout << "Failed" << std::endl;
+	}
 #endif
 
 	return true;
