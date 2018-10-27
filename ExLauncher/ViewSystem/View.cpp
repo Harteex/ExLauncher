@@ -622,6 +622,11 @@ View* View::CopyBase(View* view)
 	view->SetBackground(background);
 	view->SetItemTemplate(itemTemplate);
 
+	for (string tag : tags)
+	{
+		view->AddTag(tag);
+	}
+
 	for (View* v : children)
 	{
 		view->AddChildView(v->Copy());
