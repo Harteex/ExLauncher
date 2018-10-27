@@ -151,6 +151,9 @@ App* AppManager::ParseOpkMetadata(struct OPK *opk)
 
 	App* app = new App();
 
+	// Default values
+	app->SetData("withFile", "false");
+
 	while ((ret = opk_read_pair(opk, &key, &keyLength, &val, &valLength)))
 	{
 		if (ret < 0)
@@ -175,6 +178,11 @@ App* AppManager::ParseOpkMetadata(struct OPK *opk)
 		else if (strncmp(key, "Icon", keyLength) == 0)
 		{
 			app->SetData("iconName", valueBuffer);
+		}
+		else if (strncmp(key, "Exec", keyLength) == 0)
+		{
+			if (strstr(valueBuffer, "%f") != NULL)
+				app->SetData("withFile", "true");
 		}
 
 		// TODO handle more values
@@ -523,6 +531,15 @@ bool AppManager::LoadApps()
 	app->SetData("name", "Test Multiple Categories");
 	app->SetData("categories", "customcategory;settings;");
 	app->SetData("iconId", "appIconDefault");
+	AddApp(app);
+
+	app = new App();
+	app->SetData("id", "ultrahle");
+	app->SetData("path", "/path/to/ultrahle.opk");
+	app->SetData("name", "UltraHLE");
+	app->SetData("categories", "emulators;");
+	app->SetData("iconId", "appIconDefault");
+	app->SetData("withFile", "true");
 	AddApp(app);
 #endif
 
