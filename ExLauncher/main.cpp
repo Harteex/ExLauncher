@@ -386,8 +386,10 @@ mainStart:
 #ifdef UNIX
 		vector<const char *> args;
 		args.reserve(commandToLaunchOnExit.size() + 1);
-		for (auto arg : commandToLaunchOnExit) {
+		for (auto arg : commandToLaunchOnExit)
+		{
 			args.push_back(arg.c_str());
+			std::cout << arg << std::endl;
 		}
 		args.push_back(nullptr);
 		execvp(commandToLaunchOnExit[0].c_str(), (char* const*)&args[0]);

@@ -93,7 +93,9 @@ std::string ScreenBrowseFilesForApp::GetStartDirectory()
 {
 #ifdef WINDOWS
 	string startDirectory = "C:/";
-#elif UNIX
+#endif
+
+#ifdef UNIX
 	string startDirectory = "/usr/local/home/";
 #endif
 
@@ -164,7 +166,9 @@ bool ScreenBrowseFilesForApp::IsRootFolder(std::string directory)
 #ifdef WINDOWS
 	if (directory.size() <= 3)
 		return true;
-#elif UNIX
+#endif
+
+#ifdef UNIX
 	if (directory == "/")
 		return true;
 #endif
@@ -252,7 +256,7 @@ void ScreenBrowseFilesForApp::OnEvent(View* sender, EventType eventType, string 
 							ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
 							appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
 							appLaunch->SetAppId(sender->GetId());
-							appLaunch->SetExec(eventArgs);
+							appLaunch->SetExec(exec);
 							screenManager->AddScreen(appLaunch);
 						}
 					}
