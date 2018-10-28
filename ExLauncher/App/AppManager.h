@@ -61,6 +61,7 @@ public:
 	void HandleAppChange(std::string path, FileStatus status);
 	std::map<std::string, std::vector<App*>*>* GetAllAppsWithCategoryMap();
 	std::list<std::tuple<std::string, App*>> GetAppsByPathWithCategoryList(std::string path);
+	App* GetApp(std::string id);
 	std::vector<App*>* GetApps(std::string category);
 	std::vector<App*> GetAppsByPath(std::string path);
 	int GetNumberOfApps();

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearPanel
+  xmlns="http://schemas.exlauncher.com/exlauncher"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schemas.exlauncher.com/exlauncher ../schema/screen.xsd"
+  width="*"
+  height="*"
+  orientation="vertical">
+
+  <LinearPanel
+    width="*"
+    height="content"
+    layoutMargin="5 0 5 0"
+    orientation="horizontal">
+    <Image
+      id="appIcon"
+      width="content"
+      height="content"
+      path="{iconId}"
+      altPath="appIconDefault"/>
+    <Label
+      width="content"
+      height="content"
+      text="{name}"
+      textSize="18"
+      font="regular"
+      layoutMargin="0 0 6 0"
+      layoutGravity="center_vertical" />
+  </LinearPanel>
+
+  <ListView
+    id="inputView"
+    width="*"
+    height="*"
+    orientation="vertical"
+    itemSize="25"
+    layoutGravity="center_horizontal"
+    layoutMargin="12 0 5 5">
+
+    <ListView.ItemTemplate>
+      <FramePanel
+        width="*"
+        height="*">
+        <Selector
+          width="*"
+          height="*">
+          <State stateSelected="true">
+            <RectangleShape
+              width="*"
+              height="*"
+              strokeColor="white"
+              fillColor="#40ffffff"/>
+          </State>
+        </Selector>
+
+        <LinearPanel
+          width="*"
+          height="*"
+          orientation="horizontal">
+          <Image
+            tag="fileTypeIcon"
+            width="content"
+            height="content"
+            layoutMargin="0 4 4 0"
+            layoutGravity="center_vertical"
+            path="data/graphics/ic_folder.png" />
+          <Label
+            width="*"
+            height="content"
+            text="{fileName}"
+            layoutMargin="0 0 4 0"
+            layoutGravity="center_vertical" />
+        </LinearPanel>
+        
+      </FramePanel>
+    </ListView.ItemTemplate>
+    
+  </ListView>
+  
+</LinearPanel>

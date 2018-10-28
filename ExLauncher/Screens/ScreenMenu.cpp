@@ -31,6 +31,7 @@ limitations under the License.
 #include "ScreenAppLaunch.h"
 #include "ScreenSystemDialog.h"
 #include "ScreenSettingsSelectTheme.h"
+#include "ScreenBrowseFilesForApp.h"
 
 using namespace std;
 
@@ -404,7 +405,12 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 	View* newView = fillView->GetItemTemplate()->Copy();
 
 	newView->SetId(app->GetData("id", ""));
-	newView->SetAction("app");
+
+	if (app->GetData("withFile", "false") == "true")
+		newView->SetAction("appWithFile");
+	else
+		newView->SetAction("app");
+
 	newView->SetActionArgs(app->GetExec());
 
 	newView->FillDataAll(app->GetAllData());
@@ -476,6 +482,7 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 					return;
 				}
 
+				// Launch app
 				Position senderPos = sender->GetAbsolutePosition();
 				Size senderSize = sender->GetCalculatedSize();
 
@@ -484,6 +491,13 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 				appLaunch->SetAppId(sender->GetId());
 				appLaunch->SetExec(eventArgs);
 				screenManager->AddScreen(appLaunch);
+			}
+			else if (eventValue == "appWithFile")
+			{
+				auto browseScreen = new ScreenBrowseFilesForApp();
+				browseScreen->SetAppId(sender->GetId());
+				screenManager->AddScreen(browseScreen);
+				return;
 			}
 			else
 			{

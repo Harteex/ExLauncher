@@ -32,6 +32,7 @@
     <ClCompile Include="ScreenSystem\ScreenManager.cpp" />
     <ClCompile Include="Screens\ScreenAppLaunch.cpp" />
     <ClCompile Include="Screens\ScreenBackgroundImage.cpp" />
+    <ClCompile Include="Screens\ScreenBrowseFilesForApp.cpp" />
     <ClCompile Include="Screens\ScreenError.cpp" />
     <ClCompile Include="Screens\ScreenMenu.cpp" />
     <ClCompile Include="Screens\ScreenMessageDialog.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="ScreenSystem\ScreenManager.h" />
     <ClInclude Include="Screens\ScreenAppLaunch.h" />
     <ClInclude Include="Screens\ScreenBackgroundImage.h" />
+    <ClInclude Include="Screens\ScreenBrowseFilesForApp.h" />
     <ClInclude Include="Screens\ScreenError.h" />
     <ClInclude Include="Screens\ScreenMenu.h" />
     <ClInclude Include="Screens\ScreenMessageDialog.h" />
@@ -161,6 +163,7 @@
   <ItemGroup>
     <Image Include="data\graphics\appIconDefault.png" />
     <Image Include="data\graphics\ic_exit.png" />
+    <Image Include="data\graphics\ic_folder.png" />
     <Image Include="data\graphics\ic_info.png" />
     <Image Include="data\graphics\ic_reboot.png" />
     <Image Include="data\graphics\ic_shutdown.png" />
@@ -173,6 +176,9 @@
     <Image Include="data\themes\test\markerBg.png" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="data\system\browseFilesForAppDefault.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="data\system\settingsSelectTheme.xml" />
     <Xml Include="data\system\systemMenu.xml" />
     <Xml Include="data\themes\exlauncher\apps.xml" />

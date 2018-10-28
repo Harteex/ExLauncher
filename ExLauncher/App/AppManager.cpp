@@ -633,10 +633,24 @@ list<tuple<string, App*>> AppManager::GetAppsByPathWithCategoryList(string path)
 	return tempList;
 }
 
+App * AppManager::GetApp(std::string id)
+{
+	if (id == "")
+		return nullptr;
+
+	for (auto app : apps)
+	{
+		if (app.second->GetData("id", "") == id)
+			return app.second;
+	}
+
+	return nullptr;
+}
+
 vector<App*>* AppManager::GetApps(string category)
 {
 	if (appsInCategories.count(category) == 0)
-		return NULL;
+		return nullptr;
 
 	return appsInCategories[category];
 }

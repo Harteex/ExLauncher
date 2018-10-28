@@ -222,6 +222,9 @@
     <ClCompile Include="Filesystem\FilesystemWatchManager.cpp">
       <Filter>Source Files\Filesystem</Filter>
     </ClCompile>
+    <ClCompile Include="Screens\ScreenBrowseFilesForApp.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -392,6 +395,9 @@
     <ClInclude Include="Filesystem\FilesystemWatchManager.h">
       <Filter>Source Files\Filesystem</Filter>
     </ClInclude>
+    <ClInclude Include="Screens\ScreenBrowseFilesForApp.h">
+      <Filter>Source Files\Screens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\fonts\OpenSans-Light.ttf">
@@ -466,6 +472,9 @@
       <Filter>Resource Files\data\themes\exlauncher</Filter>
     </Image>
     <Image Include="data\graphics\appIconDefault.png">
+      <Filter>Resource Files\data\graphics</Filter>
+    </Image>
+    <Image Include="data\graphics\ic_folder.png">
       <Filter>Resource Files\data\graphics</Filter>
     </Image>
   </ItemGroup>
@@ -558,6 +567,9 @@
       <Filter>Resource Files\data\themes\test</Filter>
     </Xml>
     <Xml Include="data\system\settingsSelectTheme.xml">
+      <Filter>Resource Files\data\system</Filter>
+    </Xml>
+    <Xml Include="data\system\browseFilesForAppDefault.xml">
       <Filter>Resource Files\data\system</Filter>
     </Xml>
   </ItemGroup>
