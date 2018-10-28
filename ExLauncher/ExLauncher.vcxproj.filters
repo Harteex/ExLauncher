@@ -225,6 +225,9 @@
     <ClCompile Include="Screens\ScreenBrowseFilesForApp.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="App\RecentApp.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -397,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="Screens\ScreenBrowseFilesForApp.h">
       <Filter>Source Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="App\RecentApp.h">
+      <Filter>Source Files\App</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

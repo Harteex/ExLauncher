@@ -19,6 +19,7 @@ limitations under the License.
 #include <algorithm>
 #include "../ScreenSystem/Screen.h"
 #include "../ScreenSystem/ScreenManager.h"
+#include "../utils.h"
 
 using namespace std;
 
@@ -105,14 +106,26 @@ void RecentAppView::FillViewWithRecent()
 	View* v = GetChildView(0);
 	if (v != nullptr)
 	{
-		App* app = context->GetAppManager()->GetRecent(recentIndex);
-		if (app != nullptr)
+		RecentApp* recentApp = context->GetAppManager()->GetRecent(recentIndex);
+		if (recentApp != nullptr && recentApp->GetApp() != nullptr)
 		{
+			App* app = recentApp->GetApp();
+			// FIXME check for optional file icon
+
 			SetId(app->GetData("id", ""));
 			SetAction("app");
-			SetActionArgs(app->GetExec());
 
-			v->FillDataAll(app->GetAllData());
+			vector<string> actionArgs = app->GetExec();
+			if (recentApp->IsWithFile())
+				actionArgs.push_back(recentApp->GetWithFilePath());
+
+			SetActionArgs(actionArgs);
+
+			map<string, string> data = app->GetAllData();
+			if (recentApp->IsWithFile())
+				data["name"] = getFilename(recentApp->GetWithFilePath(), false);
+			
+			v->FillDataAll(data);
 
 			PropagateStateChange("stateRecentType", "recentItem"); // TODO could be pinnedItem too in the future
 		}

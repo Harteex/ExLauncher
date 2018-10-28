@@ -25,6 +25,7 @@ set(CPPFILES
 	ExLauncher/Graphics/Graphics.cpp
 	ExLauncher/main.cpp
 	ExLauncher/App/App.cpp
+	ExLauncher/App/RecentApp.cpp
 	ExLauncher/ScreenSystem/DataStore.cpp
 	ExLauncher/Screens/ScreenAppLaunch.cpp
 	ExLauncher/Screens/ScreenMenu.cpp

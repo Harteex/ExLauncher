@@ -31,13 +31,14 @@ private:
 	Box origBox;
 	Box curBox;
 	std::string appId;
+	std::string withFile;
 	std::vector<std::string> exec;
 	int drawnFramesAfterTransition;
 public:
 	ScreenAppLaunch();
 	~ScreenAppLaunch();
 	void SetStartRectangle(int x, int y, int width, int height);
-	void SetAppId(std::string appId);
+	void SetAppId(std::string appId, std::string withFile);
 	void SetExec(std::vector<std::string> exec);
 	void HandleInput(InputState* input);
 	bool Initialize(Graphics& graphics);

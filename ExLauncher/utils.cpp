@@ -253,6 +253,26 @@ vector<string> getFilesByExtension(string path, string extension)
 	return files;
 }
 
+std::string getFilename(std::string path, bool withExtension)
+{
+	auto found = path.find_last_of("/\\");
+	if (found == std::string::npos)
+		return "";
+
+	string filename = path.substr(found + 1);
+
+	if (!withExtension)
+	{
+		auto foundExt = filename.find_last_of(".");
+		if (foundExt != std::string::npos)
+		{
+			filename = filename.substr(0, foundExt);
+		}
+	}
+
+	return filename;
+}
+
 string getCapitalizedString(string str)
 {
 	str[0] = std::toupper(str[0]);

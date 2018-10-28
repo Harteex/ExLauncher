@@ -152,7 +152,7 @@ App* AppManager::ParseOpkMetadata(struct OPK *opk)
 	App* app = new App();
 
 	// Default values
-	app->SetData("withFile", "false");
+	app->SetData("shouldBrowseFile", "false");
 
 	while ((ret = opk_read_pair(opk, &key, &keyLength, &val, &valLength)))
 	{
@@ -182,7 +182,7 @@ App* AppManager::ParseOpkMetadata(struct OPK *opk)
 		else if (strncmp(key, "Exec", keyLength) == 0)
 		{
 			if (strstr(valueBuffer, "%f") != NULL)
-				app->SetData("withFile", "true");
+				app->SetData("shouldBrowseFile", "true");
 		}
 
 		// TODO handle more values
@@ -438,6 +438,7 @@ bool AppManager::LoadApps()
 	app->SetData("name", "Just Cause 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
+	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 
 	app = new App();
@@ -446,6 +447,7 @@ bool AppManager::LoadApps()
 	app->SetData("name", "The Witcher");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
+	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 
 	app = new App();
@@ -454,6 +456,7 @@ bool AppManager::LoadApps()
 	app->SetData("name", "Age of Empires");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
+	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 
 	app = new App();
@@ -462,6 +465,7 @@ bool AppManager::LoadApps()
 	app->SetData("name", "Team Fortress 2");
 	app->SetData("categories", "games;");
 	app->SetData("iconId", "appIconDefault");
+	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 
 	app = new App();
@@ -539,7 +543,8 @@ bool AppManager::LoadApps()
 	app->SetData("name", "UltraHLE");
 	app->SetData("categories", "emulators;");
 	app->SetData("iconId", "appIconDefault");
-	app->SetData("withFile", "true");
+	app->SetData("shouldBrowseFile", "true");
+	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 #endif
 
@@ -676,14 +681,14 @@ int AppManager::GetNumberOfApps()
 	return apps.size();
 }
 
-bool AppManager::SetAppToLaunch(std::string appId, std::vector<std::string> command)
+bool AppManager::SetAppToLaunch(string appId, string withFile, vector<string> command)
 {
 	bool appFound = false;
 	auto app = apps.find(appId);
 	if (app != apps.end())
 	{
-		FindAndRemoveAppFromRecent(appId);
-		recentApps.insert(recentApps.begin(), app->second);
+		FindAndRemoveAppFromRecent(appId, withFile);
+		recentApps.insert(recentApps.begin(), new RecentApp(app->second, withFile));
 		appFound = true;
 	}
 
@@ -714,14 +719,34 @@ bool AppManager::LoadRecentList()
 
 	ifstream infile(recentFile);
 	std::string line;
+	RecentApp* recentApp = nullptr;
 	while (std::getline(infile, line))
 	{
-		auto idFound = apps.find(line);
-		if (idFound != apps.end())
+		if (line.substr(0, 4) == "app=")
 		{
-			recentApps.push_back(idFound->second);
+			// New app line, store the old one as it has been read fully
+			if (recentApp != nullptr)
+			{
+				recentApps.push_back(recentApp);
+				recentApp = nullptr;
+			}
+
+			string appId = line.substr(4);
+			auto idFound = apps.find(appId);
+			if (idFound != apps.end())
+			{
+				recentApp = new RecentApp(idFound->second);
+			}
+		}
+		else if (line.substr(0, 9) == "withFile=")
+		{
+			if (recentApp != nullptr)
+				recentApp->SetWithFilePath(line.substr(9));
 		}
 	}
+
+	if (recentApp != nullptr)
+		recentApps.push_back(recentApp);
 
 	return true;
 }
@@ -734,14 +759,16 @@ bool AppManager::SaveRecentList()
 
 	for (auto it = recentApps.begin(); it != recentApps.end(); it++)
 	{
-		App* app = *it;
-		outfile << app->GetData("id", "") << endl;
+		RecentApp* app = *it;
+		outfile << "app=" << app->GetAppId() << endl;
+		if (app->IsWithFile())
+			outfile << "withFile=" << app->GetWithFilePath() << endl;
 	}
 
 	return true;
 }
 
-App* AppManager::GetRecent(int recentIndex)
+RecentApp* AppManager::GetRecent(int recentIndex)
 {
 	if (recentIndex < 0 || recentIndex >= recentApps.size())
 		return nullptr;
@@ -749,14 +776,29 @@ App* AppManager::GetRecent(int recentIndex)
 	return recentApps.at(recentIndex);
 }
 
-void AppManager::FindAndRemoveAppFromRecent(string appId)
+void AppManager::FindAndRemoveAppFromRecent(std::string appId)
 {
 	if (appId == "")
 		return;
 
 	for (auto it = recentApps.begin(); it != recentApps.end(); it++)
 	{
-		if ((*it)->GetData("id", "") == appId)
+		if ((*it)->GetAppId() == appId)
+		{
+			recentApps.erase(it);
+			// Don't break here, there could be multiple recentApps with the same appId, but different withFile paths
+		}
+	}
+}
+
+void AppManager::FindAndRemoveAppFromRecent(string appId, string withFile)
+{
+	if (appId == "")
+		return;
+
+	for (auto it = recentApps.begin(); it != recentApps.end(); it++)
+	{
+		if ((*it)->GetAppId() == appId && (*it)->GetWithFilePath() == withFile)
 		{
 			recentApps.erase(it);
 			break;

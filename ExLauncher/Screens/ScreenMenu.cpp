@@ -406,8 +406,8 @@ bool ScreenMenu::AddViewForApp(View* fillView, App* app)
 
 	newView->SetId(app->GetData("id", ""));
 
-	if (app->GetData("withFile", "false") == "true")
-		newView->SetAction("appWithFile");
+	if (app->GetData("shouldBrowseFile", "false") == "true")
+		newView->SetAction("appBrowseFile");
 	else
 		newView->SetAction("app");
 
@@ -471,6 +471,8 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 	{
 	case EventTypeAction:
 		{
+			std::cout << "EventTypeAction event: " << eventValue << " " << (eventArgs.size() > 0 ? eventArgs[0] : "") << " " << (eventArgs.size() > 1 ? eventArgs[1] : "") << std::endl;
+
 			if (eventValue == "app")
 			{
 				if (eventArgs.empty())
@@ -482,17 +484,21 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 					return;
 				}
 
+				string withFile = "";
+				if (eventArgs.size() > 1)
+					withFile = eventArgs[1];
+
 				// Launch app
 				Position senderPos = sender->GetAbsolutePosition();
 				Size senderSize = sender->GetCalculatedSize();
 
 				ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
 				appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
-				appLaunch->SetAppId(sender->GetId());
+				appLaunch->SetAppId(sender->GetId(), withFile);
 				appLaunch->SetExec(eventArgs);
 				screenManager->AddScreen(appLaunch);
 			}
-			else if (eventValue == "appWithFile")
+			else if (eventValue == "appBrowseFile")
 			{
 				auto browseScreen = new ScreenBrowseFilesForApp();
 				browseScreen->SetAppId(sender->GetId());
@@ -532,6 +538,8 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 
 		break;
 	case EventTypeGoBack:
+		std::cout << "EventTypeGoBack event" << std::endl;
+
 		if (canGoBack)
 			ExitScreen();
 		break;

@@ -21,6 +21,7 @@ limitations under the License.
 
 #include <SDL.h>
 #include "App.h"
+#include "RecentApp.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -35,7 +36,7 @@ class AppManager
 private:
 	std::map<std::string, std::vector<App*>*> appsInCategories;
 	std::map<std::string, App*> apps;
-	std::vector<App*> recentApps;
+	std::vector<RecentApp*> recentApps;
 	ResourceManager* resourceManager;
 	std::vector<std::string> commandToLaunch;
 
@@ -44,6 +45,7 @@ private:
 	void AddApp(App* app);
 	void RemoveApp(std::string path);
 	void FindAndRemoveAppFromRecent(std::string appId);
+	void FindAndRemoveAppFromRecent(std::string appId, std::string withFile);
 	void LoadAllAppsXml();
 	void LoadAppXml(std::string path);
 #ifdef HAS_LIBOPK
@@ -65,14 +67,14 @@ public:
 	std::vector<App*>* GetApps(std::string category);
 	std::vector<App*> GetAppsByPath(std::string path);
 	int GetNumberOfApps();
-	bool SetAppToLaunch(std::string appId, std::vector<std::string> command);
+	bool SetAppToLaunch(std::string appId, std::string withFile, std::vector<std::string> command);
 	void SetCommandToLaunch(std::vector<std::string> command);
 	std::vector<std::string> GetCommandToLaunch();
 	void ClearCommandToLaunch();
 
 	bool LoadRecentList();
 	bool SaveRecentList();
-	App* GetRecent(int recentIndex);
+	RecentApp* GetRecent(int recentIndex);
 };
 
 #endif

@@ -37,9 +37,10 @@ void ScreenAppLaunch::SetStartRectangle(int x, int y, int width, int height)
 	curBox = origBox;
 }
 
-void ScreenAppLaunch::SetAppId(std::string appId)
+void ScreenAppLaunch::SetAppId(std::string appId, std::string withFile)
 {
 	this->appId = appId;
+	this->withFile = withFile;
 }
 
 void ScreenAppLaunch::SetExec(vector<string> exec)
@@ -85,7 +86,7 @@ void ScreenAppLaunch::Update(bool otherScreenHasFocus, bool coveredByOtherScreen
 		if (appId.empty())
 			screenManager->GetAppManager()->SetCommandToLaunch(exec);
 		else
-			screenManager->GetAppManager()->SetAppToLaunch(appId, exec);
+			screenManager->GetAppManager()->SetAppToLaunch(appId, withFile, exec);
 
 		screenManager->Exit();
 	}

@@ -247,7 +247,8 @@ void ScreenBrowseFilesForApp::OnEvent(View* sender, EventType eventType, string 
 						vector<string> exec = app->GetExec();
 						if (exec.size() > 0)
 						{
-							exec.push_back(currentDirectory + eventArgs[0]);
+							string filePath = currentDirectory + eventArgs[0];
+							exec.push_back(filePath);
 
 							// Launch app
 							Position senderPos = sender->GetAbsolutePosition();
@@ -255,7 +256,7 @@ void ScreenBrowseFilesForApp::OnEvent(View* sender, EventType eventType, string 
 
 							ScreenAppLaunch* appLaunch = new ScreenAppLaunch();
 							appLaunch->SetStartRectangle(senderPos.x, senderPos.y, senderSize.w, senderSize.h);
-							appLaunch->SetAppId(sender->GetId());
+							appLaunch->SetAppId(appId, filePath);
 							appLaunch->SetExec(exec);
 							screenManager->AddScreen(appLaunch);
 						}
