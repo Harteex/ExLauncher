@@ -67,7 +67,7 @@ bool ScreenSettingsSelectTheme::Initialize(Graphics& graphics)
 		v->RecalculateLayout();
 
 		if (inputView != NULL)
-			inputView->SelectByIndex(0); // FIXME select current theme?
+			inputView->SelectById(ThemeManager::GetCurrentThemeId());
 	}
 	catch (exception& ex)
 	{
@@ -111,7 +111,8 @@ void ScreenSettingsSelectTheme::Update(bool otherScreenHasFocus, bool coveredByO
 
 	if (IsActive())
 	{
-		//
+		if (contentView != nullptr)
+			contentView->Update();
 	}
 }
 
