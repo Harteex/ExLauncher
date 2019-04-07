@@ -82,7 +82,13 @@ bool Label::RenderText(Uint32 textAreaWidth)
 
 	SDL_Color white = { 0xFF, 0xFF, 0xFF };
 	SDL_Color black = { 0x00, 0x00, 0x00 };
-	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), white, textAreaWidth - padding * 2);
+
+	SDL_Surface* tempSurface = NULL;
+	if (textAreaWidth < UINT_MAX)
+		tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), white, textAreaWidth - padding * 2);
+	else
+		tempSurface = TTF_RenderText_Blended(ttfFont, text.c_str(), white);
+
 	if (tempSurface == NULL)
 		return false;
 
@@ -94,7 +100,12 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		tempSurface = extendedSurface;
 
 		TTF_SetFontOutline(ttfFont, outlineSize);
-		tempSurfaceBg = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), black, textAreaWidth - padding * 2);
+
+		if (textAreaWidth < UINT_MAX)
+			tempSurfaceBg = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), black, textAreaWidth - padding * 2);
+		else
+			tempSurfaceBg = TTF_RenderText_Blended(ttfFont, text.c_str(), black);
+
 		TTF_SetFontOutline(ttfFont, 0);
 
 		GaussianBlur blur(tempSurfaceBg);
