@@ -17,6 +17,7 @@ limitations under the License.
 #include "Image.h"
 #include "../Theme/ThemeManager.h"
 #include "../ScreenSystem/Screen.h"
+#include <stdexcept>
 
 using namespace std;
 

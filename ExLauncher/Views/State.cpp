@@ -16,6 +16,7 @@ limitations under the License.
 
 #include "State.h"
 #include <algorithm>
+#include <stdexcept>
 
 using namespace std;
 

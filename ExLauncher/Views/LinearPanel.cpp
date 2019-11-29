@@ -17,6 +17,7 @@ limitations under the License.
 #include "LinearPanel.h"
 #include <algorithm>
 #include "../ViewSystem/LayoutHelper.h"
+#include <stdexcept>
 
 using namespace std;
 
