@@ -61,6 +61,7 @@ set(CPPFILES
 	ExLauncher/ViewSystem/View.cpp
 	ExLauncher/ViewSystem/LayoutHelper.cpp
 	ExLauncher/App/AppManager.cpp
+	ExLauncher/Filesystem/FilesystemUtils.cpp
 	ExLauncher/Filesystem/FilesystemWatchListener.cpp
 	ExLauncher/Filesystem/FilesystemWatchManager.cpp
 	ExLauncher/Filesystem/HomeDirectory.cpp
