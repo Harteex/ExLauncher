@@ -26,7 +26,7 @@ limitations under the License.
 #include <dirent.h>
 #endif
 
-#ifdef HAVE_LIBXDGMIME
+#ifdef HAS_LIBXDGMIME
 #include <xdgmime.h>
 #endif
 
@@ -98,7 +98,7 @@ vector<string> FilesystemUtils::GetFilesByMimeTypes(string path, vector<string> 
 
 	vector<string> filteredFiles;
 	
-#ifdef HAVE_LIBXDGMIME
+#ifdef HAS_LIBXDGMIME
 
 	vector<string> extensions;
 
