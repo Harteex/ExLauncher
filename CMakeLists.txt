@@ -103,3 +103,16 @@ if (LIBOPK AND LIBOPK_INCLUDE_DIR)
 		add_definitions(-DHAS_LIBOPK=1)
 	endif()
 endif()
+
+find_library(LIBXDGMIME xdgmime)
+find_path(LIBXDGMIME_INCLUDE_DIR xdgmime.h)
+
+if (LIBXDGMIME AND LIBXDGMIME_INCLUDE_DIR)
+	option(ENABLE_XDGMIME "Enable support for file browser filtering" ON)
+
+	if (ENABLE_XDGMIME)
+		include_directories(${LIBXDGMIME_INCLUDE_DIR})
+		target_link_libraries(${PROJECT_NAME} ${LIBXDGMIME})
+		add_definitions(-DHAS_LIBXDGMIME=1)
+	endif()
+endif()

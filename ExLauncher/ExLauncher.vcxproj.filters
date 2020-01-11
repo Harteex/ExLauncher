@@ -228,6 +228,9 @@
     <ClCompile Include="App\RecentApp.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="Filesystem\FilesystemUtils.cpp">
+      <Filter>Source Files\Filesystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="App\RecentApp.h">
       <Filter>Source Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem\FilesystemUtils.h">
+      <Filter>Source Files\Filesystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

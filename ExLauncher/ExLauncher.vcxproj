@@ -15,6 +15,7 @@
     <ClCompile Include="App\App.cpp" />
     <ClCompile Include="App\AppManager.cpp" />
     <ClCompile Include="App\RecentApp.cpp" />
+    <ClCompile Include="Filesystem\FilesystemUtils.cpp" />
     <ClCompile Include="Filesystem\FilesystemWatchListener.cpp" />
     <ClCompile Include="Filesystem\FilesystemWatchManager.cpp" />
     <ClCompile Include="Filesystem\SimpleFileWatcher\FileWatcher.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="App\App.h" />
     <ClInclude Include="App\AppManager.h" />
     <ClInclude Include="App\RecentApp.h" />
+    <ClInclude Include="Filesystem\FilesystemUtils.h" />
     <ClInclude Include="Filesystem\FilesystemWatchListener.h" />
     <ClInclude Include="Filesystem\FilesystemWatchManager.h" />
     <ClInclude Include="Filesystem\SimpleFileWatcher\FileWatcher.h" />

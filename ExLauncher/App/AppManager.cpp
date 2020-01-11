@@ -18,6 +18,7 @@ limitations under the License.
 #include "../utils.h"
 #include <algorithm>
 #include "../Filesystem/HomeDirectory.h"
+#include "../Filesystem/FilesystemUtils.h"
 #include "../RapidXml/rapidxml.hpp"
 #include <fstream>
 #include <sstream>
@@ -266,7 +267,7 @@ bool AppManager::LoadOpk(string path)
 
 void AppManager::LoadAllAppsXml()
 {
-	vector<string> files = getFilesByExtension("data/apps/", "xml");
+	vector<string> files = FilesystemUtils::GetFilesByExtension("data/apps/", "xml");
 	for (string file : files)
 	{
 		string path = string("data/apps/") + file;
@@ -544,6 +545,7 @@ bool AppManager::LoadApps()
 	app->SetData("categories", "emulators;");
 	app->SetData("iconId", "appIconDefault");
 	app->SetData("shouldBrowseFile", "true");
+	app->SetData("MimeType", "application/x-n64-rom;application/x-zip;");
 	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 #endif

@@ -20,6 +20,7 @@ limitations under the License.
 #include "../utils.h"
 #include <iostream>
 #include "../Filesystem/HomeDirectory.h"
+#include "../Filesystem/FilesystemUtils.h"
 
 using namespace std;
 
@@ -85,7 +86,7 @@ void ThemeManager::LoadThemes()
 
 	cout << "Loading themes:" << std::endl;
 
-	vector<string> themeIds = getDirectories("data/themes/");
+	vector<string> themeIds = FilesystemUtils::GetDirectories("data/themes/");
 	for (string themeId : themeIds)
 	{
 		Theme* theme = new Theme(themeId);

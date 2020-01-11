@@ -21,6 +21,7 @@ limitations under the License.
 #include "ScreenMenu.h"
 #include "ScreenAppLaunch.h"
 #include "../utils.h"
+#include "../Filesystem/FilesystemUtils.h"
 
 using namespace std;
 
@@ -77,6 +78,11 @@ bool ScreenBrowseFilesForApp::Initialize(Graphics& graphics)
 			contentView->FillDataAll(app->GetAllData());
 		}
 
+		mimeTypes.clear();
+		string mimeTypesStr = app->GetData("MimeType", "");
+		string mimeTypesStrTrimmed = trim(mimeTypesStr, ";");
+		mimeTypes = split(mimeTypesStrTrimmed, ';');
+
 		currentDirectory = GetStartDirectory();
 		ListDirectory(currentDirectory, v);
 	}
@@ -107,8 +113,8 @@ void ScreenBrowseFilesForApp::ListDirectory(string directory, View* fillView, st
 	while (fillView->GetNumberOfChildren() > 0)
 		fillView->DeleteChildView(0);
 
-	vector<string> directories = getDirectories(directory);
-	vector<string> files = getFilesByExtension(directory, ""); // TODO get correct extension(s) from app supported mime types
+	vector<string> directories = FilesystemUtils::GetDirectories(directory);
+	vector<string> files = FilesystemUtils::GetFilesByMimeTypes(directory, mimeTypes);
 
 	if (!IsRootFolder(directory))
 		directories.insert(directories.begin(), "..");

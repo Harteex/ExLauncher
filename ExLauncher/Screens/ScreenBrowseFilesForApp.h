@@ -34,6 +34,7 @@ private:
 	ISelectionHandler* inputView;
 	std::string currentDirectory;
 	std::string appId;
+	std::vector<std::string> mimeTypes;
 
 	std::string GetStartDirectory();
 	void ListDirectory(std::string directory, View* fillView, std::string folderToSelect = "");

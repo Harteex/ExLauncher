@@ -20,6 +20,7 @@ limitations under the License.
 #include "../ScreenSystem/Screen.h"
 #include "../ScreenSystem/ScreenManager.h"
 #include "../utils.h"
+#include "../Filesystem/FilesystemUtils.h"
 
 using namespace std;
 
@@ -123,7 +124,7 @@ void RecentAppView::FillViewWithRecent()
 
 			map<string, string> data = app->GetAllData();
 			if (recentApp->IsWithFile())
-				data["name"] = getFilename(recentApp->GetWithFilePath(), false);
+				data["name"] = FilesystemUtils::GetFilename(recentApp->GetWithFilePath(), false);
 			
 			v->FillDataAll(data);
 
