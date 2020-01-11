@@ -74,6 +74,13 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		textureBg = NULL;
 	}
 
+	if (text == "")
+	{
+		contentSize.w = 0;
+		contentSize.h = 0;
+		return true;
+	}
+
 	int outlineSize = 1;
 
 	int padding = 0;
