@@ -180,6 +180,10 @@ App* AppManager::ParseOpkMetadata(struct OPK *opk)
 		{
 			app->SetData("iconName", valueBuffer);
 		}
+		else if (strncmp(key, "MimeType", keyLength) == 0)
+		{
+			app->SetData("mimeTypes", valueBuffer);
+		}
 		else if (strncmp(key, "Exec", keyLength) == 0)
 		{
 			if (strstr(valueBuffer, "%f") != NULL)
@@ -545,7 +549,7 @@ bool AppManager::LoadApps()
 	app->SetData("categories", "emulators;");
 	app->SetData("iconId", "appIconDefault");
 	app->SetData("shouldBrowseFile", "true");
-	app->SetData("MimeType", "application/x-n64-rom;application/x-zip;");
+	app->SetData("mimeTypes", "application/x-n64-rom;application/x-zip;");
 	app->SetExec({ "/Invalid.Exe" });
 	AddApp(app);
 #endif

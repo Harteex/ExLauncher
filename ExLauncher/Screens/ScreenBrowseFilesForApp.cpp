@@ -79,7 +79,7 @@ bool ScreenBrowseFilesForApp::Initialize(Graphics& graphics)
 		}
 
 		mimeTypes.clear();
-		string mimeTypesStr = app->GetData("MimeType", "");
+		string mimeTypesStr = app->GetData("mimeTypes", "");
 		string mimeTypesStrTrimmed = trim(mimeTypesStr, ";");
 		mimeTypes = split(mimeTypesStrTrimmed, ';');
 
