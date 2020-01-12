@@ -18,6 +18,7 @@ limitations under the License.
 #include "../utils.h"
 #include "../global.h"
 #include <stdio.h>
+#include <algorithm>
 #ifdef WINDOWS
 #include <windows.h>
 #include <tchar.h>
@@ -72,6 +73,7 @@ vector<string> FilesystemUtils::GetDirectories(string path)
 		}
 
 		closedir(dirp);
+		sort(directories.begin(), directories.end());
 	}
 #endif
 
@@ -177,6 +179,7 @@ vector<string> FilesystemUtils::GetFilesByExtension(string path, string extensio
 		}
 
 		closedir(dirp);
+		sort(files.begin(), files.end());
 	}
 #endif
 
