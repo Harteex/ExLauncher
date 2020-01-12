@@ -473,7 +473,7 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 		{
 			std::cout << "EventTypeAction event: " << eventValue << " " << (eventArgs.size() > 0 ? eventArgs[0] : "") << " " << (eventArgs.size() > 1 ? eventArgs[1] : "") << std::endl;
 
-			if (eventValue == "app")
+			if (eventValue == "app" || eventValue == "appWithFile")
 			{
 				if (eventArgs.empty())
 					return;
@@ -485,8 +485,8 @@ void ScreenMenu::OnEvent(View* sender, EventType eventType, string eventValue, v
 				}
 
 				string withFile = "";
-				if (eventArgs.size() > 1)
-					withFile = eventArgs[1];
+				if (eventValue == "appWithFile")
+					withFile = eventArgs[eventArgs.size() - 1];
 
 				// Launch app
 				Position senderPos = sender->GetAbsolutePosition();

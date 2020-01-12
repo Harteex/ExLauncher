@@ -118,7 +118,10 @@ void RecentAppView::FillViewWithRecent()
 
 			vector<string> actionArgs = app->GetExec();
 			if (recentApp->IsWithFile())
+			{
+				SetAction("appWithFile");
 				actionArgs.push_back(recentApp->GetWithFilePath());
+			}
 
 			SetActionArgs(actionArgs);
 
