@@ -9,9 +9,9 @@
   <Label
     width="280"
     height="content"
-    layoutMargin="5"
+    layoutMargin="2 0 20 0"
     text="{categoryName}"
-    textSize="26"
+    textSize="24"
     textColor="white"
     font="light" />
   <GridView
@@ -23,8 +23,9 @@
     itemTemplate="@theme/appTemplate.xml"
     itemWidth="77"
     itemHeight="54"
-    layoutMargin="0 0 5 5"
+    layoutMargin="4 5 5 5"
     verticalSpacing="8"
-    contentInset="0 5">
+    contentInset="0 5"
+    background="#50000000">
   </GridView>
 </LinearPanel>
