@@ -99,6 +99,7 @@ enum SizeMode {SizeModeNormal, SizeModeCompact};
 enum TransitionEffect {TransitionEffectZoom};
 enum EventType {EventTypeAction, EventTypeGoBack, EventTypeSelectionChanged, EventTypeDataCollectionChanged};
 enum TextStyle {TextStylePlain, TextStyleShadow};
+enum LetterCase {LetterCaseOriginal, LetterCaseUpper, LetterCaseLower};
 enum FileStatus {FileStatusAdded, FileStatusDeleted, FileStatusModified};
 
 #define GRAVITY_LEFT 0

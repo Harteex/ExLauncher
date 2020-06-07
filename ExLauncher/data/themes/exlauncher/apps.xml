@@ -13,7 +13,8 @@
     text="{categoryName}"
     textSize="24"
     textColor="white"
-    font="light" />
+    font="light"
+    letterCase="upper" />
   <GridView
     id="inputView"
     tag="fillItems|categories={category}"

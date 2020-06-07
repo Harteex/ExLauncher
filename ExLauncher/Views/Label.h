@@ -38,9 +38,12 @@ private:
 	Color textColor;
 	std::string font;
 	TextStyle textStyle;
+	LetterCase letterCase;
 	ResourceManager* resourceManager;
 	TTF_Font* ttfFont;
 
+	std::string ToUpper(std::string s);
+	std::string ToLower(std::string s);
 	bool RenderText(Uint32 textAreaWidth);
 public:
 	Label();
@@ -60,6 +63,8 @@ public:
 	void SetFont(std::string font);
 	TextStyle GetTextStyle();
 	void SetTextStyle(TextStyle textStyle);
+	LetterCase GetLetterCase();
+	void SetLetterCase(LetterCase letterCase);
 	bool SetProperty(std::string name, std::string value);
 	void FillData(std::map<std::string, std::string>& data);
 };

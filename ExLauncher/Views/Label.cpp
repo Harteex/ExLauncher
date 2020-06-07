@@ -22,6 +22,7 @@ limitations under the License.
 #include "../ScreenSystem/Screen.h"
 #include "../ViewSystem/LayoutHelper.h"
 #include "../Graphics/GaussianBlur.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -34,6 +35,7 @@ Label::Label()
 	textColor = Color(0xff, 0xff, 0xff, 0xff);
 	font = "semibold";
 	textStyle = TextStylePlain;
+	letterCase = LetterCaseOriginal;
 	ttfFont = NULL;
 }
 
@@ -55,6 +57,28 @@ void Label::OnInitialize()
 
 	if (!RenderText(UINT_MAX))
 		throw runtime_error("Text rendering failed.");
+}
+
+string Label::ToUpper(string s)
+{
+	transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
+		{
+			return toupper(c);
+		}
+	);
+
+	return s;
+}
+
+string Label::ToLower(string s)
+{
+	transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
+		{
+			return tolower(c);
+		}
+	);
+
+	return s;
 }
 
 bool Label::RenderText(Uint32 textAreaWidth)
@@ -81,6 +105,12 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		return true;
 	}
 
+	string finalText = text;
+	if (letterCase == LetterCaseUpper)
+		finalText = ToUpper(text);
+	else if (letterCase == LetterCaseLower)
+		finalText = ToLower(text);
+
 	int outlineSize = 1;
 
 	int padding = 0;
@@ -92,9 +122,9 @@ bool Label::RenderText(Uint32 textAreaWidth)
 
 	SDL_Surface* tempSurface = NULL;
 	if (textAreaWidth < UINT_MAX)
-		tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), white, textAreaWidth - padding * 2);
+		tempSurface = TTF_RenderText_Blended_Wrapped(ttfFont, finalText.c_str(), white, textAreaWidth - padding * 2);
 	else
-		tempSurface = TTF_RenderText_Blended(ttfFont, text.c_str(), white);
+		tempSurface = TTF_RenderText_Blended(ttfFont, finalText.c_str(), white);
 
 	if (tempSurface == NULL)
 		return false;
@@ -109,9 +139,9 @@ bool Label::RenderText(Uint32 textAreaWidth)
 		TTF_SetFontOutline(ttfFont, outlineSize);
 
 		if (textAreaWidth < UINT_MAX)
-			tempSurfaceBg = TTF_RenderText_Blended_Wrapped(ttfFont, text.c_str(), black, textAreaWidth - padding * 2);
+			tempSurfaceBg = TTF_RenderText_Blended_Wrapped(ttfFont, finalText.c_str(), black, textAreaWidth - padding * 2);
 		else
-			tempSurfaceBg = TTF_RenderText_Blended(ttfFont, text.c_str(), black);
+			tempSurfaceBg = TTF_RenderText_Blended(ttfFont, finalText.c_str(), black);
 
 		TTF_SetFontOutline(ttfFont, 0);
 
@@ -217,6 +247,7 @@ View* Label::Copy()
 	view->SetTextColor(textColor);
 	view->SetFont(font);
 	view->SetTextStyle(textStyle);
+	view->SetLetterCase(letterCase);
 
 	return view;
 }
@@ -283,6 +314,16 @@ void Label::SetTextStyle(TextStyle textStyle)
 	this->textStyle = textStyle;
 }
 
+LetterCase Label::GetLetterCase()
+{
+	return letterCase;
+}
+
+void Label::SetLetterCase(LetterCase letterCase)
+{
+	this->letterCase = letterCase;
+}
+
 bool Label::SetProperty(string name, string value)
 {
 	bool propertyHandled = View::SetProperty(name, value);
@@ -322,6 +363,19 @@ bool Label::SetProperty(string name, string value)
 			SetTextStyle(TextStyleShadow);
 		else
 			throw runtime_error("invalid textStyle value");
+
+		return true;
+	}
+	else if (name == "letterCase")
+	{
+		if (value == "original")
+			SetLetterCase(LetterCaseOriginal);
+		else if (value == "upper")
+			SetLetterCase(LetterCaseUpper);
+		else if (value == "lower")
+			SetLetterCase(LetterCaseLower);
+		else
+			throw runtime_error("invalid letterCase value");
 
 		return true;
 	}
