@@ -6,14 +6,32 @@
   height="*"
   orientation="vertical">
 
-  <Label
-    width="content"
+  <LinearPanel
+    width="*"
     height="38"
-    layoutMargin="2 0 20 0"
-    font="light"
-    textSize="24"
-    textStyle="plain"
-    text="START" />
+    orientation="horizontal">
+    
+    <Label
+      width="*"
+      height="38"
+      layoutMargin="2 0 20 0"
+      font="light"
+      textSize="24"
+      textStyle="plain"
+      text="START" />
+    
+    <Clock
+      width="100"
+      height="content"
+      layoutMargin="0 0 0 20"
+      layoutGravity="center_vertical"
+      gravity="right"
+      font="regular"
+      textSize="20"
+      textStyle="plain"
+      type="timeShort" />
+  
+  </LinearPanel>
 
   <GridView
     id="inputView"

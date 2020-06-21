@@ -6,15 +6,35 @@
   width="*"
   height="*"
   orientation="vertical">
-  <Label
-    width="280"
-    height="content"
-    layoutMargin="2 0 20 0"
-    text="{categoryName}"
-    textSize="24"
-    textColor="white"
-    font="light"
-    letterCase="upper" />
+
+  <LinearPanel
+    width="*"
+    height="38"
+    orientation="horizontal">
+
+    <Label
+      width="*"
+      height="38"
+      layoutMargin="2 0 20 0"
+      text="{categoryName}"
+      textSize="24"
+      textColor="white"
+      font="light"
+      letterCase="upper" />
+
+    <Clock
+      width="100"
+      height="content"
+      layoutMargin="0 0 0 20"
+      layoutGravity="center_vertical"
+      gravity="right"
+      font="regular"
+      textSize="20"
+      textStyle="plain"
+      type="timeShort" />
+
+  </LinearPanel>
+  
   <GridView
     id="inputView"
     tag="fillItems|categories={category}"
