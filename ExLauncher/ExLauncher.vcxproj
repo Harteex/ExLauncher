@@ -51,6 +51,7 @@
     <ClCompile Include="ViewSystem\LayoutHelper.cpp" />
     <ClCompile Include="ViewSystem\ScrollView.cpp" />
     <ClCompile Include="ViewSystem\View.cpp" />
+    <ClCompile Include="Views\Clock.cpp" />
     <ClCompile Include="Views\FramePanel.cpp" />
     <ClCompile Include="Views\GridView.cpp" />
     <ClCompile Include="Views\Image.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="ViewSystem\LayoutHelper.h" />
     <ClInclude Include="ViewSystem\ScrollView.h" />
     <ClInclude Include="ViewSystem\View.h" />
+    <ClInclude Include="Views\Clock.h" />
     <ClInclude Include="Views\FramePanel.h" />
     <ClInclude Include="Views\GridView.h" />
     <ClInclude Include="Views\Image.h" />

@@ -49,6 +49,7 @@ set(CPPFILES
 	ExLauncher/Views/TabStrip.cpp
 	ExLauncher/Views/FramePanel.cpp
 	ExLauncher/Views/Label.cpp
+	ExLauncher/Views/Clock.cpp
 	ExLauncher/Views/GridView.cpp
 	ExLauncher/Views/Selector.cpp
 	ExLauncher/Views/TabPanel.cpp

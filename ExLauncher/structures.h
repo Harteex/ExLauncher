@@ -101,6 +101,7 @@ enum EventType {EventTypeAction, EventTypeGoBack, EventTypeSelectionChanged, Eve
 enum TextStyle {TextStylePlain, TextStyleShadow};
 enum LetterCase {LetterCaseOriginal, LetterCaseUpper, LetterCaseLower};
 enum FileStatus {FileStatusAdded, FileStatusDeleted, FileStatusModified};
+enum ClockType {ClockTypeTimeShort, ClockTypeTimeLong, ClockTypeDateShort, ClockTypeDateLong};
 
 #define GRAVITY_LEFT 0
 #define GRAVITY_TOP 0

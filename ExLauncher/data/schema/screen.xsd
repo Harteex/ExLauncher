@@ -42,6 +42,15 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="clockType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="timeShort" />
+      <xs:enumeration value="timeLong" />
+      <xs:enumeration value="dateShort" />
+      <xs:enumeration value="dateLong" />
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="View">
     <xs:attribute name="width" type="xs:string" use="required"/>
     <xs:attribute name="height" type="xs:string" use="required"/>
@@ -54,6 +63,19 @@
     <xs:attribute name="tag" type="xs:string" use="optional"/>
     <xs:attribute name="background" type="xs:string" use="optional"/>
     <xs:attribute name="itemTemplate" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="LabelBase">
+    <xs:complexContent>
+      <xs:extension base="View">
+        <xs:attribute name="text" type="xs:string" use="optional"/>
+        <xs:attribute name="textSize" type="xs:string" use="optional"/>
+        <xs:attribute name="textColor" type="xs:string" use="optional"/>
+        <xs:attribute name="textStyle" type="textStyle" use="optional"/>
+        <xs:attribute name="letterCase" type="letterCase" use="optional"/>
+        <xs:attribute name="font" type="font" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:element name="LinearPanel">
@@ -129,16 +151,23 @@
   <xs:element name="Label">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="View">
+        <xs:extension base="LabelBase">
           <xs:sequence>
             <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
           </xs:sequence>
-          <xs:attribute name="text" type="xs:string" use="optional"/>
-          <xs:attribute name="textSize" type="xs:string" use="optional"/>
-          <xs:attribute name="textColor" type="xs:string" use="optional"/>
-          <xs:attribute name="textStyle" type="textStyle" use="optional"/>
-          <xs:attribute name="letterCase" type="letterCase" use="optional"/>
-          <xs:attribute name="font" type="font" use="optional"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Clock">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="LabelBase">
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+          </xs:sequence>
+          <xs:attribute name="type" type="clockType" use="optional"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>

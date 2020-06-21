@@ -30,6 +30,7 @@ limitations under the License.
 #include "Views/RecentAppView.h"
 #include "Views/Image.h"
 #include "Views/Label.h"
+#include "Views/Clock.h"
 #include "Views/RectangleShape.h"
 #include "Theme/ThemeManager.h"
 
@@ -73,6 +74,10 @@ View* Xml::HandleNode(xml_node<>* view, View* parent)
 	else if (strcmp(view->name(), "Label") == 0)
 	{
 		createdView = new Label();
+	}
+	else if (strcmp(view->name(), "Clock") == 0)
+	{
+		createdView = new Clock();
 	}
 	else if (strcmp(view->name(), "RectangleShape") == 0)
 	{

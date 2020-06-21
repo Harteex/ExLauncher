@@ -231,6 +231,9 @@
     <ClCompile Include="Filesystem\FilesystemUtils.cpp">
       <Filter>Source Files\Filesystem</Filter>
     </ClCompile>
+    <ClCompile Include="Views\Clock.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="Filesystem\FilesystemUtils.h">
       <Filter>Source Files\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Views\Clock.h">
+      <Filter>Source Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
