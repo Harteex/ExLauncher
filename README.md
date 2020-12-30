@@ -29,4 +29,8 @@ To make ExLauncher look really nice, some additional animations would help. The 
 ### And more
 Bugs, other missing features, feature parity with other menus, etc...
 
+# Build
 
+Run cmake to configure.
+
+When building for the GCW Zero, make sure to define `PLATFORM_GCW0` as well, for example by adding it to global.h. This should probably be added to CMake.
